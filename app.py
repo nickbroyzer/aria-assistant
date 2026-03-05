@@ -40,7 +40,7 @@ When capturing leads, try to naturally learn the visitor's name, company, locati
 
 The user's name is {name}."""
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 client = anthropic.Anthropic()
 
 
