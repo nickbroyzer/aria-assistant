@@ -401,13 +401,16 @@
     }
 
     .modal-logo {
+      width: 56px; height: 56px;
+      background: var(--orange);
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 14px;
-    }
-
-    .modal-logo svg {
-      width: 120px;
-      height: auto;
+      box-shadow: 0 0 24px rgba(232,101,10,0.5);
+      font-family: 'Inter', sans-serif;
+      font-size: 20px; font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
     }
 
     .modal-header .company-name {
@@ -491,18 +494,7 @@
 <div id="name-modal">
   <div class="modal-box">
     <div class="modal-header">
-      <div class="modal-logo">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 108" role="img" aria-label="Pacific Construction">
-          <!-- Mountain silhouette -->
-          <path d="M0,68 L18,62 L35,54 L50,46 L63,36 L73,26 L80,16 L86,8 L92,2 L98,8 L103,4 L109,10 L117,20 L127,32 L139,43 L153,54 L168,62 L186,67 L200,70 L200,72 L0,72 Z" fill="#e8650a"/>
-          <!-- Snow highlight -->
-          <path d="M86,8 L92,2 L98,8 L103,4 L109,10 L104,15 L98,12 L92,15 L86,13 Z" fill="rgba(255,255,255,0.2)"/>
-          <!-- PC monogram -->
-          <text x="100" y="90" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="20" fill="white" letter-spacing="-0.5">PC</text>
-          <!-- Company name -->
-          <text x="100" y="104" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" letter-spacing="3" fill="rgba(255,255,255,0.75)">PACIFIC CONSTRUCTION</text>
-        </svg>
-      </div>
+      <div class="modal-logo">PC</div>
       <div class="company-name">Pacific Construction</div>
       <div class="tagline">Warehouse Installation Specialists</div>
     </div>
