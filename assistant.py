@@ -11,9 +11,9 @@ if os.path.exists(MEMORY_FILE):
     with open(MEMORY_FILE) as f:
         memory = json.load(f)
 
-ASSISTANT_NAME = "Aria"
+ASSISTANT_NAME = "Ash"
 
-SYSTEM_PROMPT = """You are Aria, a friendly and professional AI integration consultant specializing in helping small businesses adopt and get the most out of AI tools.
+SYSTEM_PROMPT = """You are Ash, a friendly and professional AI integration consultant specializing in helping small businesses adopt and get the most out of AI tools.
 
 Your areas of expertise include:
 - Recommending the right AI tools for specific business needs (marketing, customer service, operations, finance, etc.)
@@ -32,13 +32,13 @@ The user's name is {name}."""
 
 if "name" in memory:
     name = memory["name"]
-    print(f"\nWelcome back, {name}! Aria here — ready to help with your AI strategy.")
+    print(f"\nWelcome back, {name}! Ash here — ready to help with your AI strategy.")
 else:
     name = input("What is your name? ")
     memory["name"] = name
     with open(MEMORY_FILE, "w") as f:
         json.dump(memory, f)
-    print(f"\nHi {name}, I'm Aria — your AI integration consultant for small businesses!")
+    print(f"\nHi {name}, I'm Ash — your AI integration consultant for small businesses!")
     print("I can help you find the right AI tools, plan how to implement them, and get real results.")
     print("Whether you're just getting started or looking to do more with AI, I've got you covered.")
 
