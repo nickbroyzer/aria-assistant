@@ -35,7 +35,7 @@ GMAIL_SENDER = os.getenv("GMAIL_SENDER")
 GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 LEAD_NOTIFY_EMAIL = os.getenv("LEAD_NOTIFY_EMAIL")  # Update to Jay's email when ready
 SHEETS_WEBHOOK = os.getenv("SHEETS_WEBHOOK")
-DASHBOARD_PASSWORD = os.getenv("DASHBOARD_PASSWORD", "pacific2024")
+DASHBOARD_PASSWORD = os.getenv("DASHBOARD_PASSWORD", "")
 
 
 def send_lead_email(lead: dict):
@@ -185,7 +185,9 @@ def process_pdf(pdf_bytes: bytes) -> dict:
 
 app = Flask(__name__, static_folder="static")
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.secret_key = os.getenv("SECRET_KEY", "pc-dashboard-secret-2026")
+app.secret_key = os.getenv("SECRET_KEY", "")
+if not app.secret_key:
+    raise RuntimeError("SECRET_KEY environment variable is required. Set it in .env")
 
 USERS_FILE = "users.json"
 
@@ -1062,7 +1064,7 @@ def load_activity(limit=50):
     entries.sort(key=lambda x: x.get("ts", ""), reverse=True)
     return entries[:limit]
 WA_TAX_RATE  = 0.102  # Washington state sales tax
-MASTER_PASSWORD = "pacific2024"
+MASTER_PASSWORD = os.getenv("MASTER_PASSWORD", os.getenv("DASHBOARD_PASSWORD", ""))
 
 DEFAULT_SETTINGS = {
     "company": {
@@ -1803,6 +1805,7 @@ def _start_followup_scheduler():
 # ── Job routes ──
 
 @app.route("/dashboard/api/jobs", methods=["GET"])
+@require_auth
 def get_jobs():
     jobs = load_jobs()
     jobs.sort(key=lambda x: x.get("created_at", ""), reverse=True)
@@ -1810,6 +1813,7 @@ def get_jobs():
 
 
 @app.route("/dashboard/api/jobs", methods=["POST"])
+@require_auth
 def create_job():
     data = request.get_json() or {}
     jobs = load_jobs()
@@ -1854,6 +1858,7 @@ def create_job():
 
 
 @app.route("/dashboard/api/jobs/<job_id>", methods=["PUT"])
+@require_auth
 def update_job(job_id):
     data = request.get_json() or {}
     jobs = load_jobs()
@@ -1878,6 +1883,7 @@ def update_job(job_id):
 
 
 @app.route("/dashboard/api/jobs/<job_id>", methods=["DELETE"])
+@require_auth
 def delete_job(job_id):
     jobs = load_jobs()
     deleted = next((j for j in jobs if j["job_id"] == job_id), None)
@@ -2127,6 +2133,7 @@ def list_job_files(job_id):
 
 
 @app.route("/dashboard/api/jobs/<job_id>/files", methods=["POST"])
+@require_auth
 def upload_job_file(job_id):
     if "file" not in request.files:
         return jsonify({"error": "No file"}), 400
@@ -2150,6 +2157,7 @@ def serve_job_file(job_id, filename):
 
 
 @app.route("/dashboard/api/jobs/<job_id>/files/<filename>", methods=["DELETE"])
+@require_auth
 def delete_job_file(job_id, filename):
     safe = re.sub(r'[^\w\.\-]', '_', filename)
     fpath = os.path.join("job_files", job_id, safe)
@@ -2166,6 +2174,7 @@ def api_activity():
 
 
 @app.route("/dashboard/api/invoices", methods=["GET"])
+@require_auth
 def get_invoices():
     invoices = load_invoices()
     invoices.sort(key=lambda x: x.get("created_at", ""), reverse=True)
@@ -2173,6 +2182,7 @@ def get_invoices():
 
 
 @app.route("/dashboard/api/invoices", methods=["POST"])
+@require_auth
 def create_invoice():
     data = request.get_json() or {}
     invoices = load_invoices()
@@ -2209,6 +2219,7 @@ def create_invoice():
 
 
 @app.route("/dashboard/api/invoices/<inv_id>", methods=["PUT"])
+@require_auth
 def update_invoice(inv_id):
     data = request.get_json() or {}
     invoices = load_invoices()
@@ -2253,6 +2264,7 @@ def delete_invoice(inv_id):
     return jsonify({"ok": True})
 
 @app.route("/dashboard/api/invoices/<inv_id>/send", methods=["POST"])
+@require_auth
 def send_invoice(inv_id):
     invoices = load_invoices()
     inv = next((i for i in invoices if i["invoice_id"] == inv_id), None)
@@ -2864,6 +2876,7 @@ def dashboard_stats():
 # ── People (staff & subcontractors) routes ──
 
 @app.route("/dashboard/api/people", methods=["GET"])
+@require_auth
 def get_people():
     people = load_people()
     people.sort(key=lambda x: (x.get("type", ""), x.get("name", "").lower()))
@@ -2871,6 +2884,7 @@ def get_people():
 
 
 @app.route("/dashboard/api/people", methods=["POST"])
+@require_auth
 def create_person():
     data = request.json or {}
     people = load_people()
@@ -2896,6 +2910,7 @@ def create_person():
 
 
 @app.route("/dashboard/api/people/<person_id>", methods=["PUT"])
+@require_auth
 def update_person(person_id):
     data = request.json or {}
     people = load_people()
@@ -2919,6 +2934,7 @@ def update_person(person_id):
 
 
 @app.route("/dashboard/api/people/<person_id>", methods=["DELETE"])
+@require_auth
 def delete_person(person_id):
     people = load_people()
     people = [p for p in people if p["person_id"] != person_id]
@@ -2929,6 +2945,7 @@ def delete_person(person_id):
 # ── Payroll routes ──
 
 @app.route("/dashboard/api/payroll", methods=["GET"])
+@require_auth
 def get_payroll():
     person_id = request.args.get("person_id")
     records = load_payroll()
@@ -2939,6 +2956,7 @@ def get_payroll():
 
 
 @app.route("/dashboard/api/payroll", methods=["POST"])
+@require_auth
 def create_pay_record():
     data = request.json or {}
     records = load_payroll()
@@ -2960,6 +2978,7 @@ def create_pay_record():
 
 
 @app.route("/dashboard/api/payroll/<pay_id>", methods=["PUT"])
+@require_auth
 def update_pay_record(pay_id):
     data = request.json or {}
     records = load_payroll()
@@ -2977,6 +2996,7 @@ def update_pay_record(pay_id):
 
 
 @app.route("/dashboard/api/payroll/<pay_id>", methods=["DELETE"])
+@require_auth
 def delete_pay_record(pay_id):
     records = load_payroll()
     records = [r for r in records if r["pay_id"] != pay_id]
@@ -3231,7 +3251,7 @@ def settings_integrations():
     })
 
 
-DEV_PASSWORD_DEFAULT = "architect2026"
+DEV_PASSWORD_DEFAULT = os.getenv("DEV_PASSWORD", "")
 
 def _check_dev_password(password):
     """Return True if password matches the stored dev password (or default)."""
@@ -3350,6 +3370,7 @@ def change_comp_pin():
 
 
 @app.route("/dashboard/api/people/<person_id>/recalculate-pending", methods=["POST"])
+@require_auth
 def recalculate_pending(person_id):
     """Recalculate amount_due on all pending pay records after a rate change."""
     data      = request.json or {}
