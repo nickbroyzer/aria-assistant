@@ -1,3 +1,7 @@
 anthropic
 flask
 gunicorn
+duckduckgo-search
+pymupdf
+pdfplumber
+python-dotenv

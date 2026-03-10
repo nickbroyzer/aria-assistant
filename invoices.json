@@ -1,0 +1,642 @@
+[
+  {
+    "invoice_id": "32fba7ce-2e8b-4630-8190-01b0be96640d",
+    "invoice_number": "2026-001",
+    "created_at": "2026-03-08T22:58:52.389577+00:00",
+    "date": "2026-01-15",
+    "due_date": "2026-02-14",
+    "status": "paid",
+    "client_name": "Marcus Webb",
+    "client_company": "Webb Distribution LLC",
+    "client_email": "marcus.webb@webbdist.com",
+    "client_address": "4821 Industry Dr, Kent, WA 98032",
+    "line_items": [
+      {
+        "description": "Pallet Racking \u2014 50% Deposit (JOB-2026-001)",
+        "qty": 1,
+        "rate": 21250,
+        "amount": 21250
+      }
+    ],
+    "subtotal": 21250.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 21250.0,
+    "notes": "Deposit per contract terms. Balance of $21,250 due upon project completion.",
+    "job_id": "",
+    "paid_at": "2026-03-08T22:59:38.065895+00:00"
+  },
+  {
+    "invoice_id": "e4433191-187e-4aea-a29d-f47cc8b96c1e",
+    "invoice_number": "2026-002",
+    "created_at": "2026-03-08T22:58:52.397370+00:00",
+    "date": "2026-03-04",
+    "due_date": "2026-04-03",
+    "status": "sent",
+    "client_name": "Sandra Liu",
+    "client_company": "Pacific Freight Partners",
+    "client_email": "sliu@pfpfreight.com",
+    "client_address": "1100 Port of Tacoma Rd, Tacoma, WA 98421",
+    "line_items": [
+      {
+        "description": "Engineering & Design \u2014 Conveyor System (JOB-2026-002)",
+        "qty": 1,
+        "rate": 8500,
+        "amount": 8500
+      },
+      {
+        "description": "Site Survey & Feasibility Assessment",
+        "qty": 1,
+        "rate": 1200,
+        "amount": 1200
+      }
+    ],
+    "subtotal": 9700.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 9700.0,
+    "notes": "Design and survey fees are non-refundable. Full project invoice to follow upon contract execution.",
+    "job_id": "",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "11d55e49-bbe9-40e0-a250-43124c47320e",
+    "invoice_number": "2026-003",
+    "created_at": "2026-03-08T22:58:52.405293+00:00",
+    "date": "2025-12-20",
+    "due_date": "2026-01-19",
+    "status": "paid",
+    "client_name": "Derek Nguyen",
+    "client_company": "Sound City Storage",
+    "client_email": "derek@soundcitystorage.com",
+    "client_address": "7744 Aurora Ave N, Seattle, WA 98103",
+    "line_items": [
+      {
+        "description": "Mezzanine Structure \u2014 Labor & Materials (JOB-2026-003)",
+        "qty": 1,
+        "rate": 54000,
+        "amount": 54000
+      },
+      {
+        "description": "Staircase, Handrail & Pallet Gate",
+        "qty": 1,
+        "rate": 6800,
+        "amount": 6800
+      },
+      {
+        "description": "City Permit & Inspection Fees",
+        "qty": 1,
+        "rate": 1200,
+        "amount": 1200
+      },
+      {
+        "description": "Less 50% Deposit Received",
+        "qty": 1,
+        "rate": -33500,
+        "amount": -33500
+      }
+    ],
+    "subtotal": 28500.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 28500.0,
+    "notes": "Final balance. Thank you for your business, Derek!",
+    "job_id": "",
+    "paid_at": "2026-03-08T22:59:38.105255+00:00"
+  },
+  {
+    "invoice_id": "534a1d89-0fb2-4f16-9d53-c24e75661b8e",
+    "invoice_number": "2026-004",
+    "created_at": "2026-03-08T22:58:52.412584+00:00",
+    "date": "2026-01-15",
+    "due_date": "2026-02-14",
+    "status": "overdue",
+    "client_name": "Brenda Olson",
+    "client_company": "Olson Fulfillment Co",
+    "client_email": "brenda.olson@olsonfulfill.com",
+    "client_address": "900 S 200th St, SeaTac, WA 98198",
+    "line_items": [
+      {
+        "description": "5-Ton Bridge Crane \u2014 Supply & Installation (JOB-2026-004)",
+        "qty": 1,
+        "rate": 78000,
+        "amount": 78000
+      },
+      {
+        "description": "Runway Beams & Column Supports",
+        "qty": 1,
+        "rate": 8500,
+        "amount": 8500
+      },
+      {
+        "description": "Load Testing, Certification & Documentation",
+        "qty": 1,
+        "rate": 2200,
+        "amount": 2200
+      },
+      {
+        "description": "Electrical Integration \u2014 NW Electrical (subcontractor)",
+        "qty": 1,
+        "rate": 2800,
+        "amount": 2800
+      }
+    ],
+    "subtotal": 91500.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 91500.0,
+    "notes": "Payment is past due. Please remit immediately or contact us to arrange payment.",
+    "job_id": "",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "c5813649-ae3c-4599-8fd6-a62cb78add36",
+    "invoice_number": "2026-005",
+    "created_at": "2026-03-08T22:58:52.418767+00:00",
+    "date": "2026-03-08",
+    "due_date": "2026-04-07",
+    "status": "sent",
+    "client_name": "Tony Marchetti",
+    "client_company": "Marchetti Cold Storage",
+    "client_email": "tony@marchetti-cold.com",
+    "client_address": "2305 Olympic Hwy N, Port Angeles, WA 98362",
+    "line_items": [
+      {
+        "description": "Hydraulic Dock Levelers (4 units)",
+        "qty": 4,
+        "rate": 3800,
+        "amount": 15200
+      },
+      {
+        "description": "Dock Seals (4 units) \u2014 Supply & Install",
+        "qty": 4,
+        "rate": 1100,
+        "amount": 4400
+      },
+      {
+        "description": "Vehicle Restraints (2 units)",
+        "qty": 2,
+        "rate": 2200,
+        "amount": 4400
+      },
+      {
+        "description": "Removal & Disposal \u2014 Existing Equipment",
+        "qty": 1,
+        "rate": 2400,
+        "amount": 2400
+      }
+    ],
+    "subtotal": 26400.0,
+    "apply_tax": true,
+    "tax_rate": 0.102,
+    "tax": 2692.8,
+    "total": 29092.8,
+    "notes": "DRAFT \u2014 pending steel dock plate delivery. Will finalize when materials arrive.",
+    "job_id": "",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "f99867d9-5d85-4548-8be4-ad2be414fa90",
+    "invoice_number": "2026-006",
+    "created_at": "2026-03-08T22:59:16.884072+00:00",
+    "date": "2026-02-05",
+    "due_date": "2026-03-07",
+    "status": "sent",
+    "client_name": "Hector Reyes",
+    "client_company": "Reyes Auto Parts",
+    "client_email": "hector@reyesauto.net",
+    "client_address": "5519 Pacific Hwy E, Fife, WA 98424",
+    "line_items": [
+      {
+        "description": "Safety Railing \u2014 Labor & Materials (JOB-2026-007)",
+        "qty": 1,
+        "rate": 11200,
+        "amount": 11200
+      },
+      {
+        "description": "Swing Gates (2 units)",
+        "qty": 2,
+        "rate": 680,
+        "amount": 1360
+      },
+      {
+        "description": "Removable Offset Gate",
+        "qty": 1,
+        "rate": 490,
+        "amount": 490
+      },
+      {
+        "description": "Powder Coat \u2014 Safety Yellow Finish",
+        "qty": 1,
+        "rate": 800,
+        "amount": 800
+      }
+    ],
+    "subtotal": 13850.0,
+    "apply_tax": true,
+    "tax_rate": 0.102,
+    "tax": 1412.7,
+    "total": 15262.7,
+    "notes": "Thank you, Hector! Please contact us for your Renton facility when ready.",
+    "job_id": "",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "9339071a-655f-4002-b30c-ee2de4b5cae7",
+    "invoice_number": "2026-007",
+    "created_at": "2026-03-08T22:59:16.892339+00:00",
+    "date": "2026-03-01",
+    "due_date": "2026-03-31",
+    "status": "sent",
+    "client_name": "Greg Halvorson",
+    "client_company": "Northwest Cannabis Distro",
+    "client_email": "greg.h@nwcdistro.com",
+    "client_address": "888 Commerce Loop, Burlington, WA 98233",
+    "line_items": [
+      {
+        "description": "Security Cage \u2014 50% Project Deposit (JOB-2026-008)",
+        "qty": 1,
+        "rate": 9700,
+        "amount": 9700
+      }
+    ],
+    "subtotal": 9700.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 9700.0,
+    "notes": "Balance of $9,700 due upon installation completion. Compliance deadline: 4/1/2026.",
+    "job_id": "",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "af82fe72-6d5a-4237-a01d-bffe6d944e45",
+    "invoice_number": "2026-008",
+    "created_at": "2026-03-08T22:59:16.899008+00:00",
+    "date": "2026-02-12",
+    "due_date": "2026-03-14",
+    "status": "paid",
+    "client_name": "Jill Tanaka",
+    "client_company": "Tanaka Medical Supply",
+    "client_email": "jill.tanaka@tanakamed.com",
+    "client_address": "3280 156th Ave SE, Bellevue, WA 98007",
+    "line_items": [
+      {
+        "description": "High-Speed Roll-Up Doors \u2014 Interior (2 units)",
+        "qty": 2,
+        "rate": 5400,
+        "amount": 10800
+      },
+      {
+        "description": "Sectional Insulated Overhead Door \u2014 Exterior",
+        "qty": 1,
+        "rate": 7200,
+        "amount": 7200
+      },
+      {
+        "description": "Electric Operators with Safety Sensors (3 units)",
+        "qty": 3,
+        "rate": 980,
+        "amount": 2940
+      },
+      {
+        "description": "Installation Labor (JOB-2026-009)",
+        "qty": 1,
+        "rate": 1160,
+        "amount": 1160
+      }
+    ],
+    "subtotal": 22100.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 22100.0,
+    "notes": "Paid in full 2/28/2026. Thank you for your business!",
+    "job_id": "",
+    "paid_at": "2026-03-08T22:59:38.165901+00:00"
+  },
+  {
+    "invoice_id": "4d5dec64-ca29-44e6-86f8-0fa1fcf3613b",
+    "invoice_number": "2026-009",
+    "created_at": "2026-03-08T22:59:16.906402+00:00",
+    "date": "2026-02-24",
+    "due_date": "2026-03-26",
+    "status": "paid",
+    "client_name": "Carlos Mendez",
+    "client_company": "Apex 3PL Solutions",
+    "client_email": "cmendez@apex3pl.com",
+    "client_address": "1600 W Meeker St, Kent, WA 98032",
+    "line_items": [
+      {
+        "description": "Tenant Improvement \u2014 Phase 1 Mobilization & Framing (JOB-2026-010)",
+        "qty": 1,
+        "rate": 65000,
+        "amount": 65000
+      },
+      {
+        "description": "City Permit Fees & Architectural Review",
+        "qty": 1,
+        "rate": 3800,
+        "amount": 3800
+      },
+      {
+        "description": "Site Prep \u2014 Westside Concrete (subcontractor)",
+        "qty": 1,
+        "rate": 8200,
+        "amount": 8200
+      }
+    ],
+    "subtotal": 77000.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 77000.0,
+    "notes": "Phase 1 of 3. Phase 2 invoice due approx. April 2026. Phase 3 upon substantial completion.",
+    "job_id": "",
+    "paid_at": "2026-03-08T22:59:38.180450+00:00"
+  },
+  {
+    "invoice_id": "7ac01630-6145-44bf-8119-efa0c6ab1310",
+    "invoice_number": "2026-010",
+    "created_at": "2026-03-08T22:59:16.912974+00:00",
+    "date": "2026-03-08",
+    "due_date": "2026-04-07",
+    "status": "sent",
+    "client_name": "Rachel Kim",
+    "client_company": "Kim Wholesale Group",
+    "client_email": "rkim@kimwholesale.com",
+    "client_address": "13800 NE 178th St, Woodinville, WA 98072",
+    "line_items": [
+      {
+        "description": "Modular Office Complex \u2014 Engineering & Permitting (JOB-2026-006)",
+        "qty": 1,
+        "rate": 4200,
+        "amount": 4200
+      },
+      {
+        "description": "Materials Pre-Order Deposit (non-refundable)",
+        "qty": 1,
+        "rate": 6000,
+        "amount": 6000
+      }
+    ],
+    "subtotal": 10200.0,
+    "apply_tax": true,
+    "tax_rate": 0.102,
+    "tax": 1040.4,
+    "total": 11240.4,
+    "notes": "DRAFT \u2014 pending signed contract. Do not send until Rachel confirms award of bid.",
+    "job_id": "",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "e429364f-c63d-4965-8951-d1573d9563c0",
+    "invoice_number": "2026-011",
+    "created_at": "2026-03-09T14:00:00.000000+00:00",
+    "date": "2026-03-09",
+    "due_date": "2026-04-08",
+    "status": "draft",
+    "client_name": "Carlos Mendez",
+    "client_company": "Apex 3PL Solutions",
+    "client_email": "cmendez@apex3pl.com",
+    "client_address": "7200 Pacific Hwy E, Fife, WA 98424",
+    "line_items": [
+      {
+        "description": "Modular Office Complex \u2014 Progress Billing #2 (Framing & MEP Rough-In)",
+        "qty": 1,
+        "rate": 53750,
+        "amount": 53750
+      },
+      {
+        "description": "Steel Structural Materials (Phase 2 Delivery)",
+        "qty": 1,
+        "rate": 18400,
+        "amount": 18400
+      },
+      {
+        "description": "Subcontractor \u2014 Electrical Rough-In (Licensed)",
+        "qty": 1,
+        "rate": 9200,
+        "amount": 9200
+      }
+    ],
+    "subtotal": 81350.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 81350.0,
+    "notes": "Progress billing per contract milestone schedule. Total contract value $215,000. Previously invoiced: $77,000. Remaining after this billing: $56,650.",
+    "job_id": "00456a64-db2c-4524-9718-96eb8bf05fe6",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "95fc176f-b73f-4648-9ae7-5dd921243645",
+    "invoice_number": "2026-012",
+    "created_at": "2026-03-09T14:10:00.000000+00:00",
+    "date": "2026-03-09",
+    "due_date": "2026-04-08",
+    "status": "draft",
+    "client_name": "Marcus Webb",
+    "client_company": "Webb Distribution LLC",
+    "client_email": "marcus.webb@webbdist.com",
+    "client_address": "4821 Industry Dr, Kent, WA 98032",
+    "line_items": [
+      {
+        "description": "Pallet Racking System \u2014 Final Balance (JOB-2026-001)",
+        "qty": 1,
+        "rate": 21250,
+        "amount": 21250
+      },
+      {
+        "description": "Installation Labor \u2014 3-Day Crew",
+        "qty": 24,
+        "rate": 95,
+        "amount": 2280
+      },
+      {
+        "description": "Anchor Bolts & Hardware Package",
+        "qty": 1,
+        "rate": 620,
+        "amount": 620
+      }
+    ],
+    "subtotal": 24150.0,
+    "apply_tax": true,
+    "tax_rate": 10.2,
+    "tax": 2463.3,
+    "total": 26613.3,
+    "notes": "Final balance due upon project completion. Deposit of $21,250 received Jan 2026 (Invoice #2026-001). System installation complete as of March 7, 2026.",
+    "job_id": "2ff7a5d0-8d1a-4aa1-93e5-f6fb0a1b5a2e",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "d2eefc54-6579-4e2c-92ea-1945a2eb6e0e",
+    "invoice_number": "2026-013",
+    "created_at": "2026-03-09T14:20:00.000000+00:00",
+    "date": "2026-03-09",
+    "due_date": "2026-04-08",
+    "status": "draft",
+    "client_name": "Greg Halvorson",
+    "client_company": "Northwest Cannabis Distro",
+    "client_email": "ghalvorson@nwcdistro.com",
+    "client_address": "3340 Aurora Ave N, Seattle, WA 98103",
+    "line_items": [
+      {
+        "description": "Cold Storage Buildout \u2014 Phase 2 Labor (Temperature-Controlled Zones 3\u20135)",
+        "qty": 1,
+        "rate": 12400,
+        "amount": 12400
+      },
+      {
+        "description": "Refrigeration Unit Install & Commissioning",
+        "qty": 2,
+        "rate": 3800,
+        "amount": 7600
+      },
+      {
+        "description": "Insulated Panel System \u2014 Materials",
+        "qty": 1,
+        "rate": 5850,
+        "amount": 5850
+      },
+      {
+        "description": "Health Dept Inspection Coordination Fee",
+        "qty": 1,
+        "rate": 450,
+        "amount": 450
+      }
+    ],
+    "subtotal": 26300.0,
+    "apply_tax": true,
+    "tax_rate": 10.2,
+    "tax": 2682.6,
+    "total": 28982.6,
+    "notes": "Phase 2 completion invoice. Phase 1 previously invoiced at $9,700 (Invoice #2026-007). All zones now operational and passed county inspection.",
+    "job_id": "8173f60b-c4b2-4f3e-a1d9-3e9f2b1c8d7a",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "0a75472f-1e6e-4a63-aa42-b53deb341bcd",
+    "invoice_number": "2026-014",
+    "created_at": "2026-03-09T14:30:00.000000+00:00",
+    "date": "2026-03-09",
+    "due_date": "2026-04-08",
+    "status": "draft",
+    "client_name": "Sandra Liu",
+    "client_company": "Pacific Freight Partners",
+    "client_email": "sliu@pfpfreight.com",
+    "client_address": "1100 Port of Tacoma Rd, Tacoma, WA 98421",
+    "line_items": [
+      {
+        "description": "Freight Terminal Expansion \u2014 Phase 2 (Dock Doors & Loading Bay)",
+        "qty": 1,
+        "rate": 44000,
+        "amount": 44000
+      },
+      {
+        "description": "Concrete Pour \u2014 Loading Area (680 sq ft)",
+        "qty": 680,
+        "rate": 18.5,
+        "amount": 12580
+      },
+      {
+        "description": "Overhead Door Units (10'\u00d712') \u2014 Supply & Install",
+        "qty": 4,
+        "rate": 3200,
+        "amount": 12800
+      }
+    ],
+    "subtotal": 69380.0,
+    "apply_tax": false,
+    "tax_rate": 0,
+    "tax": 0,
+    "total": 69380.0,
+    "notes": "Phase 2 progress billing. Total contract: $128,000. Previously invoiced: $9,700. Remaining after this billing: $48,920.",
+    "job_id": "4952fba5-1c2a-4b8e-9f3d-2a7e1c4b5d6f",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "3121fd25-2a01-4ced-bdcb-c61717c7ca5f",
+    "invoice_number": "2026-015",
+    "created_at": "2026-03-09T14:40:00.000000+00:00",
+    "date": "2026-03-09",
+    "due_date": "2026-04-08",
+    "status": "draft",
+    "client_name": "Derek Holloway",
+    "client_company": "Holloway Logistics Group",
+    "client_email": "derek@hollowaylogistics.com",
+    "client_address": "8800 East Marginal Way S, Seattle, WA 98108",
+    "line_items": [
+      {
+        "description": "Warehouse Racking System \u2014 50% Deposit (JOB-2026-011)",
+        "qty": 1,
+        "rate": 24250,
+        "amount": 24250
+      },
+      {
+        "description": "Site Survey & Layout Engineering",
+        "qty": 1,
+        "rate": 1800,
+        "amount": 1800
+      },
+      {
+        "description": "Permit Filing Fee (City of Seattle)",
+        "qty": 1,
+        "rate": 450,
+        "amount": 450
+      }
+    ],
+    "subtotal": 26500.0,
+    "apply_tax": true,
+    "tax_rate": 10.2,
+    "tax": 2703.0,
+    "total": 29203.0,
+    "notes": "Initial deposit invoice per signed contract dated March 2, 2026. Balance of $24,250 due upon project completion.",
+    "job_id": "",
+    "paid_at": null
+  },
+  {
+    "invoice_id": "1dcf110b-536b-428a-8d3c-7b124e240a2b",
+    "invoice_number": "2026-016",
+    "created_at": "2026-03-09T14:50:00.000000+00:00",
+    "date": "2026-03-09",
+    "due_date": "2026-04-08",
+    "status": "sent",
+    "client_name": "Tony Marchetti",
+    "client_company": "Marchetti Cold Storage",
+    "client_email": "tony@marchetti-cs.com",
+    "client_address": "2250 S 156th St, SeaTac, WA 98188",
+    "line_items": [
+      {
+        "description": "Scope Addition \u2014 Extra Shelving Units (Client Request, Change Order #2)",
+        "qty": 12,
+        "rate": 380,
+        "amount": 4560
+      },
+      {
+        "description": "Additional Labor Hours \u2014 Scope Change Work",
+        "qty": 16,
+        "rate": 95,
+        "amount": 1520
+      },
+      {
+        "description": "Revised Permit Amendment Filing",
+        "qty": 1,
+        "rate": 250,
+        "amount": 250
+      }
+    ],
+    "subtotal": 6330.0,
+    "apply_tax": true,
+    "tax_rate": 10.2,
+    "tax": 645.66,
+    "total": 6975.66,
+    "notes": "Change order invoice per client-approved scope additions on March 4, 2026. Main contract invoice #2026-005 previously sent.",
+    "job_id": "c6635459-2e4a-4f1b-8d7c-3b5e9a2f1c4d",
+    "paid_at": null
+  }
+]

@@ -1,0 +1,155 @@
+[
+  {
+    "followup_id": "40b7bb2e-f8cf-4e5a-b0bb-6ce733d564d5",
+    "job_id": "0ee713c3-1ada-4b32-b0dc-7e17a51cdbce",
+    "job_number": "JOB-2026-006",
+    "client_name": "Rachel Kim",
+    "client_email": "rkim@kimwholesale.com",
+    "job_type": "Modular Office",
+    "started_at": "2026-03-09T04:19:30.571855+00:00",
+    "status": "active",
+    "current_step": 2,
+    "total_steps": 5,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Quote Confirmation",
+        "scheduled_date": "2026-03-08",
+        "sent_at": "2026-03-09T04:19:33.270789+00:00",
+        "status": "sent"
+      },
+      {
+        "step": 2,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-15",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency / CTA",
+        "scheduled_date": "2026-03-22",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-03-29",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ],
+    "stopped_reason": null,
+    "stopped_at": null
+  },
+  {
+    "followup_id": "8406c51b-c564-4eb3-8b90-168ca22e6032",
+    "job_id": "4952fba5-0dd4-4d6d-8645-73f69df945ce",
+    "job_number": "JOB-2026-002",
+    "client_name": "Sandra Liu",
+    "client_email": "sliu@pfpfreight.com",
+    "job_type": "Conveyor System",
+    "started_at": "2026-03-09T04:23:47.604242+00:00",
+    "status": "active",
+    "current_step": 2,
+    "total_steps": 5,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Quote Confirmation",
+        "scheduled_date": "2026-03-08",
+        "sent_at": "2026-03-09T04:23:50.253020+00:00",
+        "status": "sent"
+      },
+      {
+        "step": 2,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-15",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency / CTA",
+        "scheduled_date": "2026-03-22",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-03-29",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ],
+    "stopped_reason": null,
+    "stopped_at": null
+  },
+  {
+    "followup_id": "24eb996a-4cba-4699-bc3c-b61116c009da",
+    "job_id": "b17a6342-8dae-457a-aaf4-5df821ecd92e",
+    "job_number": "JOB-2026-053",
+    "client_name": "Elena Vasquez",
+    "client_email": "evasquez@vasquez3pl.com",
+    "job_type": "Mezzanine Fabrication",
+    "started_at": "2026-03-10T04:07:38.708276+00:00",
+    "status": "active",
+    "current_step": 2,
+    "total_steps": 5,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Quote Confirmation",
+        "scheduled_date": "2026-03-09",
+        "sent_at": "2026-03-10T04:07:41.629125+00:00",
+        "status": "sent"
+      },
+      {
+        "step": 2,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-12",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-16",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency / CTA",
+        "scheduled_date": "2026-03-23",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-03-30",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ],
+    "stopped_reason": null,
+    "stopped_at": null
+  }
+]

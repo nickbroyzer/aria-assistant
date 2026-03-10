@@ -1,2 +1,8 @@
 memory.json
 .env
+__pycache__/
+.DS_Store
+google_token.json
+google_credentials.json
+user_sessions.json
+venv/

@@ -271,6 +271,19 @@
       align-items: center;
     }
 
+    .typing-status {
+      font-size: 12px;
+      color: rgba(232,101,10,0.7);
+      font-style: italic;
+      padding: 2px 0;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .typing-dots span {
       width: 6px; height: 6px;
       background: rgba(232,101,10,0.5);
@@ -343,6 +356,64 @@
 
     #send-btn:disabled { background: rgba(232,101,10,0.3); cursor: default; box-shadow: none; }
     #send-btn svg { width: 16px; height: 16px; }
+
+    #mic-btn {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    #mic-btn:hover { border-color: rgba(232,101,10,0.4); color: rgba(232,101,10,0.8); }
+
+    #mic-btn.recording {
+      background: rgba(232,101,10,0.15);
+      border-color: var(--orange);
+      color: var(--orange);
+      box-shadow: 0 0 16px rgba(232,101,10,0.4);
+      animation: mic-pulse 1.2s infinite;
+    }
+
+    @keyframes mic-pulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(232,101,10,0.4); }
+      50% { box-shadow: 0 0 20px rgba(232,101,10,0.7); }
+    }
+
+    #mic-btn svg { width: 16px; height: 16px; }
+
+    /* ── Suggested prompts ── */
+    #suggested-prompts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 20px 4px;
+      flex-shrink: 0;
+    }
+
+    .prompt-btn {
+      background: rgba(232, 101, 10, 0.08);
+      border: 1px solid rgba(232, 101, 10, 0.3);
+      border-radius: 20px;
+      color: rgba(232, 101, 10, 0.9);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .prompt-btn:hover {
+      background: rgba(232, 101, 10, 0.18);
+      border-color: rgba(232, 101, 10, 0.6);
+      transform: translateY(-1px);
+    }
 
     /* ── Footer ── */
     footer {
@@ -481,6 +552,170 @@
       text-transform: uppercase;
     }
 
+    /* ── Quote form modal ── */
+    #quote-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 100;
+    }
+
+    #quote-modal.open { display: flex; }
+
+    #schedule-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 100;
+    }
+    #schedule-modal.open { display: flex; }
+
+    #schedule-btn {
+      background: transparent !important;
+      border: 1px solid rgba(255,255,255,0.4) !important;
+      color: #ffffff !important;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    #schedule-btn:hover {
+      background: rgba(255,255,255,0.1) !important;
+    }
+
+    .slot-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--dark-border-strong);
+      border-radius: 8px;
+      color: var(--text-primary);
+      padding: 10px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .slot-btn:hover { background: rgba(232,101,10,0.15); border-color: var(--orange); }
+    .slot-btn.selected { background: rgba(232,101,10,0.25); border-color: var(--orange); color: var(--orange); font-weight: 600; }
+
+    .quote-box {
+      background: var(--dark-surface);
+      border: 1px solid var(--dark-border-strong);
+      border-radius: 16px;
+      width: 460px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(232,101,10,0.1);
+    }
+
+    .quote-box::-webkit-scrollbar { width: 4px; }
+    .quote-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+    .quote-header {
+      background: #111;
+      border-bottom: 2px solid var(--orange);
+      padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .quote-header h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px; font-weight: 800;
+      color: #fff; letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .quote-close {
+      background: none; border: none;
+      color: var(--text-muted); font-size: 20px;
+      cursor: pointer; padding: 0; line-height: 1;
+    }
+
+    .quote-close:hover { color: #fff; }
+
+    .quote-body { padding: 20px 24px 24px; }
+
+    .quote-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .quote-field { margin-bottom: 12px; }
+
+    .quote-field label {
+      display: block;
+      font-size: 11px; font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .quote-field input,
+    .quote-field select,
+    .quote-field textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--dark-border-strong);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px; font-family: inherit;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      caret-color: var(--orange);
+    }
+
+    .quote-field select option { background: #1e1e1e; }
+
+    .quote-field input:focus,
+    .quote-field select:focus,
+    .quote-field textarea:focus {
+      border-color: rgba(232,101,10,0.5);
+      box-shadow: 0 0 0 3px rgba(232,101,10,0.08);
+    }
+
+    .quote-field textarea { resize: vertical; min-height: 70px; }
+
+    .quote-submit {
+      width: 100%; margin-top: 8px;
+      background: var(--orange);
+      color: #fff; border: none; border-radius: 8px;
+      padding: 12px; font-size: 14px; font-weight: 700;
+      font-family: inherit; cursor: pointer;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 0 16px rgba(232,101,10,0.4);
+    }
+
+    .quote-submit:hover {
+      background: var(--orange-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(232,101,10,0.6);
+    }
+
+    .quote-submit:disabled { background: rgba(232,101,10,0.3); cursor: default; box-shadow: none; transform: none; }
+
+    /* ── Get Quote button in header ── */
+    .quote-trigger-btn {
+      background: var(--orange);
+      color: #fff; border: none; border-radius: 8px;
+      padding: 7px 14px; font-size: 12px; font-weight: 700;
+      font-family: inherit; cursor: pointer;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      transition: background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 0 12px rgba(232,101,10,0.4);
+    }
+
+    .quote-trigger-btn:hover {
+      background: var(--orange-hover);
+      box-shadow: 0 0 20px rgba(232,101,10,0.6);
+    }
+
     .modal-body button:hover {
       background: var(--orange-hover);
       transform: translateY(-1px);
@@ -515,11 +750,138 @@
       <div class="subtitle">Ask Ash</div>
     </div>
   </div>
-  <div class="header-status">
-    <div class="status-dot"></div>
-    <span class="status-text">Online</span>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button id="schedule-btn" onclick="openScheduleModal()">Schedule</button>
+    <button class="quote-trigger-btn" onclick="openQuoteModal()">Get a Quote</button>
+    <div class="header-status">
+      <div class="status-dot"></div>
+      <span class="status-text">Online</span>
+    </div>
   </div>
 </header>
+
+<!-- Quote Request Modal -->
+<div id="quote-modal">
+  <div class="quote-box">
+    <div class="quote-header">
+      <h2>Request a Quote</h2>
+      <button class="quote-close" onclick="closeQuoteModal()">✕</button>
+    </div>
+    <div class="quote-body">
+      <div class="quote-row">
+        <div class="quote-field">
+          <label>Your Name *</label>
+          <input type="text" id="q-name" placeholder="John Smith">
+        </div>
+        <div class="quote-field">
+          <label>Company</label>
+          <input type="text" id="q-company" placeholder="ABC Logistics">
+        </div>
+      </div>
+      <div class="quote-row">
+        <div class="quote-field">
+          <label>Email *</label>
+          <input type="email" id="q-email" placeholder="john@company.com">
+        </div>
+        <div class="quote-field">
+          <label>Phone</label>
+          <input type="tel" id="q-phone" placeholder="206-555-1234">
+        </div>
+      </div>
+      <div class="quote-field">
+        <label>Warehouse Location *</label>
+        <input type="text" id="q-location" placeholder="Seattle, WA">
+      </div>
+      <div class="quote-row">
+        <div class="quote-field">
+          <label>Warehouse Size (sq ft)</label>
+          <input type="text" id="q-size" placeholder="25,000">
+        </div>
+        <div class="quote-field">
+          <label>Clear Height</label>
+          <input type="text" id="q-height" placeholder="24 ft">
+        </div>
+      </div>
+      <div class="quote-field">
+        <label>Service Needed</label>
+        <select id="q-service">
+          <option value="">Select a service...</option>
+          <option>Pallet Racking</option>
+          <option>Conveyor System</option>
+          <option>Bridge Crane</option>
+          <option>Mezzanine</option>
+          <option>Modular Office</option>
+          <option>Dock Equipment</option>
+          <option>Warehouse Doors</option>
+          <option>Safety Railing</option>
+          <option>Security Cage</option>
+          <option>Multiple Services</option>
+          <option>Not Sure — Need Assessment</option>
+        </select>
+      </div>
+      <div class="quote-field">
+        <label>Timeline</label>
+        <select id="q-timeline">
+          <option value="">Select timeline...</option>
+          <option>ASAP</option>
+          <option>Within 1 month</option>
+          <option>1–3 months</option>
+          <option>3–6 months</option>
+          <option>6+ months / Planning stage</option>
+        </select>
+      </div>
+      <div class="quote-field">
+        <label>Additional Details</label>
+        <textarea id="q-notes" placeholder="Any other details about your project..."></textarea>
+      </div>
+      <button class="quote-submit" id="quote-submit-btn" onclick="submitQuote()">Submit Quote Request</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Appointment Modal -->
+<div id="schedule-modal">
+  <div class="quote-box">
+    <div class="quote-header">
+      <h2>Schedule an Appointment</h2>
+      <button class="quote-close" onclick="closeScheduleModal()">✕</button>
+    </div>
+    <div class="quote-body" id="schedule-body">
+      <div class="quote-row">
+        <div class="quote-field">
+          <label>Your Name *</label>
+          <input type="text" id="s-name" placeholder="John Smith">
+        </div>
+        <div class="quote-field">
+          <label>Email</label>
+          <input type="email" id="s-email" placeholder="john@company.com">
+        </div>
+      </div>
+      <div class="quote-field">
+        <label>Phone</label>
+        <input type="tel" id="s-phone" placeholder="206-555-1234">
+      </div>
+      <div class="quote-field">
+        <label>Appointment Type</label>
+        <select id="s-type">
+          <option value="Quote Call">Quote Call (Phone)</option>
+          <option value="Site Visit">On-Site Visit</option>
+        </select>
+      </div>
+      <div class="quote-field">
+        <label>Select a Time Slot *</label>
+        <div id="slot-list" style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+          <p style="color:var(--text-muted);font-size:13px;">Loading available times...</p>
+        </div>
+      </div>
+      <div class="quote-field">
+        <label>Notes</label>
+        <textarea id="s-notes" placeholder="Anything we should know before the appointment..."></textarea>
+      </div>
+      <button class="quote-submit" id="schedule-submit-btn" onclick="submitSchedule()">Confirm Appointment</button>
+    </div>
+  </div>
+</div>
 
 <div id="hero">
   <div class="hero-eyebrow">Virtual Assistant</div>
@@ -542,9 +904,33 @@
     </div>
   </div>
 
+  <div id="suggested-prompts"></div>
+
   <div id="input-area">
+    <div id="image-preview-area" style="display:none; padding: 8px 0 4px;">
+      <div style="position:relative; display:inline-block;">
+        <img id="image-preview" style="max-height:80px; max-width:200px; border-radius:8px; border:1px solid rgba(232,101,10,0.4);">
+        <button onclick="clearImage()" style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#e8650a;border:none;color:#fff;cursor:pointer;font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+    </div>
     <div class="input-inner">
+      <input type="file" id="image-input" accept="image/*,application/pdf" style="display:none" onchange="handleImageSelect(event)">
+      <button id="upload-btn" onclick="document.getElementById('image-input').click()" title="Upload photo or floor plan"
+        style="width:40px;height:40px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:rgba(255,255,255,0.5);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </button>
       <textarea id="user-input" rows="1" placeholder="Ask Ash about our warehouse services..."></textarea>
+      <button id="mic-btn" onclick="toggleVoice()" title="Voice input">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </button>
       <button id="send-btn" onclick="sendMessage()" title="Send">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
              stroke-linecap="round" stroke-linejoin="round">
@@ -637,25 +1023,98 @@
     return msg;
   }
 
+  let pendingImage = null; // { base64, mimeType, dataUrl } or { isPdf, base64, name }
+
+  function handleImageSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      const base64 = dataUrl.split(',')[1];
+      if (file.type === 'application/pdf') {
+        pendingImage = { isPdf: true, base64, name: file.name };
+        // Show PDF filename preview instead of image
+        const preview = document.getElementById('image-preview');
+        preview.style.display = 'none';
+        const previewArea = document.getElementById('image-preview-area');
+        previewArea.style.display = 'block';
+        // Add filename label if not already present
+        let label = document.getElementById('pdf-label');
+        if (!label) {
+          label = document.createElement('span');
+          label.id = 'pdf-label';
+          label.style.cssText = 'color:rgba(232,101,10,0.9);font-size:12px;font-weight:600;';
+          previewArea.querySelector('div').appendChild(label);
+        }
+        label.textContent = '📄 ' + file.name;
+      } else {
+        pendingImage = { base64, mimeType: file.type, dataUrl };
+        const preview = document.getElementById('image-preview');
+        preview.style.display = '';
+        preview.src = dataUrl;
+        document.getElementById('image-preview-area').style.display = 'block';
+        const label = document.getElementById('pdf-label');
+        if (label) label.remove();
+      }
+    };
+    reader.readAsDataURL(file);
+    event.target.value = '';
+  }
+
+  function clearImage() {
+    pendingImage = null;
+    document.getElementById('image-preview-area').style.display = 'none';
+    document.getElementById('image-preview').src = '';
+  }
+
   async function sendMessage() {
     const text = input.value.trim();
-    if (!text || sendBtn.disabled) return;
+    if ((!text && !pendingImage) || sendBtn.disabled) return;
 
     const userBubble = createMessage('user');
-    userBubble.textContent = text;
-    history.push({ role: 'user', content: text });
+    if (pendingImage) {
+      if (pendingImage.isPdf) {
+        const label = document.createElement('div');
+        label.textContent = '📄 ' + pendingImage.name;
+        label.style.cssText = 'font-size:12px;font-weight:600;margin-bottom:6px;opacity:0.9;';
+        userBubble.appendChild(label);
+      } else {
+        const img = document.createElement('img');
+        img.src = pendingImage.dataUrl;
+        img.style.cssText = 'max-width:200px;max-height:150px;border-radius:8px;display:block;margin-bottom:6px;';
+        userBubble.appendChild(img);
+      }
+    }
+    if (text) {
+      const textNode = document.createTextNode(text);
+      userBubble.appendChild(textNode);
+    }
 
+    history.push({ role: 'user', content: text || 'Please analyze this image.' });
+
+    const imageToSend = pendingImage;
     input.value = '';
     input.style.height = 'auto';
+    clearImage();
     sendBtn.disabled = true;
 
     const typingEl = showTyping();
 
     try {
+      const body = { messages: history };
+      if (imageToSend) {
+        if (imageToSend.isPdf) {
+          body.pdf = { base64: imageToSend.base64 };
+        } else {
+          body.image = { base64: imageToSend.base64, mime_type: imageToSend.mimeType };
+        }
+      }
+
       const response = await fetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify(body),
       });
 
       const ashBubble = document.createElement('div');
@@ -665,6 +1124,12 @@
       let fullText = '';
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+
+      const statusMessages = {
+        searching: 'Ash is searching the web...',
+        reading:   'Ash is reading your document...',
+        thinking:  'Ash is thinking...',
+      };
 
       while (true) {
         const { done, value } = await reader.read();
@@ -676,14 +1141,33 @@
           const data = line.slice(6);
           if (data === '[DONE]') break;
           try {
-            fullText += JSON.parse(data);
-            ashBubble.textContent = fullText;
-            scrollToBottom();
+            const parsed = JSON.parse(data);
+            if (typeof parsed === 'object' && parsed.status) {
+              // Status event — update typing indicator
+              ashBubble.className = 'bubble typing-status';
+              ashBubble.textContent = statusMessages[parsed.status] || 'Ash is working...';
+            } else {
+              // Content — switch to normal bubble and stream text
+              if (ashBubble.classList.contains('typing-status')) {
+                ashBubble.className = 'bubble';
+                ashBubble.textContent = '';
+              }
+              fullText += parsed;
+              ashBubble.textContent = fullText;
+              scrollToBottom();
+            }
           } catch {}
         }
       }
 
       history.push({ role: 'assistant', content: fullText });
+
+      // Silently attempt lead extraction after every response
+      tryCaptureLead();
+
+      // Generate suggested follow-up prompts
+      loadSuggestedPrompts();
+
     } catch {
       const errBubble = typingEl.querySelector('.bubble') || typingEl.querySelector('.typing-dots');
       if (errBubble) {
@@ -694,6 +1178,260 @@
       sendBtn.disabled = false;
       input.focus();
     }
+  }
+
+  // ── Voice input ──
+  let recognition = null;
+  let isRecording = false;
+
+  function toggleVoice() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Voice input is not supported in this browser. Try Chrome or Safari.');
+      return;
+    }
+
+    if (isRecording) {
+      recognition.stop();
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = true;
+    recognition.continuous = false;
+
+    const micBtn = document.getElementById('mic-btn');
+
+    recognition.onstart = () => {
+      isRecording = true;
+      micBtn.classList.add('recording');
+      input.placeholder = 'Listening...';
+    };
+
+    recognition.onresult = (e) => {
+      const transcript = Array.from(e.results)
+        .map(r => r[0].transcript).join('');
+      input.value = transcript;
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 100) + 'px';
+    };
+
+    recognition.onend = () => {
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      input.placeholder = 'Ask Ash about our warehouse services...';
+      if (input.value.trim()) sendMessage();
+    };
+
+    recognition.onerror = () => {
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      input.placeholder = 'Ask Ash about our warehouse services...';
+    };
+
+    recognition.start();
+  }
+
+  function openQuoteModal() {
+    document.getElementById('quote-modal').classList.add('open');
+  }
+
+  function closeQuoteModal() {
+    document.getElementById('quote-modal').classList.remove('open');
+  }
+
+  let selectedSlot = null;
+
+  async function openScheduleModal() {
+    document.getElementById('schedule-modal').classList.add('open');
+    selectedSlot = null;
+    const slotList = document.getElementById('slot-list');
+    slotList.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">Loading available times...</p>';
+    try {
+      const res = await fetch('/available-slots');
+      const data = await res.json();
+      if (!data.slots || data.slots.length === 0) {
+        slotList.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">No available slots found. Please call 253.826.2727.</p>';
+        return;
+      }
+      slotList.innerHTML = '';
+      data.slots.forEach(slot => {
+        const btn = document.createElement('button');
+        btn.className = 'slot-btn';
+        btn.textContent = slot.label;
+        btn.dataset.start = slot.start;
+        btn.dataset.end = slot.end;
+        btn.onclick = () => {
+          document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedSlot = { start: slot.start, end: slot.end, label: slot.label };
+        };
+        slotList.appendChild(btn);
+      });
+    } catch (e) {
+      slotList.innerHTML = '<p style="color:#e86565;font-size:13px;">Failed to load slots. Please call 253.826.2727.</p>';
+    }
+  }
+
+  function closeScheduleModal() {
+    document.getElementById('schedule-modal').classList.remove('open');
+  }
+
+  document.getElementById('schedule-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('schedule-modal')) closeScheduleModal();
+  });
+
+  async function submitSchedule() {
+    const name = document.getElementById('s-name').value.trim();
+    const email = document.getElementById('s-email').value.trim();
+    const phone = document.getElementById('s-phone').value.trim();
+    const type = document.getElementById('s-type').value;
+    const notes = document.getElementById('s-notes').value.trim();
+
+    if (!name) { alert('Please enter your name.'); return; }
+    if (!selectedSlot) { alert('Please select a time slot.'); return; }
+
+    const btn = document.getElementById('schedule-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Booking...';
+
+    try {
+      const res = await fetch('/book-appointment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, type, notes, slot_start: selectedSlot.start, slot_end: selectedSlot.end })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        closeScheduleModal();
+        const bubble = createMessage('assistant');
+        bubble.innerHTML = `Your appointment has been booked! ✅<br><br><strong>${type}</strong> — ${selectedSlot.label} (Pacific Time)<br><br>${email ? 'A confirmation email has been sent to ' + email + '.' : ''} If you need to reschedule, call us at <strong>253.826.2727</strong>.`;
+        btn.disabled = false;
+        btn.textContent = 'Confirm Appointment';
+      } else {
+        alert('Booking failed: ' + (data.error || 'Unknown error'));
+        btn.disabled = false;
+        btn.textContent = 'Confirm Appointment';
+      }
+    } catch (e) {
+      alert('Booking failed. Please try again or call 253.826.2727.');
+      btn.disabled = false;
+      btn.textContent = 'Confirm Appointment';
+    }
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('quote-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('quote-modal')) closeQuoteModal();
+  });
+
+  async function submitQuote() {
+    const name = document.getElementById('q-name').value.trim();
+    const email = document.getElementById('q-email').value.trim();
+    const location = document.getElementById('q-location').value.trim();
+
+    if (!name || !email || !location) {
+      alert('Please fill in Name, Email, and Location.');
+      return;
+    }
+
+    const btn = document.getElementById('quote-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    const quoteData = {
+      name,
+      company: document.getElementById('q-company').value.trim(),
+      email,
+      phone: document.getElementById('q-phone').value.trim(),
+      location,
+      warehouse_size: document.getElementById('q-size').value.trim(),
+      clear_height: document.getElementById('q-height').value.trim(),
+      service: document.getElementById('q-service').value,
+      timeline: document.getElementById('q-timeline').value,
+      notes: document.getElementById('q-notes').value.trim(),
+    };
+
+    try {
+      const res = await fetch('/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(quoteData),
+      });
+
+      if (res.ok) {
+        closeQuoteModal();
+        // Show confirmation in chat
+        const msg = document.createElement('div');
+        msg.className = 'message ash';
+        msg.innerHTML = `<div class="msg-avatar">A</div><div class="bubble">Thanks ${name}! Your quote request has been sent to Jay Farber and the Pacific Construction team. Expect a call within 1 business day. In the meantime, feel free to ask me anything else!</div>`;
+        document.getElementById('messages').appendChild(msg);
+        scrollToBottom();
+      } else {
+        alert('Something went wrong. Please try again or call 253.826.2727.');
+      }
+    } catch {
+      alert('Something went wrong. Please try again or call 253.826.2727.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Submit Quote Request';
+    }
+  }
+
+  async function loadSuggestedPrompts() {
+    const container = document.getElementById('suggested-prompts');
+    container.innerHTML = '';
+    try {
+      const res = await fetch('/suggest-prompts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+      const data = await res.json();
+      (data.prompts || []).forEach(prompt => {
+        const btn = document.createElement('button');
+        btn.className = 'prompt-btn';
+        btn.textContent = prompt;
+        btn.onclick = () => {
+          input.value = prompt;
+          container.innerHTML = '';
+          sendMessage();
+        };
+        container.appendChild(btn);
+      });
+    } catch {}
+  }
+
+  let leadCaptured = false;
+
+  async function tryCaptureLead() {
+    if (leadCaptured) return; // Only capture once per session
+    try {
+      const res = await fetch('/extract-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+      const data = await res.json();
+      if (!data.found) return;
+
+      const lead = data.lead;
+      const captureRes = await fetch('/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...lead, source: 'chat-auto' }),
+      });
+      if (captureRes.ok) {
+        leadCaptured = true;
+        // Show subtle confirmation in chat
+        const note = document.createElement('div');
+        note.style.cssText = 'text-align:center;font-size:11px;color:rgba(232,101,10,0.7);padding:4px 0;';
+        note.textContent = '✓ Your info has been sent to the Pacific Construction team';
+        document.getElementById('messages').appendChild(note);
+        document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+      }
+    } catch {}
   }
 
   async function saveName() {
@@ -720,6 +1458,29 @@
       if (e.key === 'Enter') saveName();
     });
   }
+
+  // Save conversation memory when user leaves the page
+  async function saveSessionMemory() {
+    if (history.length < 2) return;
+    try {
+      await fetch('/update-memory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+        keepalive: true,
+      });
+    } catch {}
+  }
+
+  window.addEventListener('beforeunload', saveSessionMemory);
+
+  // Also save after every 4th message exchange
+  const origPush = history.push.bind(history);
+  history.push = function(...args) {
+    origPush(...args);
+    if (history.length % 8 === 0) saveSessionMemory();
+    return history.length;
+  };
 </script>
 
 </body>

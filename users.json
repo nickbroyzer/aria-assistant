@@ -1,0 +1,64 @@
+{
+  "users": [
+    {
+      "user_id": "owner-jay",
+      "username": "jay",
+      "display_name": "Jay Farber",
+      "password_hash": "scrypt:32768:8:1$1tFgkQF1GPKKu0wB$63f27e7e4580428722709d5a8adf768c1a67df7d82690df952f59881143519a8fbf18bc2e3e5a7c5f1a48df8bffb82b9deff94998af321912a739851cf8e3703",
+      "role": "owner",
+      "permissions": {
+        "leads": true,
+        "appointments": true,
+        "jobs": true,
+        "invoices": true,
+        "people": true,
+        "payroll": true,
+        "settings": true
+      },
+      "created_at": "2026-03-08",
+      "last_login": "2026-03-09 21:21",
+      "active": true
+    },
+    {
+      "user_id": "fe4a2a34-327e-4bd9-a02e-b3c81793a7e9",
+      "username": "ashleyfarmer",
+      "display_name": "Ashley Farmer",
+      "password_hash": "scrypt:32768:8:1$pRmw6XQbrrZpYMaJ$3b1aae1c56028d406308db282566bf8f421609139f766558150f674fe4dd139818bf44124f27fba1ef22f85b5f54cad0f66dc88a95eb462877276947a60b705f",
+      "role": "staff",
+      "permissions": {
+        "leads": true,
+        "appointments": true,
+        "jobs": true,
+        "invoices": true,
+        "people": true,
+        "payroll": true,
+        "settings": false,
+        "jobcosts": true
+      },
+      "linked_person_id": "6f9759f7-e965-4e31-8446-71d27b6f217f",
+      "created_at": "2026-03-08",
+      "last_login": "2026-03-08 22:57",
+      "active": true
+    },
+    {
+      "user_id": "5d7ce8a7-a26f-446f-b706-c7055e4cb7a1",
+      "username": "bookkeeper",
+      "display_name": "Bookkeeper",
+      "password_hash": "scrypt:32768:8:1$chs2dPlBOKd9L3I5$3b4a81576d865e123b63a6817cb3a5f80b5cc017e2bd6a1b1750c085fec2a7a8665c135be3628331a15eff30027fe2ccf8369c05eeb6106275cdda0a19252206",
+      "role": "accountant",
+      "permissions": {
+        "leads": false,
+        "appointments": false,
+        "jobs": true,
+        "invoices": true,
+        "jobcosts": true,
+        "people": false,
+        "payroll": true,
+        "settings": false
+      },
+      "created_at": "2026-03-08",
+      "last_login": "2026-03-08 22:53",
+      "active": true
+    }
+  ]
+}

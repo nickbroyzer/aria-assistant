@@ -1,0 +1,1862 @@
+[
+  {
+    "comm_id": "83bef701-dce0-4601-ae06-700b1580e1b5",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Carla",
+    "timestamp": "2026-01-29T21:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "44da86d9-90ce-4a39-a72c-8ff45a3a3d06",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Carla, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-30T11:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "90595dcd-1157-4064-8e0c-7724240ba9ad",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Carla",
+    "timestamp": "2026-01-30T18:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "25716038-afde-4359-9365-d0a87d6dd8cf",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-31T15:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "950a571e-403c-4085-bb4a-4b06b80fe4de",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, . No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Carla",
+    "timestamp": "2026-01-31T21:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "c83dca71-bddf-451a-846e-e215c8c38899",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-01T06:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "6d600d16-1cc9-4e22-a95e-8401f2082911",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Carla \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-01T14:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "898cc26e-64d5-4465-a1a1-785b36e07f1d",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Carla, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-02T16:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "99b00dcb-0f62-41b9-9e4f-a268531eb3b8",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Carla",
+    "timestamp": "2026-02-03T01:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "0bd3c457-da4b-43ac-a540-75612a60c91f",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-04T02:32:54.874230+00:00"
+  },
+  {
+    "comm_id": "96ac4990-424c-451b-af59-d46893d80d05",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Mike",
+    "timestamp": "2025-12-25T21:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "ab550e50-ad0a-4ec1-b472-b0f385a0a69b",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Mike, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-26T18:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "ab4754e3-093d-4be6-a88b-4cb504f7bed8",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Mike",
+    "timestamp": "2025-12-27T10:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "e286219c-5688-4180-a133-7a85086a0b04",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-27T18:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "0eb77c12-88e6-4979-bacb-d87119577aab",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Seattle. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Mike",
+    "timestamp": "2025-12-28T08:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "e275b851-1a4c-4502-a5f9-2ff377adbb44",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-29T09:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "b9287dca-ef1a-4420-bd9e-373145cf63bc",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Mike \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-30T05:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "e81f52fb-4d3f-4af9-a7a6-c00b7dbe16f8",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Mike, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-01T10:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "b6ae957d-8b36-44f9-a918-94cc145abc10",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Mike",
+    "timestamp": "2026-01-01T22:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "ba9dedf8-41ec-48db-98ba-0e7ba817dbd7",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-03T02:32:54.874446+00:00"
+  },
+  {
+    "comm_id": "832bce3a-7325-47bd-881a-bde4469a498a",
+    "lead_id": "f8f08330-455e-43b0-a6c8-09aaa1badbeb",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi, came across your company online. We have a warehouse project we're trying to get off the ground and wanted to get a quote. Can you help?",
+    "sent_by": "Tanya",
+    "timestamp": "2026-02-14T21:32:54.874496+00:00"
+  },
+  {
+    "comm_id": "0fd3e4f0-d109-4268-afb9-a7210ede99f7",
+    "lead_id": "f8f08330-455e-43b0-a6c8-09aaa1badbeb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Tanya, thanks for reaching out to Pacific Construction! We'd love to learn more about your project. Could you share a bit more about what you're working on \u2014 scope, timeline, and facility location? That'll help us figure out the best way to help.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-15T13:32:54.874496+00:00"
+  },
+  {
+    "comm_id": "07ef4a86-20f8-41c2-ae2b-3cd904ba79d0",
+    "lead_id": "f8f08330-455e-43b0-a6c8-09aaa1badbeb",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Sure \u2014 we're looking at adding storage capacity to our existing facility. Haven't pinned down the exact approach yet but budget is probably $30\u2013$50K.",
+    "sent_by": "Tanya",
+    "timestamp": "2026-02-16T11:32:54.874496+00:00"
+  },
+  {
+    "comm_id": "7d4edf50-84fa-4efa-8afc-fdc3a89ccc30",
+    "lead_id": "f8f08330-455e-43b0-a6c8-09aaa1badbeb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "That budget is very workable. There are a few directions we could go \u2014 pallet racking, a small mezzanine, or shelving systems. Each has pros and cons depending on your SKU mix and workflow. I'd suggest a free 30-minute site visit so I can see the space and give you an educated recommendation. Does that sound reasonable?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-16T18:32:54.874496+00:00"
+  },
+  {
+    "comm_id": "a3b26835-6f5c-4041-9be4-4b976a76a268",
+    "lead_id": "f8f08330-455e-43b0-a6c8-09aaa1badbeb",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Initial Project Inquiry",
+    "body": "Initial call with Tanya at Okafor Industrial LLC. Friendly conversation \u2014 they're early in the process. No specific timeline. Will send a follow-up email with our portfolio and project examples to keep them warm.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-17T13:32:54.874496+00:00"
+  },
+  {
+    "comm_id": "1a3e8b15-d8bb-4cfc-ae32-f8f7af99cf4b",
+    "lead_id": "f8f08330-455e-43b0-a6c8-09aaa1badbeb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Tanya, great chatting earlier! I've attached a few project examples from similar facilities we've outfitted. When you're ready to move forward on that site visit, just reply here or call me directly at 253.826.2727. Looking forward to helping you maximize that space.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-17T16:32:54.874496+00:00"
+  },
+  {
+    "comm_id": "8057a99f-e29e-4ce4-ab61-4d0e03c6fbff",
+    "lead_id": "46b5e257-21f6-49a5-b8ce-7afd5ef6e1e6",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi, came across your company online. We have a warehouse project we're trying to get off the ground and wanted to get a quote. Can you help?",
+    "sent_by": "Marcus",
+    "timestamp": "2026-01-24T21:32:54.874528+00:00"
+  },
+  {
+    "comm_id": "65f2dc0a-81ea-4f28-9910-c6f0730901dd",
+    "lead_id": "46b5e257-21f6-49a5-b8ce-7afd5ef6e1e6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Marcus, thanks for reaching out to Pacific Construction! We'd love to learn more about your project. Could you share a bit more about what you're working on \u2014 scope, timeline, and facility location? That'll help us figure out the best way to help.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-25T09:32:54.874528+00:00"
+  },
+  {
+    "comm_id": "6c1bcaa8-10f6-4e16-a080-c6a5229324ad",
+    "lead_id": "46b5e257-21f6-49a5-b8ce-7afd5ef6e1e6",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Sure \u2014 we're looking at adding storage capacity to our existing facility. Haven't pinned down the exact approach yet but budget is probably $30\u2013$50K.",
+    "sent_by": "Marcus",
+    "timestamp": "2026-01-25T22:32:54.874528+00:00"
+  },
+  {
+    "comm_id": "3a5761a2-1574-46b8-9a3f-6539c2141c2c",
+    "lead_id": "46b5e257-21f6-49a5-b8ce-7afd5ef6e1e6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "That budget is very workable. There are a few directions we could go \u2014 pallet racking, a small mezzanine, or shelving systems. Each has pros and cons depending on your SKU mix and workflow. I'd suggest a free 30-minute site visit so I can see the space and give you an educated recommendation. Does that sound reasonable?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-26T01:32:54.874528+00:00"
+  },
+  {
+    "comm_id": "5808fe60-b8c1-4708-a022-1263cee3c155",
+    "lead_id": "46b5e257-21f6-49a5-b8ce-7afd5ef6e1e6",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Initial Project Inquiry",
+    "body": "Initial call with Marcus at Webdistribution LLC. Friendly conversation \u2014 they're early in the process. No specific timeline. Will send a follow-up email with our portfolio and project examples to keep them warm.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-26T10:32:54.874528+00:00"
+  },
+  {
+    "comm_id": "b10fcc1b-baeb-481b-9692-b02c8475220a",
+    "lead_id": "46b5e257-21f6-49a5-b8ce-7afd5ef6e1e6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Marcus, great chatting earlier! I've attached a few project examples from similar facilities we've outfitted. When you're ready to move forward on that site visit, just reply here or call me directly at 253.826.2727. Looking forward to helping you maximize that space.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-26T15:32:54.874528+00:00"
+  },
+  {
+    "comm_id": "aac14e96-a652-4409-ba16-193cd50ba232",
+    "lead_id": "d3ada6b1-409c-46d6-8cd7-6cdf64e86742",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi, came across your company online. We have a warehouse project we're trying to get off the ground and wanted to get a quote. Can you help?",
+    "sent_by": "Brett",
+    "timestamp": "2026-02-10T21:32:54.874556+00:00"
+  },
+  {
+    "comm_id": "98abd216-225c-416d-8f90-d67e622627cf",
+    "lead_id": "d3ada6b1-409c-46d6-8cd7-6cdf64e86742",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Brett, thanks for reaching out to Pacific Construction! We'd love to learn more about your project. Could you share a bit more about what you're working on \u2014 scope, timeline, and facility location? That'll help us figure out the best way to help.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-11T10:32:54.874556+00:00"
+  },
+  {
+    "comm_id": "26b99dfd-72ee-4555-a1cd-7e36d5bb3db7",
+    "lead_id": "d3ada6b1-409c-46d6-8cd7-6cdf64e86742",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Sure \u2014 we're looking at adding storage capacity to our existing facility. Haven't pinned down the exact approach yet but budget is probably $30\u2013$50K.",
+    "sent_by": "Brett",
+    "timestamp": "2026-02-12T04:32:54.874556+00:00"
+  },
+  {
+    "comm_id": "fb236c91-32c0-4e68-a060-ca86c52fc146",
+    "lead_id": "d3ada6b1-409c-46d6-8cd7-6cdf64e86742",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "That budget is very workable. There are a few directions we could go \u2014 pallet racking, a small mezzanine, or shelving systems. Each has pros and cons depending on your SKU mix and workflow. I'd suggest a free 30-minute site visit so I can see the space and give you an educated recommendation. Does that sound reasonable?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-12T08:32:54.874556+00:00"
+  },
+  {
+    "comm_id": "3079810f-835e-4878-8c8d-5b17b74fda96",
+    "lead_id": "d3ada6b1-409c-46d6-8cd7-6cdf64e86742",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Initial Project Inquiry",
+    "body": "Initial call with Brett at Kowalskiops LLC. Friendly conversation \u2014 they're early in the process. No specific timeline. Will send a follow-up email with our portfolio and project examples to keep them warm.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-12T23:32:54.874556+00:00"
+  },
+  {
+    "comm_id": "f6be2590-d1e8-4993-a020-b3fbec0906e9",
+    "lead_id": "d3ada6b1-409c-46d6-8cd7-6cdf64e86742",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Brett, great chatting earlier! I've attached a few project examples from similar facilities we've outfitted. When you're ready to move forward on that site visit, just reply here or call me directly at 253.826.2727. Looking forward to helping you maximize that space.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-13T04:32:54.874556+00:00"
+  },
+  {
+    "comm_id": "7edf3c48-555e-462c-9119-94e60f5c83c3",
+    "lead_id": "b8db191b-d4e9-410b-9ff6-79f306c5924d",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Structural Mezzanine \u2014 New Office Space",
+    "body": "We're interested in adding a mezzanine over our existing operations floor \u2014 roughly 2,000 sq ft of usable office space. Steel structure preferred. What's your typical timeline and cost range?",
+    "sent_by": "John",
+    "timestamp": "2026-02-20T21:32:54.874583+00:00"
+  },
+  {
+    "comm_id": "d3447642-8759-42a3-899d-a270c9aa5735",
+    "lead_id": "b8db191b-d4e9-410b-9ff6-79f306c5924d",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Structural Mezzanine \u2014 New Office Space",
+    "body": "Hi John, a 2,000 sq ft structural steel mezzanine is a great investment. Depending on live load requirements and stair configuration, installed cost typically runs $80,000\u2013$140,000. Timeline from permit approval is usually 6\u20138 weeks. Would a preliminary site visit work this week?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-21T10:32:54.874583+00:00"
+  },
+  {
+    "comm_id": "e549d2dd-b939-4298-8b07-591e9d737ebf",
+    "lead_id": "b8db191b-d4e9-410b-9ff6-79f306c5924d",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Structural Mezzanine \u2014 New Office Space",
+    "body": "Yes \u2014 we're open Tuesday or Wednesday. Wednesday afternoon is ideal.",
+    "sent_by": "John",
+    "timestamp": "2026-02-21T15:32:54.874583+00:00"
+  },
+  {
+    "comm_id": "da155870-a7b2-41d9-b440-0f091410f070",
+    "lead_id": "b8db191b-d4e9-410b-9ff6-79f306c5924d",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Structural Mezzanine \u2014 New Office Space",
+    "body": "Wednesday afternoon confirmed. I'll have our structural estimator along. A few things to prep: clear height from floor to roof structure, any existing utilities that may run through the footprint, and the intended use (office, storage, or mixed)?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-21T23:32:54.874583+00:00"
+  },
+  {
+    "comm_id": "1f11c4e3-34a2-483f-8a6e-584a9f5e8505",
+    "lead_id": "b8db191b-d4e9-410b-9ff6-79f306c5924d",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Structural Mezzanine \u2014 New Office Space",
+    "body": "Clear height is 28 ft. Some overhead conduit but nothing major. It'll be mixed use \u2014 small offices plus storage overflow.",
+    "sent_by": "John",
+    "timestamp": "2026-02-22T22:32:54.874583+00:00"
+  },
+  {
+    "comm_id": "7f36dd46-ed29-4f8e-a570-98e859763435",
+    "lead_id": "b8db191b-d4e9-410b-9ff6-79f306c5924d",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Structural Mezzanine \u2014 New Office Space",
+    "body": "28 ft gives us great headroom to work with. Mixed use is totally doable \u2014 we'll spec the floor loading accordingly. See you Wednesday!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-23T05:32:54.874583+00:00"
+  },
+  {
+    "comm_id": "2064807a-c0c9-4eab-a063-c4557fb47ede",
+    "lead_id": "b8db191b-d4e9-410b-9ff6-79f306c5924d",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Structural Mezzanine \u2014 New Office Space",
+    "body": "Post site-visit call with John. They loved the proposal concept. Want to include a full stair with handrail and one access gate. Budget approved internally up to $120K. Moving to formal proposal stage.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-24T05:32:54.874583+00:00"
+  },
+  {
+    "comm_id": "8e1b21b1-6510-4289-afb4-f2cb1ba00695",
+    "lead_id": "facef4f6-4418-49ca-8093-a0d96002a220",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi, came across your company online. We have a warehouse project we're trying to get off the ground and wanted to get a quote. Can you help?",
+    "sent_by": "Linda",
+    "timestamp": "2025-12-25T21:32:54.874618+00:00"
+  },
+  {
+    "comm_id": "ce4e2c6f-a2e2-4fca-8d6d-f4f13f0c2199",
+    "lead_id": "facef4f6-4418-49ca-8093-a0d96002a220",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Linda, thanks for reaching out to Pacific Construction! We'd love to learn more about your project. Could you share a bit more about what you're working on \u2014 scope, timeline, and facility location? That'll help us figure out the best way to help.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-26T15:32:54.874618+00:00"
+  },
+  {
+    "comm_id": "2eaea67b-eeb9-4306-b8ad-d8df7734a910",
+    "lead_id": "facef4f6-4418-49ca-8093-a0d96002a220",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Sure \u2014 we're looking at adding storage capacity to our existing facility. Haven't pinned down the exact approach yet but budget is probably $30\u2013$50K.",
+    "sent_by": "Linda",
+    "timestamp": "2025-12-27T13:32:54.874618+00:00"
+  },
+  {
+    "comm_id": "86826417-5d92-4fa0-b85b-cf7d3b247935",
+    "lead_id": "facef4f6-4418-49ca-8093-a0d96002a220",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "That budget is very workable. There are a few directions we could go \u2014 pallet racking, a small mezzanine, or shelving systems. Each has pros and cons depending on your SKU mix and workflow. I'd suggest a free 30-minute site visit so I can see the space and give you an educated recommendation. Does that sound reasonable?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-27T20:32:54.874618+00:00"
+  },
+  {
+    "comm_id": "a24fba28-cc12-471b-90d1-8fd5682ea8f5",
+    "lead_id": "facef4f6-4418-49ca-8093-a0d96002a220",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Initial Project Inquiry",
+    "body": "Initial call with Linda at Chow Supply LLC. Friendly conversation \u2014 they're early in the process. No specific timeline. Will send a follow-up email with our portfolio and project examples to keep them warm.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-27T22:32:54.874618+00:00"
+  },
+  {
+    "comm_id": "b022ab3c-fb40-456d-b89d-3518958619f2",
+    "lead_id": "facef4f6-4418-49ca-8093-a0d96002a220",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Initial Project Inquiry",
+    "body": "Hi Linda, great chatting earlier! I've attached a few project examples from similar facilities we've outfitted. When you're ready to move forward on that site visit, just reply here or call me directly at 253.826.2727. Looking forward to helping you maximize that space.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-27T23:32:54.874618+00:00"
+  },
+  {
+    "comm_id": "375fbbc8-b2df-4784-b6c2-cf345a63088d",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Ray",
+    "timestamp": "2026-01-24T21:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "4b8149bd-8aa7-4fe1-9750-33b0b6d8643c",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Ray, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-25T20:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "9cbba469-73b4-471d-acac-26697550c76c",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Ray",
+    "timestamp": "2026-01-26T10:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "5b6d0ebc-a23a-4272-b9c6-06ca92b62cd9",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-26T14:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "b74670ff-9fdf-43c2-9d6c-937b50e70a8b",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, . No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Ray",
+    "timestamp": "2026-01-27T04:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "7dd45283-6026-4a4f-83a9-7ed6fe5cec87",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-28T02:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "52e59230-03bd-4745-8a2f-7f26dfbd4905",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Ray \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-28T05:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "1aaa4cdb-1343-4414-9a51-35ccaad83ff6",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Ray, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-31T07:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "4983c1db-3460-41f8-a614-d7359f511c37",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Ray",
+    "timestamp": "2026-02-01T03:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "fb8de899-2a46-4546-b00d-79d26f52af83",
+    "lead_id": "63b2f03e-05eb-4cf6-ab0c-5a104f1aa9ad",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-01T05:32:54.874645+00:00"
+  },
+  {
+    "comm_id": "23dc0692-d11e-4ba4-ac0f-2b5b5c83d30c",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Nick",
+    "timestamp": "2026-02-15T21:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "93b062b4-0658-421a-82ee-5918ee483952",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Nick, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-16T15:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "d55937ed-daf9-46b7-8939-798254450de5",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Nick",
+    "timestamp": "2026-02-17T04:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "67ca8f5f-0a9c-4845-9fee-ed701a7ab31c",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-17T12:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "bd82da70-67c9-46fb-a098-e4628c8ac016",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Magnolia, Washington. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Nick",
+    "timestamp": "2026-02-17T14:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "2785cfc0-a3f5-4845-bbab-25b9e2ae0abf",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-18T12:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "e8a3239f-e1fe-4a8b-bc51-85a7462dc945",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Nick \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-18T19:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "c3e1780d-8853-4ac8-8156-d999645bfda7",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Nick, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-21T23:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "a62bf8d7-ea96-45f0-bb70-24142d218d18",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Nick",
+    "timestamp": "2026-02-22T17:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "9431bc28-05ec-4b4e-9c27-879c3c0d8c6b",
+    "lead_id": "5a8f39f1-9ed9-4f51-b168-fd0184c67691",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-23T07:32:54.874688+00:00"
+  },
+  {
+    "comm_id": "f4a4f10e-789f-4887-b220-e8251aabc33c",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Amy",
+    "timestamp": "2025-12-25T21:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "a435088c-37da-47ce-a2d4-85517bd2704f",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Amy, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-26T21:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "f52d70a3-aa61-426b-b77a-02859f4b49b0",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Amy",
+    "timestamp": "2025-12-27T13:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "d9d5a0fe-e889-4242-8d66-df59c3e2a2fb",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-27T16:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "6614769f-8a8c-48e2-b29b-d2d8d06a6697",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Magnolia. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Amy",
+    "timestamp": "2025-12-27T21:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "2ae35b72-fee5-40f0-be2a-f9deb2a2184b",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-28T22:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "1ae856e0-e852-4f54-8c3c-5fee3abab2ad",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Amy \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-29T21:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "cdab4a6e-db68-43a4-8e61-7a93d2498e68",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Amy, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-01T02:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "ff5d7589-2c2c-4002-8061-0bd6b573bd95",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Amy",
+    "timestamp": "2026-01-01T22:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "d0e0a9f3-72e2-4b89-8f1e-faec805b07f3",
+    "lead_id": "3d3ceabc-ee2e-4f8c-ae78-2fe26016a6eb",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-02T13:32:54.874728+00:00"
+  },
+  {
+    "comm_id": "6ef5abad-2b00-4898-80be-b56d34c9b692",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-16T21:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "0fbd29c0-d0fe-4a79-b23a-9716047c03a7",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Sarah, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-17T03:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "0559edc8-97b0-4043-bc3d-732fb58ba301",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-17T13:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "80926485-ca0c-46b9-9c6d-cd92b6f871b3",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-17T20:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "39b9a603-f64c-4d7f-8f35-68e8cb6256f8",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-18T02:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "8f27107a-53ca-4290-8d0c-c95a17e7f028",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-18T17:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "2afe4a99-5761-4ed4-9920-3e0d0a25662a",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Sarah \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-18T22:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "94f43ed6-aa68-46ed-8669-d9a78fbd3465",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Sarah, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-22T00:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "bc2b9873-a3e4-4371-87fd-6d85c126b2db",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-22T16:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "8a0b8e3e-a6f7-48e2-b3ca-6807be429e9a",
+    "lead_id": "0d9ea322-e31f-443a-a25e-0fbc5d0bd6e5",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-23T19:32:54.874771+00:00"
+  },
+  {
+    "comm_id": "ac216806-6189-4b4b-84af-0159c5ab013d",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-16T21:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "6f98680e-3c8c-4883-9553-ed34f427ca57",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Sarah, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-18T01:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "920db9c5-3a34-4c23-bb1d-e8b1025cad08",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-18T13:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "80c90920-b183-4481-b090-f961045bedb9",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-18T20:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "6d5f9afb-ae3a-4c93-b007-685e164efb35",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane, WA. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-19T18:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "0f3db3b4-d408-4a72-9e7b-c501c21584c6",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-19T22:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "f18b74b0-5309-4480-bf9c-f90adadb9484",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Sarah \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-20T15:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "daf54c1e-5905-4d6c-9f18-93e1952acb34",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Sarah, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-21T18:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "a590c360-9361-445b-8f10-48913498b35a",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-22T13:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "b3a69514-7584-48c1-aea1-0c00c39b36ce",
+    "lead_id": "d4b15f83-6355-43e1-a9a1-e496e705373b",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-23T17:32:54.874810+00:00"
+  },
+  {
+    "comm_id": "02f38f93-0fb3-40b7-b6de-b83c065ca63e",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-10T21:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "cd41ef00-2ef9-40c7-8183-20a287fc9760",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Sarah, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-11T11:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "1d8de3a5-e819-45cb-b7f8-a3d032825110",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-12T00:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "a58e0d18-ba50-44c8-8372-ec99dcc31531",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-12T12:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "98da38a1-da33-4530-bfd2-75a199069da9",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane, WA. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-13T01:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "cfc14516-1f2e-433b-9eb9-db7dfad7ed30",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-13T15:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "19e26bec-735f-4941-82b1-bed012948dfe",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Sarah \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-14T05:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "059236ce-6d5c-40d4-b3a8-ffecca5c2ba3",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Sarah, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-15T08:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "715512df-71d9-48b2-ab2a-6ef6ad726e42",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Sarah",
+    "timestamp": "2026-02-15T14:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "2a84a0d1-4d93-44d0-907c-64882118ee22",
+    "lead_id": "46b64f3c-7405-4523-99ff-d337dd29e895",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-15T17:32:54.874849+00:00"
+  },
+  {
+    "comm_id": "df8de359-25d7-4021-bcf8-6de65e2d09f3",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Mike",
+    "timestamp": "2026-01-05T21:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "a4b0c4eb-022e-42c4-9006-165a369d954e",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Mike, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-06T13:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "7dd0b82b-99a7-4970-87ad-186ee46be360",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Mike",
+    "timestamp": "2026-01-06T21:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "a2ba69ff-a819-4ecb-a7df-94f128b45dc4",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-07T08:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "23f34537-ea5e-43c0-a677-b0c5fba2c497",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Seattle. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Mike",
+    "timestamp": "2026-01-08T05:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "42655273-ae22-42ae-a1c0-ed5d185d6d17",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-08T14:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "acf8e10a-14fb-4a77-b7ed-59de3c9de99f",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Mike \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-09T11:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "7742c8f9-4855-4849-a3c9-13a20711c1a6",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Mike, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-12T17:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "c4ae4d2a-ddca-4d80-bec6-3443e0c07803",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Mike",
+    "timestamp": "2026-01-12T21:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "b2b5dec9-d2a4-45aa-830a-c6415d51262d",
+    "lead_id": "a65e9389-25b6-47b3-a2cf-bd5b9bbbcbc2",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-13T21:32:54.874887+00:00"
+  },
+  {
+    "comm_id": "c660e026-9da5-4249-a2f7-1b5124252de4",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Steve",
+    "timestamp": "2026-02-10T21:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "4ddd4839-30f4-4d2b-a39d-5281c35038f8",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Steve, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-11T23:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "87fb3b08-5802-4976-9f23-38034f05fd4e",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Steve",
+    "timestamp": "2026-02-12T22:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "d4a5e132-321f-4c63-a6f7-4f61d52c74f4",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-13T21:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "8493d52b-726d-493f-b179-fa9af9e3fb4e",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Steve",
+    "timestamp": "2026-02-14T20:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "c569bba5-e446-4476-8e05-1092803ce70a",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-15T05:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "83c182af-274c-44a6-8bcf-b5ba0da400b3",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Steve \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-15T18:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "cf9efb35-b8fe-4a5b-b574-4e464d90a586",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Steve, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-19T21:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "bc778875-d0e6-4eb2-92d9-b99a35275e3b",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Steve",
+    "timestamp": "2026-02-20T00:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "a52ad658-ac35-41bd-a7d9-e5c77860883b",
+    "lead_id": "6cf220e2-01f2-4c57-bed6-69e570dc3573",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-20T16:32:54.874928+00:00"
+  },
+  {
+    "comm_id": "ade31b03-dae7-46eb-a5fb-509bbef63ee3",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "David",
+    "timestamp": "2026-02-19T21:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "c12e8dfb-0001-4388-8f5c-fbf02af37da1",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi David, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-20T15:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "157bd23c-51bb-49da-b458-abb61c2845dd",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "David",
+    "timestamp": "2026-02-21T01:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "dc82993f-229a-40cd-9bf5-03c55a9113ce",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-22T00:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "71ed09ab-a233-45fe-9fd3-a7f1bc471241",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "David",
+    "timestamp": "2026-02-22T11:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "e5352eb9-b942-40a7-a7df-950b39ecc9b1",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-23T14:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "6617d058-29f9-41ad-9047-d1b12a1dc762",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with David \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-24T06:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "78d05643-2626-443a-b9af-e5e78713f2a3",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi David, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-26T11:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "bd08cb97-ce39-44d4-8483-3bb62289ff02",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "David",
+    "timestamp": "2026-02-26T20:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "d6309fcc-ec43-4134-978e-55fbbb9ec6d5",
+    "lead_id": "0b079894-e122-4a28-97ff-1e84918081ca",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-27T11:32:54.874966+00:00"
+  },
+  {
+    "comm_id": "e75f865a-943c-4e56-a9d8-c408f0a337d7",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Jennifer",
+    "timestamp": "2025-12-24T21:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "6faf9b11-90da-424e-b598-c96ec4f484bf",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Jennifer, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-25T20:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "cf006c62-b0f6-4f7e-82e9-06668f79640e",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Jennifer",
+    "timestamp": "2025-12-26T16:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "ef1979d9-c66e-49eb-9d92-03ff85e82249",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-26T23:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "205ce024-1cb9-480d-aaf7-5915f7deb72d",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Jennifer",
+    "timestamp": "2025-12-27T09:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "fe3bfbfd-6070-4282-b4be-fb3793cf8b15",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-27T23:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "e578793f-0da9-4491-815e-3f8ee3a61077",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Jennifer \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2025-12-28T21:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "270d47b8-4c8c-4f62-be56-3d4591a86aee",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Jennifer, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-02T03:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "2ff2eeca-8d2a-4162-a7b4-f621b9d60229",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Jennifer",
+    "timestamp": "2026-01-02T10:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "6cd68aa8-78ae-42c9-b43d-15dee8593205",
+    "lead_id": "191e0bf1-bb20-4502-ab29-d80ee8c249aa",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-03T00:32:54.875009+00:00"
+  },
+  {
+    "comm_id": "141d0b22-4122-402b-8bfa-7e8eea156fa0",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Carla",
+    "timestamp": "2026-02-01T21:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "245989b4-7666-4732-9c9c-820d6acce551",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Carla, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-01T23:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "f3918488-ea22-4a58-ade2-0d3884fffd63",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Carla",
+    "timestamp": "2026-02-02T21:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "0e689d4c-7da1-405a-b7e5-a5843cd85384",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-03T10:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "565cefed-0703-464f-8ee6-455ebd590d82",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Carla",
+    "timestamp": "2026-02-04T09:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "6e3084a5-7e3f-4c84-9117-ddd161e94b9b",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-04T20:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "db0e54b3-05a9-4fc6-972b-d5e661a8d59c",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Carla \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-05T03:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "d49e5a49-f2ff-4fff-a726-dcfffdbbe34a",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Carla, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-07T09:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "b3d0545a-7c1c-4228-9df9-5cb972191eeb",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Carla",
+    "timestamp": "2026-02-08T06:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "a5542a96-dc04-4a8d-bbb8-3ebb83364f3c",
+    "lead_id": "ef204f91-30c9-4518-bdeb-f569cdd73631",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-08T16:32:54.875050+00:00"
+  },
+  {
+    "comm_id": "452469cd-aec0-48f5-816c-61702922a9d8",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Tanya",
+    "timestamp": "2026-01-07T21:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "dc79fd5a-dec1-43ed-bde1-89d7944f1f60",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Tanya, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-08T23:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "3cee6cb8-e544-4689-a6dc-fc85c5d4740b",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Tanya",
+    "timestamp": "2026-01-09T22:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "067a1438-a2a3-4f41-8b00-3db2eef76b90",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-10T07:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "bc19014e-8295-4bb4-8bab-95fbb12c02e9",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Tanya",
+    "timestamp": "2026-01-10T21:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "21fed841-1be6-4a22-8d5e-1056e2e08564",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-11T10:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "dd42ac2c-fa2c-48e4-aad3-77b22820165d",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Tanya \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-12T08:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "ab92fd28-6c33-4903-ae7c-a9b519fa2fe5",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Tanya, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-13T12:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "e57c0829-97c1-4333-a4eb-332171172102",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Tanya",
+    "timestamp": "2026-01-13T16:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "f619b103-60e7-4e8b-be92-b9e26dc5494f",
+    "lead_id": "bc65a5ab-520b-40ad-b297-0c91f693e3a6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-01-14T10:32:54.875093+00:00"
+  },
+  {
+    "comm_id": "76d930b9-168f-4491-bcd2-81f7ab836f9c",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi, we're looking to add pallet racking to our warehouse \u2014 roughly 8,000 sq ft space. We need high-density storage for palletized goods. Can you give us a ballpark on cost and timeline?",
+    "sent_by": "Marcus",
+    "timestamp": "2026-02-23T21:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "1fc0c342-cf1d-4be2-8538-6bd3c94a8cb2",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Hi Marcus, thanks for reaching out! Pallet racking for an 8,000 sq ft space is right in our wheelhouse. Depending on ceiling height and load requirements, we're typically looking at $35,000\u2013$65,000 installed. I'd love to schedule a site walk to get you an accurate number. Are you free this week or next?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-24T15:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "dd0c976c-e26f-440e-a252-fcfe503d23e2",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "That range works. We're available Thursday afternoon or Friday morning. Friday works best for us \u2014 say 10 AM?",
+    "sent_by": "Marcus",
+    "timestamp": "2026-02-25T01:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "8054df71-f43d-4c28-bd0d-64fb17a7e96b",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Perfect \u2014 Friday at 10 AM it is. I'll send a calendar invite to this address. Could you share the facility address so I can get our estimator prepped? Also, do you have any existing racking we'd be working around?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-26T00:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "235f0f9d-54ef-4252-9417-728442333bcc",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Great, address is 123 Industrial Blvd, Spokane. No existing racking \u2014 it's a clean floor. We'd also like to discuss adding wire decking on all levels.",
+    "sent_by": "Marcus",
+    "timestamp": "2026-02-27T00:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "a7183aa8-092c-48bc-b30f-f16f39205ee9",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Wire decking on all levels is a smart call for forklift safety \u2014 we can absolutely spec that in. We'll bring our load-capacity worksheet Friday. See you then!",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-27T07:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "fdde7185-e5bf-45c5-9a79-ec97ab66633d",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "call",
+    "direction": "internal",
+    "subject": "Pallet Racking Quote Request",
+    "body": "Spoke with Marcus \u2014 confirmed site visit Friday 10 AM. They have a 24-ft clear height, 3 dock doors. Interested in selective racking with wire decking. Budget around $50K. Warm lead.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-02-28T00:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "a2fcc5a9-b4fa-4317-81af-e06c01e02b7d",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Hi Marcus, great meeting you on-site Friday. Your facility is a great fit for a selective racking system with 5 levels. I'm putting together the formal proposal now and will have it to you by Wednesday. In the meantime, any questions come up?",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-03-02T04:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "c262661c-0017-4bfa-859a-6bfac1ed3fc6",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "inbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Thanks Jay. One question \u2014 do you handle the seismic engineering sign-off or do we need to hire someone separately?",
+    "sent_by": "Marcus",
+    "timestamp": "2026-03-02T13:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "ea28f040-9844-4a44-adce-dc6ff21968d5",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Follow-up: Site Visit Debrief",
+    "body": "Great question. We handle everything in-house including the seismic engineering and permit drawings \u2014 that's included in our quote. No separate hires needed on your end. Proposal coming Wednesday.",
+    "sent_by": "Jay Mitchell",
+    "timestamp": "2026-03-03T14:32:54.875132+00:00"
+  },
+  {
+    "comm_id": "087b7fd5-16fe-4d58-947d-9160551c545d",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "Note",
+    "body": "Follow up conversation. wants me to make the time to  meet him on site 9 am",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-09T22:09:34.175401+00:00"
+  },
+  {
+    "comm_id": "2bf2879b-4098-4281-aade-c41e25f10953",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "Note",
+    "body": "Meeting tomorrow at 9 AM for site visit",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-09T22:17:54.417845+00:00"
+  },
+  {
+    "comm_id": "c5fdbfc5-30d6-43fa-8ac0-e85557067234",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "Note",
+    "body": "Need to meet on site tomorrow at 9 am",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-09T22:20:52.498998+00:00"
+  },
+  {
+    "comm_id": "15255f89-f70b-4bad-97ef-eb7d04f48afd",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "Note",
+    "body": "Need to meet on site tomorrow at 9 am",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-09T22:22:23.789410+00:00"
+  },
+  {
+    "comm_id": "214ca883-a7b0-4c8b-af1b-fa88e9498a72",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "\ud83d\udcc5 Calendar event created: Site Visit \u2014 Marcus Webb",
+    "body": "Scheduled for 2026-03-10. Need to meet on site tomorrow at 9 am",
+    "sent_by": "system",
+    "timestamp": "2026-03-09T22:22:39.651177+00:00"
+  }
+]

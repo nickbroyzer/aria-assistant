@@ -1,0 +1,1622 @@
+[
+  {
+    "comm_id": "23d74cb9-bdcf-4e48-b66c-a53cb13cd902",
+    "job_id": "00456a64-db2c-4524-9718-96eb8bf05fe6",
+    "type": "note",
+    "direction": "internal",
+    "subject": "Client comunication",
+    "body": "Made aware of the problem now fixing it",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-10T00:14:45.832923+00:00"
+  },
+  {
+    "comm_id": "108aeb9a-eb57-40e5-a0db-e131072a0d2f",
+    "job_id": "2ff7a5d0-78db-45f6-9b3c-a750bf240cc1",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit completed. Customer wants pallet racking on east wall extended by two bays. Confirmed ceiling clearance at 24ft. Will update scope.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:26:09.116989+00:00"
+  },
+  {
+    "comm_id": "c5849b16-14af-4b4d-b9d3-01bac20830d4",
+    "job_id": "2ff7a5d0-78db-45f6-9b3c-a750bf240cc1",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called re: delivery schedule",
+    "body": "Marcus called \u2014 wants to confirm material delivery is still on track for next Tuesday. Told him we are scheduled for Mon/Tue. He asked if crew can start earlier in the AM. Confirmed 7am start.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-02T00:26:09.116989+00:00"
+  },
+  {
+    "comm_id": "718d3344-b8ec-46f8-af6e-2a0401c04b7e",
+    "job_id": "2ff7a5d0-78db-45f6-9b3c-a750bf240cc1",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "JOB-2026-001 \u2014 Updated scope & timeline",
+    "body": "Emailed Marcus updated scope doc with the two additional bays added. Included revised timeline \u2014 completion now estimated end of month. He confirmed receipt and approved the change.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-05T00:26:09.116989+00:00"
+  },
+  {
+    "comm_id": "414b10d1-d889-4beb-b539-00afe5154bd3",
+    "job_id": "2ff7a5d0-78db-45f6-9b3c-a750bf240cc1",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Day 1 install done. East wall frame up, first 6 uprights set. Crew hit a minor concrete anchor issue \u2014 switching to wedge anchors. Back on schedule tomorrow.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:26:09.116989+00:00"
+  },
+  {
+    "comm_id": "a6429cc5-208c-44c6-a28f-063174018572",
+    "job_id": "2ff7a5d0-78db-45f6-9b3c-a750bf240cc1",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Called re: final inspection date",
+    "body": "Called Marcus to confirm final walkthrough this Friday at 10am. He is available. Will bring updated as-built drawings.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-09T20:26:09.116989+00:00"
+  },
+  {
+    "comm_id": "8b1916bb-a1af-473e-9133-7c0e9143e45e",
+    "job_id": "4952fba5-0dd4-4d6d-8645-73f69df945ce",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site walkthrough scheduled for next Thursday at 9am. Confirm with Sandra.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-24T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "7029c910-b3a5-426a-b9c2-922d837c4eed",
+    "job_id": "4952fba5-0dd4-4d6d-8645-73f69df945ce",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Called to confirm quote details",
+    "body": "Sandra called with questions about the mezzanine spec. Confirmed 8ft clearance, 2500lb capacity. She is comparing 2 other bids.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-03T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "7e1ea940-8fcc-4069-94c4-8320aaa7488d",
+    "job_id": "4952fba5-0dd4-4d6d-8645-73f69df945ce",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "JOB-2026-002 \u2014 Quote follow-up",
+    "body": "Sent Sandra a follow-up email with updated quote including optional LED lighting upgrade. She responded positively.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "c31f05a6-9e50-45f6-8952-fd27264f0ec5",
+    "job_id": "b8cc33b3-e509-45ca-adb7-975679511ad5",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Pre-job kickoff call",
+    "body": "Spoke with Derek about install schedule and access requirements. He confirmed forklift available on site. Start date locked.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-08T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "3a1f7b70-5e38-4036-9e7b-0fad6885b565",
+    "job_id": "b8cc33b3-e509-45ca-adb7-975679511ad5",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Install completed Day 1 and 2. All uprights set, beams level. Final inspection passed. Client very happy with result.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-20T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "582221ab-17c1-4719-ab91-d4cb8ab30e9a",
+    "job_id": "b8cc33b3-e509-45ca-adb7-975679511ad5",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "JOB-2026-003 \u2014 Completion & final invoice",
+    "body": "Sent Derek the completion summary and final invoice. He paid within 3 days. Great client.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "357f173f-846b-4649-88eb-17339c657b77",
+    "job_id": "1f32c68e-1d01-4511-94fc-935cb7b627ec",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Job complete. Installed 4-tier pallet rack, 12 bays. Minor damage to one upright on delivery \u2014 replaced at no charge. Client satisfied.",
+    "sent_by": "ashley",
+    "timestamp": "2026-02-18T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "82d29eb2-3cfc-47d4-b694-76e1466d14f0",
+    "job_id": "1f32c68e-1d01-4511-94fc-935cb7b627ec",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Called about invoice",
+    "body": "Brenda called to confirm payment terms. She will pay by check within 30 days. Confirmed mailing address.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-02T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "af91ff18-9331-45f9-8c90-f700e7590a15",
+    "job_id": "c6635459-15ef-42af-bac2-5006c791d98f",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Materials arrived on site. 3 pallets of uprights, 2 pallets of beams. All accounted for. Crew starting tomorrow 7am.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-05T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "72137188-24b3-4fca-9018-65a050fe6a5a",
+    "job_id": "c6635459-15ef-42af-bac2-5006c791d98f",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Called Tony re: dock equipment delay",
+    "body": "Informed Tony the dock leveler is backordered 1 week. He was understanding \u2014 racking install will proceed as planned.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-07T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "2a54de08-dadc-4ce1-a402-9e98e410846f",
+    "job_id": "c6635459-15ef-42af-bac2-5006c791d98f",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "JOB-2026-005 \u2014 Weekly update",
+    "body": "Sent Tony a progress update. Racking 70% complete, dock equipment ETA updated to next Friday.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-09T00:35:52.162462+00:00"
+  },
+  {
+    "comm_id": "823b2ec0-a409-4c39-9623-e48887bac481",
+    "job_id": "0ee713c3-1ada-4b32-b0dc-7e17a51cdbce",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "f9817e6b-0b08-4af9-ad0c-1619fd6c44e8",
+    "job_id": "0ee713c3-1ada-4b32-b0dc-7e17a51cdbce",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e1e12469-418c-42eb-a8f3-cb3259b0eac9",
+    "job_id": "0ee713c3-1ada-4b32-b0dc-7e17a51cdbce",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a07d3e04-5cfc-4b9b-bfaa-6fb0845de128",
+    "job_id": "16d21e1f-f364-45f9-9297-22f7d1a67d7e",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Post-job check-in",
+    "body": "Called client 2 weeks after completion to check on the racking. No issues reported. They are very happy.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "ff5c8a7e-c17a-44ed-af8e-08f0f7194d71",
+    "job_id": "16d21e1f-f364-45f9-9297-22f7d1a67d7e",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Client requested quote for Phase 2 expansion \u2014 will follow up next month.",
+    "sent_by": "ashley",
+    "timestamp": "2026-02-13T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e9d3703f-76f3-45f3-be1f-6437be485cd7",
+    "job_id": "8173f60b-adfb-4819-b2d4-20f31b6d72e8",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Pre-install site check",
+    "body": "Called client to confirm site access, clearances, and utility shutoff schedule before install week.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-28T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "c8ffe2cb-a94a-4f06-acf9-68f0b96386dd",
+    "job_id": "8173f60b-adfb-4819-b2d4-20f31b6d72e8",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit done. Ceiling height confirmed 22ft. Sprinkler clearance OK. Concrete anchor spots marked.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-03T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "d33af026-ca07-4138-8ae4-a2e5fd4c917a",
+    "job_id": "8173f60b-adfb-4819-b2d4-20f31b6d72e8",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client question about beam capacity",
+    "body": "Client asked about beam capacity for the middle bays \u2014 confirmed 5,000 lbs per pair, sent spec sheet.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-07T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "6a50abc4-493d-42cb-96fe-bc6be4ec5e38",
+    "job_id": "12faf5b9-eea1-41d0-a3f5-21514f0c607c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Job complete. Final walkthrough passed. Invoice sent.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-23T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "432e5628-ff00-42c6-888e-5299db4b8ade",
+    "job_id": "12faf5b9-eea1-41d0-a3f5-21514f0c607c",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called about payment terms",
+    "body": "Client confirmed payment by check within 30 days. Mailing address verified.",
+    "sent_by": "ashley",
+    "timestamp": "2026-02-28T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "1701df94-9c05-4642-9965-ac64246c3b3b",
+    "job_id": "45d899d1-3635-45df-90a4-175532b08acf",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Install complete. All bays anchored and load placards installed. Client signed off on final inspection.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-24T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "2478f804-0af0-45fc-b434-66064ee4e4d1",
+    "job_id": "45d899d1-3635-45df-90a4-175532b08acf",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Job completion & invoice",
+    "body": "Sent completion summary and final invoice to client. Everything came in on budget.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-27T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "06aafaf6-11bb-495f-a9bb-7011360dba16",
+    "job_id": "2e43fa0d-04c6-4bc7-9b26-674e7e936288",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Install complete. All bays anchored and load placards installed. Client signed off on final inspection.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-24T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e83de9b2-6625-42cf-95e6-4ea47d9aeaad",
+    "job_id": "2e43fa0d-04c6-4bc7-9b26-674e7e936288",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Job completion & invoice",
+    "body": "Sent completion summary and final invoice to client. Everything came in on budget.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-27T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "8398bfc9-c5d7-4325-8127-1add91e395c3",
+    "job_id": "beeb257b-6f32-4a2a-a3a1-7417a7fd47ec",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Install complete. All bays anchored and load placards installed. Client signed off on final inspection.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-24T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "874c9af1-420a-422b-bbb4-0ea4bd218e87",
+    "job_id": "beeb257b-6f32-4a2a-a3a1-7417a7fd47ec",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Job completion & invoice",
+    "body": "Sent completion summary and final invoice to client. Everything came in on budget.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-27T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "9a7d96d3-488d-41ff-b00f-2ca5d8ecd708",
+    "job_id": "16413a6b-2bc3-48ce-ba0e-743cdcc397b5",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Post-job check-in",
+    "body": "Called client 2 weeks after completion to check on the racking. No issues reported. They are very happy.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "84bbe30a-b3ef-4a55-afc0-bfcb9f1de706",
+    "job_id": "16413a6b-2bc3-48ce-ba0e-743cdcc397b5",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Client requested quote for Phase 2 expansion \u2014 will follow up next month.",
+    "sent_by": "ashley",
+    "timestamp": "2026-02-13T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "cfdf03ca-31fa-461f-a271-13f17a5b4093",
+    "job_id": "fb853ec1-f5ef-4313-8d19-0354e5984e34",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Post-job check-in",
+    "body": "Called client 2 weeks after completion to check on the racking. No issues reported. They are very happy.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "c698763b-e79b-4260-b5be-a631f425ff70",
+    "job_id": "fb853ec1-f5ef-4313-8d19-0354e5984e34",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Client requested quote for Phase 2 expansion \u2014 will follow up next month.",
+    "sent_by": "ashley",
+    "timestamp": "2026-02-13T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "f3199b6c-c0da-43e8-9b58-1a0300f7beeb",
+    "job_id": "e13e06ec-527c-43f5-aaa7-e443c7acb16e",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Post-job check-in",
+    "body": "Called client 2 weeks after completion to check on the racking. No issues reported. They are very happy.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "52d51dbb-232e-4235-bb18-4c1bb06aa02a",
+    "job_id": "e13e06ec-527c-43f5-aaa7-e443c7acb16e",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Client requested quote for Phase 2 expansion \u2014 will follow up next month.",
+    "sent_by": "ashley",
+    "timestamp": "2026-02-13T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "2e700bb9-d401-45f4-96c2-b1e28722abb3",
+    "job_id": "5deaefc9-a000-43ae-8008-036b5897fe26",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "7bb59d1c-8fd4-4628-8876-fa8220b1ded5",
+    "job_id": "5deaefc9-a000-43ae-8008-036b5897fe26",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "62ea7b6a-8cb5-410b-8e35-7f83ef3e9dd0",
+    "job_id": "5deaefc9-a000-43ae-8008-036b5897fe26",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "535e07b6-20f6-4e2f-abc8-763f6001dcaf",
+    "job_id": "85d978a3-8717-4df8-abf7-d07391219a9f",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Materials staged on site. Crew reviewed layout with client \u2014 ready to start install tomorrow 7am.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-04T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "fd57ba1b-9102-4574-9b56-99b4ee2ca89a",
+    "job_id": "85d978a3-8717-4df8-abf7-d07391219a9f",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called re: start time",
+    "body": "Client called to confirm crew arrival time. Confirmed 7am start. They will have dock open.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "10452737-dbbe-4521-aac5-bc1d7d87d4a9",
+    "job_id": "85d978a3-8717-4df8-abf7-d07391219a9f",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Day 2 progress: uprights set, first 3 bays beamed. On schedule. No issues.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a3915e8d-873d-46cc-9470-1468846e8eec",
+    "job_id": "85d978a3-8717-4df8-abf7-d07391219a9f",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Weekly job update",
+    "body": "Sent client a progress update with photos. They responded positively and confirmed final walkthrough for end of week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-09T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "8625eb57-a54b-4f17-bd3e-9916b5383eba",
+    "job_id": "9324aaf4-9a51-4721-ac0a-b0d7d45090b5",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Materials staged on site. Crew reviewed layout with client \u2014 ready to start install tomorrow 7am.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-04T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "8d2eae4e-b2d5-4201-a163-ab6b1cc100a4",
+    "job_id": "9324aaf4-9a51-4721-ac0a-b0d7d45090b5",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called re: start time",
+    "body": "Client called to confirm crew arrival time. Confirmed 7am start. They will have dock open.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "ce8b4c3d-5249-4fc5-ac7e-2cf554abf90e",
+    "job_id": "9324aaf4-9a51-4721-ac0a-b0d7d45090b5",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Day 2 progress: uprights set, first 3 bays beamed. On schedule. No issues.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "98c0ab5d-3ca3-4167-b48c-366a37151545",
+    "job_id": "9324aaf4-9a51-4721-ac0a-b0d7d45090b5",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Weekly job update",
+    "body": "Sent client a progress update with photos. They responded positively and confirmed final walkthrough for end of week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-09T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a4c6f1b6-dcdf-4164-bc1a-1710f37d4622",
+    "job_id": "a393fb71-c8e9-403e-9da6-14834ef22ce8",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "23129a80-7942-4026-9cbd-36e434b509a2",
+    "job_id": "a393fb71-c8e9-403e-9da6-14834ef22ce8",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "c152c8a4-d425-4f8e-a197-1f95d7628ded",
+    "job_id": "a393fb71-c8e9-403e-9da6-14834ef22ce8",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "b8aca0de-cd41-4bfe-8bf9-53bde588a353",
+    "job_id": "32a07365-560a-44f2-beac-ee7764ba4e6d",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Materials staged on site. Crew reviewed layout with client \u2014 ready to start install tomorrow 7am.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-04T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "cdb2ad7d-6cdc-4f84-9852-428090b54489",
+    "job_id": "32a07365-560a-44f2-beac-ee7764ba4e6d",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called re: start time",
+    "body": "Client called to confirm crew arrival time. Confirmed 7am start. They will have dock open.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "cc43bd48-5340-46f3-b794-b7169cdd1ada",
+    "job_id": "32a07365-560a-44f2-beac-ee7764ba4e6d",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Day 2 progress: uprights set, first 3 bays beamed. On schedule. No issues.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "32f77626-b61d-4a25-bcfd-697d987fef60",
+    "job_id": "32a07365-560a-44f2-beac-ee7764ba4e6d",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Weekly job update",
+    "body": "Sent client a progress update with photos. They responded positively and confirmed final walkthrough for end of week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-09T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "6453803e-2b93-4c8d-860b-80d0255971a7",
+    "job_id": "f9668734-73ec-497e-9445-4fbd2fe6e9d9",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "c648af88-418b-4d0c-85e4-bc3461ca07bb",
+    "job_id": "f9668734-73ec-497e-9445-4fbd2fe6e9d9",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "95761bbf-9e18-42f7-864c-4e5bf82c0377",
+    "job_id": "f9668734-73ec-497e-9445-4fbd2fe6e9d9",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "57da2851-d2c1-466f-a644-0a82c737d5a6",
+    "job_id": "0caed957-2854-4b4b-b880-a11961a8f3ac",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Pre-install site check",
+    "body": "Called client to confirm site access, clearances, and utility shutoff schedule before install week.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-28T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "1b010838-d0d4-4e09-a871-0b286c6c6b91",
+    "job_id": "0caed957-2854-4b4b-b880-a11961a8f3ac",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit done. Ceiling height confirmed 22ft. Sprinkler clearance OK. Concrete anchor spots marked.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-03T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "8f7d692d-333e-4597-bdeb-3e37c3d0e0fc",
+    "job_id": "0caed957-2854-4b4b-b880-a11961a8f3ac",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client question about beam capacity",
+    "body": "Client asked about beam capacity for the middle bays \u2014 confirmed 5,000 lbs per pair, sent spec sheet.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-07T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "4c467600-a5a3-40cc-b605-b30238a59984",
+    "job_id": "d9498900-8b22-4e70-bdb7-bf663b696966",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Materials staged on site. Crew reviewed layout with client \u2014 ready to start install tomorrow 7am.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-04T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "3a1dfdf6-dea9-4d5f-a662-05ed60a1bed4",
+    "job_id": "d9498900-8b22-4e70-bdb7-bf663b696966",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called re: start time",
+    "body": "Client called to confirm crew arrival time. Confirmed 7am start. They will have dock open.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "620778d1-380b-48a4-a150-de0fef7ef21f",
+    "job_id": "d9498900-8b22-4e70-bdb7-bf663b696966",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Day 2 progress: uprights set, first 3 bays beamed. On schedule. No issues.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "437c09f8-7117-4c0b-9581-8416926e3e1c",
+    "job_id": "d9498900-8b22-4e70-bdb7-bf663b696966",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Weekly job update",
+    "body": "Sent client a progress update with photos. They responded positively and confirmed final walkthrough for end of week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-09T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "bf4a5e74-180c-4794-b784-06735926a51d",
+    "job_id": "d28aa815-f4ba-4019-b42a-389e9a3e9166",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "fe3c88a9-c616-4da8-9ad6-d8cbf9e56016",
+    "job_id": "d28aa815-f4ba-4019-b42a-389e9a3e9166",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e524e413-0394-4ecc-9e37-4e2e3d268924",
+    "job_id": "d28aa815-f4ba-4019-b42a-389e9a3e9166",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "dc82e581-6e53-45bc-806d-fa5fd31f0252",
+    "job_id": "3d31c7c3-7368-41fb-9708-cfffec1bb57a",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "981ea23f-e33a-411d-8e52-6c08fbfc0c13",
+    "job_id": "3d31c7c3-7368-41fb-9708-cfffec1bb57a",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "58cc38a5-bbc4-4eec-9e27-0e940132db55",
+    "job_id": "3d31c7c3-7368-41fb-9708-cfffec1bb57a",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "d0a735b7-35ae-4660-be2b-1fc18962e6a8",
+    "job_id": "315ed671-32ef-4bf2-83f9-5875584bcc4c",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "f9fe6bf2-4c00-48c7-b1e6-7f2e85ff422a",
+    "job_id": "315ed671-32ef-4bf2-83f9-5875584bcc4c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "304bd6a1-12ab-4c53-bf2c-5b263b103f2c",
+    "job_id": "315ed671-32ef-4bf2-83f9-5875584bcc4c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "b705fcd4-f974-4aca-8c63-6e8dace8d913",
+    "job_id": "804d5538-466c-48bc-a354-542c5d218e5e",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a0499f9c-f893-43c8-9b79-bd35ab286611",
+    "job_id": "804d5538-466c-48bc-a354-542c5d218e5e",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "ae03271c-262d-4ba9-ae04-9b7a6e355049",
+    "job_id": "804d5538-466c-48bc-a354-542c5d218e5e",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "52615070-383a-49ef-8886-a160e4c790cf",
+    "job_id": "00900454-c423-473c-851d-0b25c76ea84e",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Pre-install site check",
+    "body": "Called client to confirm site access, clearances, and utility shutoff schedule before install week.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-28T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "1993bc98-13fd-4694-ba9d-d7ab72241e72",
+    "job_id": "00900454-c423-473c-851d-0b25c76ea84e",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit done. Ceiling height confirmed 22ft. Sprinkler clearance OK. Concrete anchor spots marked.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-03T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "15e08074-a026-4810-b1a6-eea6d2e5f015",
+    "job_id": "00900454-c423-473c-851d-0b25c76ea84e",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client question about beam capacity",
+    "body": "Client asked about beam capacity for the middle bays \u2014 confirmed 5,000 lbs per pair, sent spec sheet.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-07T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "ab31a428-d117-4090-8e22-8aec512cc1c5",
+    "job_id": "ec627e35-149a-4ba7-9a72-2b3da925b9e0",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "3608a0d6-920b-4a55-962a-1f9510bd38ac",
+    "job_id": "ec627e35-149a-4ba7-9a72-2b3da925b9e0",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a7053a55-a9b0-4238-bbbe-e47e0acc6733",
+    "job_id": "ec627e35-149a-4ba7-9a72-2b3da925b9e0",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "efadfe7b-a847-44e3-8ef3-a7318f2b988a",
+    "job_id": "dffdaabd-ed33-4585-8e8d-67266967b54c",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Pre-install site check",
+    "body": "Called client to confirm site access, clearances, and utility shutoff schedule before install week.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-28T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a29f2dee-0f4e-44a7-82cf-a7ea91e92fc0",
+    "job_id": "dffdaabd-ed33-4585-8e8d-67266967b54c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit done. Ceiling height confirmed 22ft. Sprinkler clearance OK. Concrete anchor spots marked.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-03T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "4fc8a872-56b6-4018-b27d-cca921cac3aa",
+    "job_id": "dffdaabd-ed33-4585-8e8d-67266967b54c",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client question about beam capacity",
+    "body": "Client asked about beam capacity for the middle bays \u2014 confirmed 5,000 lbs per pair, sent spec sheet.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-07T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "d4c42052-54bc-41c1-a522-715ce16ce7a3",
+    "job_id": "281b3d73-4917-44ee-b33f-58c8d1ab3ea9",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Install complete. All bays anchored and load placards installed. Client signed off on final inspection.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-24T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "22963359-aee1-4934-bc51-8557220611f2",
+    "job_id": "281b3d73-4917-44ee-b33f-58c8d1ab3ea9",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Job completion & invoice",
+    "body": "Sent completion summary and final invoice to client. Everything came in on budget.",
+    "sent_by": "jay",
+    "timestamp": "2026-01-27T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "30fa15c5-93b8-4108-890b-e867ce065221",
+    "job_id": "25606cb1-51a6-4439-8f3a-2cedee8eb333",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Post-job check-in",
+    "body": "Called client 2 weeks after completion to check on the racking. No issues reported. They are very happy.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "11c1dfad-33f1-4000-8fae-f8447520b947",
+    "job_id": "25606cb1-51a6-4439-8f3a-2cedee8eb333",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Client requested quote for Phase 2 expansion \u2014 will follow up next month.",
+    "sent_by": "ashley",
+    "timestamp": "2026-02-13T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "0cd9b4f3-3331-4741-87aa-fe58da9bdcb5",
+    "job_id": "9c3bd4fb-9054-4f72-830b-e4077d62ba3a",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "645ab6bf-def0-46b5-b4d1-02c84733d155",
+    "job_id": "9c3bd4fb-9054-4f72-830b-e4077d62ba3a",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "c4a1cc98-7e87-4e3b-b46b-58a5cdfa030e",
+    "job_id": "9c3bd4fb-9054-4f72-830b-e4077d62ba3a",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e9009555-e83d-41cc-b409-c519f2da3cc8",
+    "job_id": "1e2805d4-5d7a-4b35-9f1e-8bf6892b8c7f",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "6f877ebf-b276-4e73-82ab-c2ce82992cd5",
+    "job_id": "1e2805d4-5d7a-4b35-9f1e-8bf6892b8c7f",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "b62a6505-bf96-45cc-8599-fd2f1342b49b",
+    "job_id": "1e2805d4-5d7a-4b35-9f1e-8bf6892b8c7f",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "ae6b6f59-8640-4d78-a627-ebb4ef466642",
+    "job_id": "72d7f9e7-0280-4a99-bc56-31ff13a1c283",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "23641203-3457-44fc-8d56-bd962f59b8ea",
+    "job_id": "72d7f9e7-0280-4a99-bc56-31ff13a1c283",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "dd69c4f9-8015-41ea-bd2d-a8c99939700a",
+    "job_id": "72d7f9e7-0280-4a99-bc56-31ff13a1c283",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "c3360bc1-8617-450b-b21a-7980cb8bd126",
+    "job_id": "4fe96d93-8f86-4b70-b30b-83e898c9f36c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "87b803fb-a9f3-486b-9cf9-8ff74f2c7979",
+    "job_id": "4fe96d93-8f86-4b70-b30b-83e898c9f36c",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "78c52654-6f1f-4a0e-9945-219d890d1a45",
+    "job_id": "4fe96d93-8f86-4b70-b30b-83e898c9f36c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "ee61918b-f16d-4e07-9e0c-8ddb0a4706af",
+    "job_id": "953d805a-5520-4278-b297-f762c78008af",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "1686427c-5ffa-4587-853e-57a1a891f63e",
+    "job_id": "953d805a-5520-4278-b297-f762c78008af",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "740d9651-9d68-4c36-8e47-e18fb748bd95",
+    "job_id": "953d805a-5520-4278-b297-f762c78008af",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "0252ad8e-7199-4443-bc7c-1f98157f2349",
+    "job_id": "ff478100-d703-4fac-8201-35f2b50f1128",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "94d9038e-7107-404a-8931-aa30fdd1bdc0",
+    "job_id": "ff478100-d703-4fac-8201-35f2b50f1128",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "042920b8-d6e3-402f-a270-5dd906e4b39b",
+    "job_id": "ff478100-d703-4fac-8201-35f2b50f1128",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "7837d9de-f8fb-4137-95be-d6f9ade08ca1",
+    "job_id": "a5b45dd4-ae28-456d-8632-dfb6569f3e3e",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e6e0fae3-5854-458e-8e4b-13d04bee1177",
+    "job_id": "a5b45dd4-ae28-456d-8632-dfb6569f3e3e",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "d4f8e888-3ccf-4d85-84c1-9e1cd8052ec5",
+    "job_id": "a5b45dd4-ae28-456d-8632-dfb6569f3e3e",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a9ce32d0-d175-46e8-b413-1e0c56d1ffb4",
+    "job_id": "c21f2342-d4fe-41dd-a68e-52e44e282dee",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e25ea69f-0e27-4fcb-84b9-6afdfa65aa6d",
+    "job_id": "c21f2342-d4fe-41dd-a68e-52e44e282dee",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "d2243d80-b641-477f-8b48-e9386545d335",
+    "job_id": "c21f2342-d4fe-41dd-a68e-52e44e282dee",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "653cdc51-b499-4a32-8a73-8674baea805c",
+    "job_id": "950d2781-76bc-4838-b0ee-d669b5d7c757",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "6dfe8bca-1446-46c9-ab10-241fd800bf63",
+    "job_id": "950d2781-76bc-4838-b0ee-d669b5d7c757",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "0ff272b0-ce08-41ea-b1ff-cf33c6534104",
+    "job_id": "950d2781-76bc-4838-b0ee-d669b5d7c757",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "78d09c6e-a183-4a6c-abfe-99128ef6d7c0",
+    "job_id": "b38dcd49-2d7b-461b-a997-2675aec36bc6",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "f6b03881-d0cc-4b19-bd37-c4ea93712602",
+    "job_id": "b38dcd49-2d7b-461b-a997-2675aec36bc6",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "cb32e98a-0cc6-427c-8a3c-ee974ba3b4ae",
+    "job_id": "b38dcd49-2d7b-461b-a997-2675aec36bc6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "62ea2481-a426-4f06-b0f7-7317f9e073a8",
+    "job_id": "21109ac9-67d9-4bd6-ad8a-d6027286a9b6",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "ad054d84-b530-4e1a-a535-d2e5304efc1b",
+    "job_id": "21109ac9-67d9-4bd6-ad8a-d6027286a9b6",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "0fbb0776-1227-4551-9e61-98f604df4eec",
+    "job_id": "21109ac9-67d9-4bd6-ad8a-d6027286a9b6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "cb8ce9c1-3315-42da-9545-51e383008e9e",
+    "job_id": "d14219cc-75a9-4fc7-9fd2-cbeaf987f55a",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "b31132e5-2161-4593-bdd7-02497a2e9662",
+    "job_id": "d14219cc-75a9-4fc7-9fd2-cbeaf987f55a",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "b0824c8e-d29e-4055-a533-d327136da10e",
+    "job_id": "d14219cc-75a9-4fc7-9fd2-cbeaf987f55a",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "73b67c4c-b374-4d9f-b7d9-06424c97e0dd",
+    "job_id": "d5ef07a0-6d7d-4ba6-8820-f8e40d5279e3",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "a6249ac0-abd2-45f5-9ebf-b54d7f67a597",
+    "job_id": "d5ef07a0-6d7d-4ba6-8820-f8e40d5279e3",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "55a70f58-d706-463c-9636-f290fdc27a40",
+    "job_id": "d5ef07a0-6d7d-4ba6-8820-f8e40d5279e3",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "bb7a1211-dbce-4864-b6c9-a60ce2c197ab",
+    "job_id": "b55df095-8883-4c48-9c3f-c18ba5e516d8",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "8a45b965-16f7-4f83-921b-3062bbba6799",
+    "job_id": "b55df095-8883-4c48-9c3f-c18ba5e516d8",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "91c381bb-edc2-41b7-a42e-0378b7f7f741",
+    "job_id": "b55df095-8883-4c48-9c3f-c18ba5e516d8",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "1989d4aa-01c8-4f95-9ae0-6ed32d172774",
+    "job_id": "e43c6482-150b-47cf-9eba-e565cd6ed26c",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "053055a5-2e76-4111-a935-d5f70671dd8b",
+    "job_id": "e43c6482-150b-47cf-9eba-e565cd6ed26c",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "1149b041-5fc2-4026-a043-4151ae388a57",
+    "job_id": "e43c6482-150b-47cf-9eba-e565cd6ed26c",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "830844dc-09db-47be-969e-56b40c5a898a",
+    "job_id": "c6a4c9e1-82b6-4183-bf02-1eabdc39ab33",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "de73490d-3624-4ba3-8f1e-d83d3771b039",
+    "job_id": "c6a4c9e1-82b6-4183-bf02-1eabdc39ab33",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "e4260bad-b175-4ffc-824b-87a9d0043f9a",
+    "job_id": "c6a4c9e1-82b6-4183-bf02-1eabdc39ab33",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "763bf512-a945-4cf4-81fa-3e8f17dfe823",
+    "job_id": "ff9d01d5-8e9c-4d22-bdd3-bca1fa28a20b",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "acb3e473-cb63-4a2e-84d1-bcc753d4eec0",
+    "job_id": "ff9d01d5-8e9c-4d22-bdd3-bca1fa28a20b",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "100a54f3-a8e4-4585-aaf2-9055494691c3",
+    "job_id": "ff9d01d5-8e9c-4d22-bdd3-bca1fa28a20b",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "0eb1fc6d-a6db-4285-93d8-89c7e0af8102",
+    "job_id": "fd314b61-a7c2-49d6-8d1a-46180700ba06",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "f2333fd6-e7ec-493d-b614-64d0a71e7292",
+    "job_id": "fd314b61-a7c2-49d6-8d1a-46180700ba06",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "5db23aae-063f-4f40-9db3-b4b62936261e",
+    "job_id": "fd314b61-a7c2-49d6-8d1a-46180700ba06",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "c023ffe4-7549-459c-9b94-221a3fddec97",
+    "job_id": "d14c2c7b-fc8b-4d67-9eeb-3fa170d84c92",
+    "type": "call",
+    "direction": "outbound",
+    "subject": "Initial site visit call",
+    "body": "Called to schedule site walkthrough. Client available Thursday at 2pm.",
+    "sent_by": "jay",
+    "timestamp": "2026-02-26T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "fb47ddd9-27e9-4eb1-ad4e-6317d91cfcdd",
+    "job_id": "d14c2c7b-fc8b-4d67-9eeb-3fa170d84c92",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Site visit complete. Measured 3 aisles, 48ft depth. Client wants selective racking, 4-tier, full warehouse coverage.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-01T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "6094b236-1d33-46a6-9b6c-3405523e6ef1",
+    "job_id": "d14c2c7b-fc8b-4d67-9eeb-3fa170d84c92",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote delivered",
+    "body": "Emailed formal quote \u2014 $47,200 for full installation including anchoring and load placard. Awaiting response.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-06T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "65506629-f7d6-4405-ac46-c3e0d94a974a",
+    "job_id": "b17a6342-8dae-457a-aaf4-5df821ecd92e",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Quote sent. Included 3 options: basic, mid-tier with wire decking, and full build-out with mezzanine.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-02T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "8c3c737a-87f5-42ce-bd56-cce1d5a32b43",
+    "job_id": "b17a6342-8dae-457a-aaf4-5df821ecd92e",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Client called to discuss quote",
+    "body": "Client asked about lead time and whether we can start before end of month. Told them 2-week lead on materials.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "46578253-1c2f-4f2d-ab83-912d8bc44b61",
+    "job_id": "b17a6342-8dae-457a-aaf4-5df821ecd92e",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Quote follow-up",
+    "body": "Sent follow-up email with references from two similar jobs. Client said they are reviewing with ownership this week.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-08T00:38:43.742080+00:00"
+  },
+  {
+    "comm_id": "f68d4f9d-dafd-45c9-a009-29eb2177cf6e",
+    "job_id": "00456a64-db2c-4524-9718-96eb8bf05fe6",
+    "type": "call",
+    "direction": "inbound",
+    "subject": "Carlos called re: material delivery",
+    "body": "Carlos called to confirm the racking materials are on schedule. Told him delivery is set for Monday AM. He confirmed forklift on site.",
+    "sent_by": "ashley",
+    "timestamp": "2026-03-05T00:39:03.742330+00:00"
+  },
+  {
+    "comm_id": "28006054-a720-45ed-9c1e-5768d0b1300d",
+    "job_id": "00456a64-db2c-4524-9718-96eb8bf05fe6",
+    "type": "note",
+    "direction": "internal",
+    "subject": "",
+    "body": "Day 1 install complete. East wall section done \u2014 6 bays, 4-tier selective racking all anchored. No issues.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-07T00:39:03.742330+00:00"
+  },
+  {
+    "comm_id": "d2e17828-aa97-4345-8c4d-59ed30a43b0a",
+    "job_id": "00456a64-db2c-4524-9718-96eb8bf05fe6",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "JOB-2026-010 \u2014 Progress update",
+    "body": "Sent Carlos a progress update with install photos. On track to finish by Thursday.",
+    "sent_by": "jay",
+    "timestamp": "2026-03-09T00:39:03.742330+00:00"
+  },
+  {
+    "comm_id": "11d1111f-3a54-451a-a8ff-5428d0452cbe",
+    "job_id": "00456a64-db2c-4524-9718-96eb8bf05fe6",
+    "type": "note",
+    "direction": "internal",
+    "subject": "Meeting",
+    "body": "Meeting with client Thursday at 10am to do a site walkthrough and confirm final scope before we wrap up the job",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-10T00:47:45.300176+00:00"
+  },
+  {
+    "comm_id": "0ebfe801-24a1-41c1-9f3e-63b0956cf17f",
+    "job_id": "00456a64-db2c-4524-9718-96eb8bf05fe6",
+    "type": "note",
+    "direction": "internal",
+    "subject": "\ud83d\udcc5 Calendar event created: Site Visit \u2014 Carlos Mendez (JOB-2026-010)",
+    "body": "Scheduled for 2026-03-13. Meeting with client Thursday at 10am to do a site walkthrough and confirm final scope before we wrap up the job",
+    "sent_by": "system",
+    "timestamp": "2026-03-10T00:47:49.186241+00:00"
+  },
+  {
+    "comm_id": "7a903bb2-97f9-4779-bcaa-1f156f1d2fe9",
+    "job_id": "c6635459-2e4a-4f1b-8d7c-3b5e9a2f1c4d",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Invoice 2026-016 sent to tony@marchetti-cs.com",
+    "body": "Invoice 2026-016 emailed to tony@marchetti-cs.com.",
+    "sent_by": "system",
+    "timestamp": "2026-03-10T05:45:02.011683+00:00"
+  },
+  {
+    "comm_id": "39a37dba-7c6e-4100-9e98-f038163488de",
+    "job_id": "0ee713c3-1ada-4b32-b0dc-7e17a51cdbce",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Following up on your quote \u2014 JOB-2026-006",
+    "body": "Hi Rachel,\n\nI wanted to check in on the quote we sent over for JOB-2026-006. Have you had a chance to review it?\n\nIf you have any questions, want to adjust the scope, or are ready to move forward, just say the word \u2014 we're here to make it easy.\n\nYou're also welcome to call us directly at 253.826.2727.\n\n\u2014\n\nJay Farber\nOwner \u2014 Pacific Construction\nP: 253.826.2727\nA: 1574 Thornton Ave SW, Pacific, WA 98047",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-10T06:34:57.644373+00:00"
+  },
+  {
+    "comm_id": "fbb9ebe0-d036-4cff-adf2-27fd71143fbd",
+    "job_id": "0ee713c3-1ada-4b32-b0dc-7e17a51cdbce",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Following up on your quote \u2014 JOB-2026-006",
+    "body": "Hi Rachel,\n\nI wanted to check in on the quote we sent over for JOB-2026-006. Have you had a chance to review it?\n\nIf you have any questions, want to adjust the scope, or are ready to move forward, just say the word \u2014 we're here to make it easy.\n\nYou're also welcome to call us directly at 253.826.2727.\n\n\u2014\n\nJay Farber\nOwner \u2014 Pacific Construction\nP: 253.826.2727\nA: 1574 Thornton Ave SW, Pacific, WA 98047",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-10T06:38:38.012370+00:00"
+  },
+  {
+    "comm_id": "aff43ebf-ac4f-49a0-b2ac-f9cde9f0faff",
+    "job_id": "0ee713c3-1ada-4b32-b0dc-7e17a51cdbce",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Following up on your quote \u2014 JOB-2026-006",
+    "body": "Hi Rachel,\n\nI wanted to check in on the quote we sent over for JOB-2026-006. Have you had a chance to review it?\n\nIf you have any questions, want to adjust the scope, or are ready to move forward, just say the word \u2014 we're here to make it easy.\n\nYou're also welcome to call us directly at 253.826.2727.\n\n\u2014\n\nJay Farber\nOwner \u2014 Pacific Construction\nP: 253.826.2727\nA: 1574 Thornton Ave SW, Pacific, WA 98047",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-10T06:41:54.009102+00:00"
+  },
+  {
+    "comm_id": "dbdec6b4-9537-4ddd-98a7-a6759776f152",
+    "job_id": "4952fba5-0dd4-4d6d-8645-73f69df945ce",
+    "type": "email",
+    "direction": "outbound",
+    "subject": "Following up on your quote \u2014 JOB-2026-002",
+    "body": "Hi Sandra,\n\nI wanted to check in on the quote we sent over for JOB-2026-002. Have you had a chance to review it?\n\nIf you have any questions, want to adjust the scope, or are ready to move forward, just say the word \u2014 we're here to make it easy.\n\nYou're also welcome to call us directly at 253.826.2727.\n\n\u2014\n\nJay Farber\nOwner \u2014 Pacific Construction\nP: 253.826.2727\nA: 1574 Thornton Ave SW, Pacific, WA 98047",
+    "sent_by": "unknown",
+    "timestamp": "2026-03-10T06:42:12.236507+00:00"
+  }
+]

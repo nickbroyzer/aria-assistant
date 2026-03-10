@@ -1,0 +1,242 @@
+[
+  {
+    "nurture_id": "268aa651-8c09-4acc-908d-068f04e2594a",
+    "lead_id": "1c5dc74a-1743-41c7-af15-f0d694a7d0e4",
+    "lead_name": "Test Customer",
+    "lead_email": "leads.pacificconstruction@gmail.com",
+    "status": "active",
+    "current_step": 1,
+    "started_at": "2026-03-09T07:14:26.415391+00:00",
+    "stopped_at": null,
+    "stopped_reason": null,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-14",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Site Visit Ask",
+        "scheduled_date": "2026-03-19",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency",
+        "scheduled_date": "2026-03-27",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-04-06",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "nurture_id": "cd7923ad-6bf0-40aa-8817-e651ac7df7a8",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "lead_name": "Marcus Webb",
+    "lead_email": "mwebb@webdistribution.net",
+    "status": "stopped",
+    "current_step": 1,
+    "started_at": "2026-03-09T07:16:25.675018+00:00",
+    "stopped_at": "2026-03-09T22:08:05.732908+00:00",
+    "stopped_reason": "manual",
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-14",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Site Visit Ask",
+        "scheduled_date": "2026-03-19",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency",
+        "scheduled_date": "2026-03-27",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-04-06",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "nurture_id": "ce2dd0b9-ca96-4b9a-8d80-dc2baac4dffc",
+    "lead_id": "eb26a167-faa3-4a44-8e31-95f0ccce965b",
+    "lead_name": "Test User",
+    "lead_email": "test@test.com",
+    "status": "active",
+    "current_step": 1,
+    "started_at": "2026-03-09T07:22:10.616526+00:00",
+    "stopped_at": null,
+    "stopped_reason": null,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-14",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Site Visit Ask",
+        "scheduled_date": "2026-03-19",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency",
+        "scheduled_date": "2026-03-27",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-04-06",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "nurture_id": "f79d26a7-ea50-46ee-bbe2-b7828a251610",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "lead_name": "Marcus Webb",
+    "lead_email": "mwebb@webdistribution.net",
+    "status": "stopped",
+    "current_step": 1,
+    "started_at": "2026-03-09T22:08:07.567280+00:00",
+    "stopped_at": "2026-03-09T22:08:09.552446+00:00",
+    "stopped_reason": "manual",
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-14",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Site Visit Ask",
+        "scheduled_date": "2026-03-19",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency",
+        "scheduled_date": "2026-03-27",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-04-06",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "nurture_id": "b5ea958b-64be-4fdf-90ba-fd077818d581",
+    "lead_id": "1fd8f9d9-e2ad-4e13-b9a0-69c52474897c",
+    "lead_name": "Marcus Webb",
+    "lead_email": "mwebb@webdistribution.net",
+    "status": "active",
+    "current_step": 1,
+    "started_at": "2026-03-09T22:08:10.770360+00:00",
+    "stopped_at": null,
+    "stopped_reason": null,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-14",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Site Visit Ask",
+        "scheduled_date": "2026-03-19",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "label": "Urgency",
+        "scheduled_date": "2026-03-27",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 5,
+        "label": "Break-Up",
+        "scheduled_date": "2026-04-06",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
+  }
+]
