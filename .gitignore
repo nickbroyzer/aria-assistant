@@ -6,3 +6,4 @@ google_token.json
 google_credentials.json
 user_sessions.json
 venv/
+.locks/

@@ -24,6 +24,7 @@ from duckduckgo_search import DDGS
 from flask import Flask, Response, g, jsonify, render_template, request, session, stream_with_context
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+from file_locks import file_lock
 
 MEMORY_FILE = "memory.json"
 LEADS_FILE = "leads.jsonl"
@@ -194,14 +195,16 @@ USERS_FILE = "users.json"
 
 def load_users():
     if os.path.exists(USERS_FILE):
-        with open(USERS_FILE) as f:
-            return json.load(f).get("users", [])
+        with file_lock(USERS_FILE):
+            with open(USERS_FILE) as f:
+                return json.load(f).get("users", [])
     return []
 
 
 def save_users(users_list):
-    with open(USERS_FILE, "w") as f:
-        json.dump({"users": users_list}, f, indent=2)
+    with file_lock(USERS_FILE):
+        with open(USERS_FILE, "w") as f:
+            json.dump({"users": users_list}, f, indent=2)
 
 
 def get_current_user():
@@ -233,26 +236,30 @@ def require_owner(f):
 
 def load_memory():
     if os.path.exists(MEMORY_FILE):
-        with open(MEMORY_FILE) as f:
-            return json.load(f)
+        with file_lock(MEMORY_FILE):
+            with open(MEMORY_FILE) as f:
+                return json.load(f)
     return {}
 
 
 def save_memory(data):
-    with open(MEMORY_FILE, "w") as f:
-        json.dump(data, f)
+    with file_lock(MEMORY_FILE):
+        with open(MEMORY_FILE, "w") as f:
+            json.dump(data, f)
 
 
 def load_user_sessions():
     if os.path.exists(USER_SESSIONS_FILE):
-        with open(USER_SESSIONS_FILE) as f:
-            return json.load(f)
+        with file_lock(USER_SESSIONS_FILE):
+            with open(USER_SESSIONS_FILE) as f:
+                return json.load(f)
     return {}
 
 
 def save_user_sessions(data):
-    with open(USER_SESSIONS_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    with file_lock(USER_SESSIONS_FILE):
+        with open(USER_SESSIONS_FILE, "w") as f:
+            json.dump(data, f, indent=2)
 
 
 def get_user_memory(name: str) -> dict:
@@ -393,10 +400,26 @@ We look forward to working with you.
         print(f"Follow-up email failed: {e}")
 
 
+def load_leads():
+    """Load all leads from the JSONL file with file locking."""
+    leads = []
+    if os.path.exists(LEADS_FILE):
+        with file_lock(LEADS_FILE):
+            with open(LEADS_FILE, encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        try:
+                            leads.append(json.loads(line))
+                        except Exception:
+                            pass
+    return leads
+
 def append_lead(lead_data):
     """Append a lead to the JSON Lines file and log to Google Sheets."""
-    with open(LEADS_FILE, "a", encoding="utf-8") as f:
-        f.write(json.dumps(lead_data, default=str) + "\n")
+    with file_lock(LEADS_FILE):
+        with open(LEADS_FILE, "a", encoding="utf-8") as f:
+            f.write(json.dumps(lead_data, default=str) + "\n")
     if SHEETS_WEBHOOK:
         try:
             # Use explicit email/phone if provided, otherwise extract from contact
@@ -1040,8 +1063,9 @@ def log_activity(action: str, description: str, meta: dict = None):
         "meta": meta or {}
     }
     try:
-        with open(ACTIVITY_FILE, "a") as f:
-            f.write(json.dumps(entry) + "\n")
+        with file_lock(ACTIVITY_FILE):
+            with open(ACTIVITY_FILE, "a") as f:
+                f.write(json.dumps(entry) + "\n")
     except Exception:
         pass
 
@@ -1051,14 +1075,15 @@ def load_activity(limit=50):
         return []
     entries = []
     try:
-        with open(ACTIVITY_FILE) as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    try:
-                        entries.append(json.loads(line))
-                    except Exception:
-                        pass
+        with file_lock(ACTIVITY_FILE):
+            with open(ACTIVITY_FILE) as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        try:
+                            entries.append(json.loads(line))
+                        except Exception:
+                            pass
     except Exception:
         pass
     entries.sort(key=lambda x: x.get("ts", ""), reverse=True)
@@ -1177,63 +1202,73 @@ DEFAULT_SETTINGS = {
 
 def load_config():
     if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE) as f:
-            return json.load(f)
+        with file_lock(CONFIG_FILE):
+            with open(CONFIG_FILE) as f:
+                return json.load(f)
     return {"comp_pin": "1234", "comp_pin_changed": ""}
 
 
 def save_config(data):
-    with open(CONFIG_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    with file_lock(CONFIG_FILE):
+        with open(CONFIG_FILE, "w") as f:
+            json.dump(data, f, indent=2)
 
 
 def load_jobs():
     if os.path.exists(JOBS_FILE):
-        with open(JOBS_FILE) as f:
-            return json.load(f)
+        with file_lock(JOBS_FILE):
+            with open(JOBS_FILE) as f:
+                return json.load(f)
     return []
 
 
 def save_jobs(data):
-    with open(JOBS_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(JOBS_FILE):
+        with open(JOBS_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 
 def load_invoices():
     if os.path.exists(INVOICES_FILE):
-        with open(INVOICES_FILE) as f:
-            return json.load(f)
+        with file_lock(INVOICES_FILE):
+            with open(INVOICES_FILE) as f:
+                return json.load(f)
     return []
 
 
 def save_invoices(data):
-    with open(INVOICES_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(INVOICES_FILE):
+        with open(INVOICES_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 
 def load_people():
     if os.path.exists(PEOPLE_FILE):
-        with open(PEOPLE_FILE) as f:
-            return json.load(f)
+        with file_lock(PEOPLE_FILE):
+            with open(PEOPLE_FILE) as f:
+                return json.load(f)
     return []
 
 
 def save_people(data):
-    with open(PEOPLE_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(PEOPLE_FILE):
+        with open(PEOPLE_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 
 PAYROLL_FILE = "payroll.json"
 
 def load_payroll():
     if os.path.exists(PAYROLL_FILE):
-        with open(PAYROLL_FILE) as f:
-            return json.load(f)
+        with file_lock(PAYROLL_FILE):
+            with open(PAYROLL_FILE) as f:
+                return json.load(f)
     return []
 
 def save_payroll(data):
-    with open(PAYROLL_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(PAYROLL_FILE):
+        with open(PAYROLL_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 
 def next_invoice_number():
@@ -1262,13 +1297,15 @@ JOB_COMMS_FILE    = "job_comms.json"
 # ── Job Costs ──────────────────────────────────────────────────────────────────
 def load_jobcosts():
     if os.path.exists(JOBCOSTS_FILE):
-        with open(JOBCOSTS_FILE) as f:
-            return json.load(f)
+        with file_lock(JOBCOSTS_FILE):
+            with open(JOBCOSTS_FILE) as f:
+                return json.load(f)
     return []
 
 def save_jobcosts(data):
-    with open(JOBCOSTS_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    with file_lock(JOBCOSTS_FILE):
+        with open(JOBCOSTS_FILE, "w") as f:
+            json.dump(data, f, indent=2)
 
 @app.route("/dashboard/api/jobcosts", methods=["GET"])
 @require_auth
@@ -1328,8 +1365,9 @@ VENDOR_INVOICES_FILE = "vendorinvoices.json"
 
 def load_vendor_invoices():
     if os.path.exists(VENDOR_INVOICES_FILE):
-        with open(VENDOR_INVOICES_FILE) as f:
-            return json.load(f)
+        with file_lock(VENDOR_INVOICES_FILE):
+            with open(VENDOR_INVOICES_FILE) as f:
+                return json.load(f)
     return []
 
 @app.route("/dashboard/api/vendorinvoices/<cost_id>", methods=["GET"])
@@ -1344,54 +1382,64 @@ def get_vendor_invoice(cost_id):
 
 def load_followups():
     if os.path.exists(FOLLOWUPS_FILE):
-        with open(FOLLOWUPS_FILE) as f:
-            return json.load(f)
+        with file_lock(FOLLOWUPS_FILE):
+            with open(FOLLOWUPS_FILE) as f:
+                return json.load(f)
     return []
 
 def save_followups(data):
-    with open(FOLLOWUPS_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(FOLLOWUPS_FILE):
+        with open(FOLLOWUPS_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 
 def load_lead_meta():
     if os.path.exists(LEAD_META_FILE):
-        with open(LEAD_META_FILE) as f:
-            return json.load(f)
+        with file_lock(LEAD_META_FILE):
+            with open(LEAD_META_FILE) as f:
+                return json.load(f)
     return {}
 
 def save_lead_meta(data):
-    with open(LEAD_META_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(LEAD_META_FILE):
+        with open(LEAD_META_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 def load_lead_nurtures():
     if os.path.exists(LEAD_NURTURES_FILE):
-        with open(LEAD_NURTURES_FILE) as f:
-            return json.load(f)
+        with file_lock(LEAD_NURTURES_FILE):
+            with open(LEAD_NURTURES_FILE) as f:
+                return json.load(f)
     return []
 
 def save_lead_nurtures(data):
-    with open(LEAD_NURTURES_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(LEAD_NURTURES_FILE):
+        with open(LEAD_NURTURES_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 def load_lead_comms():
     if os.path.exists(LEAD_COMMS_FILE):
-        with open(LEAD_COMMS_FILE) as f:
-            return json.load(f)
+        with file_lock(LEAD_COMMS_FILE):
+            with open(LEAD_COMMS_FILE) as f:
+                return json.load(f)
     return []
 
 def save_lead_comms(data):
-    with open(LEAD_COMMS_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(LEAD_COMMS_FILE):
+        with open(LEAD_COMMS_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 def load_job_comms():
     if os.path.exists(JOB_COMMS_FILE):
-        with open(JOB_COMMS_FILE) as f:
-            return json.load(f)
+        with file_lock(JOB_COMMS_FILE):
+            with open(JOB_COMMS_FILE) as f:
+                return json.load(f)
     return []
 
 def save_job_comms(data):
-    with open(JOB_COMMS_FILE, "w") as f:
-        json.dump(data, f, indent=2, default=str)
+    with file_lock(JOB_COMMS_FILE):
+        with open(JOB_COMMS_FILE, "w") as f:
+            json.dump(data, f, indent=2, default=str)
 
 def log_job_comm(job_id, comm_type, direction, subject, body, sent_by="system"):
     comms = load_job_comms()
@@ -1563,16 +1611,7 @@ def process_due_lead_nurtures():
     nurtures = load_lead_nurtures()
     meta     = load_lead_meta()
     # Build lead lookup
-    leads_raw = []
-    if os.path.exists(LEADS_FILE):
-        with open(LEADS_FILE, encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    try:
-                        leads_raw.append(json.loads(line))
-                    except Exception:
-                        pass
+    leads_raw = load_leads()
     lead_map = {l["lead_id"]: l for l in leads_raw}
     today = date.today().isoformat()
     changed = False
@@ -2417,16 +2456,7 @@ def dashboard():
 
 @app.route("/dashboard/api/leads")
 def dashboard_leads():
-    leads = []
-    if os.path.exists(LEADS_FILE):
-        with open(LEADS_FILE, encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    try:
-                        leads.append(json.loads(line))
-                    except Exception:
-                        pass
+    leads = load_leads()
     meta = load_lead_meta()
     nurtures = load_lead_nurtures()
     nurture_map = {}
@@ -2472,8 +2502,7 @@ def create_lead_dashboard():
         "source":         data.get("source","manual").strip(),
     }
     lead["score"] = score_lead(lead)
-    with open(LEADS_FILE, "a", encoding="utf-8") as f:
-        f.write(json.dumps(lead) + "\n")
+    append_lead(lead)
     meta = load_lead_meta()
     meta[lead["lead_id"]] = {"status": "new"}
     save_lead_meta(meta)
@@ -2499,15 +2528,7 @@ def update_lead(lead_id):
         pass  # no sequence action
     save_lead_meta(meta)
     if new_status:
-        leads_all = []
-        try:
-            with open(LEADS_FILE) as f:
-                for line in f:
-                    line = line.strip()
-                    if line:
-                        try: leads_all.append(json.loads(line))
-                        except: pass
-        except: pass
+        leads_all = load_leads()
         lead_obj = next((l for l in leads_all if l.get("lead_id") == lead_id), {})
         label = {"new":"New","contacted":"Contacted","qualified":"Qualified","converted":"Converted","lost":"Lost"}.get(new_status, new_status)
         log_activity("lead_status", f"Lead marked {label} — {lead_obj.get('name','Unknown')} ({lead_obj.get('company','')})", {"lead_id": lead_id, "status": new_status})
@@ -2592,16 +2613,7 @@ def api_start_lead_nurture():
     data = request.json or {}
     lead_id = data.get("lead_id")
     # Look up lead
-    leads_raw = []
-    if os.path.exists(LEADS_FILE):
-        with open(LEADS_FILE, encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    try:
-                        leads_raw.append(json.loads(line))
-                    except Exception:
-                        pass
+    leads_raw = load_leads()
     lead = next((l for l in leads_raw if l.get("lead_id") == lead_id), None)
     if not lead:
         return jsonify({"ok": False, "error": "Lead not found"}), 404
@@ -2843,16 +2855,7 @@ def dashboard_appointments():
 
 @app.route("/dashboard/api/stats")
 def dashboard_stats():
-    leads = []
-    if os.path.exists(LEADS_FILE):
-        with open(LEADS_FILE, encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    try:
-                        leads.append(json.loads(line))
-                    except Exception:
-                        pass
+    leads = load_leads()
 
     now = datetime.now(timezone.utc)
     week_ago = now - timedelta(days=7)
@@ -3329,10 +3332,7 @@ def data_summary():
     invoices = load_invoices()
     people   = load_people()
     payroll  = load_payroll()
-    leads_count = 0
-    if os.path.exists(LEADS_FILE):
-        with open(LEADS_FILE) as f:
-            leads_count = sum(1 for line in f if line.strip())
+    leads_count = len(load_leads())
     return jsonify({
         "jobs": len(jobs),
         "invoices": len(invoices),
@@ -3774,13 +3774,15 @@ INVOICE_INBOX_FILE = "invoice_inbox.json"
 
 def load_invoice_inbox():
     if os.path.exists(INVOICE_INBOX_FILE):
-        with open(INVOICE_INBOX_FILE) as f:
-            return json.load(f)
+        with file_lock(INVOICE_INBOX_FILE):
+            with open(INVOICE_INBOX_FILE) as f:
+                return json.load(f)
     return []
 
 def save_invoice_inbox(data):
-    with open(INVOICE_INBOX_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    with file_lock(INVOICE_INBOX_FILE):
+        with open(INVOICE_INBOX_FILE, "w") as f:
+            json.dump(data, f, indent=2)
 
 
 def _parse_amount(text):

@@ -5,3 +5,4 @@ duckduckgo-search
 pymupdf
 pdfplumber
 python-dotenv
+filelock
