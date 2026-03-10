@@ -7,6 +7,7 @@ import smtplib
 import threading
 import uuid
 from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -326,7 +327,6 @@ def score_lead(lead: dict) -> str:
 
 def extract_email_phone(contact: str):
     """Split a contact string into email and phone."""
-    import re
     email = ""
     phone = ""
     if contact:
@@ -917,7 +917,7 @@ def get_available_slots(days_ahead=7):
 
     # Generate candidate slots
     slots = []
-    pacific = timezone(timedelta(hours=-7))  # PDT (Pacific Daylight)
+    pacific = ZoneInfo("America/Los_Angeles")
     day = datetime.now(pacific).replace(hour=0, minute=0, second=0, microsecond=0)
     days_found = 0
     while days_found < days_ahead:
@@ -1088,7 +1088,10 @@ def load_activity(limit=50):
         pass
     entries.sort(key=lambda x: x.get("ts", ""), reverse=True)
     return entries[:limit]
-WA_TAX_RATE  = 0.102  # Washington state sales tax
+def get_tax_rate():
+    """Read tax rate from config (stored as percentage, e.g. 10.2), return as decimal."""
+    cfg = load_config()
+    return cfg.get("company", {}).get("tax_rate", 10.2) / 100
 MASTER_PASSWORD = os.getenv("MASTER_PASSWORD", os.getenv("DASHBOARD_PASSWORD", ""))
 
 DEFAULT_SETTINGS = {
@@ -2228,7 +2231,7 @@ def create_invoice():
     line_items = data.get("line_items", [])
     subtotal = sum(float(item.get("amount", 0)) for item in line_items)
     apply_tax = data.get("apply_tax", False)
-    tax = round(subtotal * WA_TAX_RATE, 2) if apply_tax else 0
+    tax = round(subtotal * get_tax_rate(), 2) if apply_tax else 0
     total = round(subtotal + tax, 2)
     invoice = {
         "invoice_id": str(uuid.uuid4()),
@@ -2244,7 +2247,7 @@ def create_invoice():
         "line_items": line_items,
         "subtotal": round(subtotal, 2),
         "apply_tax": apply_tax,
-        "tax_rate": WA_TAX_RATE if apply_tax else 0,
+        "tax_rate": get_tax_rate() if apply_tax else 0,
         "tax": tax,
         "total": total,
         "notes": data.get("notes", "Payment due within 30 days. Thank you for your business."),
@@ -2268,11 +2271,11 @@ def update_invoice(inv_id):
                 line_items = data["line_items"]
                 subtotal = sum(float(item.get("amount", 0)) for item in line_items)
                 apply_tax = data.get("apply_tax", inv.get("apply_tax", False))
-                tax = round(subtotal * WA_TAX_RATE, 2) if apply_tax else 0
+                tax = round(subtotal * get_tax_rate(), 2) if apply_tax else 0
                 data["subtotal"] = round(subtotal, 2)
                 data["tax"] = tax
                 data["total"] = round(subtotal + tax, 2)
-                data["tax_rate"] = WA_TAX_RATE if apply_tax else 0
+                data["tax_rate"] = get_tax_rate() if apply_tax else 0
             prev_status = invoices[i].get("status")
             if data.get("status") == "paid" and not invoices[i].get("paid_at"):
                 data["paid_at"] = datetime.now(timezone.utc).isoformat()
