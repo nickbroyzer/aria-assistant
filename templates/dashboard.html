@@ -1680,6 +1680,13 @@
                   <div class="mc-card-sub" id="mc-c-overbudget-sub">Costs ≥ 75%</div>
                   <div class="mc-card-items" id="mc-c-overbudget-items"></div>
                 </div>
+                <div class="mc-card red">
+                  <div class="mc-card-icon">💰</div>
+                  <div class="mc-card-count" id="mc-c-invage-count">—</div>
+                  <div class="mc-card-label">Invoice Aging</div>
+                  <div class="mc-card-sub">Oldest unpaid invoices</div>
+                  <div class="qa-chips" id="mc-c-invage-chips"></div>
+                </div>
                 <div class="mc-card orange" style="grid-column:1/-1; display:flex; flex-direction:row; align-items:center; gap:24px; padding:16px 20px;">
                   <div style="display:flex; flex-direction:column; align-items:center; min-width:70px;">
                     <div class="mc-card-icon">⏳</div>
@@ -3477,6 +3484,27 @@
           </div>`;
         }).join('');
       }
+
+      // Invoice Aging — unpaid invoices past due date
+      fetch('/dashboard/api/invoices').then(r=>r.json()).then(invoices => {
+        const today = new Date();
+        const aging = invoices.filter(inv => {
+          if (inv.status === 'paid' || inv.status === 'draft') return false;
+          const due = new Date(inv.due_date);
+          return due < today;
+        }).map(inv => {
+          const due = new Date(inv.due_date);
+          const daysAgo = Math.floor((today - due) / 86400000);
+          return { name: inv.client_name.split(' ')[0], daysAgo, total: inv.total, invoice_id: inv.invoice_id };
+        }).sort((a,b) => b.daysAgo - a.daysAgo);
+
+        document.getElementById('mc-c-invage-count').textContent = aging.length;
+        const chips = aging.slice(0,3).map(inv => {
+          const cls = inv.daysAgo >= 30 ? 'cold' : inv.daysAgo >= 15 ? 'warm' : 'fresh';
+          return `<span class="qa-chip ${cls}">${inv.name} · ${inv.daysAgo}d</span>`;
+        }).join('');
+        document.getElementById('mc-c-invage-chips').innerHTML = chips || '<span style="font-size:12px;color:var(--muted)">None overdue</span>';
+      }).catch(()=>{});
 
       // Quote Aging — real data from quoted jobs
       const quotedAging = quoted.map(j => {
