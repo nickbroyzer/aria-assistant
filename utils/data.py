@@ -110,6 +110,13 @@ def load_followups():
                 return json.load(f)
     return []
 
+def load_nurtures():
+    if os.path.exists(LEAD_NURTURES_FILE):
+        with file_lock(LEAD_NURTURES_FILE):
+            with open(LEAD_NURTURES_FILE) as f:
+                return json.load(f)
+    return []
+
 def save_followups(data):
     with file_lock(FOLLOWUPS_FILE):
         with open(FOLLOWUPS_FILE, "w") as f:

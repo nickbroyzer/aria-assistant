@@ -238,5 +238,100 @@
         "status": "pending"
       }
     ]
+  },
+  {
+    "nurture_id": "demo-n-001",
+    "lead_id": "demo-lead-001",
+    "lead_name": "Derek Holloway",
+    "lead_email": "derek@hollowalogistics.com",
+    "status": "active",
+    "current_step": 2,
+    "started_at": "2026-03-11T22:22:08.887639+00:00",
+    "stopped_at": null,
+    "stopped_reason": null,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-05",
+        "sent_at": "2026-03-05T10:00:00+00:00",
+        "status": "sent"
+      },
+      {
+        "step": 2,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Site Visit Ask",
+        "scheduled_date": "2026-03-18",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "nurture_id": "demo-n-002",
+    "lead_id": "demo-lead-002",
+    "lead_name": "Elena Vasquez",
+    "lead_email": "elena@vasquezwarehousing.com",
+    "status": "active",
+    "current_step": 1,
+    "started_at": "2026-03-11T22:22:08.887804+00:00",
+    "stopped_at": null,
+    "stopped_reason": null,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-11",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "label": "Value Touch",
+        "scheduled_date": "2026-03-20",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "nurture_id": "demo-n-003",
+    "lead_id": "demo-lead-003",
+    "lead_name": "Ryan Petrov",
+    "lead_email": "ryan@petrovcoldchain.com",
+    "status": "active",
+    "current_step": 2,
+    "started_at": "2026-03-11T22:22:08.887807+00:00",
+    "stopped_at": null,
+    "stopped_reason": null,
+    "steps": [
+      {
+        "step": 1,
+        "label": "Check-In",
+        "scheduled_date": "2026-03-08",
+        "sent_at": "2026-03-08T09:00:00+00:00",
+        "status": "sent"
+      },
+      {
+        "step": 2,
+        "label": "Urgency",
+        "scheduled_date": "2026-03-09",
+        "sent_at": null,
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "label": "Break-Up",
+        "scheduled_date": "2026-03-25",
+        "sent_at": null,
+        "status": "pending"
+      }
+    ]
   }
 ]

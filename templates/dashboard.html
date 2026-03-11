@@ -1358,6 +1358,9 @@
     .mc-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
     .mc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
     .mc-card.red::before { background: var(--hot); }
+    .mc-card.yellow::before { background: var(--warning); }
+    .mc-card.yellow .mc-card-count { color: var(--warning); }
+    .mc-card:hover.yellow { border-color: rgba(251,191,36,0.4); }
     .mc-card.orange::before { background: var(--orange); }
     .mc-card.blue::before { background: var(--cold); }
     .mc-card.green::before { background: var(--green); }
@@ -1686,6 +1689,13 @@
                   <div class="mc-card-label">Invoice Aging</div>
                   <div class="mc-card-sub">Oldest unpaid invoices</div>
                   <div class="qa-chips" id="mc-c-invage-chips"></div>
+                </div>
+                <div class="mc-card yellow">
+                  <div class="mc-card-icon">📞</div>
+                  <div class="mc-card-count" id="mc-c-followup-count">—</div>
+                  <div class="mc-card-label">Follow-ups Due</div>
+                  <div class="mc-card-sub">Nurtures due today</div>
+                  <div class="qa-chips" id="mc-c-followup-chips"></div>
                 </div>
                 <div class="mc-card orange" style="grid-column:1/-1; display:flex; flex-direction:row; align-items:center; gap:24px; padding:16px 20px;">
                   <div style="display:flex; flex-direction:column; align-items:center; min-width:70px;">
@@ -3484,6 +3494,30 @@
           </div>`;
         }).join('');
       }
+
+      // Follow-ups Due — nurture steps due today or overdue
+      fetch('/dashboard/api/lead-nurtures').then(r=>r.json()).then(data => {
+        const followups = Array.isArray(data) ? data : (data.followups || []);
+        const today = new Date().toISOString().split('T')[0];
+        const due = [];
+        followups.forEach(f => {
+          if (f.status !== 'active') return;
+          (f.steps || []).forEach(s => {
+            if (s.status === 'pending' && s.scheduled_date <= today) {
+              due.push({ name: f.lead_name.split(' ')[0], label: s.label, date: s.scheduled_date });
+            }
+          });
+        });
+        due.sort((a,b) => a.date.localeCompare(b.date));
+        document.getElementById('mc-c-followup-count').textContent = due.length;
+        const chips = due.slice(0,3).map(d => {
+          return `<span class="qa-chip warm">${d.name} · ${d.label}</span>`;
+        }).join('');
+        document.getElementById('mc-c-followup-chips').innerHTML = chips || '<span style="font-size:12px;color:var(--muted)">None due</span>';
+      }).catch(()=>{
+        document.getElementById('mc-c-followup-count').textContent = '0';
+        document.getElementById('mc-c-followup-chips').innerHTML = '<span style="font-size:12px;color:var(--muted)">None due</span>';
+      });
 
       // Invoice Aging — unpaid invoices past due date
       fetch('/dashboard/api/invoices').then(r=>r.json()).then(invoices => {

@@ -44,6 +44,7 @@ from utils.auth import (
     get_current_user, load_users, require_auth, require_owner, save_users,
 )
 from utils.data import (
+    load_nurtures,
     load_invoices, load_jobs, load_leads, load_payroll, load_people,
 )
 from utils.activity import load_activity, log_activity
@@ -270,6 +271,16 @@ def dashboard_appointments():
     except Exception:
         return jsonify([])
 
+
+
+
+@dashboard_bp.route("/dashboard/api/lead-nurtures")
+def dashboard_lead_nurtures():
+    try:
+        nurtures = load_nurtures()
+        return jsonify(nurtures)
+    except Exception as e:
+        return jsonify([])
 
 # ── Settings ──────────────────────────────────────────────────────────────────
 
