@@ -1357,19 +1357,20 @@
     }
     .mc-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
     .mc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-    .mc-card.red::before { background: var(--hot); }
-    .mc-card.yellow::before { background: var(--warning); }
+    .mc-card.red::before { display:none; background: var(--hot); }
+    .mc-card.yellow::before { display:none; background: var(--warning); }
     .mc-card.yellow .mc-card-count { color: var(--warning); }
     .mc-card:hover.yellow { border-color: rgba(251,191,36,0.4); }
-    .mc-card.orange::before { background: var(--orange); }
-    .mc-card.blue::before { background: var(--cold); }
-    .mc-card.green::before { background: var(--green); }
+    .mc-card.orange::before { display:none; background: var(--orange); }
+    .mc-card.blue::before { display:none; background: var(--cold); }
+    .mc-card.green::before { display:none; background: var(--green); }
     .mc-card:hover.red { border-color: rgba(239,68,68,0.4); }
     .mc-card:hover.orange { border-color: rgba(232,101,10,0.4); }
     .mc-card:hover.blue { border-color: rgba(96,165,250,0.4); }
     .mc-card:hover.green { border-color: rgba(34,197,94,0.4); }
     .mc-card-icon { font-size: 20px; margin-bottom: 4px; }
     .mc-card-count { font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 800; line-height: 1; }
+    .mc-card.purple .mc-card-count { color: #a78bfa; }
     .mc-card.red .mc-card-count { color: var(--hot); }
     .mc-card.orange .mc-card-count { color: var(--orange); }
     .mc-card.blue .mc-card-count { color: var(--cold); }
@@ -1491,6 +1492,13 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+
+      .mc-card.red:hover    { box-shadow: 0 0 18px rgba(239,68,68,0.5); }
+    .mc-card.yellow:hover { box-shadow: 0 0 18px rgba(251,191,36,0.45); }
+    .mc-card.blue:hover   { box-shadow: 0 0 18px rgba(59,130,246,0.45); }
+    .mc-card.green:hover  { box-shadow: 0 0 18px rgba(34,197,94,0.45); }
+    .mc-card.purple:hover { box-shadow: 0 0 18px rgba(168,85,247,0.45); }
+    .mc-card.orange:hover { box-shadow: 0 0 18px rgba(249,115,22,0.45); }
 
   </style>
 </head>
@@ -1692,7 +1700,7 @@
                 </div>
                 <div class="mc-card yellow">
                   <div class="mc-card-icon">📞</div>
-                  <div class="mc-card-count" id="mc-c-followup-count">—</div>
+                  <div class="mc-card-count" id="mc-c-followup-count" style="color:#fbbf24;">—</div>
                   <div class="mc-card-label">Follow-ups Due</div>
                   <div class="mc-card-sub">Nurtures due today</div>
                   <div class="qa-chips" id="mc-c-followup-chips"></div>
