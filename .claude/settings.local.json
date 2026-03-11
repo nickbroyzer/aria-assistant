@@ -5,7 +5,8 @@
       "Bash(pip3 show:*)",
       "Bash(python3:*)",
       "Bash(pip3 install:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(grep -r \"anthropic\\\\|openai\\\\|ollama\" /Users/nickbroyzer/Projects/my-assistant --include=\"*.py\" --include=\"*.txt\" --include=\"*.md\" 2>/dev/null | grep -v venv | head -30)"
     ]
   }
 }

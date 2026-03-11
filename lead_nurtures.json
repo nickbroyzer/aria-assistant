@@ -5,7 +5,7 @@
     "lead_name": "Test Customer",
     "lead_email": "leads.pacificconstruction@gmail.com",
     "status": "active",
-    "current_step": 1,
+    "current_step": 2,
     "started_at": "2026-03-09T07:14:26.415391+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -14,8 +14,8 @@
         "step": 1,
         "label": "Check-In",
         "scheduled_date": "2026-03-11",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-11T20:55:59.082048+00:00",
+        "status": "sent"
       },
       {
         "step": 2,
@@ -101,7 +101,7 @@
     "lead_name": "Test User",
     "lead_email": "test@test.com",
     "status": "active",
-    "current_step": 1,
+    "current_step": 2,
     "started_at": "2026-03-09T07:22:10.616526+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -110,8 +110,8 @@
         "step": 1,
         "label": "Check-In",
         "scheduled_date": "2026-03-11",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-11T20:56:01.517464+00:00",
+        "status": "sent"
       },
       {
         "step": 2,
@@ -197,7 +197,7 @@
     "lead_name": "Marcus Webb",
     "lead_email": "mwebb@webdistribution.net",
     "status": "active",
-    "current_step": 1,
+    "current_step": 2,
     "started_at": "2026-03-09T22:08:10.770360+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -206,8 +206,8 @@
         "step": 1,
         "label": "Check-In",
         "scheduled_date": "2026-03-11",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-11T20:56:03.097516+00:00",
+        "status": "sent"
       },
       {
         "step": 2,

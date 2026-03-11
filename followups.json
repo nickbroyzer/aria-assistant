@@ -8,7 +8,7 @@
     "job_type": "Modular Office",
     "started_at": "2026-03-09T04:19:30.571855+00:00",
     "status": "active",
-    "current_step": 2,
+    "current_step": 3,
     "total_steps": 5,
     "steps": [
       {
@@ -22,8 +22,8 @@
         "step": 2,
         "label": "Check-In",
         "scheduled_date": "2026-03-11",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-11T19:58:06.960630+00:00",
+        "status": "sent"
       },
       {
         "step": 3,
@@ -59,7 +59,7 @@
     "job_type": "Conveyor System",
     "started_at": "2026-03-09T04:23:47.604242+00:00",
     "status": "active",
-    "current_step": 2,
+    "current_step": 3,
     "total_steps": 5,
     "steps": [
       {
@@ -73,8 +73,8 @@
         "step": 2,
         "label": "Check-In",
         "scheduled_date": "2026-03-11",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-11T19:58:08.224540+00:00",
+        "status": "sent"
       },
       {
         "step": 3,
