@@ -1,0 +1,57 @@
+[
+  {
+    "id": "demo-001",
+    "title": "Site Visit \u2014 Carlos Mendez (Modular Office)",
+    "date": "2026-03-11",
+    "time": "09:00",
+    "duration": 60,
+    "type": "site_visit",
+    "notes": "Review warehouse layout for modular office installation",
+    "contact": "Carlos Mendez",
+    "created_at": "2026-03-11T22:10:08.770968+00:00"
+  },
+  {
+    "id": "demo-002",
+    "title": "Quote Review Call \u2014 Greg Halvorson",
+    "date": "2026-03-11",
+    "time": "11:00",
+    "duration": 30,
+    "type": "call",
+    "notes": "Go over cold storage buildout quote \u2014 $82k proposal",
+    "contact": "Greg Halvorson",
+    "created_at": "2026-03-11T22:10:08.771057+00:00"
+  },
+  {
+    "id": "demo-003",
+    "title": "Lunch \u2014 Tony Marchetti",
+    "date": "2026-03-11",
+    "time": "12:30",
+    "duration": 60,
+    "type": "meeting",
+    "notes": "Relationship meeting \u2014 discuss phase 2 expansion",
+    "contact": "Tony Marchetti",
+    "created_at": "2026-03-11T22:10:08.771059+00:00"
+  },
+  {
+    "id": "demo-004",
+    "title": "Install Check \u2014 Fife DC Pallet Racking",
+    "date": "2026-03-11",
+    "time": "14:00",
+    "duration": 90,
+    "type": "site_visit",
+    "notes": "Final walkthrough before sign-off",
+    "contact": "Fife DC",
+    "created_at": "2026-03-11T22:10:08.771060+00:00"
+  },
+  {
+    "id": "demo-005",
+    "title": "Team Standup",
+    "date": "2026-03-11",
+    "time": "16:00",
+    "duration": 20,
+    "type": "internal",
+    "notes": "Daily team check-in",
+    "contact": "",
+    "created_at": "2026-03-11T22:10:08.771061+00:00"
+  }
+]
