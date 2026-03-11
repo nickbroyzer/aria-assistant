@@ -16,6 +16,7 @@ from datetime import datetime, timezone
 from flask import Blueprint, jsonify, request
 
 from utils.auth import require_auth
+from utils.config import safe_float
 from utils.data import load_payroll, load_people, save_payroll, save_people
 from utils.html_generators import _paystub_html
 
@@ -47,7 +48,7 @@ def create_person():
         "email": data.get("email", "").strip(),
         "notes": data.get("notes", "").strip(),
         "pay_type": data.get("pay_type", ""),
-        "pay_rate": float(data.get("pay_rate") or 0),
+        "pay_rate": safe_float(data.get("pay_rate")),
         "pay_terms": data.get("pay_terms", ""),
         "qb_type": data.get("qb_type", ""),
         "tax_id": data.get("tax_id", "").strip(),
@@ -76,7 +77,7 @@ def update_person(person_id):
                     p[k] = str(data[k]).strip()
             for k in ("pay_rate",):
                 if k in data:
-                    p[k] = float(data[k] or 0)
+                    p[k] = safe_float(data[k])
             if comp_changed:
                 p["comp_last_modified"] = datetime.now().strftime("%Y-%m-%d")
             save_people(people)
@@ -117,8 +118,8 @@ def create_pay_record():
         "job_id": data.get("job_id", ""),
         "job_number": data.get("job_number", ""),
         "description": data.get("description", "").strip(),
-        "amount_due": float(data.get("amount_due") or 0),
-        "amount_paid": float(data.get("amount_paid") or 0),
+        "amount_due": safe_float(data.get("amount_due")),
+        "amount_paid": safe_float(data.get("amount_paid")),
         "status": data.get("status", "pending"),
         "pay_date": data.get("pay_date", ""),
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -140,7 +141,7 @@ def update_pay_record(pay_id):
                     r[k] = str(data[k]).strip()
             for k in ("amount_due", "amount_paid"):
                 if k in data:
-                    r[k] = float(data[k] or 0)
+                    r[k] = safe_float(data[k])
             save_payroll(records)
             return jsonify(r)
     return jsonify({"error": "Not found"}), 404
@@ -163,7 +164,7 @@ def recalculate_pending(person_id):
     """Recalculate amount_due on all pending pay records after a rate change."""
     data = request.json or {}
     pay_type = data.get("pay_type", "salary")
-    pay_rate = float(data.get("pay_rate", 0))
+    pay_rate = safe_float(data.get("pay_rate"))
     pay_terms = data.get("pay_terms", "biweekly")
 
     if pay_type == "salary":

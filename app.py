@@ -26,8 +26,9 @@ register_blueprints(app)
 from utils.sequences import _start_followup_scheduler
 from utils.invoice_inbox import _start_invoice_poller
 
-_start_followup_scheduler()
-_start_invoice_poller()
+if not app.config.get("TESTING") and os.getenv("TESTING") != "1":
+    _start_followup_scheduler()
+    _start_invoice_poller()
 
 # ── Run ───────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":

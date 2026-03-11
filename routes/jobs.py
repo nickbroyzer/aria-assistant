@@ -36,8 +36,8 @@ from email.mime.text import MIMEText
 from flask import Blueprint, jsonify, request, send_from_directory
 
 from utils.constants import DEFAULT_SETTINGS
-from utils.config import _integ_val, load_config
-from utils.auth import load_users, require_auth
+from utils.config import _integ_val, load_config, safe_float
+from utils.auth import get_current_user, load_users, require_auth
 from utils.data import (
     load_followups, load_job_comms, load_jobcosts, load_jobs,
     load_vendor_invoices, next_job_number, save_followups,
@@ -81,8 +81,8 @@ def create_job():
         "client_email": data.get("client_email", ""),
         "client_phone": data.get("client_phone", ""),
         "description": data.get("description", ""),
-        "quoted_amount": float(data.get("quoted_amount") or 0),
-        "actual_amount": float(data.get("actual_amount") or 0),
+        "quoted_amount": safe_float(data.get("quoted_amount")),
+        "actual_amount": safe_float(data.get("actual_amount")),
         "notes": data.get("notes", ""),
         "lead_id": data.get("lead_id", ""),
     }
@@ -110,7 +110,7 @@ def update_job(job_id):
                     j[k] = data[k]
             for k in ("quoted_amount", "actual_amount"):
                 if k in data:
-                    j[k] = float(data[k] or 0)
+                    j[k] = safe_float(data[k])
             save_jobs(jobs)
             return jsonify(j)
     return jsonify({"error": "Not found"}), 404
@@ -152,7 +152,7 @@ def create_jobcost():
         "category": data.get("category", ""),
         "description": data.get("description", ""),
         "vendor": data.get("vendor", ""),
-        "amount": float(data.get("amount") or 0),
+        "amount": safe_float(data.get("amount")),
         "date": data.get("date", datetime.now().strftime("%Y-%m-%d")),
         "receipt_ref": data.get("receipt_ref", ""),
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -173,7 +173,7 @@ def update_jobcost(cost_id):
                 if k in data:
                     c[k] = data[k]
             if "amount" in data:
-                c["amount"] = float(data["amount"] or 0)
+                c["amount"] = safe_float(data["amount"])
             save_jobcosts(costs)
             return jsonify(c)
     return jsonify({"error": "Not found"}), 404
@@ -376,7 +376,10 @@ def get_job_followup(job_id):
 
 @jobs_bp.route("/dashboard/api/jobs/<job_id>/files", methods=["GET"])
 def list_job_files(job_id):
-    folder = os.path.join("job_files", job_id)
+    base = os.path.realpath("job_files")
+    folder = os.path.realpath(os.path.join("job_files", job_id))
+    if not folder.startswith(base + os.sep):
+        return jsonify([])
     if not os.path.exists(folder):
         return jsonify([])
     files = []
@@ -422,8 +425,13 @@ def upload_job_file(job_id):
 
 @jobs_bp.route("/dashboard/job-files/<job_id>/<filename>")
 def serve_job_file(job_id, filename):
-    folder = os.path.abspath(os.path.join("job_files", job_id))
-    return send_from_directory(folder, filename)
+    base = os.path.realpath("job_files")
+    safe_name = re.sub(r'[^\w\.\-]', '_', filename)
+    full = os.path.realpath(os.path.join("job_files", job_id, safe_name))
+    if not full.startswith(base + os.sep):
+        return jsonify({"error": "Not found"}), 404
+    folder = os.path.dirname(full)
+    return send_from_directory(folder, os.path.basename(full))
 
 
 @jobs_bp.route("/dashboard/api/jobs/<job_id>/files/<filename>", methods=["DELETE"])
@@ -449,6 +457,7 @@ def api_job_comms_get(job_id):
 def api_job_comms_post(job_id):
     data = request.json or {}
     comms = load_job_comms()
+    user = get_current_user()
     entry = {
         "comm_id": str(uuid.uuid4()),
         "job_id": job_id,
@@ -456,7 +465,7 @@ def api_job_comms_post(job_id):
         "direction": data.get("direction", "internal"),
         "subject": data.get("subject", ""),
         "body": data.get("body", ""),
-        "sent_by": data.get("sent_by", "user"),
+        "sent_by": user.get("display_name", "user") if user else "user",
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
     comms.append(entry)

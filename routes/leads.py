@@ -29,7 +29,7 @@ from utils.constants import (
     DEFAULT_SETTINGS, GMAIL_APP_PASSWORD, GMAIL_SENDER, LEAD_NOTIFY_EMAIL,
 )
 from utils.config import _integ_val, load_config
-from utils.auth import load_users, require_auth
+from utils.auth import get_current_user, load_users, require_auth
 from utils.data import (
     append_lead, load_lead_comms, load_lead_meta, load_lead_nurtures,
     load_leads, save_lead_comms, save_lead_meta, save_lead_nurtures,
@@ -446,6 +446,7 @@ def api_lead_comms_get(lead_id):
 def api_lead_comms_post(lead_id):
     data = request.json or {}
     comms = load_lead_comms()
+    user = get_current_user()
     entry = {
         "comm_id": str(uuid.uuid4()),
         "lead_id": lead_id,
@@ -453,7 +454,7 @@ def api_lead_comms_post(lead_id):
         "direction": data.get("direction", "internal"),
         "subject": data.get("subject", ""),
         "body": data.get("body", ""),
-        "sent_by": data.get("sent_by", "user"),
+        "sent_by": user.get("display_name", "user") if user else "user",
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
     comms.append(entry)

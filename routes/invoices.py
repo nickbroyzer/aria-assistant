@@ -22,7 +22,7 @@ from email.mime.text import MIMEText
 from flask import Blueprint, jsonify, request
 
 from utils.constants import GMAIL_APP_PASSWORD, GMAIL_SENDER
-from utils.config import get_tax_rate, load_config, save_config
+from utils.config import get_tax_rate, load_config, safe_float, save_config
 from utils.auth import require_auth
 from utils.data import (
     load_invoice_inbox, load_invoices, load_jobcosts, load_jobs,
@@ -52,7 +52,7 @@ def create_invoice():
     data = request.get_json() or {}
     invoices = load_invoices()
     line_items = data.get("line_items", [])
-    subtotal = sum(float(item.get("amount", 0)) for item in line_items)
+    subtotal = sum(safe_float(item.get("amount")) for item in line_items)
     apply_tax = data.get("apply_tax", False)
     tax = round(subtotal * get_tax_rate(), 2) if apply_tax else 0
     total = round(subtotal + tax, 2)
@@ -101,7 +101,7 @@ def update_invoice(inv_id):
         if inv["invoice_id"] == inv_id:
             if "line_items" in data:
                 line_items = data["line_items"]
-                subtotal = sum(float(item.get("amount", 0)) for item in line_items)
+                subtotal = sum(safe_float(item.get("amount")) for item in line_items)
                 apply_tax = data.get("apply_tax", inv.get("apply_tax", False))
                 tax = round(subtotal * get_tax_rate(), 2) if apply_tax else 0
                 data["subtotal"] = round(subtotal, 2)
@@ -261,7 +261,7 @@ def approve_inbox_invoice(inbox_id):
             or f"Invoice #{item.get('invoice_number', '')} from {item.get('vendor', '')}"
         ),
         "vendor": item.get("vendor", ""),
-        "amount": float(data.get("amount", item.get("amount", 0))),
+        "amount": safe_float(data.get("amount", item.get("amount", 0))),
         "date": item.get("invoice_date") or datetime.now().strftime("%Y-%m-%d"),
         "receipt_ref": f"inbox:{inbox_id}",
         "created_at": datetime.now(timezone.utc).isoformat(),

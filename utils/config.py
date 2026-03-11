@@ -31,6 +31,14 @@ def get_tax_rate():
     return cfg.get("company", {}).get("tax_rate", 10.2) / 100
 
 
+def safe_float(val, default=0.0):
+    """Convert val to float, returning default on failure. Use for all user input."""
+    try:
+        return float(val) if val is not None and val != "" else default
+    except (ValueError, TypeError):
+        return default
+
+
 def _integ_val(key):
     """Return integration credential: config.json overrides .env."""
     cfg = load_config().get("integrations", {})
