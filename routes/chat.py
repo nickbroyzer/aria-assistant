@@ -21,8 +21,12 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+import anthropic
 import requests
 from flask import Blueprint, Response, jsonify, render_template, request, stream_with_context
+
+_anthropic = anthropic.Anthropic()          # uses ANTHROPIC_API_KEY env var
+_MODEL = "claude-sonnet-4-6"
 
 from utils.constants import (
     ASSISTANT_NAME, GMAIL_APP_PASSWORD, GMAIL_SENDER, SYSTEM_PROMPT,
@@ -101,25 +105,20 @@ def chat():
     image_data = data.get("image")   # { base64, mime_type }
     pdf_data = data.get("pdf")       # { base64 }
 
-    def analyze_images_with_llava(image_b64_list: list, prompt: str) -> str:
-        """Send one or more images to llava and return the analysis."""
-        results = []
-        for img_b64 in image_b64_list:
-            vision_payload = {
-                "model": "llava",
-                "messages": [{
-                    "role": "user",
-                    "content": prompt,
-                    "images": [img_b64],
-                }],
-                "stream": False,
-            }
-            r = requests.post(
-                "http://localhost:11434/api/chat", json=vision_payload, timeout=120,
-            )
-            r.raise_for_status()
-            results.append(r.json().get("message", {}).get("content", ""))
-        return "\n\n".join(results)
+    def analyze_image_with_claude(img_b64: str, mime_type: str, prompt: str) -> str:
+        """Send an image to Claude and return the analysis."""
+        resp = _anthropic.messages.create(
+            model=_MODEL,
+            max_tokens=1024,
+            messages=[{
+                "role": "user",
+                "content": [
+                    {"type": "image", "source": {"type": "base64", "media_type": mime_type, "data": img_b64}},
+                    {"type": "text", "text": prompt},
+                ],
+            }],
+        )
+        return resp.content[0].text
 
     def generate():
         try:
@@ -133,8 +132,10 @@ def chat():
 
             image_context = ""
             if image_data:
-                analysis = analyze_images_with_llava(
-                    [image_data["base64"]], VISION_PROMPT,
+                analysis = analyze_image_with_claude(
+                    image_data["base64"],
+                    image_data.get("mime_type", "image/jpeg"),
+                    VISION_PROMPT,
                 )
                 image_context = (
                     "\n\nImage analysis of the photo the customer uploaded:\n"
@@ -175,43 +176,32 @@ def chat():
             yield 'data: {"status": "thinking"}\n\n'
 
             enriched_system = system_prompt + image_context + search_context
-            ollama_messages = []
-            if enriched_system:
-                ollama_messages.append({"role": "system", "content": enriched_system})
 
+            claude_messages = []
             for msg in messages:
                 role = msg.get("role", "user")
                 content = msg.get("content", "")
                 if content:
-                    ollama_messages.append({"role": role, "content": content})
+                    claude_messages.append({"role": role, "content": content})
 
-            payload = {
-                "model": "kimi-k2:1t-cloud",
-                "messages": ollama_messages,
-                "stream": True,
-            }
-
-            with requests.post(
-                "http://localhost:11434/api/chat",
-                json=payload, stream=True, timeout=120,
-            ) as r:
-                r.raise_for_status()
-                for line in r.iter_lines():
-                    if not line:
-                        continue
-                    chunk = json.loads(line.decode("utf-8"))
-                    content = chunk.get("message", {}).get("content", "")
-                    if content:
-                        content = re.sub(
-                            r'<web_search>.*?</web_search>', '', content,
+            with _anthropic.messages.stream(
+                model=_MODEL,
+                max_tokens=1024,
+                system=enriched_system,
+                messages=claude_messages,
+            ) as stream:
+                for text in stream.text_stream:
+                    if text:
+                        text = re.sub(
+                            r'<web_search>.*?</web_search>', '', text,
                             flags=re.DOTALL,
                         )
-                        content = re.sub(
-                            r'<[a-z_]+>.*?</[a-z_]+>', '', content,
+                        text = re.sub(
+                            r'<[a-z_]+>.*?</[a-z_]+>', '', text,
                             flags=re.DOTALL,
                         )
-                        if content:
-                            yield f"data: {json.dumps(content)}\n\n"
+                        if text:
+                            yield f"data: {json.dumps(text)}\n\n"
 
             yield "data: [DONE]\n\n"
 
@@ -251,13 +241,11 @@ def update_memory():
     )
 
     try:
-        r = requests.post("http://localhost:11434/api/chat", json={
-            "model": "kimi-k2:1t-cloud",
-            "messages": [{"role": "user", "content": prompt}],
-            "stream": False,
-        }, timeout=30)
-        r.raise_for_status()
-        content = r.json().get("message", {}).get("content", "")
+        resp = _anthropic.messages.create(
+            model=_MODEL, max_tokens=512,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        content = resp.content[0].text
         match = re.search(r'\{.*\}', content, re.DOTALL)
         if match:
             facts = json.loads(match.group())
@@ -293,13 +281,11 @@ def extract_lead():
     )
 
     try:
-        r = requests.post("http://localhost:11434/api/chat", json={
-            "model": "kimi-k2:1t-cloud",
-            "messages": [{"role": "user", "content": prompt}],
-            "stream": False,
-        }, timeout=30)
-        r.raise_for_status()
-        content = r.json().get("message", {}).get("content", "")
+        resp = _anthropic.messages.create(
+            model=_MODEL, max_tokens=512,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        content = resp.content[0].text
 
         match = re.search(r'\{.*\}', content, re.DOTALL)
         if not match:
@@ -342,13 +328,11 @@ def suggest_prompts():
     )
 
     try:
-        r = requests.post("http://localhost:11434/api/chat", json={
-            "model": "kimi-k2:1t-cloud",
-            "messages": [{"role": "user", "content": prompt}],
-            "stream": False,
-        }, timeout=30)
-        r.raise_for_status()
-        content = r.json().get("message", {}).get("content", "")
+        resp = _anthropic.messages.create(
+            model=_MODEL, max_tokens=256,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        content = resp.content[0].text
 
         match = re.search(r'\[.*?\]', content, re.DOTALL)
         if not match:
