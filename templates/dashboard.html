@@ -432,29 +432,28 @@
     /* ── Comm thread modal ── */
     #comm-thread-modal {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.72); z-index: 9200;
+      background: rgba(0,0,0,0.75); z-index: 1000;
       align-items: center; justify-content: center;
     }
     #comm-thread-modal.open { display: flex; }
     .comm-thread-box {
-      background: #202020; border: 1px solid rgba(255,255,255,0.15);
+      background: #1e2530; border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px; width: min(620px, 95vw); max-height: 86vh;
       display: flex; flex-direction: column;
       box-shadow: 0 32px 80px rgba(0,0,0,0.7);
     }
     .comm-thread-head {
-      padding: 16px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex; align-items: center; gap: 12px; flex-shrink: 0;
-      background: #272727; border-radius: 16px 16px 0 0;
+      background: #1e2530; border-radius: 16px 16px 0 0;
     }
-    .comm-thread-head h3 { font-size: 14px; font-weight: 700; color: #f0f0f0; flex: 1; }
+    .comm-thread-head h3 { font-size: 16px; font-weight: 700; color: #f0f0f0; flex: 1; }
     .comm-thread-head .thread-meta { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 2px; }
     .comm-thread-close {
-      background: none; border: none; color: var(--muted);
-      font-size: 18px; cursor: pointer; padding: 2px 6px; line-height: 1;
-      border-radius: 6px;
+      background: none; border: none; color: #94a3b8;
+      font-size: 20px; cursor: pointer; padding: 2px 6px; line-height: 1;
     }
-    .comm-thread-close:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+    .comm-thread-close:hover { color: #fff; }
     .comm-thread-body { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
     .comm-thread-body::-webkit-scrollbar { width: 4px; }
     .comm-thread-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
@@ -517,42 +516,42 @@
     /* ── Schedule event modal ── */
     #sched-modal {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.72); z-index: 9300;
+      background: rgba(0,0,0,0.75); z-index: 1000;
       align-items: center; justify-content: center;
     }
     #sched-modal.open { display: flex; }
     .sched-modal-box {
-      background: #222; border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 14px; width: min(480px, 94vw);
+      background: #1e2530; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; width: min(560px, 94vw);
       box-shadow: 0 32px 80px rgba(0,0,0,0.7);
       display: flex; flex-direction: column;
     }
     .sched-modal-head {
-      padding: 16px 20px 14px; border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 20px 14px; border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex; align-items: center; justify-content: space-between;
-      background: #2a2a2a; border-radius: 14px 14px 0 0;
+      background: #1e2530; border-radius: 16px 16px 0 0;
     }
-    .sched-modal-head h3 { font-size: 15px; font-weight: 700; color: #f0f0f0; }
+    .sched-modal-head h3 { font-size: 16px; font-weight: 700; color: #f0f0f0; }
     .sched-modal-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
-    .sched-field label { font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.07em; color: rgba(255,255,255,0.6); display: block; margin-bottom: 6px; }
+    .sched-field label { font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: #94a3b8; display: block; margin-bottom: 6px; }
     .sched-input {
-      width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 8px; color: #f0f0f0; font-size: 13px; padding: 9px 11px;
+      width: 100%; background: var(--surface2); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: var(--text); font-size: 13px; padding: 9px 11px;
       font-family: inherit; outline: none;
     }
-    .sched-input:focus { border-color: rgba(99,179,237,0.6); background: rgba(255,255,255,0.11); }
+    .sched-input:focus { border-color: rgba(232,101,10,0.5); background: rgba(255,255,255,0.11); }
     .sched-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .sched-modal-foot {
-      padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 20px; border-top: 1px solid rgba(255,255,255,0.08);
       display: flex; gap: 8px; justify-content: flex-end;
-      background: #272727; border-radius: 0 0 14px 14px;
+      background: #1e2530; border-radius: 0 0 16px 16px;
     }
     .sched-save-btn {
-      background: #4fa8d8; color: #fff; border: none;
+      background: var(--orange); color: #fff; border: none;
       padding: 9px 22px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer;
     }
-    .sched-save-btn:hover { background: #63b3ed; }
+    .sched-save-btn:hover { background: var(--orange-hover); }
     .sched-cancel-btn {
       background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
       color: rgba(255,255,255,0.65); padding: 9px 18px; border-radius: 8px; font-size: 13px; cursor: pointer;
@@ -561,9 +560,9 @@
 
     /* ── Lead detail panel ── */
     #lead-panel {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 420px;
-      background: #181818; border-left: 1px solid rgba(255,255,255,0.15);
-      z-index: 50; transform: translateX(100%);
+      position: fixed; top: 0; right: 0; bottom: 0; width: 440px;
+      background: #1e2530; border-left: 1px solid rgba(255,255,255,0.08);
+      z-index: 100; transform: translateX(100%);
       transition: transform .25s cubic-bezier(.4,0,.2,1);
       display: flex; flex-direction: column;
       box-shadow: -12px 0 48px rgba(0,0,0,0.6);
@@ -571,20 +570,17 @@
     #lead-panel.open { transform: translateX(0); }
 
     #panel-header {
-      padding: 18px 20px; border-bottom: 2px solid var(--orange);
-      background: #1e1e1e; display: flex; align-items: center;
+      padding: 18px 20px; border-bottom: 2px solid rgba(255,255,255,0.12);
+      background: #1e2530; display: flex; align-items: center;
       justify-content: space-between; flex-shrink: 0;
-      box-shadow: 0 2px 20px rgba(232,101,10,0.15);
     }
-    #panel-header h2 { font-size: 15px; font-weight: 700; }
+    #panel-header h2 { font-size: 16px; font-weight: 700; color: #f0f0f0; }
     #panel-close {
-      width: 30px; height: 30px; background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border-strong); border-radius: 6px;
-      color: var(--muted); cursor: pointer; font-size: 16px;
-      display: flex; align-items: center; justify-content: center;
-      transition: all .15s;
+      background: none; border: none;
+      color: #94a3b8; cursor: pointer; font-size: 20px;
+      line-height: 1; padding: 2px 6px;
     }
-    #panel-close:hover { background: rgba(232,101,10,0.15); color: var(--orange); border-color: var(--orange); }
+    #panel-close:hover { color: #fff; }
 
     #panel-body { flex: 1; overflow-y: auto; padding: 20px; }
     #panel-body::-webkit-scrollbar { width: 4px; }
@@ -592,8 +588,8 @@
 
     .panel-section { margin-bottom: 20px; }
     .panel-section-title {
-      font-size: 13px; font-weight: 700; color: var(--orange);
-      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
+      font-size: 11px; font-weight: 600; color: #94a3b8;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
     }
     .panel-row {
       display: flex; gap: 8px; align-items: flex-start;
@@ -650,7 +646,7 @@
 
     /* ── Password screen ── */
     #pw-screen {
-      position: fixed; inset: 0; z-index: 200;
+      position: fixed; inset: 0; z-index: 9000;
       background: var(--dark); display: flex;
       align-items: center; justify-content: center;
     }
@@ -695,8 +691,8 @@
 
     /* overlay backdrop for panel */
     #panel-backdrop {
-      display: none; position: fixed; inset: 0; z-index: 49;
-      background: rgba(0,0,0,0.4);
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.75);
     }
     #panel-backdrop.show { display: block; }
 
@@ -720,40 +716,39 @@
 
     /* ── Modal overlay ── */
     .modal-overlay {
-      display: none; position: fixed; inset: 0; z-index: 60;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
       align-items: center; justify-content: center;
     }
     .modal-overlay.open { display: flex; }
     .modal-box {
-      background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 14px; width: 560px; max-height: 90vh;
-      overflow-y: auto; box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+      background: #1e2530; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; width: 560px; max-height: 90vh;
+      overflow-y: auto; box-shadow: 0 32px 80px rgba(0,0,0,0.7);
     }
     .modal-box::-webkit-scrollbar { width: 4px; }
     .modal-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
     .modal-head {
-      padding: 18px 22px; background: #111;
-      border-bottom: 2px solid var(--orange);
+      padding: 18px 22px; background: #1e2530;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex; align-items: center; justify-content: space-between;
       position: sticky; top: 0; z-index: 1;
     }
-    .modal-head h3 { font-size: 15px; font-weight: 700; }
+    .modal-head h3 { font-size: 16px; font-weight: 700; color: #f0f0f0; }
     .modal-close {
-      width: 28px; height: 28px; background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border-strong); border-radius: 6px;
-      color: var(--muted); cursor: pointer; font-size: 16px;
-      display: flex; align-items: center; justify-content: center; transition: all .15s;
+      background: none; border: none;
+      color: #94a3b8; cursor: pointer; font-size: 20px;
+      line-height: 1; padding: 2px 6px;
     }
-    .modal-close:hover { background: rgba(232,101,10,0.15); color: var(--orange); border-color: var(--orange); }
+    .modal-close:hover { color: #fff; }
     .modal-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .form-field { display: flex; flex-direction: column; gap: 5px; }
     .form-field.full { grid-column: 1 / -1; }
-    .form-field label { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+    .form-field label { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; }
     .form-field input, .form-field select, .form-field textarea {
-      padding: 9px 11px; background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border-strong); border-radius: 8px;
+      padding: 9px 11px; background: var(--surface2);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
       font-size: 13px; color: var(--text); outline: none; font-family: inherit;
       transition: border-color .15s; caret-color: var(--orange);
     }
@@ -957,27 +952,25 @@
     /* ── Job detail panel ── */
     #job-panel {
       position: fixed; top: 0; right: 0; bottom: 0; width: 440px;
-      background: var(--surface); border-left: 1px solid var(--border-strong);
-      z-index: 50; transform: translateX(100%);
+      background: #1e2530; border-left: 1px solid rgba(255,255,255,0.08);
+      z-index: 100; transform: translateX(100%);
       transition: transform .25s cubic-bezier(.4,0,.2,1);
       display: flex; flex-direction: column;
       box-shadow: -8px 0 40px rgba(0,0,0,0.5);
     }
     #job-panel.open { transform: translateX(0); }
     #job-panel-header {
-      padding: 16px 20px; border-bottom: 2px solid var(--orange);
-      background: #111; display: flex; align-items: center;
+      padding: 16px 20px; border-bottom: 2px solid rgba(255,255,255,0.12);
+      background: #1e2530; display: flex; align-items: center;
       justify-content: space-between; flex-shrink: 0;
-      box-shadow: 0 2px 20px rgba(232,101,10,0.15);
     }
-    #job-panel-header h2 { font-size: 15px; font-weight: 700; max-width: 340px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #job-panel-header h2 { font-size: 16px; font-weight: 700; color: #f0f0f0; max-width: 340px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     #job-panel-close {
-      width: 30px; height: 30px; background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border-strong); border-radius: 6px;
-      color: var(--muted); cursor: pointer; font-size: 16px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center; transition: all .15s;
+      background: none; border: none;
+      color: #94a3b8; cursor: pointer; font-size: 20px; flex-shrink: 0;
+      line-height: 1; padding: 2px 6px;
     }
-    #job-panel-close:hover { background: rgba(232,101,10,0.15); color: var(--orange); border-color: var(--orange); }
+    #job-panel-close:hover { color: #fff; }
     #job-panel-body { flex: 1; overflow-y: auto; padding: 20px; }
     #job-panel-body::-webkit-scrollbar { width: 4px; }
     #job-panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
@@ -987,8 +980,8 @@
     }
 
     #job-panel-backdrop {
-      display: none; position: fixed; inset: 0; z-index: 49;
-      background: rgba(0,0,0,0.4);
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.75);
     }
     #job-panel-backdrop.show { display: block; }
 
@@ -1036,43 +1029,41 @@
     .file-btn.del { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); color: #ef4444; }
     .file-btn.del:hover { background: rgba(239,68,68,0.18); }
     /* Doc viewer modal */
-    #doc-viewer-overlay { display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.82); z-index:2000; }
+    #doc-viewer-overlay { display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.75); z-index:2000; }
     #doc-viewer-overlay.open { display:block; }
-    #doc-viewer-box { position:absolute; top:16px; left:16px; right:16px; bottom:16px; background:var(--surface); border-radius:12px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 24px 64px rgba(0,0,0,0.7); }
-    #doc-viewer-head { display:flex; align-items:center; padding:12px 20px; border-bottom:1px solid var(--border); gap:12px; flex-shrink:0; }
-    #doc-viewer-title { font-size:14px; font-weight:700; color:var(--text); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    #doc-viewer-box { position:absolute; top:16px; left:16px; right:16px; bottom:16px; background:#1e2530; border-radius:16px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 32px 80px rgba(0,0,0,0.7); }
+    #doc-viewer-head { display:flex; align-items:center; padding:12px 20px; border-bottom:1px solid rgba(255,255,255,0.08); gap:12px; flex-shrink:0; }
+    #doc-viewer-title { font-size:16px; font-weight:700; color:#f0f0f0; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     #doc-viewer-frame { flex:1; border:none; background:#fff; width:100%; min-height:0; display:block; }
     .file-upload-progress { font-size: 12px; color: var(--orange); margin-bottom: 10px; text-align: center; display: none; }
 
     /* ── Person detail panel ── */
     #person-panel {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 480px;
-      background: var(--surface); border-left: 1px solid var(--border-strong);
-      z-index: 50; transform: translateX(100%);
+      position: fixed; top: 0; right: 0; bottom: 0; width: 440px;
+      background: #1e2530; border-left: 1px solid rgba(255,255,255,0.08);
+      z-index: 100; transform: translateX(100%);
       transition: transform .25s cubic-bezier(.4,0,.2,1);
       display: flex; flex-direction: column;
       box-shadow: -8px 0 40px rgba(0,0,0,0.5);
     }
     #person-panel.open { transform: translateX(0); }
     #person-panel-backdrop {
-      display: none; position: fixed; inset: 0; z-index: 49;
-      background: rgba(0,0,0,0.4);
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.75);
     }
     #person-panel-backdrop.show { display: block; }
     #person-panel-header {
-      padding: 16px 20px; border-bottom: 2px solid var(--orange);
-      background: #111; display: flex; align-items: center;
+      padding: 16px 20px; border-bottom: 2px solid rgba(255,255,255,0.12);
+      background: #1e2530; display: flex; align-items: center;
       justify-content: space-between; flex-shrink: 0;
-      box-shadow: 0 2px 20px rgba(232,101,10,0.15);
     }
-    #person-panel-header h2 { font-size: 15px; font-weight: 700; }
+    #person-panel-header h2 { font-size: 16px; font-weight: 700; color: #f0f0f0; }
     #person-panel-close {
-      width: 30px; height: 30px; background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border-strong); border-radius: 6px;
-      color: var(--muted); cursor: pointer; font-size: 16px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center; transition: all .15s;
+      background: none; border: none;
+      color: #94a3b8; cursor: pointer; font-size: 20px; flex-shrink: 0;
+      line-height: 1; padding: 2px 6px;
     }
-    #person-panel-close:hover { background: rgba(232,101,10,0.15); color: var(--orange); border-color: var(--orange); }
+    #person-panel-close:hover { color: #fff; }
     #person-panel-body { flex: 1; overflow-y: auto; padding: 20px; }
     #person-panel-body::-webkit-scrollbar { width: 4px; }
     #person-panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
@@ -1265,14 +1256,14 @@
     }
     /* rate-change confirm modal & pin-change modal */
     #comp-confirm-modal, #pin-change-modal {
-      display: none; position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,0.6); align-items: center; justify-content: center;
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.75); align-items: center; justify-content: center;
     }
     #comp-confirm-modal.open, #pin-change-modal.open { display: flex; }
     .comp-modal-box {
-      background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 12px; padding: 28px; max-width: 400px; width: 90%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      background: #1e2530; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 28px; max-width: 420px; width: 90%;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7);
     }
     .comp-modal-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
     .comp-modal-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
@@ -2706,40 +2697,40 @@
 </div>
 
 <!-- Dev Unlock Modal -->
-<div id="dev-unlock-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9000;display:none;align-items:center;justify-content:center;">
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 32px;max-width:380px;width:92%;box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+<div id="dev-unlock-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 32px;max-width:420px;width:92%;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
     <div style="font-size:22px;margin-bottom:6px;">🔐</div>
-    <div style="font-size:16px;font-weight:700;margin-bottom:4px;">Developer Access</div>
+    <div style="font-size:16px;font-weight:700;color:#f0f0f0;margin-bottom:4px;">Developer Access</div>
     <div style="font-size:12px;color:var(--dim);margin-bottom:18px;line-height:1.6;">This area is restricted to the system architect. Enter the developer password to unlock integration configuration.</div>
-    <input id="dev-password-input" type="password" class="settings-input" placeholder="Developer password" style="width:100%;padding:10px 12px;font-size:13px;margin-bottom:10px;" onkeydown="if(event.key==='Enter')submitDevUnlock()">
+    <input id="dev-password-input" type="password" class="settings-input" placeholder="Developer password" style="width:100%;padding:9px 11px;font-size:13px;margin-bottom:10px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);" onkeydown="if(event.key==='Enter')submitDevUnlock()">
     <div id="dev-unlock-error" style="font-size:12px;color:#f87171;min-height:16px;margin-bottom:10px;"></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;">
       <button class="settings-btn-ghost" style="padding:8px 18px;" onclick="closeDevUnlockModal()">Cancel</button>
-      <button class="settings-btn" style="padding:8px 20px;" onclick="submitDevUnlock()">Unlock</button>
+      <button class="settings-btn" style="padding:8px 20px;background:var(--orange);border:none;color:#fff;border-radius:8px;font-weight:700;" onclick="submitDevUnlock()">Unlock</button>
     </div>
   </div>
 </div>
 
 <!-- Change Dev Password Modal -->
-<div id="change-dev-pw-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9000;align-items:center;justify-content:center;">
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 32px;max-width:380px;width:92%;box-shadow:0 24px 60px rgba(0,0,0,0.5);">
-    <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Change Developer Password</div>
+<div id="change-dev-pw-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 32px;max-width:420px;width:92%;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
+    <div style="font-size:16px;font-weight:700;color:#f0f0f0;margin-bottom:16px;">Change Developer Password</div>
     <div style="margin-bottom:10px;">
-      <label style="font-size: 13px;font-weight:600;color:var(--dim);display:block;margin-bottom:4px;">Current Password</label>
-      <input id="dev-pw-current" type="password" class="settings-input" style="width:100%;padding:9px 12px;font-size:13px;">
+      <label style="font-size:11px;font-weight:600;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Current Password</label>
+      <input id="dev-pw-current" type="password" class="settings-input" style="width:100%;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);">
     </div>
     <div style="margin-bottom:10px;">
-      <label style="font-size: 13px;font-weight:600;color:var(--dim);display:block;margin-bottom:4px;">New Password</label>
-      <input id="dev-pw-new" type="password" class="settings-input" style="width:100%;padding:9px 12px;font-size:13px;">
+      <label style="font-size:11px;font-weight:600;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">New Password</label>
+      <input id="dev-pw-new" type="password" class="settings-input" style="width:100%;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);">
     </div>
     <div style="margin-bottom:10px;">
-      <label style="font-size: 13px;font-weight:600;color:var(--dim);display:block;margin-bottom:4px;">Confirm New Password</label>
-      <input id="dev-pw-confirm" type="password" class="settings-input" style="width:100%;padding:9px 12px;font-size:13px;">
+      <label style="font-size:11px;font-weight:600;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Confirm New Password</label>
+      <input id="dev-pw-confirm" type="password" class="settings-input" style="width:100%;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);">
     </div>
     <div id="change-dev-pw-error" style="font-size:12px;color:#f87171;min-height:16px;margin-bottom:10px;"></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;">
       <button class="settings-btn-ghost" style="padding:8px 18px;" onclick="document.getElementById('change-dev-pw-modal').style.display='none'">Cancel</button>
-      <button class="settings-btn" style="padding:8px 20px;" onclick="submitChangeDevPassword()">Update</button>
+      <button class="settings-btn" style="padding:8px 20px;background:var(--orange);border:none;color:#fff;border-radius:8px;font-weight:700;" onclick="submitChangeDevPassword()">Update</button>
     </div>
   </div>
 </div>
@@ -5740,19 +5731,19 @@
         ? `<div style="background:#dcfce7;color:#166534;border:2px solid #86efac;border-radius:6px;padding:8px 16px;font-weight:800;font-size:13px;text-align:center;margin-bottom:16px;letter-spacing:1px;">✓ PAID</div>` : '';
       const rows = (inv.line_items||[]).map(li => `
         <tr>
-          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;">${li.description}</td>
-          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:center;">${li.qty} ${li.unit}</td>
-          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:right;">${fmt(li.unit_price)}</td>
-          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:right;font-weight:600;">${fmt(li.amount)}</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;color:#1a1a1a;">${li.description}</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:center;color:#1a1a1a;">${li.qty} ${li.unit}</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:right;color:#1a1a1a;">${fmt(li.unit_price)}</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:right;font-weight:600;color:#1a1a1a;">${fmt(li.amount)}</td>
         </tr>`).join('');
       body.innerHTML = `
-        <div style="background:#fff;color:#111;padding:36px 40px;font-family:'Inter',sans-serif;max-width:680px;margin:0 auto;border-radius:8px;">
+        <div style="background:#fff;color:#1a1a1a;padding:36px 40px;font-family:'Inter',sans-serif;max-width:680px;margin:0 auto;border-radius:8px;">
           ${paidBanner}
           <!-- Header -->
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;">
             <div>
-              <div style="font-size:22px;font-weight:800;color:#111;letter-spacing:-0.5px;">${inv.vendor_name}</div>
-              <div style="font-size:12px;color:#555;margin-top:4px;line-height:1.7;">
+              <div style="font-size:22px;font-weight:800;color:#1a1a1a;letter-spacing:-0.5px;">${inv.vendor_name}</div>
+              <div style="font-size:12px;color:#444;margin-top:4px;line-height:1.7;">
                 ${inv.vendor_address}<br>
                 ${inv.vendor_phone}${inv.vendor_email ? ` &nbsp;·&nbsp; ${inv.vendor_email}` : ''}
                 ${inv.vendor_website ? `<br>${inv.vendor_website}` : ''}
@@ -5760,8 +5751,8 @@
             </div>
             <div style="text-align:right;">
               <div style="font-size:26px;font-weight:800;color:#e8650a;letter-spacing:-1px;">INVOICE</div>
-              <div style="font-size:13px;color:#555;margin-top:6px;line-height:1.8;">
-                <strong>#${inv.invoice_number}</strong><br>
+              <div style="font-size:13px;color:#444;margin-top:6px;line-height:1.8;">
+                <strong style="color:#1a1a1a;">#${inv.invoice_number}</strong><br>
                 Date: ${inv.invoice_date}<br>
                 Due: ${inv.due_date}<br>
                 Terms: ${inv.terms}
@@ -5771,23 +5762,23 @@
           <!-- Bill To -->
           <div style="display:flex;gap:40px;margin-bottom:28px;padding:16px;background:#f9fafb;border-radius:6px;">
             <div>
-              <div style="font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:4px;">Bill To</div>
-              <div style="font-size:13px;font-weight:700;">${inv.bill_to_name}</div>
-              <div style="font-size:12px;color:#555;line-height:1.7;">${inv.bill_to_address}</div>
+              <div style="font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:4px;">Bill To</div>
+              <div style="font-size:13px;font-weight:700;color:#1a1a1a;">${inv.bill_to_name}</div>
+              <div style="font-size:12px;color:#444;line-height:1.7;">${inv.bill_to_address}</div>
             </div>
             <div>
-              <div style="font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:4px;">Reference</div>
-              <div style="font-size:12px;color:#555;line-height:1.7;">${inv.job_ref}</div>
+              <div style="font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:4px;">Reference</div>
+              <div style="font-size:12px;color:#222;line-height:1.7;">${inv.job_ref}</div>
             </div>
           </div>
           <!-- Line items -->
           <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
             <thead>
-              <tr style="background:#f3f4f6;">
-                <th style="padding:9px 10px;text-align:left;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">Description</th>
-                <th style="padding:9px 10px;text-align:center;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">Qty / Unit</th>
-                <th style="padding:9px 10px;text-align:right;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">Unit Price</th>
-                <th style="padding:9px 10px;text-align:right;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">Amount</th>
+              <tr style="background:#1e2530;">
+                <th style="padding:9px 10px;text-align:left;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#fff;">Description</th>
+                <th style="padding:9px 10px;text-align:center;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#fff;">Qty / Unit</th>
+                <th style="padding:9px 10px;text-align:right;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#fff;">Unit Price</th>
+                <th style="padding:9px 10px;text-align:right;font-size: 13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#fff;">Amount</th>
               </tr>
             </thead>
             <tbody>${rows}</tbody>
@@ -5795,19 +5786,19 @@
           <!-- Totals -->
           <div style="display:flex;justify-content:flex-end;margin-bottom:24px;">
             <div style="min-width:220px;">
-              <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-top:1px solid #e5e7eb;">
-                <span style="color:#555;">Subtotal</span><span>${fmt(inv.subtotal)}</span>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-top:1px solid #e5e7eb;color:#1a1a1a;">
+                <span style="color:#444;">Subtotal</span><span>${fmt(inv.subtotal)}</span>
               </div>
-              ${inv.tax > 0 ? `<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-top:1px solid #e5e7eb;">
-                <span style="color:#555;">WA Sales Tax (${(inv.tax_rate*100).toFixed(1)}%)</span><span>${fmt(inv.tax)}</span>
+              ${inv.tax > 0 ? `<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-top:1px solid #e5e7eb;color:#1a1a1a;">
+                <span style="color:#444;">WA Sales Tax (${(inv.tax_rate*100).toFixed(1)}%)</span><span>${fmt(inv.tax)}</span>
               </div>` : ''}
-              <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:15px;font-weight:800;border-top:2px solid #111;border-bottom:2px solid #111;margin-top:2px;">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:15px;font-weight:800;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-top:2px;color:#1a1a1a;">
                 <span>Total Due</span><span style="color:#e8650a;">${fmt(inv.total)}</span>
               </div>
             </div>
           </div>
           <!-- Notes -->
-          ${inv.notes ? `<div style="font-size:12px;color:#666;border-top:1px solid #e5e7eb;padding-top:14px;line-height:1.7;">${inv.notes}</div>` : ''}
+          ${inv.notes ? `<div style="font-size:12px;color:#444;border-top:1px solid #e5e7eb;padding-top:14px;line-height:1.7;">${inv.notes}</div>` : ''}
         </div>`;
     } catch(e) {
       body.innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--dim);">Failed to load invoice.</div>';
@@ -9514,18 +9505,18 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
   </div>
 </div>
 
-<div id="fu-preview-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9100;align-items:center;justify-content:center;">
-  <div style="background:#242424;border:1px solid #3a3a3a;border-radius:14px;width:min(640px,94vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.6);">
+<div id="fu-preview-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(620px,94vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
 
     <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #3a3a3a;flex-shrink:0;background:#2c2c2c;border-radius:14px 14px 0 0;">
-      <div id="fu-preview-step-label" style="flex:1;color:#f0f0f0;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;background:#1e2530;border-radius:16px 16px 0 0;">
+      <div id="fu-preview-step-label" style="flex:1;color:#f0f0f0;font-size:16px;font-weight:700;"></div>
       <button onclick="document.getElementById('fu-preview-modal').style.display='none'"
-        style="background:none;border:1px solid #4a4a4a;color:#aaa;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;flex-shrink:0;margin-left:12px;line-height:1;">✕</button>
+        style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;flex-shrink:0;margin-left:12px;line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
 
     <!-- Email body -->
-    <div style="flex:1;overflow-y:auto;padding:20px;background:#242424;">
+    <div style="flex:1;overflow-y:auto;padding:20px;background:#1e2530;">
       <div style="background:#fff;border-radius:10px;overflow:hidden;color:#333;font-family:sans-serif;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
         <div style="background:#f0f2f4;padding:14px 18px;border-bottom:1px solid #dde0e4;">
           <div style="font-size:12px;color:#555;margin-bottom:4px;"><strong style="color:#333;">From:</strong> <span id="fu-preview-from"></span></div>
@@ -9538,11 +9529,11 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     </div>
 
     <!-- Send test footer -->
-    <div style="padding:16px 20px;border-top:1px solid #3a3a3a;flex-shrink:0;background:#2c2c2c;border-radius:0 0 14px 14px;">
+    <div style="padding:16px 20px;border-top:1px solid rgba(255,255,255,0.08);flex-shrink:0;background:#1e2530;border-radius:0 0 16px 16px;">
       <div style="font-size:12px;font-weight:600;color:#ccc;margin-bottom:8px;">Send a test to your inbox</div>
       <div style="display:flex;gap:8px;align-items:center;">
         <input type="email" id="fu-test-email" placeholder="your@email.com"
-          style="flex:1;padding:8px 12px;font-size:12px;background:#1a1a1a;border:1px solid #4a4a4a;color:#f0f0f0;border-radius:6px;outline:none;">
+          style="flex:1;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);color:var(--text);border-radius:8px;outline:none;">
         <button class="settings-btn" style="padding:8px 18px;white-space:nowrap;" onclick="sendFollowupTestEmail()">Send Test</button>
       </div>
       <div class="settings-msg" id="fu-test-msg" style="margin-top:8px;"></div>
@@ -9552,9 +9543,9 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Activity Detail Panel -->
-<div id="act-detail-overlay" style="display:none;position:fixed;inset:0;z-index:8000;" onclick="if(event.target===this)closeActDetail()"></div>
-<div id="act-detail-panel" style="position:fixed;top:0;right:0;width:320px;height:100vh;background:#1a1a1a;border-left:1px solid #333;z-index:8001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 32px rgba(0,0,0,0.5);">
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #2a2a2a;flex-shrink:0;">
+<div id="act-detail-overlay" style="display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,0.75);" onclick="if(event.target===this)closeActDetail()"></div>
+<div id="act-detail-panel" style="position:fixed;top:0;right:0;width:440px;height:100vh;background:#1e2530;border-left:1px solid rgba(255,255,255,0.08);z-index:100;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,0.5);">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
     <div id="act-detail-icon-title" style="display:flex;align-items:center;gap:10px;">
       <div id="act-detail-icon" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;"></div>
       <div>
@@ -9563,7 +9554,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         <div id="act-detail-time" style="font-size: 13px;color:#666;margin-top:2px;"></div>
       </div>
     </div>
-    <button onclick="closeActDetail()" style="background:rgba(255,255,255,0.06);border:1px solid #333;color:#888;padding:4px 9px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;">✕</button>
+    <button onclick="closeActDetail()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
   </div>
   <div style="flex:1;overflow-y:auto;padding:16px 18px;">
     <div style="font-size: 13px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">What Changed</div>
@@ -9575,12 +9566,12 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Confirm Dialog -->
-<div id="confirm-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;">
-  <div style="background:#1e1e1e;border:1px solid #3a3a3a;border-radius:12px;width:min(400px,90vw);padding:28px 28px 22px;box-shadow:0 24px 60px rgba(0,0,0,0.8);">
+<div id="confirm-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(420px,90vw);padding:28px 28px 22px;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
     <div id="confirm-message" style="font-size:14px;font-weight:600;color:#f0f0f0;margin-bottom:20px;line-height:1.5;"></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;">
-      <button id="confirm-cancel" style="padding:8px 20px;background:rgba(255,255,255,0.06);border:1px solid #444;color:#aaa;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;">Cancel</button>
-      <button id="confirm-ok" style="padding:8px 20px;background:#e8650a;border:none;color:#fff;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700;">Confirm</button>
+      <button id="confirm-cancel" style="padding:8px 20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">Cancel</button>
+      <button id="confirm-ok" style="padding:8px 20px;background:var(--orange);border:none;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;">Confirm</button>
     </div>
   </div>
 </div>
@@ -9591,23 +9582,23 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     <div id="doc-viewer-head">
       <div id="doc-viewer-title">Document</div>
       <a id="doc-viewer-dl" href="#" download style="font-size:12px;font-weight:600;color:var(--orange);text-decoration:none;padding:5px 12px;background:var(--orange-dim);border:1px solid rgba(232,101,10,0.3);border-radius:6px;">⬇ Download</a>
-      <button onclick="closeDocViewer()" style="background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;">✕ Close</button>
+      <button onclick="closeDocViewer()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
     <iframe id="doc-viewer-frame" src="" allowfullscreen></iframe>
   </div>
 </div>
 
 <!-- Lead Email Compose Modal -->
-<div id="lead-compose-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9200;align-items:flex-start;justify-content:center;padding-top:48px;">
-  <div style="background:#1e1e1e;border:1px solid #383838;border-radius:14px;width:min(660px,96vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.7);">
+<div id="lead-compose-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:flex-start;justify-content:center;padding-top:48px;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(620px,96vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
 
     <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #383838;background:#252525;border-radius:14px 14px 0 0;flex-shrink:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e2530;border-radius:16px 16px 0 0;flex-shrink:0;">
       <div>
-        <div style="font-size:14px;font-weight:700;color:#f0f0f0;">New Email to Lead</div>
+        <div style="font-size:16px;font-weight:700;color:#f0f0f0;">New Email to Lead</div>
         <div style="font-size: 13px;color:#888;margin-top:2px;">Review and edit before sending — this goes directly to the lead.</div>
       </div>
-      <button onclick="closeLeadCompose()" style="background:none;border:1px solid #4a4a4a;color:#aaa;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;line-height:1;">✕</button>
+      <button onclick="closeLeadCompose()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
 
     <!-- Fields -->
@@ -9644,7 +9635,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     </div>
 
     <!-- Footer actions -->
-    <div style="padding:16px 20px;border-top:1px solid #383838;background:#252525;border-radius:0 0 14px 14px;flex-shrink:0;display:flex;align-items:center;gap:10px;">
+    <div style="padding:16px 20px;border-top:1px solid rgba(255,255,255,0.08);background:#1e2530;border-radius:0 0 16px 16px;flex-shrink:0;display:flex;align-items:center;gap:10px;">
       <button id="lc-send-btn" onclick="sendLeadEmail()"
         style="background:var(--orange);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
         Send Email
@@ -9664,14 +9655,14 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Job Email Compose Modal -->
-<div id="job-compose-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9250;align-items:flex-start;justify-content:center;padding-top:48px;">
-  <div style="background:#1e1e1e;border:1px solid #383838;border-radius:14px;width:min(660px,96vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.7);">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #383838;background:#252525;border-radius:14px 14px 0 0;flex-shrink:0;">
+<div id="job-compose-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:flex-start;justify-content:center;padding-top:48px;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(620px,96vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e2530;border-radius:16px 16px 0 0;flex-shrink:0;">
       <div>
-        <div style="font-size:14px;font-weight:700;color:#f0f0f0;">Email Client</div>
+        <div style="font-size:16px;font-weight:700;color:#f0f0f0;">Email Client</div>
         <div style="font-size: 13px;color:#888;margin-top:2px;" id="jc-subtitle">Review and edit before sending.</div>
       </div>
-      <button onclick="closeJobCompose()" style="background:none;border:1px solid #4a4a4a;color:#aaa;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;line-height:1;">✕</button>
+      <button onclick="closeJobCompose()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
     <div style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;">
       <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#161616;border:1px solid #333;border-radius:8px;">
@@ -9693,7 +9684,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         Sending via Gmail SMTP. Email will be automatically logged to the job's communications timeline.
       </div>
     </div>
-    <div style="padding:16px 20px;border-top:1px solid #383838;background:#252525;border-radius:0 0 14px 14px;flex-shrink:0;display:flex;align-items:center;gap:10px;">
+    <div style="padding:16px 20px;border-top:1px solid rgba(255,255,255,0.08);background:#1e2530;border-radius:0 0 16px 16px;flex-shrink:0;display:flex;align-items:center;gap:10px;">
       <button id="jc-send-btn" onclick="sendJobEmail()"
         style="background:var(--orange);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">
         Send Email
@@ -9712,21 +9703,21 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Lead Nurture Email Preview Modal -->
-<div id="ln-preview-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9100;align-items:center;justify-content:center;">
-  <div style="background:#242424;border:1px solid #3a3a3a;border-radius:14px;width:min(640px,94vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.6);">
+<div id="ln-preview-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(620px,94vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
 
     <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #3a3a3a;flex-shrink:0;background:#2c2c2c;border-radius:14px 14px 0 0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;background:#1e2530;border-radius:16px 16px 0 0;">
       <div style="display:flex;align-items:center;gap:10px;flex:1;">
         <span style="background:#a78bfa;color:#000;font-size: 13px;font-weight:800;padding:3px 8px;border-radius:20px;">LEAD NURTURE</span>
-        <div id="ln-preview-step-label" style="flex:1;color:#f0f0f0;"></div>
+        <div id="ln-preview-step-label" style="flex:1;color:#f0f0f0;font-size:16px;font-weight:700;"></div>
       </div>
       <button onclick="document.getElementById('ln-preview-modal').style.display='none'"
-        style="background:none;border:1px solid #4a4a4a;color:#aaa;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;flex-shrink:0;margin-left:12px;line-height:1;">✕</button>
+        style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;flex-shrink:0;margin-left:12px;line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
 
     <!-- Email preview -->
-    <div style="flex:1;overflow-y:auto;padding:20px;background:#242424;">
+    <div style="flex:1;overflow-y:auto;padding:20px;background:#1e2530;">
       <div style="background:#fff;border-radius:10px;overflow:hidden;color:#333;font-family:sans-serif;box-shadow:0 2px 12px rgba(0,0,0,0.3);">
         <div style="background:#f0f2f4;padding:14px 18px;border-bottom:1px solid #dde0e4;">
           <div style="font-size:12px;color:#555;margin-bottom:4px;"><strong style="color:#333;">From:</strong> <span id="ln-preview-from"></span></div>
@@ -9739,11 +9730,11 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     </div>
 
     <!-- Send test footer -->
-    <div style="padding:16px 20px;border-top:1px solid #3a3a3a;flex-shrink:0;background:#2c2c2c;border-radius:0 0 14px 14px;">
+    <div style="padding:16px 20px;border-top:1px solid rgba(255,255,255,0.08);flex-shrink:0;background:#1e2530;border-radius:0 0 16px 16px;">
       <div style="font-size:12px;font-weight:600;color:#ccc;margin-bottom:8px;">Send a test to your inbox</div>
       <div style="display:flex;gap:8px;align-items:center;">
         <input type="email" id="ln-test-email" placeholder="your@email.com"
-          style="flex:1;padding:8px 12px;font-size:12px;background:#1a1a1a;border:1px solid #4a4a4a;color:#f0f0f0;border-radius:6px;outline:none;">
+          style="flex:1;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);color:var(--text);border-radius:8px;outline:none;">
         <button class="settings-btn" style="padding:8px 18px;white-space:nowrap;" onclick="sendLeadNurtureTestEmail()">Send Test</button>
       </div>
       <div class="settings-msg" id="ln-test-msg" style="margin-top:8px;"></div>
@@ -9801,10 +9792,10 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 <!-- Vendor Invoice Modal -->
 <div id="vendor-invoice-modal" class="modal-overlay">
   <div class="modal-box" style="width:min(720px,95vw);max-height:90vh;overflow-y:auto;">
-    <div class="modal-head" style="display:flex;justify-content:space-between;align-items:center;">
-      <h3>Vendor Invoice</h3>
+    <div class="modal-head" style="display:flex;justify-content:space-between;align-items:center;background:#1e2530;border-bottom:1px solid rgba(255,255,255,0.08);padding:20px 24px;">
+      <h3 style="font-size:16px;font-weight:700;color:#f0f0f0;">Vendor Invoice</h3>
       <div style="display:flex;gap:8px;align-items:center;">
-        <button class="btn-cancel" onclick="window.print()" style="font-size: 13px;padding:5px 12px;">🖨 Print</button>
+        <button onclick="window.print()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#f0f0f0;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;">🖨 Print</button>
         <button class="modal-close" onclick="closeVendorInvoice()">✕</button>
       </div>
     </div>
@@ -9813,41 +9804,41 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Invoice Send Compose Modal -->
-<div id="inv-send-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9300;align-items:center;justify-content:center;">
-  <div style="background:#1e1e1e;border:1px solid #383838;border-radius:14px;width:min(580px,96vw);display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.7);">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #383838;background:#252525;border-radius:14px 14px 0 0;flex-shrink:0;">
+<div id="inv-send-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(560px,96vw);display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e2530;border-radius:16px 16px 0 0;flex-shrink:0;">
       <div>
-        <div style="font-size:14px;font-weight:700;color:#f0f0f0;">Send Invoice</div>
+        <div style="font-size:16px;font-weight:700;color:#f0f0f0;">Send Invoice</div>
         <div style="font-size: 13px;color:#888;margin-top:2px;">Review and send directly to the client</div>
       </div>
-      <button onclick="closeInvSend()" style="background:rgba(255,255,255,0.06);border:1px solid #444;color:#aaa;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;">✕</button>
+      <button onclick="closeInvSend()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
     <div style="padding:18px 20px;display:flex;flex-direction:column;gap:12px;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
         <div>
-          <div style="font-size: 13px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">To</div>
-          <input id="inv-send-to" type="email" style="width:100%;padding:8px 10px;font-size:13px;background:#141414;border:1px solid #3a3a3a;color:#f0f0f0;border-radius:7px;outline:none;box-sizing:border-box;">
+          <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">To</div>
+          <input id="inv-send-to" type="email" style="width:100%;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);color:var(--text);border-radius:8px;outline:none;box-sizing:border-box;">
         </div>
         <div>
-          <div style="font-size: 13px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Invoice #</div>
-          <input id="inv-send-num" type="text" disabled style="width:100%;padding:8px 10px;font-size:13px;background:#0e0e0e;border:1px solid #2a2a2a;color:#666;border-radius:7px;box-sizing:border-box;">
+          <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Invoice #</div>
+          <input id="inv-send-num" type="text" disabled style="width:100%;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);color:#666;border-radius:8px;box-sizing:border-box;">
         </div>
       </div>
       <div>
-        <div style="font-size: 13px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Subject</div>
-        <input id="inv-send-subject" type="text" style="width:100%;padding:8px 10px;font-size:13px;background:#141414;border:1px solid #3a3a3a;color:#f0f0f0;border-radius:7px;outline:none;box-sizing:border-box;">
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Subject</div>
+        <input id="inv-send-subject" type="text" style="width:100%;padding:9px 11px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);color:var(--text);border-radius:8px;outline:none;box-sizing:border-box;">
       </div>
       <div>
-        <div style="font-size: 13px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Personal Note <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional — appears above invoice)</span></div>
-        <textarea id="inv-send-body" rows="5" style="width:100%;padding:10px;font-size:13px;background:#141414;border:1px solid #3a3a3a;color:#f0f0f0;border-radius:7px;outline:none;resize:vertical;font-family:inherit;line-height:1.6;box-sizing:border-box;"></textarea>
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Personal Note <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional — appears above invoice)</span></div>
+        <textarea id="inv-send-body" rows="5" style="width:100%;padding:10px;font-size:13px;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);color:var(--text);border-radius:8px;outline:none;resize:vertical;font-family:inherit;line-height:1.6;box-sizing:border-box;"></textarea>
       </div>
-      <div style="font-size:12px;color:#666;background:#111;border:1px solid #2a2a2a;border-radius:7px;padding:10px 12px;">
+      <div style="font-size:12px;color:#666;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 12px;">
         📎 The full invoice will be attached to this email automatically.
       </div>
     </div>
-    <div style="padding:14px 20px;border-top:1px solid #383838;display:flex;gap:10px;justify-content:flex-end;border-radius:0 0 14px 14px;">
-      <button onclick="closeInvSend()" style="padding:9px 20px;background:rgba(255,255,255,0.06);border:1px solid #444;color:#aaa;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;">Cancel</button>
-      <button id="inv-send-btn" onclick="submitInvSend()" style="padding:9px 22px;background:#e8650a;border:none;color:#fff;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700;">Send Invoice ✉</button>
+    <div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:10px;justify-content:flex-end;border-radius:0 0 16px 16px;">
+      <button onclick="closeInvSend()" style="padding:9px 20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">Cancel</button>
+      <button id="inv-send-btn" onclick="submitInvSend()" style="padding:9px 22px;background:var(--orange);border:none;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;">Send Invoice ✉</button>
     </div>
   </div>
 </div>
@@ -9858,7 +9849,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     <div class="modal-head" style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
       <h3>Invoice Preview</h3>
       <div style="display:flex;gap:8px;align-items:center;">
-        <button class="btn-cancel" id="ci-open-btn" style="font-size: 13px;padding:5px 12px;">↗ Open Full Page</button>
+        <button id="ci-open-btn" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#f0f0f0;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;">↗ Open Full Page</button>
         <button class="modal-close" onclick="closeClientInvoice()">✕</button>
       </div>
     </div>
@@ -9902,7 +9893,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       </div>
       <div id="nl-msg" style="font-size:12px;min-height:16px;color:#4ade80;"></div>
     </div>
-    <div class="modal-foot">
+    <div class="modal-footer">
       <button class="btn-cancel" onclick="closeNewLeadModal()">Cancel</button>
       <button class="btn-primary" onclick="saveNewLead()">Add Lead</button>
     </div>
@@ -9953,11 +9944,11 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
 
 <!-- AI Sales Analysis Modal -->
-<div id="analysis-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
-  <div style="background:#1a1a1a; border:1px solid rgba(34,197,94,0.3); border-radius:16px; padding:28px; max-width:520px; width:90%; max-height:80vh; overflow-y:auto;">
+<div id="analysis-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center;">
+  <div style="background:#1e2530; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px; max-width:560px; width:90%; max-height:80vh; overflow-y:auto; box-shadow:0 32px 80px rgba(0,0,0,0.7);">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-      <div style="font-size:16px; font-weight:800; color:#22c55e;">🤖 AI Sales Analysis</div>
-      <button onclick="closeAnalysisModal()" style="background:none; border:none; color:#666; font-size:20px; cursor:pointer;">✕</button>
+      <div style="font-size:16px; font-weight:700; color:#22c55e;">🤖 AI Sales Analysis</div>
+      <button onclick="closeAnalysisModal()" style="background:none; border:none; color:#94a3b8; font-size:20px; cursor:pointer; line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
     <div id="analysis-result" style="font-size:14px; color:#ccc; line-height:1.8; min-height:80px;">
       <div style="color:#666;">Analyzing your pipeline...</div>
@@ -9970,11 +9961,11 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
 
 <!-- Crew Member Modal -->
-<div id="crew-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
-  <div style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:28px; max-width:420px; width:90%;">
+<div id="crew-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center;">
+  <div style="background:#1e2530; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px; max-width:420px; width:90%; box-shadow:0 32px 80px rgba(0,0,0,0.7);">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-      <div id="crew-modal-name" style="font-size:18px; font-weight:800; color:#fff;"></div>
-      <button onclick="document.getElementById('crew-modal').style.display='none'" style="background:none; border:none; color:#666; font-size:20px; cursor:pointer;">✕</button>
+      <div id="crew-modal-name" style="font-size:16px; font-weight:700; color:#f0f0f0;"></div>
+      <button onclick="document.getElementById('crew-modal').style.display='none'" style="background:none; border:none; color:#94a3b8; font-size:20px; cursor:pointer; line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
     </div>
     <div id="crew-modal-status" style="margin-bottom:16px;"></div>
     <div id="crew-modal-job" style="font-size:13px; color:#aaa; line-height:1.8;"></div>
@@ -9983,22 +9974,22 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
 
   <!-- Supplier Modal -->
-  <div id="supplier-modal" style="display:none;position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;">
-    <div style="background:var(--surface2);border:1px solid var(--border-strong);border-radius:16px;width:min(560px,95vw);max-height:90vh;overflow-y:auto;padding:28px 32px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+  <div id="supplier-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(560px,95vw);max-height:90vh;overflow-y:auto;padding:28px 32px;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-        <h2 id="supplier-modal-title" style="font-size:16px;font-weight:700;">Add Supplier</h2>
-        <button onclick="closeSupplierModal()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;">✕</button>
+        <h2 id="supplier-modal-title" style="font-size:16px;font-weight:700;color:#f0f0f0;">Add Supplier</h2>
+        <button onclick="closeSupplierModal()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
       </div>
       <div style="display:grid;gap:14px;">
         <input type="hidden" id="supplier-edit-id">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <div>
-            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Company Name *</label>
-            <input id="s-name" type="text" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+            <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Company Name *</label>
+            <input id="s-name" type="text" style="width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;">
           </div>
           <div>
-            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Category *</label>
-            <select id="s-category" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+            <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Category *</label>
+            <select id="s-category" style="width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;">
               <option value="racking">Pallet Racking</option>
               <option value="mezzanine">Mezzanines</option>
               <option value="crane">Cranes</option>
@@ -10011,22 +10002,22 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <div>
-            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Phone</label>
-            <input id="s-phone" type="text" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+            <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Phone</label>
+            <input id="s-phone" type="text" style="width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;">
           </div>
           <div>
-            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Website</label>
-            <input id="s-website" type="text" placeholder="e.g. unarcorack.com" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+            <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Website</label>
+            <input id="s-website" type="text" placeholder="e.g. unarcorack.com" style="width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;">
           </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
           <div>
-            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Sales Rep</label>
-            <input id="s-rep" type="text" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+            <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Sales Rep</label>
+            <input id="s-rep" type="text" style="width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;">
           </div>
           <div>
-            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Status</label>
-            <select id="s-status" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+            <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Status</label>
+            <select id="s-status" style="width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;">
               <option value="active">Active Vendor</option>
               <option value="preferred">Preferred</option>
               <option value="quoted">Quoted</option>
@@ -10036,19 +10027,19 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
           </div>
         </div>
         <div>
-          <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Notes</label>
-          <textarea id="s-notes" rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;resize:vertical;"></textarea>
+          <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.8px;">Notes</label>
+          <textarea id="s-notes" rows="3" style="width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;resize:vertical;"></textarea>
         </div>
         <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
-          <button onclick="closeSupplierModal()" style="padding:8px 18px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:13px;">Cancel</button>
-          <button onclick="saveSupplier()" style="padding:8px 18px;background:var(--green);border:none;border-radius:6px;color:#fff;cursor:pointer;font-size:13px;font-weight:600;">Save Supplier</button>
+          <button onclick="closeSupplierModal()" style="padding:9px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#94a3b8;cursor:pointer;font-size:13px;">Cancel</button>
+          <button onclick="saveSupplier()" style="padding:9px 18px;background:var(--orange);border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:13px;font-weight:700;">Save Supplier</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Supplier Detail Panel -->
-  <div id="supplier-detail-panel" onclick="if(event.target===this)closeSupplierDetail()" style="display:none;position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;">
+  <div id="supplier-detail-panel" onclick="if(event.target===this)closeSupplierDetail()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;">
     <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(760px,95vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.6);position:relative;">
       <!-- Header -->
       <div style="padding:28px 36px 0;flex-shrink:0;">
