@@ -1445,6 +1445,8 @@
 
     /* Schedule */
     .mc-schedule-empty { font-size: 13px; color: var(--muted); text-align: center; padding: 12px 0; }
+    .mc-sched-item { transition: background 0.15s, padding-left 0.15s; border-radius: 8px; padding: 4px 6px; }
+    .mc-sched-item:hover { background: rgba(255,255,255,0.05); padding-left: 10px; }
     .mc-sched-item { display: flex; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
     .mc-sched-item:last-child { border-bottom: none; }
     .mc-sched-time { font-size: 12px; font-weight: 700; color: var(--orange); min-width: 38px; padding-top: 2px; text-transform: uppercase; }
@@ -1467,6 +1469,8 @@
     .ash-divider { height: 1px; background: var(--border); margin: 0; }
     .ash-card { background: var(--surface2); border: 1px solid var(--border-strong); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; }
     .ash-card:last-child { margin-bottom: 0; }
+    .ash-card { transition: background 0.15s, border-color 0.15s; }
+    .ash-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(232,101,10,0.4); }
     .ash-card-name { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 2px; }
     .ash-card-meta { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
     .ash-card-phone { font-size: 12px; color: var(--muted); white-space: nowrap; }
@@ -3515,7 +3519,7 @@
           const titleLower = (e.title||'').toLowerCase();
           let dotColor = '#e8650a';
           for (const [k,v] of Object.entries(apptColors)) { if (titleLower.includes(k)) { dotColor = v; break; } }
-          return `<div class="mc-sched-item">
+          return `<div class="mc-sched-item" onclick="showPage('appointments')" style="cursor:pointer;">
             <div class="mc-sched-time">${t}</div>
             <div class="mc-sched-dot" style="background:${dotColor}"></div>
             <div>
@@ -3616,7 +3620,7 @@
       ];
       const ashEl = document.getElementById('mc-ash-calls');
       ashEl.innerHTML = ashCalls.map(c =>
-        `<div class="ash-card">
+        `<div class="ash-card" onclick="document.getElementById('open-ash-btn')?.click()" style="cursor:pointer;">
           <div class="ash-card-name">${c.name}</div>
           <div class="ash-card-meta">
             <span class="ash-card-phone">${c.phone}</span>
