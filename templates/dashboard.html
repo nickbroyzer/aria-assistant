@@ -9160,6 +9160,17 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     cancelled: 'background:rgba(255,255,255,0.08);color:#94a3b8;',
   };
 
+  const _ordGridCols = '90px 1fr 80px 80px 80px 90px 30px';
+
+  function _ordFmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso + 'T00:00:00');
+    const now = new Date();
+    const opts = { month: 'short', day: 'numeric' };
+    if (d.getFullYear() !== now.getFullYear()) opts.year = 'numeric';
+    return d.toLocaleDateString('en-US', opts);
+  }
+
   async function sdpLoadOrders() {
     const el = document.getElementById('sdp-order-list');
     el.innerHTML = '<div style="color:#94a3b8;font-size:14px;padding:12px 0;">Loading...</div>';
@@ -9170,24 +9181,52 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       if (!orders.length) {
         el.innerHTML = `
           <div style="color:#94a3b8;font-size:14px;padding:16px 0;line-height:1.6;">No orders yet.</div>
-          <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:8px 16px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:13px;font-weight:600;">+ Add Order</button>`;
+          <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:7px 14px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">+ Add Order</button>`;
         return;
       }
-      el.innerHTML = orders.map(o => {
-        const d = o.order_date ? new Date(o.order_date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
-        const ed = o.expected_delivery ? new Date(o.expected_delivery).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—';
+      // Status summary
+      const counts = {};
+      orders.forEach(o => { counts[o.status] = (counts[o.status]||0) + 1; });
+      const summary = Object.entries(counts).map(([s,c]) => `${c} ${s}`).join(' · ');
+
+      // Toolbar: summary left, add button right
+      let html = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:12px;color:#94a3b8;">${orders.length} order${orders.length!==1?'s':''} — ${summary}</div>
+        <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:5px 12px;background:rgba(96,165,250,0.12);border:1px solid rgba(96,165,250,0.25);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:11px;font-weight:600;">+ Add Order</button>
+      </div>`;
+
+      // Header row
+      html += `<div style="display:grid;grid-template-columns:${_ordGridCols};gap:6px;padding:6px 0 8px;border-bottom:1px solid rgba(255,255,255,0.08);">
+        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Date</span>
+        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Item</span>
+        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:right;">Qty</span>
+        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Job</span>
+        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Expected</span>
+        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Status</span>
+        <span></span>
+      </div>`;
+
+      // Order rows
+      html += orders.map(o => {
+        const d = _ordFmtDate(o.order_date);
+        const ed = _ordFmtDate(o.expected_delivery);
         const qty = o.quantity ? o.quantity + (o.unit ? ' ' + o.unit : '') : '—';
         const sc = _ordStatusColors[o.status] || _ordStatusColors.pending;
-        return `<div style="display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:14px;">
-          <span style="color:#94a3b8;width:85px;flex-shrink:0;">${d}</span>
-          <span style="color:#cbd5e1;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.description||'—'}</span>
-          <span style="color:#94a3b8;width:60px;flex-shrink:0;text-align:center;">${qty}</span>
-          <span style="color:#94a3b8;width:70px;flex-shrink:0;font-size:12px;text-align:center;" title="Expected delivery">${ed}</span>
-          ${o.job_id ? `<span style="color:#60a5fa;font-size:12px;flex-shrink:0;">${o.job_id}</span>` : ''}
-          <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;flex-shrink:0;${sc}">${o.status}</span>
-          <button onclick="sdpDeleteOrder('${o.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:14px;padding:0 4px;flex-shrink:0;" title="Delete">✕</button>
+        const jobBadge = o.job_id
+          ? `<span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:6px;background:rgba(232,101,10,0.12);color:#fb923c;white-space:nowrap;">${o.job_id}</span>`
+          : `<span style="color:#555;">—</span>`;
+        return `<div onclick="console.log('order',\`${o.id}\`)" style="display:grid;grid-template-columns:${_ordGridCols};gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.1s;" onmouseenter="this.style.background='rgba(255,255,255,0.03)'" onmouseleave="this.style.background='none'">
+          <span style="font-size:13px;color:#94a3b8;">${d}</span>
+          <span style="font-size:13px;color:#f0f0f0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(o.description||'').replace(/"/g,'&quot;')}">${o.description||'—'}</span>
+          <span style="font-size:13px;color:#cbd5e1;text-align:right;">${qty}</span>
+          <span style="text-align:center;">${jobBadge}</span>
+          <span style="font-size:13px;color:#94a3b8;text-align:center;">${ed}</span>
+          <span style="text-align:center;"><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:7px;${sc}">${o.status}</span></span>
+          <button onclick="event.stopPropagation();sdpDeleteOrder('${o.id}')" style="background:none;border:none;color:rgba(239,68,68,0.6);cursor:pointer;font-size:12px;padding:0;line-height:1;" title="Delete">✕</button>
         </div>`;
-      }).join('') + `<button onclick="document.getElementById('sdp-order-form').style.display='block'" style="margin-top:12px;padding:8px 16px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:13px;font-weight:600;">+ Add Order</button>`;
+      }).join('');
+
+      el.innerHTML = html;
     } catch(e) {
       el.innerHTML = '<div style="color:#f87171;font-size:14px;padding:12px 0;">Failed to load orders.</div>';
     }

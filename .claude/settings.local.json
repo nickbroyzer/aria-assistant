@@ -10,7 +10,8 @@
       "Bash(curl -s http://localhost:5001/dashboard/api/suppliers | python3 -m json.tool | head -50)",
       "Bash(curl -s http://localhost:5001/dashboard/api/suppliers)",
       "Bash(lsof -ti :5001 | xargs kill -9 2>/dev/null; echo \"killed\")",
-      "Bash(cd ~/Projects/my-assistant && PORT=5001 python3 app.py)"
+      "Bash(cd ~/Projects/my-assistant && PORT=5001 python3 app.py)",
+      "Bash(cd ~/Projects/my-assistant && lsof -ti :5001 | xargs kill -9 2>/dev/null; PORT=5001 python3 app.py)"
     ]
   }
 }
