@@ -75,6 +75,23 @@ def init_db():
                 created_at        TEXT NOT NULL,
                 updated_at        TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS supplier_orders (
+                id                 TEXT PRIMARY KEY,
+                supplier_id        TEXT NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
+                job_id             TEXT,
+                description        TEXT NOT NULL DEFAULT '',
+                quantity           REAL NOT NULL DEFAULT 0,
+                unit               TEXT NOT NULL DEFAULT '',
+                unit_price         REAL NOT NULL DEFAULT 0,
+                total_amount       REAL NOT NULL DEFAULT 0,
+                order_date         TEXT,
+                expected_delivery  TEXT,
+                delivered_date     TEXT,
+                status             TEXT NOT NULL DEFAULT 'pending',
+                notes              TEXT NOT NULL DEFAULT '',
+                created_at         TEXT NOT NULL,
+                updated_at         TEXT NOT NULL
+            );
             CREATE TABLE IF NOT EXISTS supplier_notes (
                 id          TEXT PRIMARY KEY,
                 supplier_id TEXT NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
@@ -244,6 +261,86 @@ def delete_transaction(transaction_id):
         conn.execute(
             "DELETE FROM supplier_transactions WHERE id = ?", (transaction_id,)
         )
+
+
+# ── Orders CRUD ────────────────────────────────────────────────────────────────
+
+def get_orders(supplier_id):
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM supplier_orders WHERE supplier_id = ? ORDER BY order_date DESC",
+            (supplier_id,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def create_order(supplier_id, data):
+    now = datetime.now(timezone.utc).isoformat()
+    qty = data.get("quantity", 0) or 0
+    price = data.get("unit_price", 0) or 0
+    order = {
+        "id": str(uuid.uuid4()),
+        "supplier_id": supplier_id,
+        "job_id": data.get("job_id"),
+        "description": data.get("description", ""),
+        "quantity": qty,
+        "unit": data.get("unit", ""),
+        "unit_price": price,
+        "total_amount": data.get("total_amount") if data.get("total_amount") is not None else qty * price,
+        "order_date": data.get("order_date"),
+        "expected_delivery": data.get("expected_delivery"),
+        "delivered_date": data.get("delivered_date"),
+        "status": data.get("status", "pending"),
+        "notes": data.get("notes", ""),
+        "created_at": now,
+        "updated_at": now,
+    }
+    with _get_conn() as conn:
+        conn.execute(
+            """INSERT INTO supplier_orders
+               (id, supplier_id, job_id, description, quantity, unit, unit_price,
+                total_amount, order_date, expected_delivery, delivered_date,
+                status, notes, created_at, updated_at)
+               VALUES (:id, :supplier_id, :job_id, :description, :quantity, :unit, :unit_price,
+                       :total_amount, :order_date, :expected_delivery, :delivered_date,
+                       :status, :notes, :created_at, :updated_at)""",
+            order,
+        )
+    return order
+
+
+def update_order(order_id, data):
+    now = datetime.now(timezone.utc).isoformat()
+    fields = [
+        "job_id", "description", "quantity", "unit", "unit_price",
+        "total_amount", "order_date", "expected_delivery", "delivered_date",
+        "status", "notes",
+    ]
+    sets = []
+    params = {}
+    for f in fields:
+        if f in data:
+            sets.append(f"{f} = :{f}")
+            params[f] = data[f]
+    if not sets:
+        return None
+    sets.append("updated_at = :updated_at")
+    params["updated_at"] = now
+    params["id"] = order_id
+    with _get_conn() as conn:
+        conn.execute(
+            f"UPDATE supplier_orders SET {', '.join(sets)} WHERE id = :id",
+            params,
+        )
+        row = conn.execute(
+            "SELECT * FROM supplier_orders WHERE id = ?", (order_id,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def delete_order(order_id):
+    with _get_conn() as conn:
+        conn.execute("DELETE FROM supplier_orders WHERE id = ?", (order_id,))
 
 
 # ── Notes CRUD ────────────────────────────────────────────────────────────────

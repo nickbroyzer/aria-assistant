@@ -9139,14 +9139,88 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
   }
 
   function sdpSwitchTab(tab) {
-    ['info','transactions','notes'].forEach(t => {
+    ['info','orders','transactions','notes'].forEach(t => {
       document.getElementById('sdp-tab-' + t).style.display = t === tab ? 'block' : 'none';
       const btn = document.querySelector(`[data-sdptab="${t}"]`);
       btn.style.borderBottomColor = t === tab ? '#60a5fa' : 'transparent';
       btn.style.color = t === tab ? '#f0f0f0' : '#94a3b8';
     });
+    if (tab === 'orders') sdpLoadOrders();
     if (tab === 'transactions') sdpLoadTxns();
     if (tab === 'notes') sdpLoadNotes();
+  }
+
+  // ── Orders tab ──
+
+  const _ordStatusColors = {
+    pending:   'background:rgba(251,191,36,0.15);color:#fbbf24;',
+    ordered:   'background:rgba(96,165,250,0.15);color:#60a5fa;',
+    partial:   'background:rgba(232,101,10,0.15);color:#fb923c;',
+    delivered: 'background:rgba(34,197,94,0.15);color:#4ade80;',
+    cancelled: 'background:rgba(255,255,255,0.08);color:#94a3b8;',
+  };
+
+  async function sdpLoadOrders() {
+    const el = document.getElementById('sdp-order-list');
+    el.innerHTML = '<div style="color:#94a3b8;font-size:13px;padding:12px 0;">Loading...</div>';
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/orders`);
+      if (!res.ok) throw new Error();
+      const orders = await res.json();
+      if (!orders.length) {
+        el.innerHTML = `
+          <div style="color:#94a3b8;font-size:13px;padding:16px 0;line-height:1.6;">No orders yet.</div>
+          <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:8px 16px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">+ Add Order</button>`;
+        return;
+      }
+      el.innerHTML = orders.map(o => {
+        const d = o.order_date ? new Date(o.order_date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+        const ed = o.expected_delivery ? new Date(o.expected_delivery).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—';
+        const qty = o.quantity ? o.quantity + (o.unit ? ' ' + o.unit : '') : '—';
+        const sc = _ordStatusColors[o.status] || _ordStatusColors.pending;
+        return `<div style="display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;">
+          <span style="color:#94a3b8;width:85px;flex-shrink:0;">${d}</span>
+          <span style="color:#cbd5e1;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.description||'—'}</span>
+          <span style="color:#94a3b8;width:60px;flex-shrink:0;text-align:center;">${qty}</span>
+          <span style="color:#94a3b8;width:70px;flex-shrink:0;font-size:11px;text-align:center;" title="Expected delivery">${ed}</span>
+          ${o.job_id ? `<span style="color:#60a5fa;font-size:11px;flex-shrink:0;">${o.job_id}</span>` : ''}
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;flex-shrink:0;${sc}">${o.status}</span>
+          <button onclick="sdpDeleteOrder('${o.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:14px;padding:0 4px;flex-shrink:0;" title="Delete">✕</button>
+        </div>`;
+      }).join('') + `<button onclick="document.getElementById('sdp-order-form').style.display='block'" style="margin-top:12px;padding:8px 16px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">+ Add Order</button>`;
+    } catch(e) {
+      el.innerHTML = '<div style="color:#f87171;font-size:13px;padding:12px 0;">Failed to load orders.</div>';
+    }
+  }
+
+  async function sdpSaveOrder() {
+    const data = {
+      description:       document.getElementById('sdp-ord-desc').value.trim(),
+      quantity:           parseFloat(document.getElementById('sdp-ord-qty').value) || 0,
+      unit:              document.getElementById('sdp-ord-unit').value.trim(),
+      unit_price:        parseFloat(document.getElementById('sdp-ord-price').value) || 0,
+      order_date:        document.getElementById('sdp-ord-date').value,
+      expected_delivery: document.getElementById('sdp-ord-delivery').value,
+      job_id:            document.getElementById('sdp-ord-job').value.trim() || null,
+      notes:             document.getElementById('sdp-ord-notes').value.trim(),
+    };
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/orders`, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error();
+      document.getElementById('sdp-order-form').style.display = 'none';
+      ['sdp-ord-desc','sdp-ord-qty','sdp-ord-unit','sdp-ord-price','sdp-ord-date','sdp-ord-delivery','sdp-ord-job','sdp-ord-notes'].forEach(id => document.getElementById(id).value = '');
+      sdpLoadOrders();
+    } catch(e) { alert('Failed to save order.'); }
+  }
+
+  async function sdpDeleteOrder(orderId) {
+    if (!confirm('Delete this order?')) return;
+    try {
+      await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/orders/${orderId}`, {method:'DELETE'});
+      sdpLoadOrders();
+    } catch(e) { alert('Failed to delete order.'); }
   }
 
   // ── Transactions tab ──
@@ -9948,7 +10022,8 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         <!-- Tabs -->
         <div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.08);">
           <button onclick="sdpSwitchTab('info')" data-sdptab="info" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid #60a5fa;color:#f0f0f0;cursor:pointer;">Info</button>
-          <button onclick="sdpSwitchTab('transactions')" data-sdptab="transactions" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;">Orders & Invoices</button>
+          <button onclick="sdpSwitchTab('orders')" data-sdptab="orders" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;">Orders</button>
+          <button onclick="sdpSwitchTab('transactions')" data-sdptab="transactions" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;">Invoices</button>
           <button onclick="sdpSwitchTab('notes')" data-sdptab="notes" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;">Notes</button>
         </div>
       </div>
@@ -9977,6 +10052,51 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
           <div style="display:flex;gap:10px;margin-top:8px;">
             <button id="sdp-edit-btn" style="flex:1;padding:9px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.25);border-radius:8px;color:#60a5fa;cursor:pointer;font-size:13px;font-weight:600;">Edit Supplier</button>
             <button id="sdp-delete-btn" style="padding:9px 16px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:8px;color:#ef4444;cursor:pointer;font-size:13px;font-weight:600;">Remove</button>
+          </div>
+        </div>
+        <!-- Orders Tab -->
+        <div id="sdp-tab-orders" style="display:none;">
+          <div id="sdp-order-list"></div>
+          <div id="sdp-order-form" style="display:none;margin-top:16px;background:#0f1419;border-radius:8px;padding:16px;">
+            <div style="font-size:13px;font-weight:600;color:#f0f0f0;margin-bottom:12px;">Add Order</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="grid-column:1/-1;">
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Description</label>
+                <input id="sdp-ord-desc" type="text" placeholder="e.g. Pallet rack uprights 48x192" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Quantity</label>
+                <input id="sdp-ord-qty" type="number" step="any" placeholder="0" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Unit</label>
+                <input id="sdp-ord-unit" type="text" placeholder="ea, ft, pcs" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Unit Price</label>
+                <input id="sdp-ord-price" type="number" step="0.01" placeholder="0.00" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Order Date</label>
+                <input id="sdp-ord-date" type="date" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Expected Delivery</label>
+                <input id="sdp-ord-delivery" type="date" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Job ID (optional)</label>
+                <input id="sdp-ord-job" type="text" placeholder="Job ID" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div style="grid-column:1/-1;">
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Notes</label>
+                <input id="sdp-ord-notes" type="text" placeholder="Optional notes" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end;">
+              <button onclick="document.getElementById('sdp-order-form').style.display='none'" style="padding:7px 14px;background:none;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#94a3b8;cursor:pointer;font-size:12px;">Cancel</button>
+              <button onclick="sdpSaveOrder()" style="padding:7px 14px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">Save</button>
+            </div>
           </div>
         </div>
         <!-- Transactions Tab -->

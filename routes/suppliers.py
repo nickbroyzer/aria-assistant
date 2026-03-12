@@ -1,9 +1,11 @@
 """
-Suppliers blueprint — supplier management, transactions, notes.
+Suppliers blueprint — supplier management, orders, transactions, notes.
 
 Routes:
   /dashboard/api/suppliers                                      → GET / POST
   /dashboard/api/suppliers/<id>                                 → GET / PUT / DELETE
+  /dashboard/api/suppliers/<id>/orders                          → GET / POST
+  /dashboard/api/suppliers/<id>/orders/<oid>                    → PUT / DELETE
   /dashboard/api/suppliers/<id>/transactions                    → GET / POST
   /dashboard/api/suppliers/<id>/transactions/<tid>              → PUT / DELETE
   /dashboard/api/suppliers/<id>/notes                           → GET / POST
@@ -15,15 +17,19 @@ from flask import Blueprint, jsonify, request
 from utils.auth import require_auth
 from utils.suppliers_db import (
     create_note,
+    create_order,
     create_supplier,
     create_transaction,
     delete_note,
+    delete_order,
     delete_supplier,
     delete_transaction,
     get_notes,
+    get_orders,
     get_supplier,
     get_transactions,
     load_suppliers,
+    update_order,
     update_supplier,
     update_transaction,
 )
@@ -72,6 +78,44 @@ def api_supplier_delete(supplier_id):
     if not get_supplier(supplier_id):
         return jsonify({"error": "Supplier not found"}), 404
     delete_supplier(supplier_id)
+    return jsonify({"ok": True})
+
+
+# ── Orders ────────────────────────────────────────────────────────────────────
+
+@suppliers_bp.route("/dashboard/api/suppliers/<supplier_id>/orders")
+def api_orders_list(supplier_id):
+    if not get_supplier(supplier_id):
+        return jsonify({"error": "Supplier not found"}), 404
+    return jsonify(get_orders(supplier_id))
+
+
+@suppliers_bp.route("/dashboard/api/suppliers/<supplier_id>/orders", methods=["POST"])
+@require_auth
+def api_orders_create(supplier_id):
+    if not get_supplier(supplier_id):
+        return jsonify({"error": "Supplier not found"}), 404
+    data = request.get_json() or {}
+    order = create_order(supplier_id, data)
+    return jsonify(order), 201
+
+
+@suppliers_bp.route("/dashboard/api/suppliers/<supplier_id>/orders/<order_id>", methods=["PUT"])
+@require_auth
+def api_order_update(supplier_id, order_id):
+    if not get_supplier(supplier_id):
+        return jsonify({"error": "Supplier not found"}), 404
+    data = request.get_json() or {}
+    order = update_order(order_id, data)
+    if not order:
+        return jsonify({"error": "Order not found"}), 404
+    return jsonify(order)
+
+
+@suppliers_bp.route("/dashboard/api/suppliers/<supplier_id>/orders/<order_id>", methods=["DELETE"])
+@require_auth
+def api_order_delete(supplier_id, order_id):
+    delete_order(order_id)
     return jsonify({"ok": True})
 
 
