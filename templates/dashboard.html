@@ -1340,7 +1340,8 @@
 
     /* 3-column body */
     .mc-body { display: grid; grid-template-columns: repeat(4,1fr); flex: 1; min-height: 0; overflow: hidden; }
-    .mc-col { padding: 12px 16px; overflow-y: auto; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
+    .mc-col { padding: 12px 16px; overflow-y: auto; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+    .mc-col:not(:first-child) { max-height: 100%; }
     .mc-col:last-child { border-right: none; }
 
     /* Section headers */
@@ -1445,6 +1446,21 @@
 
     /* Schedule */
     .mc-schedule-empty { font-size: 13px; color: var(--muted); text-align: center; padding: 12px 0; }
+    #mc-todo-list { max-height: 220px; overflow-y: auto; scrollbar-width: none; }
+    #mc-todo-list::-webkit-scrollbar { display: none; }
+    #mc-jobs-glance { max-height: 220px; overflow-y: auto; scrollbar-width: none; }
+    #mc-jobs-glance::-webkit-scrollbar { display: none; }
+    #mc-crew-avail { max-height: 180px; overflow-y: auto; scrollbar-width: none; }
+    #mc-crew-avail::-webkit-scrollbar { display: none; }
+    #mc-schedule { max-height: 220px; overflow-y: auto; scrollbar-width: none; }
+    #mc-schedule::-webkit-scrollbar { display: none; }
+    #mc-ash-calls { max-height: 180px; overflow-y: auto; scrollbar-width: none; }
+    #mc-ash-calls::-webkit-scrollbar { display: none; }
+    #mc-jobs-glance { max-height: 220px; overflow-y: auto; }
+    #mc-crew-avail { max-height: 180px; overflow-y: auto; }
+    #mc-schedule { max-height: 220px; overflow-y: auto; }
+    #mc-ash-calls { max-height: 180px; overflow-y: auto; }
+    #mc-activity { max-height: 100%; overflow-y: auto; }
     .crew-row { display:flex; align-items:center; justify-content:space-between; padding:5px 0; border-bottom:1px solid var(--border); }
     .crew-row:last-child { border-bottom:none; }
     .crew-name { font-size:13px; font-weight:600; color:var(--text); }
@@ -3405,8 +3421,8 @@
       document.getElementById('mc-kpi-leads').textContent = hotLeads.length;
       document.getElementById('mc-kpi-leads-sub').textContent = stats.this_week + ' new this week';
 
-      const today = now.toISOString().slice(0,10);
-      const todayStart = new Date(today);
+      const today = now.toLocaleDateString("en-CA");
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
       const overdue = invoices.filter(inv => {
         if (['paid','cancelled'].includes(inv.status)) return false;
@@ -3441,7 +3457,7 @@
         complete: { color: '#a78bfa', bg: 'rgba(167,139,250,0.15)', label: 'Done' },
         pending:  { color: '#f59e0b', bg: 'rgba(245,158,11,0.15)',  label: 'Pending' },
       };
-      const glanceJobs = [...activeJobs, ...quoted].slice(0, 7);
+      const glanceJobs = [...activeJobs, ...quoted].slice(0, 15);
       document.getElementById('mc-jobs-glance').innerHTML = glanceJobs.length ? glanceJobs.map(j => {
         const sm = statusMeta[j.status] || { color:'var(--muted)', bg:'rgba(255,255,255,0.05)', label: j.status };
         const val = parseFloat(j.contract_value)||0;
@@ -3462,8 +3478,9 @@
         `<div class="mc-card-item">${j.client_name||j.title}</div>`).join('');
 
       const todayAppts = (appts.events||appts||[]).filter(e => {
-        const s = (e.start||'').slice(0,10);
-        return s === today;
+        const raw = e.start||e.date||'';
+        const localDate = raw.includes('T') ? new Date(raw).toLocaleDateString('en-CA') : raw.slice(0,10);
+        return localDate === today;
       });
       document.getElementById('mc-c-today').textContent = todayAppts.length;
       document.getElementById('mc-c-today-items').innerHTML = todayAppts.slice(0,5).map(e => {
@@ -3516,15 +3533,16 @@
       // Today's schedule (right column)
       const schedEl = document.getElementById('mc-schedule');
       const tomorrowAppts = (appts.events||appts||[]).filter(e => {
-        const s = (e.start||'').slice(0,10);
-        return s === today;
-      }).sort((a,b) => (a.start||'').localeCompare(b.start||''));
+        const raw = e.start||e.date||'';
+        const localDate = raw.includes('T') ? new Date(raw).toLocaleDateString('en-CA') : raw.slice(0,10);
+        return localDate === today;
+      }).sort((a,b) => (a.start||a.time||'').localeCompare(b.start||b.time||''));
       if (tomorrowAppts.length === 0) {
         schedEl.innerHTML = '<div class="mc-schedule-empty">No events scheduled for today</div>';
       } else {
         const apptColors = {'site visit':'#f59e0b','estimating':'#60a5fa','sales':'#e8650a','crew':'#22c55e','vendor':'#a78bfa','lunch':'#ec4899','internal':'#6b7280'};
         schedEl.innerHTML = tomorrowAppts.map(e => {
-          const t = e.start ? new Date(e.start).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true}) : 'All day';
+          const t = e.start ? new Date(e.start).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true}) : e.time ? (parseInt(e.time)>12?(parseInt(e.time)-12)+':'+e.time.slice(3)+' PM':e.time+' AM') : 'All day';
           const titleLower = (e.title||'').toLowerCase();
           let dotColor = '#e8650a';
           for (const [k,v] of Object.entries(apptColors)) { if (titleLower.includes(k)) { dotColor = v; break; } }
@@ -3684,13 +3702,13 @@
 
       // Smart To-Do list
       const todos = [];
-      hotLeads.slice(0,5).forEach(l => {
+      hotLeads.slice(0,10).forEach(l => {
         todos.push({ text: `Follow up with ${l.name}${l.company?' ('+l.company+')':''}`, meta: 'Hot lead — needs contact', urgency: 'red', action: () => { showPage('leads'); setTimeout(() => openPanel((allLeads||[]).findIndex(x=>x.id===l.id)), 350); } });
       });
-      overdue.slice(0,5).forEach(inv => {
+      overdue.slice(0,10).forEach(inv => {
         todos.push({ text: `Collect payment from ${inv.client_name||'client'}`, meta: `$${(parseFloat(inv.amount)||0).toLocaleString()} overdue`, urgency: 'orange', action: (idx) => { _todoEmailCtx = 'payment_collect'; _activeTodoIdx = idx; showPage('invoices'); setTimeout(() => openClientInvoice(inv.invoice_id), 350); } });
       });
-      quoted.slice(0,2).forEach(j => {
+      quoted.slice(0,8).forEach(j => {
         todos.push({ text: `Check in on quote for ${j.client_name||j.title}`, meta: 'Awaiting decision', urgency: 'blue', action: (idx) => { _todoEmailCtx = 'quote_followup'; _activeTodoIdx = idx; showPage('jobs'); setTimeout(() => openJobPanel(j.job_id), 350); } });
       });
       todayAppts.forEach(e => {

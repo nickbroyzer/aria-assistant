@@ -248,10 +248,13 @@ def dashboard_appointments():
     try:
         service = get_calendar_service()
         now = datetime.now(timezone.utc)
+        PDT = timezone(timedelta(hours=-7))
+        now_pacific = datetime.now(PDT)
+        today_min = now_pacific.replace(hour=0, minute=0, second=0, microsecond=0)
         end = now + timedelta(days=90)
         result = service.events().list(
             calendarId=_get_calendar_id(),
-            timeMin=now.isoformat(),
+            timeMin=today_min.isoformat(),
             timeMax=end.isoformat(),
             singleEvents=True,
             orderBy="startTime",

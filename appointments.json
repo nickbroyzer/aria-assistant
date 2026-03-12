@@ -53,5 +53,82 @@
     "notes": "Daily team check-in",
     "contact": "",
     "created_at": "2026-03-11T22:10:08.771061+00:00"
+  },
+  {
+    "id": "642e95ff-0de4-4a31-ac6b-0d3a224b0560",
+    "title": "Vendor Call - Steel Shelving Supply",
+    "date": "2026-03-11",
+    "time": "10:00",
+    "duration": 30,
+    "type": "vendor",
+    "notes": "Discuss Q2 pricing",
+    "contact": "Bob Steele",
+    "created_at": "2026-03-11T21:38:38.526724"
+  },
+  {
+    "id": "fa11b99e-1b8f-483a-aca9-8370d6b48aeb",
+    "title": "Site Visit - Prologis Building 4",
+    "date": "2026-03-11",
+    "time": "11:00",
+    "duration": 60,
+    "type": "site_visit",
+    "notes": "Mezzanine measurement",
+    "contact": "Prologis PM",
+    "created_at": "2026-03-11T21:38:38.526733"
+  },
+  {
+    "id": "c73c84d6-3ef8-4dd8-a98a-ee5532441676",
+    "title": "Estimating Call - Sandra Liu",
+    "date": "2026-03-11",
+    "time": "13:00",
+    "duration": 45,
+    "type": "estimating",
+    "notes": "Cold storage racking quote",
+    "contact": "Sandra Liu",
+    "created_at": "2026-03-11T21:38:38.526737"
+  },
+  {
+    "id": "775bd278-a80f-4824-b003-00a9ec51a1b1",
+    "title": "Sales Follow-up - Ryan Petrov",
+    "date": "2026-03-11",
+    "time": "14:30",
+    "duration": 30,
+    "type": "sales",
+    "notes": "Close Petrov Cold Chain deal",
+    "contact": "Ryan Petrov",
+    "created_at": "2026-03-11T21:38:38.526740"
+  },
+  {
+    "id": "98d03482-1656-422f-a33c-80a17bfbb2fd",
+    "title": "Crew Debrief - JOB-2026-003",
+    "date": "2026-03-11",
+    "time": "15:30",
+    "duration": 30,
+    "type": "internal",
+    "notes": "End of day crew check-in",
+    "contact": "Dave Kowalski",
+    "created_at": "2026-03-11T21:38:38.526744"
+  },
+  {
+    "id": "abd34356-b201-433c-a081-14a198c8eba3",
+    "title": "Invoice Review - Burien Industrial",
+    "date": "2026-03-11",
+    "time": "16:00",
+    "duration": 20,
+    "type": "internal",
+    "notes": "Confirm final billing",
+    "contact": "Burien PM",
+    "created_at": "2026-03-11T21:38:38.526747"
+  },
+  {
+    "id": "888e33d0-6be6-4554-9d1f-252dcc93c259",
+    "title": "Quote Walkthrough - Elena Vasquez",
+    "date": "2026-03-11",
+    "time": "16:30",
+    "duration": 30,
+    "type": "estimating",
+    "notes": "Vasquez Warehousing Group phase 2",
+    "contact": "Elena Vasquez",
+    "created_at": "2026-03-11T21:38:38.526749"
   }
 ]
