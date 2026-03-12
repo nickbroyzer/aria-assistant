@@ -9088,9 +9088,12 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     modal.style.display = 'flex';
   }
 
+  let _sdpSupplierId = null;
+
   function openSupplierDetail(id) {
     const s = allSuppliers.find(x => x.id === id);
     if (!s) return;
+    _sdpSupplierId = id;
     const catEmoji = {
       racking:'🏭', mezzanine:'🔩', crane:'🪝',
       dock:'🚛', modular:'🏢', safety:'🦺', rental:'🚜'
@@ -9122,16 +9125,147 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     if (s.rep) { repRow.style.display='flex'; document.getElementById('sdp-rep-name').textContent=s.rep; }
     else repRow.style.display='none';
     const notesRow = document.getElementById('sdp-notes-row');
-    if (s.notes) { notesRow.style.display='block'; notesRow.textContent=s.notes; }
+    if (s.notes) { notesRow.style.display='block'; document.getElementById('sdp-notes-text').textContent=s.notes; }
     else notesRow.style.display='none';
     document.getElementById('sdp-edit-btn').onclick = () => { closeSupplierDetail(); editSupplier(id); };
     document.getElementById('sdp-delete-btn').onclick = () => { closeSupplierDetail(); deleteSupplier(id); };
-    const panel = document.getElementById('supplier-detail-panel');
-    panel.style.display = 'flex';
+    sdpSwitchTab('info');
+    document.getElementById('supplier-detail-panel').style.display = 'flex';
   }
 
   function closeSupplierDetail() {
     document.getElementById('supplier-detail-panel').style.display = 'none';
+    _sdpSupplierId = null;
+  }
+
+  function sdpSwitchTab(tab) {
+    ['info','transactions','notes'].forEach(t => {
+      document.getElementById('sdp-tab-' + t).style.display = t === tab ? 'block' : 'none';
+      const btn = document.querySelector(`[data-sdptab="${t}"]`);
+      btn.style.borderBottomColor = t === tab ? '#60a5fa' : 'transparent';
+      btn.style.color = t === tab ? '#f0f0f0' : '#94a3b8';
+    });
+    if (tab === 'transactions') sdpLoadTxns();
+    if (tab === 'notes') sdpLoadNotes();
+  }
+
+  // ── Transactions tab ──
+
+  const _txnTypeLabels = { invoice:'Invoice', po:'Purchase Order', bill:'Bill', payment:'Payment' };
+  const _txnStatusColors = {
+    pending:  'background:rgba(251,191,36,0.15);color:#fbbf24;',
+    paid:     'background:rgba(34,197,94,0.15);color:#4ade80;',
+    overdue:  'background:rgba(239,68,68,0.15);color:#f87171;',
+    void:     'background:rgba(255,255,255,0.08);color:#94a3b8;',
+  };
+
+  async function sdpLoadTxns() {
+    const el = document.getElementById('sdp-txn-list');
+    el.innerHTML = '<div style="color:#94a3b8;font-size:13px;padding:12px 0;">Loading...</div>';
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/transactions`);
+      if (!res.ok) throw new Error();
+      const txns = await res.json();
+      if (!txns.length) {
+        el.innerHTML = `
+          <div style="color:#94a3b8;font-size:13px;padding:16px 0;line-height:1.6;">No transactions yet — orders and invoices will appear here when added or synced from QuickBooks.</div>
+          <button onclick="document.getElementById('sdp-txn-form').style.display='block'" style="padding:8px 16px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">+ Add Transaction</button>`;
+        return;
+      }
+      el.innerHTML = txns.map(t => {
+        const d = t.transaction_date ? new Date(t.transaction_date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+        const amt = t.amount ? '$' + Number(t.amount).toLocaleString('en-US',{minimumFractionDigits:2}) : '—';
+        const sc = _txnStatusColors[t.status] || _txnStatusColors.pending;
+        return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;">
+          <span style="color:#94a3b8;width:90px;flex-shrink:0;">${d}</span>
+          <span style="color:#cbd5e1;width:110px;flex-shrink:0;">${_txnTypeLabels[t.type]||t.type}</span>
+          <span style="color:#94a3b8;width:80px;flex-shrink:0;">${t.ref_number||'—'}</span>
+          <span style="color:#cbd5e1;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${t.description||''}</span>
+          <span style="color:#f0f0f0;font-weight:600;width:90px;text-align:right;flex-shrink:0;">${amt}</span>
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;flex-shrink:0;${sc}">${t.status}</span>
+          <button onclick="sdpDeleteTxn('${t.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:14px;padding:0 4px;flex-shrink:0;" title="Delete">✕</button>
+        </div>`;
+      }).join('') + `<button onclick="document.getElementById('sdp-txn-form').style.display='block'" style="margin-top:12px;padding:8px 16px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">+ Add Transaction</button>`;
+    } catch(e) {
+      el.innerHTML = '<div style="color:#f87171;font-size:13px;padding:12px 0;">Failed to load transactions.</div>';
+    }
+  }
+
+  async function sdpSaveTxn() {
+    const data = {
+      transaction_date: document.getElementById('sdp-txn-date').value,
+      type:        document.getElementById('sdp-txn-type').value,
+      ref_number:  document.getElementById('sdp-txn-ref').value.trim(),
+      amount:      parseFloat(document.getElementById('sdp-txn-amount').value) || 0,
+      description: document.getElementById('sdp-txn-desc').value.trim(),
+      job_id:      document.getElementById('sdp-txn-job').value.trim() || null,
+    };
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/transactions`, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error();
+      document.getElementById('sdp-txn-form').style.display = 'none';
+      ['sdp-txn-date','sdp-txn-ref','sdp-txn-amount','sdp-txn-desc','sdp-txn-job'].forEach(id => document.getElementById(id).value = '');
+      sdpLoadTxns();
+    } catch(e) { alert('Failed to save transaction.'); }
+  }
+
+  async function sdpDeleteTxn(txnId) {
+    if (!confirm('Delete this transaction?')) return;
+    try {
+      await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/transactions/${txnId}`, {method:'DELETE'});
+      sdpLoadTxns();
+    } catch(e) { alert('Failed to delete transaction.'); }
+  }
+
+  // ── Notes tab ──
+
+  async function sdpLoadNotes() {
+    const el = document.getElementById('sdp-notes-list');
+    el.innerHTML = '<div style="color:#94a3b8;font-size:13px;padding:8px 0;">Loading...</div>';
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/notes`);
+      if (!res.ok) throw new Error();
+      const notes = await res.json();
+      if (!notes.length) {
+        el.innerHTML = '<div style="color:#94a3b8;font-size:13px;padding:8px 0;">No notes yet.</div>';
+        return;
+      }
+      el.innerHTML = notes.map(n => {
+        const d = new Date(n.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+        return `<div style="padding:10px 12px;background:#0f1419;border-radius:8px;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <span style="font-size:11px;color:#94a3b8;">${n.author ? n.author + ' — ' : ''}${d}</span>
+            <button onclick="sdpDeleteNote('${n.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:13px;padding:0 2px;" title="Delete">✕</button>
+          </div>
+          <div style="font-size:13px;color:#cbd5e1;line-height:1.5;white-space:pre-wrap;">${n.body}</div>
+        </div>`;
+      }).join('');
+    } catch(e) {
+      el.innerHTML = '<div style="color:#f87171;font-size:13px;padding:8px 0;">Failed to load notes.</div>';
+    }
+  }
+
+  async function sdpSaveNote() {
+    const body = document.getElementById('sdp-note-body').value.trim();
+    if (!body) return;
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/notes`, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({body})
+      });
+      if (!res.ok) throw new Error();
+      document.getElementById('sdp-note-body').value = '';
+      sdpLoadNotes();
+    } catch(e) { alert('Failed to save note.'); }
+  }
+
+  async function sdpDeleteNote(noteId) {
+    if (!confirm('Delete this note?')) return;
+    try {
+      await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/notes/${noteId}`, {method:'DELETE'});
+      sdpLoadNotes();
+    } catch(e) { alert('Failed to delete note.'); }
   }
 
   function closeSupplierModal() {
@@ -9798,35 +9932,103 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
   </div>
 
   <!-- Supplier Detail Panel -->
-  <div id="supplier-detail-panel" style="display:none;position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;">
-    <div style="background:var(--surface2);border:1px solid var(--border-strong);border-radius:16px;width:min(420px,95vw);padding:28px 32px;box-shadow:0 8px 40px rgba(0,0,0,0.6);position:relative;">
-      <button onclick="closeSupplierDetail()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;">✕</button>
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
-        <div id="sdp-avatar" style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"></div>
-        <div>
-          <div id="sdp-name" style="font-size:16px;font-weight:700;color:var(--text);line-height:1.3;"></div>
-          <div id="sdp-category" style="font-size:12px;color:var(--muted);margin-top:3px;"></div>
+  <div id="supplier-detail-panel" onclick="if(event.target===this)closeSupplierDetail()" style="display:none;position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(580px,95vw);max-height:90vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.6);position:relative;">
+      <!-- Header -->
+      <div style="padding:24px 28px 0;flex-shrink:0;">
+        <button onclick="closeSupplierDetail()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;">✕</button>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+          <div id="sdp-avatar" style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"></div>
+          <div style="min-width:0;flex:1;">
+            <div id="sdp-name" style="font-size:17px;font-weight:700;color:#f0f0f0;line-height:1.3;"></div>
+            <div id="sdp-category" style="font-size:12px;color:#94a3b8;margin-top:3px;"></div>
+          </div>
+          <span id="sdp-status" style="margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;flex-shrink:0;"></span>
         </div>
-        <span id="sdp-status" style="margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;flex-shrink:0;"></span>
+        <!-- Tabs -->
+        <div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <button onclick="sdpSwitchTab('info')" data-sdptab="info" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid #60a5fa;color:#f0f0f0;cursor:pointer;">Info</button>
+          <button onclick="sdpSwitchTab('transactions')" data-sdptab="transactions" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;">Orders & Invoices</button>
+          <button onclick="sdpSwitchTab('notes')" data-sdptab="notes" style="padding:10px 18px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;">Notes</button>
+        </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
-        <div id="sdp-phone" style="display:none;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l1.84-1.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <a id="sdp-phone-link" href="#" style="color:var(--muted);text-decoration:none;"></a>
+      <!-- Scrollable body -->
+      <div style="padding:20px 28px 24px;overflow-y:auto;flex:1;">
+        <!-- Info Tab -->
+        <div id="sdp-tab-info">
+          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+            <div id="sdp-phone" style="display:flex;align-items:center;gap:10px;">
+              <span style="color:#94a3b8;font-size:12px;font-weight:600;width:70px;flex-shrink:0;">Phone</span>
+              <a id="sdp-phone-link" href="#" style="color:#60a5fa;text-decoration:none;font-size:13px;"></a>
+            </div>
+            <div id="sdp-website-row" style="display:flex;align-items:center;gap:10px;">
+              <span style="color:#94a3b8;font-size:12px;font-weight:600;width:70px;flex-shrink:0;">Website</span>
+              <a id="sdp-website-link" href="#" target="_blank" style="color:#60a5fa;text-decoration:none;font-size:13px;"></a>
+            </div>
+            <div id="sdp-rep-row" style="display:flex;align-items:center;gap:10px;">
+              <span style="color:#94a3b8;font-size:12px;font-weight:600;width:70px;flex-shrink:0;">Sales Rep</span>
+              <span id="sdp-rep-name" style="color:#cbd5e1;font-size:13px;"></span>
+            </div>
+          </div>
+          <div id="sdp-notes-row" style="display:none;background:#0f1419;border-radius:8px;padding:12px 14px;margin-bottom:20px;">
+            <div style="font-size:11px;font-weight:600;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Notes</div>
+            <div id="sdp-notes-text" style="font-size:13px;color:#94a3b8;line-height:1.6;"></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:8px;">
+            <button id="sdp-edit-btn" style="flex:1;padding:9px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.25);border-radius:8px;color:#60a5fa;cursor:pointer;font-size:13px;font-weight:600;">Edit Supplier</button>
+            <button id="sdp-delete-btn" style="padding:9px 16px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:8px;color:#ef4444;cursor:pointer;font-size:13px;font-weight:600;">Remove</button>
+          </div>
         </div>
-        <div id="sdp-website-row" style="display:none;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          <a id="sdp-website-link" href="#" target="_blank" style="color:var(--muted);text-decoration:none;"></a>
+        <!-- Transactions Tab -->
+        <div id="sdp-tab-transactions" style="display:none;">
+          <div id="sdp-txn-list"></div>
+          <div id="sdp-txn-form" style="display:none;margin-top:16px;background:#0f1419;border-radius:8px;padding:16px;">
+            <div style="font-size:13px;font-weight:600;color:#f0f0f0;margin-bottom:12px;">Add Transaction</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Date</label>
+                <input id="sdp-txn-date" type="date" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Type</label>
+                <select id="sdp-txn-type" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+                  <option value="invoice">Invoice</option>
+                  <option value="po">Purchase Order</option>
+                  <option value="bill">Bill</option>
+                  <option value="payment">Payment</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Ref #</label>
+                <input id="sdp-txn-ref" type="text" placeholder="INV-001" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div>
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Amount</label>
+                <input id="sdp-txn-amount" type="number" step="0.01" placeholder="0.00" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div style="grid-column:1/-1;">
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Description</label>
+                <input id="sdp-txn-desc" type="text" placeholder="Description" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+              <div style="grid-column:1/-1;">
+                <label style="font-size:11px;color:#94a3b8;display:block;margin-bottom:4px;">Job Link (optional)</label>
+                <input id="sdp-txn-job" type="text" placeholder="Job ID" style="width:100%;padding:7px 10px;background:#1e2530;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#cbd5e1;font-size:13px;box-sizing:border-box;">
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end;">
+              <button onclick="document.getElementById('sdp-txn-form').style.display='none'" style="padding:7px 14px;background:none;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#94a3b8;cursor:pointer;font-size:12px;">Cancel</button>
+              <button onclick="sdpSaveTxn()" style="padding:7px 14px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">Save</button>
+            </div>
+          </div>
         </div>
-        <div id="sdp-rep-row" style="display:none;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span id="sdp-rep-name"></span>
+        <!-- Notes Tab -->
+        <div id="sdp-tab-notes" style="display:none;">
+          <div style="margin-bottom:14px;">
+            <textarea id="sdp-note-body" rows="3" placeholder="Add a note..." style="width:100%;padding:10px 12px;background:#0f1419;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#cbd5e1;font-size:13px;resize:vertical;font-family:inherit;box-sizing:border-box;"></textarea>
+            <button onclick="sdpSaveNote()" style="margin-top:6px;padding:7px 16px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">Add Note</button>
+          </div>
+          <div id="sdp-notes-list"></div>
         </div>
-        <div id="sdp-notes-row" style="display:none;font-size:12px;color:var(--dim);font-style:italic;padding:8px 10px;background:var(--surface);border-radius:6px;line-height:1.5;"></div>
-      </div>
-      <div style="display:flex;gap:10px;">
-        <button id="sdp-edit-btn" onclick="" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;color:var(--text);cursor:pointer;font-size:13px;font-weight:600;">✏️ Edit Supplier</button>
-        <button id="sdp-delete-btn" onclick="" style="padding:9px 16px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:8px;color:#ef4444;cursor:pointer;font-size:13px;font-weight:600;">🗑 Remove</button>
       </div>
     </div>
   </div>
