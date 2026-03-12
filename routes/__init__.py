@@ -10,6 +10,7 @@ from routes.invoices import invoices_bp
 from routes.jobs import jobs_bp
 from routes.leads import leads_bp
 from routes.payroll import payroll_bp
+from routes.suppliers import suppliers_bp
 
 ALL_BLUEPRINTS = [
     chat_bp,
@@ -18,6 +19,7 @@ ALL_BLUEPRINTS = [
     jobs_bp,
     leads_bp,
     payroll_bp,
+    suppliers_bp,
 ]
 
 

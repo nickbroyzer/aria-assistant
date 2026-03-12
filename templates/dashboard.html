@@ -1594,6 +1594,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Staff &amp; Subs
       </div>
+    <div class="nav-item" id="nav-suppliers" onclick="showPage('suppliers')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Suppliers</span>
+      </div>
     </nav>
     <div class="nav-item-settings" id="nav-settings" onclick="showPage('settings')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -1914,6 +1918,41 @@
           <tbody id="jobs-tbody"><tr><td colspan="8" class="no-leads">Loading jobs...</td></tr></tbody>
           </table>
         </div>
+      </div>
+
+      <!-- Suppliers page -->
+      <div class="page" id="page-suppliers">
+        <div class="section-header" style="margin-bottom:12px;">
+          <div class="section-title">Suppliers & Vendors</div>
+          <button class="btn-add" onclick="openSupplierModal()">+ Add Supplier</button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="filter-tab active" data-sfilter="all"           onclick="setSupplierFilter('all')">All</button>
+          <button class="filter-tab"        data-sfilter="racking"       onclick="setSupplierFilter('racking')">Pallet Racking</button>
+          <button class="filter-tab"        data-sfilter="mezzanine"     onclick="setSupplierFilter('mezzanine')">Mezzanines</button>
+          <button class="filter-tab"        data-sfilter="crane"         onclick="setSupplierFilter('crane')">Cranes</button>
+          <button class="filter-tab"        data-sfilter="dock"          onclick="setSupplierFilter('dock')">Dock Equipment</button>
+          <button class="filter-tab"        data-sfilter="modular"       onclick="setSupplierFilter('modular')">Modular Offices</button>
+          <button class="filter-tab"        data-sfilter="safety"        onclick="setSupplierFilter('safety')">Safety & Accessories</button>
+          <button class="filter-tab"        data-sfilter="rental"        onclick="setSupplierFilter('rental')" style="color:#a78bfa;">🔑 Equipment Rentals</button>
+          <div style="margin-left:auto;position:relative;display:flex;align-items:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input id="supplier-search" type="text" placeholder="Search suppliers…"
+                   oninput="setSupplierSearch(this.value)"
+                   style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+                          color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:220px;outline:none;">
+            <button id="supplier-search-clear" onclick="clearSupplierSearch()"
+                    style="display:none;position:absolute;right:7px;background:none;border:none;
+                           color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+          </div>
+          <span id="suppliers-count" style="font-size:12px;color:var(--dim);"></span>
+        </div>
+
+        <div id="suppliers-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
       </div>
 
       <!-- Invoices page -->
@@ -8916,7 +8955,252 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     document.getElementById('analysis-modal').style.display = 'none';
   }
 
-</script>
+
+  // ── SUPPLIERS ──────────────────────────────────────────────
+  let allSuppliers = [
+    // Pallet Racking
+    { id:'s1',  name:'UNARCO Material Handling',     category:'racking',   phone:'800-868-5238', website:'unarcorack.com',        rep:'',  status:'active',    notes:'Leading pallet rack manufacturer. Structural & roll-formed systems.' },
+    { id:'s2',  name:'Interlake Mecalux',            category:'racking',   phone:'877-632-2589', website:'interlakemecalux.com',   rep:'',  status:'active',    notes:'Global racking solutions. Quick Ship program available.' },
+    { id:'s3',  name:'Speedrack West',               category:'racking',   phone:'800-736-6551', website:'speedrackwest.com',      rep:'',  status:'active',    notes:'Ships from 15+ US warehouses. CAD design & permit services.' },
+    { id:'s4',  name:'Advance Storage Products',     category:'racking',   phone:'800-869-1701', website:'advancestorage.com',     rep:'',  status:'active',    notes:'Gold standard pushback systems. 50% US market share.' },
+    { id:'s5',  name:'Ridg-U-Rack',                  category:'racking',   phone:'814-781-1234', website:'ridgurack.com',          rep:'',  status:'active',    notes:'High-density pallet rack systems. Drive-in & push-back specialists.' },
+    // Mezzanines
+    { id:'s6',  name:'Wildeck',                      category:'mezzanine', phone:'800-325-6939', website:'wildeck.com',            rep:'',  status:'preferred', notes:'Top mezzanine brand. Used extensively in WA/PNW region.' },
+    { id:'s7',  name:'Panel Built',                  category:'mezzanine', phone:'800-636-3873', website:'panelbuilt.com',         rep:'',  status:'active',    notes:'Mezzanines & modular offices since 1995. Custom builds available.' },
+    { id:'s8',  name:'Cogan',                        category:'mezzanine', phone:'800-263-6847', website:'cogan.ca',               rep:'',  status:'active',    notes:'Canadian manufacturer. Distributed through local dealers.' },
+    { id:'s9',  name:'Equipment Roundup Mfg',        category:'mezzanine', phone:'800-521-2238', website:'equipmentroundup.com',   rep:'',  status:'active',    notes:'Mezzanine systems since 1982. In-stock ships within 48hrs.' },
+    // Cranes
+    { id:'s10', name:'Spanco',                       category:'crane',     phone:'800-869-2080', website:'spanco.com',             rep:'',  status:'preferred', notes:'Leading US crane manufacturer. Jib, gantry & bridge cranes. HQ in Morgantown PA.' },
+    { id:'s11', name:'Gorbel',                       category:'crane',     phone:'800-821-0086', website:'gorbel.com',             rep:'',  status:'active',    notes:'Workstation cranes & overhead solutions up to 40 tons.' },
+    { id:'s12', name:'Konecranes',                   category:'crane',     phone:'800-946-4648', website:'konecranes.com',         rep:'',  status:'active',    notes:'Heavy industrial bridge cranes. Seattle service center available.' },
+    // Dock Equipment
+    { id:'s13', name:'Nordock',                      category:'dock',      phone:'800-722-0310', website:'nordockinc.com',         rep:'',  status:'preferred', notes:'Full dock equipment line. Levelers, restraints, seals & shelters.' },
+    { id:'s14', name:'McGuire / Poweramp',           category:'dock',      phone:'800-236-6376', website:'wbmcguire.com',          rep:'',  status:'active',    notes:'Made in USA. 60+ years manufacturing. Hydraulic & mechanical levelers.' },
+    { id:'s15', name:'Chalfant Dock Equipment',      category:'dock',      phone:'800-441-1223', website:'chalfantusa.com',        rep:'',  status:'active',    notes:'Original dock seal manufacturer since 1940.' },
+    { id:'s16', name:'Pioneer Dock Equipment',       category:'dock',      phone:'888-327-7905', website:'pioneerleveler.com',     rep:'',  status:'active',    notes:'40+ years manufacturing. National dealer network.' },
+    // Modular Offices
+    { id:'s17', name:'Panel Built',                  category:'modular',   phone:'800-636-3873', website:'panelbuilt.com',         rep:'',  status:'active',    notes:'In-plant offices & modular buildings. Same vendor as mezzanines.' },
+    { id:'s18', name:'Porta-King',                   category:'modular',   phone:'800-284-7998', website:'portaking.com',          rep:'',  status:'active',    notes:'Prefab modular offices. Fast lead times.' },
+    { id:'s19', name:'PortaFab',                     category:'modular',   phone:'800-325-3781', website:'portafab.com',           rep:'',  status:'active',    notes:'Modular buildings & cleanrooms. Custom designs.' },
+    // Safety & Accessories
+    { id:'s20', name:'Rotary Products',              category:'safety',    phone:'800-457-5251', website:'rotaryproductsinc.com',  rep:'',  status:'active',    notes:'Dock seals, rack guards, safety barriers. Made in USA since 1958.' },
+    { id:'s21', name:'Uline',                        category:'safety',    phone:'800-958-5463', website:'uline.com',              rep:'',  status:'preferred', notes:'Warehouse supplies & safety products. Kent WA distribution center.' },
+    { id:'s22', name:'Grainger',                     category:'safety',    phone:'800-472-4643', website:'grainger.com',           rep:'',  status:'active',    notes:'Industrial supplies. Renton & Tukwila WA locations.' },
+    // Equipment Rentals
+    { id:'s23', name:'United Rentals — Tacoma',      category:'rental',    phone:'253-476-0444', website:'unitedrentals.com',      rep:'',  status:'rental',    notes:'2302 E Q St, Tacoma WA. Forklifts, scissor lifts, boom lifts, telehandlers.' },
+    { id:'s24', name:'United Rentals — Tukwila',     category:'rental',    phone:'206-575-0400', website:'unitedrentals.com',      rep:'',  status:'rental',    notes:'Tukwila WA. 24/7 service. Largest rental fleet in region.' },
+    { id:'s25', name:'Equipment Depot — Kent',       category:'rental',    phone:'253-854-2500', website:'eqdepot.com',            rep:'',  status:'preferred', notes:'Kent WA. Forklifts, aerials, warehouse automation. Cat, Mitsubishi brands.' },
+    { id:'s26', name:'Pacific Rim Equipment Rental', category:'rental',    phone:'206-441-7909', website:'pacificrimequipmentrental.com', rep:'', status:'rental', notes:'6515 W Marginal Way SW, Seattle WA. Forklifts 5K-10K lb, scissor lifts to 32ft.' },
+    { id:'s27', name:'Tacoma Equipment Rental',      category:'rental',    phone:'253-327-0555', website:'tacomaequipmentrental.com', rep:'', status:'rental',  notes:'Tacoma WA. Scissor lifts, boom lifts to 180ft, forklifts. Short & long term.' },
+    { id:'s28', name:'BigRentz — Tacoma',            category:'rental',    phone:'800-422-4369', website:'bigrentz.com',           rep:'',  status:'rental',    notes:'Online rental marketplace. Wide equipment selection. Delivery to job site.' },
+  ];
+
+  let supplierFilter = 'all';
+  let supplierSearch = '';
+
+  const categoryLabels = {
+    racking: 'Pallet Racking', mezzanine: 'Mezzanines', crane: 'Cranes',
+    dock: 'Dock Equipment', modular: 'Modular Offices', safety: 'Safety & Accessories', rental: 'Equipment Rentals'
+  };
+
+  const statusColors = {
+    preferred: 'background:rgba(34,197,94,0.15);color:#22c55e;',
+    active:    'background:rgba(96,165,250,0.15);color:#60a5fa;',
+    quoted:    'background:rgba(251,191,36,0.15);color:#fbbf24;',
+    rental:    'background:rgba(167,139,250,0.15);color:#a78bfa;',
+    inactive:  'background:rgba(255,255,255,0.08);color:var(--muted);'
+  };
+
+  const statusLabels = { preferred:'Preferred', active:'Active Vendor', quoted:'Quoted', rental:'Rental', inactive:'Inactive' };
+
+  function setSupplierFilter(f) {
+    supplierFilter = f;
+    document.querySelectorAll('[data-sfilter]').forEach(b => b.classList.toggle('active', b.dataset.sfilter === f));
+    renderSuppliers();
+  }
+
+  function setSupplierSearch(v) {
+    supplierSearch = v.toLowerCase();
+    const clr = document.getElementById('supplier-search-clear');
+    if (clr) clr.style.display = v ? 'block' : 'none';
+    renderSuppliers();
+  }
+
+  function clearSupplierSearch() {
+    supplierSearch = '';
+    const inp = document.getElementById('supplier-search');
+    const clr = document.getElementById('supplier-search-clear');
+    if (inp) inp.value = '';
+    if (clr) clr.style.display = 'none';
+    renderSuppliers();
+  }
+
+  function renderSuppliers() {
+    const grid = document.getElementById('suppliers-grid');
+    const count = document.getElementById('suppliers-count');
+    if (!grid) return;
+
+    const avatarColors = {
+      racking:   'background:rgba(96,165,250,0.15);color:#60a5fa;',
+      mezzanine: 'background:rgba(251,191,36,0.15);color:#fbbf24;',
+      crane:     'background:rgba(239,68,68,0.15);color:#f87171;',
+      dock:      'background:rgba(34,197,94,0.15);color:#4ade80;',
+      modular:   'background:rgba(232,101,10,0.15);color:#fb923c;',
+      safety:    'background:rgba(167,139,250,0.15);color:#a78bfa;',
+      rental:    'background:rgba(167,139,250,0.15);color:#a78bfa;'
+    };
+
+    let filtered = allSuppliers.filter(s => {
+      const matchCat = supplierFilter === 'all' || s.category === supplierFilter;
+      const matchSearch = !supplierSearch ||
+        s.name.toLowerCase().includes(supplierSearch) ||
+        s.notes.toLowerCase().includes(supplierSearch) ||
+        (s.rep && s.rep.toLowerCase().includes(supplierSearch));
+      return matchCat && matchSearch;
+    });
+
+    if (count) count.textContent = filtered.length + ' supplier' + (filtered.length !== 1 ? 's' : '');
+
+    if (!filtered.length) {
+      grid.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:20px;">No suppliers found</div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map(s => {
+      const catEmoji = {
+        racking:   '🏗️', mezzanine: '🔩', crane: '🏗️',
+        dock:      '🚛', modular:   '🏢', safety: '🦺', rental: '🔑'
+      }[s.category] || '🏭';
+      const avatarColor = avatarColors[s.category] || 'background:rgba(96,165,250,0.15);color:#60a5fa;';
+      return `<div class="person-card" onclick="openSupplierDetail('${s.id}')" style="cursor:pointer;">
+        <div class="person-card-top">
+          <div class="person-avatar" style="${avatarColor};font-size:18px;">${catEmoji}</div>
+          <div class="person-info">
+            <div class="person-name" style="font-size:12px;white-space:normal;line-height:1.3;">${s.name}</div>
+            <div class="person-role">${categoryLabels[s.category]||s.category}</div>
+            ${s.rep ? `<div style="font-size:12px;color:var(--orange);margin-top:2px;">Rep: ${s.rep}</div>` : ''}
+          </div>
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;${statusColors[s.status]||statusColors.active}">${statusLabels[s.status]||s.status}</span>
+        </div>
+        <div class="person-contacts">
+          ${s.phone ? `<div class="person-contact-row">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l1.84-1.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <a href="tel:${s.phone}" onclick="event.stopPropagation()">${s.phone}</a>
+          </div>` : ''}
+          ${s.website ? `<div class="person-contact-row">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <a href="https://${s.website}" target="_blank" onclick="event.stopPropagation()">${s.website}</a>
+          </div>` : ''}
+          ${s.notes ? `<div class="person-contact-row" style="color:var(--dim);font-style:italic;margin-top:2px;">${s.notes}</div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function openSupplierModal(supplier) {
+    const modal = document.getElementById('supplier-modal');
+    document.getElementById('supplier-modal-title').textContent = supplier ? 'Edit Supplier' : 'Add Supplier';
+    document.getElementById('supplier-edit-id').value = supplier ? supplier.id : '';
+    document.getElementById('s-name').value     = supplier ? supplier.name     : '';
+    document.getElementById('s-category').value = supplier ? supplier.category : 'racking';
+    document.getElementById('s-phone').value    = supplier ? supplier.phone    : '';
+    document.getElementById('s-website').value  = supplier ? supplier.website  : '';
+    document.getElementById('s-rep').value      = supplier ? supplier.rep      : '';
+    document.getElementById('s-status').value   = supplier ? supplier.status   : 'active';
+    document.getElementById('s-notes').value    = supplier ? supplier.notes    : '';
+    modal.style.display = 'flex';
+  }
+
+  function openSupplierDetail(id) {
+    const s = allSuppliers.find(x => x.id === id);
+    if (!s) return;
+    const catEmoji = {
+      racking:'🏭', mezzanine:'🔩', crane:'🪝',
+      dock:'🚛', modular:'🏢', safety:'🦺', rental:'🚜'
+    }[s.category] || '🏭';
+    const avatarColors = {
+      racking:   'background:rgba(96,165,250,0.15);color:#60a5fa;',
+      mezzanine: 'background:rgba(251,191,36,0.15);color:#fbbf24;',
+      crane:     'background:rgba(239,68,68,0.15);color:#f87171;',
+      dock:      'background:rgba(34,197,94,0.15);color:#4ade80;',
+      modular:   'background:rgba(232,101,10,0.15);color:#fb923c;',
+      safety:    'background:rgba(167,139,250,0.15);color:#a78bfa;',
+      rental:    'background:rgba(167,139,250,0.15);color:#a78bfa;'
+    };
+    const avatarColor = avatarColors[s.category] || 'background:rgba(96,165,250,0.15);color:#60a5fa;';
+    document.getElementById('sdp-avatar').style.cssText = avatarColor + 'width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;';
+    document.getElementById('sdp-avatar').textContent = catEmoji;
+    document.getElementById('sdp-name').textContent = s.name;
+    document.getElementById('sdp-category').textContent = categoryLabels[s.category] || s.category;
+    const statusEl = document.getElementById('sdp-status');
+    statusEl.textContent = statusLabels[s.status] || s.status;
+    statusEl.style.cssText = 'margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;flex-shrink:0;' + (statusColors[s.status] || statusColors.active);
+    const phoneRow = document.getElementById('sdp-phone');
+    if (s.phone) { phoneRow.style.display='flex'; document.getElementById('sdp-phone-link').href='tel:'+s.phone; document.getElementById('sdp-phone-link').textContent=s.phone; }
+    else phoneRow.style.display='none';
+    const webRow = document.getElementById('sdp-website-row');
+    if (s.website) { webRow.style.display='flex'; document.getElementById('sdp-website-link').href='https://'+s.website; document.getElementById('sdp-website-link').textContent=s.website; }
+    else webRow.style.display='none';
+    const repRow = document.getElementById('sdp-rep-row');
+    if (s.rep) { repRow.style.display='flex'; document.getElementById('sdp-rep-name').textContent=s.rep; }
+    else repRow.style.display='none';
+    const notesRow = document.getElementById('sdp-notes-row');
+    if (s.notes) { notesRow.style.display='block'; notesRow.textContent=s.notes; }
+    else notesRow.style.display='none';
+    document.getElementById('sdp-edit-btn').onclick = () => { closeSupplierDetail(); editSupplier(id); };
+    document.getElementById('sdp-delete-btn').onclick = () => { closeSupplierDetail(); deleteSupplier(id); };
+    const panel = document.getElementById('supplier-detail-panel');
+    panel.style.display = 'flex';
+  }
+
+  function closeSupplierDetail() {
+    document.getElementById('supplier-detail-panel').style.display = 'none';
+  }
+
+  function closeSupplierModal() {
+    document.getElementById('supplier-modal').style.display = 'none';
+  }
+
+  function saveSupplier() {
+    const id = document.getElementById('supplier-edit-id').value;
+    const data = {
+      id:       id || 's' + Date.now(),
+      name:     document.getElementById('s-name').value.trim(),
+      category: document.getElementById('s-category').value,
+      phone:    document.getElementById('s-phone').value.trim(),
+      website:  document.getElementById('s-website').value.trim(),
+      rep:      document.getElementById('s-rep').value.trim(),
+      status:   document.getElementById('s-status').value,
+      notes:    document.getElementById('s-notes').value.trim(),
+    };
+    if (!data.name) { alert('Company name is required'); return; }
+    if (id) {
+      const idx = allSuppliers.findIndex(s => s.id === id);
+      if (idx >= 0) allSuppliers[idx] = data;
+    } else {
+      allSuppliers.push(data);
+    }
+    closeSupplierModal();
+    renderSuppliers();
+  }
+
+  function editSupplier(id) {
+    const s = allSuppliers.find(x => x.id === id);
+    if (s) openSupplierModal(s);
+  }
+
+  function deleteSupplier(id) {
+    if (!confirm('Remove this supplier?')) return;
+    allSuppliers = allSuppliers.filter(s => s.id !== id);
+    renderSuppliers();
+  }
+
+  // Init suppliers when page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('suppliers-grid')) renderSuppliers();
+  });
+
+  </script>
 
 <!-- Follow-up Email Preview Modal — at body level so position:fixed works from any page -->
 <!-- ── Schedule Event Modal ── -->
@@ -9450,6 +9734,106 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     <div id="crew-modal-job" style="font-size:13px; color:#aaa; line-height:1.8;"></div>
   </div>
 </div>
+
+
+  <!-- Supplier Modal -->
+  <div id="supplier-modal" style="display:none;position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;">
+    <div style="background:var(--surface2);border:1px solid var(--border-strong);border-radius:16px;width:min(560px,95vw);max-height:90vh;overflow-y:auto;padding:28px 32px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 id="supplier-modal-title" style="font-size:16px;font-weight:700;">Add Supplier</h2>
+        <button onclick="closeSupplierModal()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;">✕</button>
+      </div>
+      <div style="display:grid;gap:14px;">
+        <input type="hidden" id="supplier-edit-id">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Company Name *</label>
+            <input id="s-name" type="text" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Category *</label>
+            <select id="s-category" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+              <option value="racking">Pallet Racking</option>
+              <option value="mezzanine">Mezzanines</option>
+              <option value="crane">Cranes</option>
+              <option value="dock">Dock Equipment</option>
+              <option value="modular">Modular Offices</option>
+              <option value="safety">Safety & Accessories</option>
+              <option value="rental">Equipment Rentals</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Phone</label>
+            <input id="s-phone" type="text" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Website</label>
+            <input id="s-website" type="text" placeholder="e.g. unarcorack.com" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Sales Rep</label>
+            <input id="s-rep" type="text" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Status</label>
+            <select id="s-status" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;">
+              <option value="active">Active Vendor</option>
+              <option value="preferred">Preferred</option>
+              <option value="quoted">Quoted</option>
+              <option value="rental">Rental</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Notes</label>
+          <textarea id="s-notes" rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;outline:none;resize:vertical;"></textarea>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
+          <button onclick="closeSupplierModal()" style="padding:8px 18px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:13px;">Cancel</button>
+          <button onclick="saveSupplier()" style="padding:8px 18px;background:var(--green);border:none;border-radius:6px;color:#fff;cursor:pointer;font-size:13px;font-weight:600;">Save Supplier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supplier Detail Panel -->
+  <div id="supplier-detail-panel" style="display:none;position:fixed;inset:0;background:rgba(10,14,20,0.85);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:var(--surface2);border:1px solid var(--border-strong);border-radius:16px;width:min(420px,95vw);padding:28px 32px;box-shadow:0 8px 40px rgba(0,0,0,0.6);position:relative;">
+      <button onclick="closeSupplierDetail()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;">✕</button>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+        <div id="sdp-avatar" style="width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"></div>
+        <div>
+          <div id="sdp-name" style="font-size:16px;font-weight:700;color:var(--text);line-height:1.3;"></div>
+          <div id="sdp-category" style="font-size:12px;color:var(--muted);margin-top:3px;"></div>
+        </div>
+        <span id="sdp-status" style="margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap;flex-shrink:0;"></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+        <div id="sdp-phone" style="display:none;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l1.84-1.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a id="sdp-phone-link" href="#" style="color:var(--muted);text-decoration:none;"></a>
+        </div>
+        <div id="sdp-website-row" style="display:none;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <a id="sdp-website-link" href="#" target="_blank" style="color:var(--muted);text-decoration:none;"></a>
+        </div>
+        <div id="sdp-rep-row" style="display:none;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="sdp-rep-name"></span>
+        </div>
+        <div id="sdp-notes-row" style="display:none;font-size:12px;color:var(--dim);font-style:italic;padding:8px 10px;background:var(--surface);border-radius:6px;line-height:1.5;"></div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button id="sdp-edit-btn" onclick="" style="flex:1;padding:9px;background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;color:var(--text);cursor:pointer;font-size:13px;font-weight:600;">✏️ Edit Supplier</button>
+        <button id="sdp-delete-btn" onclick="" style="padding:9px 16px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:8px;color:#ef4444;cursor:pointer;font-size:13px;font-weight:600;">🗑 Remove</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
