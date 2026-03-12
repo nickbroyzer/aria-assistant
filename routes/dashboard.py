@@ -1,3 +1,4 @@
+import anthropic
 """
 Dashboard blueprint — auth, users, settings, stats, data export, comp PIN.
 
@@ -281,6 +282,30 @@ def dashboard_lead_nurtures():
         return jsonify(nurtures)
     except Exception as e:
         return jsonify([])
+
+
+@dashboard_bp.route("/dashboard/api/ash-analysis", methods=["POST"])
+def ash_sales_analysis():
+    try:
+        data = request.json or {}
+        prompt = data.get("prompt", "")
+        if not prompt:
+            return jsonify({"error": "No prompt provided"}), 400
+        import json as _json
+        with open('config.json') as _f:
+            _cfg = _json.load(_f)
+        _key = _cfg.get('anthropic_api_key', '')
+        client = anthropic.Anthropic(api_key=_key)
+        message = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=1000,
+            system="You are Ash, a sharp business analyst AI for Pacific Construction, a warehouse installation company in Pacific, WA. Give direct, specific, actionable sales insights. Be concise — 3 bullet points max. No markdown symbols, no asterisks, no bullet dashes. Just plain numbered insights.",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return jsonify({"text": message.content[0].text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # ── Settings ──────────────────────────────────────────────────────────────────
 

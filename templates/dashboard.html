@@ -1716,6 +1716,29 @@
                     <div class="qa-chips" id="mc-c-quoteage-chips"></div>
                   </div>
                 </div>
+                <div id="conversion-panel" class="mc-card" style="grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:16px; cursor:default; align-items:center; padding:16px 20px;">
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div style="font-size:12px; font-weight:700; color:#666; text-transform:uppercase; letter-spacing:0.05em;">📊 Conversion Rate</div>
+                    <div style="display:flex; align-items:baseline; gap:8px;">
+                      <div id="conv-rate" style="font-family:'Barlow Condensed',sans-serif; font-size:38px; font-weight:800; color:#22c55e;">--</div>
+                      <div style="font-size:14px; color:#666;">win rate</div>
+                    </div>
+                    <div style="height:6px; background:#2a2a2a; border-radius:4px; overflow:hidden;">
+                      <div id="conv-bar" style="height:100%; width:0%; background:linear-gradient(90deg,#16a34a,#22c55e); border-radius:4px; transition:width 1s ease;"></div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:2px;">
+                      <div style="background:#1e1e1e; border-radius:8px; padding:6px 10px;"><div style="font-size:11px; color:#666;">Quoted</div><div id="conv-quoted" style="font-size:16px; font-weight:800; font-family:'Barlow Condensed',sans-serif;">--</div></div>
+                      <div style="background:#1e1e1e; border-radius:8px; padding:6px 10px;"><div style="font-size:11px; color:#666;">Won</div><div id="conv-won" style="font-size:16px; font-weight:800; font-family:'Barlow Condensed',sans-serif; color:#22c55e;">--</div></div>
+                      <div style="background:#1e1e1e; border-radius:8px; padding:6px 10px;"><div style="font-size:11px; color:#666;">Pipeline</div><div id="conv-pipeline" style="font-size:16px; font-weight:800; font-family:'Barlow Condensed',sans-serif; color:#fbbf24;">--</div></div>
+                      <div style="background:#1e1e1e; border-radius:8px; padding:6px 10px;"><div style="font-size:11px; color:#666;">Won Revenue</div><div id="conv-revenue" style="font-size:16px; font-weight:800; font-family:'Barlow Condensed',sans-serif; color:#22c55e;">--</div></div>
+                    </div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:10px; justify-content:center; align-items:center;">
+                    <div style="font-size:12px; font-weight:700; color:#666; text-transform:uppercase; letter-spacing:0.05em; align-self:flex-start;">🤖 AI Sales Analysis</div>
+                    <div style="font-size:13px; color:#666; text-align:center; line-height:1.5;">Get real-time AI insights on your pipeline, win rate, and what to focus on today.</div>
+                    <button onclick="openAnalysisModal()" style="background:linear-gradient(135deg,#1a3a2a,#0f2d1f); border:1px solid rgba(34,197,94,0.4); color:#22c55e; font-size:13px; font-weight:700; padding:10px 20px; border-radius:10px; cursor:pointer; width:100%;">Get AI Analysis</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -3547,6 +3570,22 @@
         }).join('');
         document.getElementById('mc-c-invage-chips').innerHTML = chips || '<span style="font-size:12px;color:var(--muted)">None overdue</span>';
       }).catch(()=>{});
+
+      // Conversion Rate stats
+      fetch('/dashboard/api/jobs').then(r=>r.json()).then(data => {
+        const jobs = Array.isArray(data) ? data : (data.jobs || []);
+        const quoted = jobs.filter(j => j.status === 'quoted').length;
+        const won = jobs.filter(j => j.status === 'complete').length;
+        const rate = quoted > 0 ? Math.round((won / (quoted + won)) * 100) : 0;
+        const pipeline = jobs.filter(j=>j.status==='quoted').reduce((s,j)=>s+(parseFloat(j.quote_amount)||0),0);
+        const revenue = jobs.filter(j=>j.status==='complete').reduce((s,j)=>s+(parseFloat(j.quote_amount)||0),0);
+        document.getElementById('conv-rate').textContent = rate + '%';
+        document.getElementById('conv-bar').style.width = Math.min(rate,100) + '%';
+        document.getElementById('conv-quoted').textContent = quoted;
+        document.getElementById('conv-won').textContent = won;
+        document.getElementById('conv-pipeline').textContent = '$' + (pipeline/1000).toFixed(0) + 'K';
+        document.getElementById('conv-revenue').textContent = '$' + (revenue/1000).toFixed(0) + 'K';
+      }).catch(() => {});
 
       // Quote Aging — real data from quoted jobs
       const quotedAging = quoted.map(j => {
@@ -8735,6 +8774,60 @@
 
   // Initialize currency inputs — DOM already ready since this script is inline at bottom
   initAllCurrencyInputs();
+
+  function openAnalysisModal() {
+    const modal = document.getElementById('analysis-modal');
+    modal.style.display = 'flex';
+    document.getElementById('analysis-result').innerHTML = '';
+    document.getElementById('analysis-loading').style.display = 'block';
+
+    // Build prompt from live dashboard data
+    const hotLeads = document.getElementById('mc-c-hot')?.textContent || '?';
+    const quoted = document.getElementById('mc-c-quoted')?.textContent || '?';
+    const overdue = document.getElementById('mc-c-overdue')?.textContent || '?';
+    const convRate = document.getElementById('conv-rate')?.textContent || '?';
+    const pipeline = document.getElementById('conv-pipeline')?.textContent || '?';
+    const revenue = document.getElementById('conv-revenue')?.textContent || '?';
+    const wonCount = document.getElementById('conv-won')?.textContent || '?';
+
+    const prompt = `Pacific Construction dashboard snapshot:
+- Hot leads needing follow-up: ${hotLeads}
+- Quotes out awaiting decision: ${quoted}
+- Overdue invoices: ${overdue}
+- Win rate: ${convRate}
+- Pipeline value: ${pipeline}
+- Won revenue: ${revenue}
+- Jobs won: ${wonCount}
+
+Give me 3 specific, actionable insights on what to focus on today to grow revenue and close more jobs.`;
+
+    fetch('/dashboard/api/ash-analysis', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({prompt})
+    })
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('analysis-loading').style.display = 'none';
+      if (data.error) {
+        document.getElementById('analysis-result').innerHTML = '<span style="color:#f87171;">Error: ' + data.error + '</span>';
+      } else {
+        const lines = data.text.split('\n').filter(l => l.trim());
+        document.getElementById('analysis-result').innerHTML = lines.map(l =>
+          `<div style="padding:10px 0; border-bottom:1px solid #2a2a2a;">${l}</div>`
+        ).join('');
+      }
+    })
+    .catch(e => {
+      document.getElementById('analysis-loading').style.display = 'none';
+      document.getElementById('analysis-result').innerHTML = '<span style="color:#f87171;">Connection error. Try again.</span>';
+    });
+  }
+
+  function closeAnalysisModal() {
+    document.getElementById('analysis-modal').style.display = 'none';
+  }
+
 </script>
 
 <!-- Follow-up Email Preview Modal — at body level so position:fixed works from any page -->
@@ -9236,6 +9329,23 @@
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeCostModal()">Cancel</button>
       <button class="btn-primary" onclick="saveCost()">Save Cost</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- AI Sales Analysis Modal -->
+<div id="analysis-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#1a1a1a; border:1px solid rgba(34,197,94,0.3); border-radius:16px; padding:28px; max-width:520px; width:90%; max-height:80vh; overflow-y:auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div style="font-size:16px; font-weight:800; color:#22c55e;">🤖 AI Sales Analysis</div>
+      <button onclick="closeAnalysisModal()" style="background:none; border:none; color:#666; font-size:20px; cursor:pointer;">✕</button>
+    </div>
+    <div id="analysis-result" style="font-size:14px; color:#ccc; line-height:1.8; min-height:80px;">
+      <div style="color:#666;">Analyzing your pipeline...</div>
+    </div>
+    <div id="analysis-loading" style="display:none; text-align:center; padding:20px;">
+      <div style="color:#22c55e; font-size:13px;">⏳ Ash is analyzing your data...</div>
     </div>
   </div>
 </div>
