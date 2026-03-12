@@ -9164,11 +9164,9 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   function _ordFmtDate(iso) {
     if (!iso) return '—';
-    const d = new Date(iso + 'T00:00:00');
-    const now = new Date();
-    const opts = { month: 'short', day: 'numeric' };
-    if (d.getFullYear() !== now.getFullYear()) opts.year = 'numeric';
-    return d.toLocaleDateString('en-US', opts);
+    const parts = iso.split('T')[0].split('-');
+    const d = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   async function sdpLoadOrders() {
@@ -9184,14 +9182,19 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
           <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:7px 14px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">+ Add Order</button>`;
         return;
       }
-      // Status summary
+      // Status summary pills
       const counts = {};
       orders.forEach(o => { counts[o.status] = (counts[o.status]||0) + 1; });
-      const summary = Object.entries(counts).map(([s,c]) => `${c} ${s}`).join(' · ');
+      const pills = Object.entries(counts).map(([s,c]) => {
+        const sc = _ordStatusColors[s] || _ordStatusColors.pending;
+        return `<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;${sc}">${c} ${s}</span>`;
+      }).join('');
 
-      // Toolbar: summary left, add button right
-      let html = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <div style="font-size:12px;color:#94a3b8;">${orders.length} order${orders.length!==1?'s':''} — ${summary}</div>
+      // Toolbar: count + pills left, add button right
+      let html = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:13px;color:#f0f0f0;font-weight:600;">${orders.length} order${orders.length!==1?'s':''}</span>
+        ${pills}
+        <span style="flex:1;"></span>
         <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:5px 12px;background:rgba(96,165,250,0.12);border:1px solid rgba(96,165,250,0.25);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:11px;font-weight:600;">+ Add Order</button>
       </div>`;
 
@@ -9199,7 +9202,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       html += `<div style="display:grid;grid-template-columns:${_ordGridCols};gap:6px;padding:6px 0 8px;border-bottom:1px solid rgba(255,255,255,0.08);">
         <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Date</span>
         <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Item</span>
-        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:right;">Qty</span>
+        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Qty</span>
         <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Job</span>
         <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Expected</span>
         <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Status</span>
@@ -9218,9 +9221,9 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         return `<div onclick="console.log('order',\`${o.id}\`)" style="display:grid;grid-template-columns:${_ordGridCols};gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.1s;" onmouseenter="this.style.background='rgba(255,255,255,0.03)'" onmouseleave="this.style.background='none'">
           <span style="font-size:13px;color:#94a3b8;">${d}</span>
           <span style="font-size:13px;color:#f0f0f0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(o.description||'').replace(/"/g,'&quot;')}">${o.description||'—'}</span>
-          <span style="font-size:13px;color:#cbd5e1;text-align:right;">${qty}</span>
+          <span style="font-size:13px;color:#cbd5e1;">${qty}</span>
           <span style="text-align:center;">${jobBadge}</span>
-          <span style="font-size:13px;color:#94a3b8;text-align:center;">${ed}</span>
+          <span style="font-size:13px;color:#94a3b8;text-align:center;white-space:nowrap;">${ed}</span>
           <span style="text-align:center;"><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:7px;${sc}">${o.status}</span></span>
           <button onclick="event.stopPropagation();sdpDeleteOrder('${o.id}')" style="background:none;border:none;color:rgba(239,68,68,0.6);cursor:pointer;font-size:12px;padding:0;line-height:1;" title="Delete">✕</button>
         </div>`;
