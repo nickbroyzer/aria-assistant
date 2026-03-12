@@ -1445,6 +1445,13 @@
 
     /* Schedule */
     .mc-schedule-empty { font-size: 13px; color: var(--muted); text-align: center; padding: 12px 0; }
+    .crew-row { display:flex; align-items:center; justify-content:space-between; padding:5px 0; border-bottom:1px solid var(--border); }
+    .crew-row:last-child { border-bottom:none; }
+    .crew-name { font-size:13px; font-weight:600; color:var(--text); }
+    .crew-job { font-size:11px; color:var(--muted); margin-top:1px; }
+    .crew-badge { font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; white-space:nowrap; }
+    .crew-badge.booked { background:rgba(251,191,36,0.15); color:#fbbf24; }
+    .crew-badge.available { background:rgba(34,197,94,0.15); color:#22c55e; }
     .mc-sched-item { transition: background 0.15s, padding-left 0.15s; border-radius: 8px; padding: 4px 6px; }
     .mc-sched-item:hover { background: rgba(255,255,255,0.05); padding-left: 10px; }
     .mc-sched-item { display: flex; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
@@ -1752,6 +1759,8 @@
             <div id="mc-todo-list"><div style="font-size: 13px;color:var(--muted);">Loading...</div></div>
             <div class="mc-section-title" style="margin-top:8px;">Active Jobs at a Glance</div>
             <div id="mc-jobs-glance"><div style="font-size: 13px;color:var(--muted);">Loading...</div></div>
+            <div class="mc-section-title" style="margin-top:8px;">👷 Crew Availability — Today</div>
+            <div id="mc-crew-avail"><div style="font-size:13px;color:var(--muted);">Loading...</div></div>
           </div>
           <!-- Col 3: Today's Schedule + Ash Call Summary -->
           <div class="mc-col">
@@ -3590,6 +3599,45 @@
         document.getElementById('conv-pipeline').textContent = '$' + (pipeline/1000).toFixed(0) + 'K';
         document.getElementById('conv-revenue').textContent = '$' + (revenue/1000).toFixed(0) + 'K';
       }).catch(() => {});
+
+      // Crew Availability — based on active jobs with workers field
+      fetch('/dashboard/api/jobs').then(r=>r.json()).then(data => {
+        const jobs = Array.isArray(data) ? data : (data.jobs || []);
+        const today = new Date().toISOString().slice(0,10);
+        const bookedMap = {};
+        jobs.filter(j => j.status === 'active').forEach(j => {
+          const start = j.start_date || '0000-00-00';
+          const end = j.end_date || '9999-99-99';
+          if (today >= start && today <= end && j.workers) {
+            j.workers.split(',').map(w => w.trim()).filter(Boolean).forEach(w => {
+              bookedMap[w] = j.job_number + (j.client_company ? ' · ' + j.client_company : '');
+            });
+          }
+        });
+        const allWorkers = new Set();
+        jobs.forEach(j => { if(j.workers) j.workers.split(',').map(w=>w.trim()).filter(Boolean).forEach(w=>allWorkers.add(w)); });
+        const crewEl = document.getElementById('mc-crew-avail');
+        if (allWorkers.size === 0) {
+          crewEl.innerHTML = '<div style="font-size:13px;color:var(--muted);">No crew data</div>';
+          return;
+        }
+        const sorted = [...allWorkers].sort((a,b) => {
+          const ab = !!bookedMap[a], bb = !!bookedMap[b];
+          if (ab !== bb) return ab ? -1 : 1;
+          return a.localeCompare(b);
+        });
+        crewEl.innerHTML = sorted.map(w =>
+          '<div class="crew-row">' +
+          '<div><div class="crew-name">' + w + '</div>' +
+          (bookedMap[w] ? '<div class="crew-job">' + bookedMap[w] + '</div>' : '') +
+          '</div><span class="crew-badge ' + (bookedMap[w] ? 'booked' : 'available') + '">' +
+          (bookedMap[w] ? 'Booked' : 'Available') + '</span></div>'
+        ).join('');
+        crewEl.querySelectorAll('.crew-row').forEach((row, i) => {
+          row.style.cursor = 'pointer';
+          row.addEventListener('click', () => openCrewModal(sorted[i], bookedMap[sorted[i]]));
+        });
+      }).catch(()=>{});
 
       // Quote Aging — real data from quoted jobs
       const quotedAging = quoted.map(j => {
@@ -8828,6 +8876,21 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     });
   }
 
+
+  function openCrewModal(name, jobInfo) {
+    const modal = document.getElementById('crew-modal');
+    document.getElementById('crew-modal-name').textContent = name;
+    const isBooked = !!jobInfo;
+    document.getElementById('crew-modal-status').innerHTML =
+      '<span style="font-size:12px; font-weight:700; padding:4px 12px; border-radius:10px; background:' +
+      (isBooked ? 'rgba(251,191,36,0.15); color:#fbbf24' : 'rgba(34,197,94,0.15); color:#22c55e') +
+      ';">' + (isBooked ? '🟡 Booked Today' : '🟢 Available Today') + '</span>';
+    document.getElementById('crew-modal-job').innerHTML = isBooked
+      ? '<strong style="color:#fff;">Assigned to:</strong> ' + jobInfo + '<br><br><span style="color:#666; font-size:12px;">To reassign this crew member, update the job in the Jobs section.</span>'
+      : '<span style="color:#666;">No active job assignment today. Available for new assignments.</span>';
+    modal.style.display = 'flex';
+  }
+
   function closeAnalysisModal() {
     document.getElementById('analysis-modal').style.display = 'none';
   }
@@ -9351,6 +9414,19 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     <div id="analysis-loading" style="display:none; text-align:center; padding:20px;">
       <div style="color:#22c55e; font-size:13px;">⏳ Ash is analyzing your data...</div>
     </div>
+  </div>
+</div>
+
+
+<!-- Crew Member Modal -->
+<div id="crew-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:28px; max-width:420px; width:90%;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div id="crew-modal-name" style="font-size:18px; font-weight:800; color:#fff;"></div>
+      <button onclick="document.getElementById('crew-modal').style.display='none'" style="background:none; border:none; color:#666; font-size:20px; cursor:pointer;">✕</button>
+    </div>
+    <div id="crew-modal-status" style="margin-bottom:16px;"></div>
+    <div id="crew-modal-job" style="font-size:13px; color:#aaa; line-height:1.8;"></div>
   </div>
 </div>
 
