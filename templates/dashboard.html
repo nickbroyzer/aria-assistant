@@ -8957,43 +8957,20 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
 
   // ── SUPPLIERS ──────────────────────────────────────────────
-  let allSuppliers = [
-    // Pallet Racking
-    { id:'s1',  name:'UNARCO Material Handling',     category:'racking',   phone:'800-868-5238', website:'unarcorack.com',        rep:'',  status:'active',    notes:'Leading pallet rack manufacturer. Structural & roll-formed systems.' },
-    { id:'s2',  name:'Interlake Mecalux',            category:'racking',   phone:'877-632-2589', website:'interlakemecalux.com',   rep:'',  status:'active',    notes:'Global racking solutions. Quick Ship program available.' },
-    { id:'s3',  name:'Speedrack West',               category:'racking',   phone:'800-736-6551', website:'speedrackwest.com',      rep:'',  status:'active',    notes:'Ships from 15+ US warehouses. CAD design & permit services.' },
-    { id:'s4',  name:'Advance Storage Products',     category:'racking',   phone:'800-869-1701', website:'advancestorage.com',     rep:'',  status:'active',    notes:'Gold standard pushback systems. 50% US market share.' },
-    { id:'s5',  name:'Ridg-U-Rack',                  category:'racking',   phone:'814-781-1234', website:'ridgurack.com',          rep:'',  status:'active',    notes:'High-density pallet rack systems. Drive-in & push-back specialists.' },
-    // Mezzanines
-    { id:'s6',  name:'Wildeck',                      category:'mezzanine', phone:'800-325-6939', website:'wildeck.com',            rep:'',  status:'preferred', notes:'Top mezzanine brand. Used extensively in WA/PNW region.' },
-    { id:'s7',  name:'Panel Built',                  category:'mezzanine', phone:'800-636-3873', website:'panelbuilt.com',         rep:'',  status:'active',    notes:'Mezzanines & modular offices since 1995. Custom builds available.' },
-    { id:'s8',  name:'Cogan',                        category:'mezzanine', phone:'800-263-6847', website:'cogan.ca',               rep:'',  status:'active',    notes:'Canadian manufacturer. Distributed through local dealers.' },
-    { id:'s9',  name:'Equipment Roundup Mfg',        category:'mezzanine', phone:'800-521-2238', website:'equipmentroundup.com',   rep:'',  status:'active',    notes:'Mezzanine systems since 1982. In-stock ships within 48hrs.' },
-    // Cranes
-    { id:'s10', name:'Spanco',                       category:'crane',     phone:'800-869-2080', website:'spanco.com',             rep:'',  status:'preferred', notes:'Leading US crane manufacturer. Jib, gantry & bridge cranes. HQ in Morgantown PA.' },
-    { id:'s11', name:'Gorbel',                       category:'crane',     phone:'800-821-0086', website:'gorbel.com',             rep:'',  status:'active',    notes:'Workstation cranes & overhead solutions up to 40 tons.' },
-    { id:'s12', name:'Konecranes',                   category:'crane',     phone:'800-946-4648', website:'konecranes.com',         rep:'',  status:'active',    notes:'Heavy industrial bridge cranes. Seattle service center available.' },
-    // Dock Equipment
-    { id:'s13', name:'Nordock',                      category:'dock',      phone:'800-722-0310', website:'nordockinc.com',         rep:'',  status:'preferred', notes:'Full dock equipment line. Levelers, restraints, seals & shelters.' },
-    { id:'s14', name:'McGuire / Poweramp',           category:'dock',      phone:'800-236-6376', website:'wbmcguire.com',          rep:'',  status:'active',    notes:'Made in USA. 60+ years manufacturing. Hydraulic & mechanical levelers.' },
-    { id:'s15', name:'Chalfant Dock Equipment',      category:'dock',      phone:'800-441-1223', website:'chalfantusa.com',        rep:'',  status:'active',    notes:'Original dock seal manufacturer since 1940.' },
-    { id:'s16', name:'Pioneer Dock Equipment',       category:'dock',      phone:'888-327-7905', website:'pioneerleveler.com',     rep:'',  status:'active',    notes:'40+ years manufacturing. National dealer network.' },
-    // Modular Offices
-    { id:'s17', name:'Panel Built',                  category:'modular',   phone:'800-636-3873', website:'panelbuilt.com',         rep:'',  status:'active',    notes:'In-plant offices & modular buildings. Same vendor as mezzanines.' },
-    { id:'s18', name:'Porta-King',                   category:'modular',   phone:'800-284-7998', website:'portaking.com',          rep:'',  status:'active',    notes:'Prefab modular offices. Fast lead times.' },
-    { id:'s19', name:'PortaFab',                     category:'modular',   phone:'800-325-3781', website:'portafab.com',           rep:'',  status:'active',    notes:'Modular buildings & cleanrooms. Custom designs.' },
-    // Safety & Accessories
-    { id:'s20', name:'Rotary Products',              category:'safety',    phone:'800-457-5251', website:'rotaryproductsinc.com',  rep:'',  status:'active',    notes:'Dock seals, rack guards, safety barriers. Made in USA since 1958.' },
-    { id:'s21', name:'Uline',                        category:'safety',    phone:'800-958-5463', website:'uline.com',              rep:'',  status:'preferred', notes:'Warehouse supplies & safety products. Kent WA distribution center.' },
-    { id:'s22', name:'Grainger',                     category:'safety',    phone:'800-472-4643', website:'grainger.com',           rep:'',  status:'active',    notes:'Industrial supplies. Renton & Tukwila WA locations.' },
-    // Equipment Rentals
-    { id:'s23', name:'United Rentals — Tacoma',      category:'rental',    phone:'253-476-0444', website:'unitedrentals.com',      rep:'',  status:'rental',    notes:'2302 E Q St, Tacoma WA. Forklifts, scissor lifts, boom lifts, telehandlers.' },
-    { id:'s24', name:'United Rentals — Tukwila',     category:'rental',    phone:'206-575-0400', website:'unitedrentals.com',      rep:'',  status:'rental',    notes:'Tukwila WA. 24/7 service. Largest rental fleet in region.' },
-    { id:'s25', name:'Equipment Depot — Kent',       category:'rental',    phone:'253-854-2500', website:'eqdepot.com',            rep:'',  status:'preferred', notes:'Kent WA. Forklifts, aerials, warehouse automation. Cat, Mitsubishi brands.' },
-    { id:'s26', name:'Pacific Rim Equipment Rental', category:'rental',    phone:'206-441-7909', website:'pacificrimequipmentrental.com', rep:'', status:'rental', notes:'6515 W Marginal Way SW, Seattle WA. Forklifts 5K-10K lb, scissor lifts to 32ft.' },
-    { id:'s27', name:'Tacoma Equipment Rental',      category:'rental',    phone:'253-327-0555', website:'tacomaequipmentrental.com', rep:'', status:'rental',  notes:'Tacoma WA. Scissor lifts, boom lifts to 180ft, forklifts. Short & long term.' },
-    { id:'s28', name:'BigRentz — Tacoma',            category:'rental',    phone:'800-422-4369', website:'bigrentz.com',           rep:'',  status:'rental',    notes:'Online rental marketplace. Wide equipment selection. Delivery to job site.' },
-  ];
+  let allSuppliers = [];
+
+  async function loadSuppliers() {
+    const grid = document.getElementById('suppliers-grid');
+    try {
+      const res = await fetch('/dashboard/api/suppliers');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      allSuppliers = await res.json();
+      renderSuppliers();
+    } catch (err) {
+      console.error('Failed to load suppliers:', err);
+      if (grid) grid.innerHTML = '<div style="color:#f87171;font-size:13px;padding:20px;">Failed to load suppliers. Please try refreshing.</div>';
+    }
+  }
 
   let supplierFilter = 'all';
   let supplierSearch = '';
@@ -9161,10 +9138,9 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     document.getElementById('supplier-modal').style.display = 'none';
   }
 
-  function saveSupplier() {
+  async function saveSupplier() {
     const id = document.getElementById('supplier-edit-id').value;
     const data = {
-      id:       id || 's' + Date.now(),
       name:     document.getElementById('s-name').value.trim(),
       category: document.getElementById('s-category').value,
       phone:    document.getElementById('s-phone').value.trim(),
@@ -9174,30 +9150,50 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       notes:    document.getElementById('s-notes').value.trim(),
     };
     if (!data.name) { alert('Company name is required'); return; }
-    if (id) {
-      const idx = allSuppliers.findIndex(s => s.id === id);
-      if (idx >= 0) allSuppliers[idx] = data;
-    } else {
-      allSuppliers.push(data);
+    try {
+      const url = id ? `/dashboard/api/suppliers/${id}` : '/dashboard/api/suppliers';
+      const res = await fetch(url, {
+        method: id ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      closeSupplierModal();
+      await loadSuppliers();
+    } catch (err) {
+      console.error('Failed to save supplier:', err);
+      alert('Failed to save supplier. Please try again.');
     }
-    closeSupplierModal();
-    renderSuppliers();
   }
 
-  function editSupplier(id) {
-    const s = allSuppliers.find(x => x.id === id);
-    if (s) openSupplierModal(s);
+  async function editSupplier(id) {
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${id}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const s = await res.json();
+      openSupplierModal(s);
+    } catch (err) {
+      console.error('Failed to fetch supplier:', err);
+      const s = allSuppliers.find(x => x.id === id);
+      if (s) openSupplierModal(s);
+    }
   }
 
-  function deleteSupplier(id) {
+  async function deleteSupplier(id) {
     if (!confirm('Remove this supplier?')) return;
-    allSuppliers = allSuppliers.filter(s => s.id !== id);
-    renderSuppliers();
+    try {
+      const res = await fetch(`/dashboard/api/suppliers/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await loadSuppliers();
+    } catch (err) {
+      console.error('Failed to delete supplier:', err);
+      alert('Failed to delete supplier. Please try again.');
+    }
   }
 
   // Init suppliers when page loads
   document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('suppliers-grid')) renderSuppliers();
+    if (document.getElementById('suppliers-grid')) loadSuppliers();
   });
 
   </script>
