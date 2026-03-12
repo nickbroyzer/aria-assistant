@@ -7,3 +7,5 @@ google_credentials.json
 user_sessions.json
 venv/
 .locks/
+config.json
+retell-twilio-troubleshooting-summary.md
