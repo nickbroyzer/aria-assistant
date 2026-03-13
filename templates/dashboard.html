@@ -1833,6 +1833,7 @@
           <button class="filter-tab"        data-filter="qualified" onclick="setFilter('qualified')">Qualified</button>
           <button class="filter-tab"        data-filter="converted" onclick="setFilter('converted')">Converted</button>
           <button class="filter-tab"        data-filter="lost"      onclick="setFilter('lost')">Lost</button>
+          <button class="filter-tab"        data-filter="due_today" onclick="setFilter('due_today')">Due Today</button>
           <div style="margin-left:auto;position:relative;display:flex;align-items:center;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                  style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
@@ -3256,6 +3257,7 @@
   // ── State ──
   let allLeads = [];
   let currentFilter = 'all';
+  let _dueTodayLeadIds = new Set();
 
   function applyNavPermissions() {
     if (!currentUser) return;
@@ -3590,14 +3592,17 @@
         const followups = Array.isArray(data) ? data : (data.followups || []);
         const today = new Date().toISOString().split('T')[0];
         const due = [];
+        const dueIds = new Set();
         followups.forEach(f => {
           if (f.status !== 'active') return;
           (f.steps || []).forEach(s => {
             if (s.status === 'pending' && s.scheduled_date <= today) {
               due.push({ name: f.lead_name.split(' ')[0], label: s.label, date: s.scheduled_date });
+              dueIds.add(f.lead_id);
             }
           });
         });
+        _dueTodayLeadIds = dueIds;
         due.sort((a,b) => a.date.localeCompare(b.date));
         document.getElementById('mc-c-followup-count').textContent = due.length;
       }).catch(()=>{
@@ -3851,6 +3856,8 @@
     if (currentFilter !== 'all') {
       if (scoreFilters[currentFilter]) {
         leads = leads.filter(l => (l.score || '').includes(scoreFilters[currentFilter]));
+      } else if (currentFilter === 'due_today') {
+        leads = leads.filter(l => _dueTodayLeadIds.has(l.lead_id));
       } else if (statusFilters.includes(currentFilter)) {
         leads = leads.filter(l => (l.lead_status || 'new') === currentFilter);
       }
@@ -6847,8 +6854,22 @@
   }
 
   function mcOpenFollowupsDue() {
-    showPage('leads');
-    setTimeout(function(){ setFilter('contacted'); }, 300);
+    fetch('/dashboard/api/lead-nurtures').then(r=>r.json()).then(data => {
+      const followups = Array.isArray(data) ? data : (data.followups || []);
+      const today = new Date().toISOString().split('T')[0];
+      const dueIds = new Set();
+      followups.forEach(f => {
+        if (f.status !== 'active') return;
+        (f.steps || []).forEach(s => {
+          if (s.status === 'pending' && s.scheduled_date <= today) {
+            dueIds.add(f.lead_id);
+          }
+        });
+      });
+      _dueTodayLeadIds = dueIds;
+      showPage('leads');
+      setTimeout(function(){ setFilter('due_today'); }, 300);
+    });
   }
 
   const actIcons = {

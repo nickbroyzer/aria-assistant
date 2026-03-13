@@ -241,9 +241,9 @@
   },
   {
     "nurture_id": "demo-n-001",
-    "lead_id": "demo-lead-001",
-    "lead_name": "Derek Holloway",
-    "lead_email": "derek@hollowalogistics.com",
+    "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
+    "lead_name": "Carla Nunes",
+    "lead_email": "cnunes@nunescold.com",
     "status": "active",
     "current_step": 2,
     "started_at": "2026-03-11T22:22:08.887639+00:00",
@@ -260,7 +260,7 @@
       {
         "step": 2,
         "label": "Value Touch",
-        "scheduled_date": "2026-03-11",
+        "scheduled_date": "2026-03-13",
         "sent_at": null,
         "status": "pending"
       },
@@ -275,9 +275,9 @@
   },
   {
     "nurture_id": "demo-n-002",
-    "lead_id": "demo-lead-002",
-    "lead_name": "Elena Vasquez",
-    "lead_email": "elena@vasquezwarehousing.com",
+    "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
+    "lead_name": "Mike Johnson",
+    "lead_email": "mike@johnsonlogistics.com",
     "status": "active",
     "current_step": 1,
     "started_at": "2026-03-11T22:22:08.887804+00:00",
@@ -287,7 +287,7 @@
       {
         "step": 1,
         "label": "Check-In",
-        "scheduled_date": "2026-03-11",
+        "scheduled_date": "2026-03-13",
         "sent_at": null,
         "status": "pending"
       },
@@ -302,9 +302,9 @@
   },
   {
     "nurture_id": "demo-n-003",
-    "lead_id": "demo-lead-003",
-    "lead_name": "Ryan Petrov",
-    "lead_email": "ryan@petrovcoldchain.com",
+    "lead_id": "f8f08330-455e-43b0-a6c8-09aaa1badbeb",
+    "lead_name": "Tanya Okafor",
+    "lead_email": "tokafor@okafor-industrial.com",
     "status": "active",
     "current_step": 2,
     "started_at": "2026-03-11T22:22:08.887807+00:00",
@@ -321,7 +321,7 @@
       {
         "step": 2,
         "label": "Urgency",
-        "scheduled_date": "2026-03-09",
+        "scheduled_date": "2026-03-13",
         "sent_at": null,
         "status": "pending"
       },
