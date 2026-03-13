@@ -877,7 +877,7 @@
     .person-card {
       background: var(--surface2); border: 1px solid var(--border);
       border-radius: 10px; padding: 16px; display: flex; flex-direction: column;
-      gap: 8px; transition: border-color .15s; position: relative;
+      gap: 0; transition: border-color .15s; position: relative;
     }
     .person-card:hover { border-color: var(--border-strong); }
     .person-card-top { display: flex; align-items: flex-start; gap: 10px; }
@@ -887,17 +887,17 @@
       font-weight: 700; font-size: 15px; font-family: 'Barlow Condensed', sans-serif;
       letter-spacing: 1px;
     }
-    .person-avatar.employee      { background: rgba(34,197,94,0.15); color: #4ade80; }
-    .person-avatar.subcontractor { background: rgba(139,92,246,0.15); color: #a78bfa; }
+    .person-avatar.employee      { background: #14532d; color: #4ade80; }
+    .person-avatar.subcontractor { background: #1e3a5e; color: #60a5fa; }
     .person-info { flex: 1; min-width: 0; }
-    .person-name { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .person-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .person-company { font-size: 13px; color: var(--orange); margin-top: 1px; }
+    .person-name { font-size: 13px; font-weight: 500; white-space: nowrap; }
     .person-contacts { display: flex; flex-direction: column; gap: 3px; }
-    .person-contact-row { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .person-contact-row { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
     .person-contact-row a { color: var(--muted); text-decoration: none; }
     .person-contact-row a:hover { color: var(--orange); }
-    .person-card-actions { display: flex; gap: 6px; margin-top: 4px; }
+    .person-card-actions { display: flex; gap: 6px; }
+    .person-card-divider { border-top: 0.5px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 10px; }
+    .person-card-footer { border-top: 0.5px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
     .people-filter-bar { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
 
     /* ── Tag picker (multi-select for job assignments) ── */
@@ -5877,44 +5877,44 @@
     }
     grid.innerHTML = list.map(p => {
       const initials = (p.name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-      const typeLabel = p.type === 'employee' ? 'Employee' : 'Subcontractor';
       const pJobs = getPersonJobs(p.name);
       const activeCount = pJobs.filter(j => j.status === 'active').length;
-      const upcomingCount = pJobs.filter(j => j.status === 'quoted').length;
       const pastCount = pJobs.filter(j => j.status === 'complete' || j.status === 'invoiced').length;
-      const chipHtml = [
-        activeCount   ? `<span class="job-chip active">${activeCount} Active</span>` : '',
-        upcomingCount ? `<span class="job-chip upcoming">${upcomingCount} Upcoming</span>` : '',
-        pastCount     ? `<span class="job-chip past">${pastCount} Past</span>` : '',
-      ].join('') || '<span class="job-chip past">No jobs yet</span>';
+      const activePill = `<span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#14532d;color:#4ade80;white-space:nowrap;">${activeCount} Active</span>`;
+      const pastPill = `<span style="font-size:11px;padding:3px 10px;border-radius:20px;background:var(--surface2);color:#94a3b8;white-space:nowrap;">${pastCount} Past</span>`;
+      const deptPill = p.department ? `<span style="font-size:10px;padding:2px 6px;border-radius:20px;background:#1c2f3a;color:#f97316;white-space:nowrap;">${esc(p.department)}</span>` : '';
+      const companyName = p.type === 'subcontractor' && p.company ? esc(p.company) : 'Pacific Construction';
       return `
         <div class="person-card" onclick="openPersonPanel('${p.person_id}')" style="cursor:pointer;">
           <div class="person-card-top">
             <div class="person-avatar ${p.type}">${initials}</div>
             <div class="person-info">
               <div class="person-name">${esc(p.name)}</div>
-              <div class="person-role">${esc(p.role || '—')}</div>
-              ${p.company ? `<div class="person-company">${esc(p.company)}</div>` : ''}
-              ${p.department ? `<div style="margin-top:4px;"><span class="dept-badge">⬡ ${esc(p.department)}</span></div>` : ''}
+              <div style="margin-top:3px;">${deptPill}</div>
             </div>
-            <span class="person-badge ${p.type}">${typeLabel}</span>
           </div>
-          <div class="person-job-chips">${chipHtml}</div>
-          <div class="person-contacts">
-            ${p.phone ? `<div class="person-contact-row">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l1.84-1.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <a href="tel:${esc(p.phone)}" onclick="event.stopPropagation()">${esc(p.phone)}</a>
-            </div>` : ''}
-            ${p.email ? `<div class="person-contact-row">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
-              <a href="mailto:${esc(p.email)}" onclick="event.stopPropagation()">${esc(p.email)}</a>
-            </div>` : ''}
-            ${p.notes ? `<div class="person-contact-row" style="color:var(--dim);font-style:italic;">${esc(p.notes)}</div>` : ''}
+          <div class="person-card-divider">
+            <div class="person-contacts">
+              <div style="font-size:11px;font-weight:500;color:#f0f0f0;">${companyName}</div>
+              ${p.phone ? `<div class="person-contact-row" style="white-space:nowrap;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l1.84-1.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <a href="tel:${esc(p.phone)}" onclick="event.stopPropagation()">${esc(p.phone)}</a>
+              </div>` : ''}
+              ${p.email ? `<div style="font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                <a href="mailto:${esc(p.email)}" onclick="event.stopPropagation()" style="color:#60a5fa;text-decoration:none;">${esc(p.email)}</a>
+              </div>` : ''}
+              ${p.notes ? `<div style="font-size:11px;color:var(--dim);font-style:italic;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4;">${esc(p.notes)}</div>` : ''}
+            </div>
           </div>
-          <div class="person-card-actions" onclick="event.stopPropagation()">
-            <button class="row-btn edit" onclick="openPersonModal('${p.person_id}')">Edit</button>
-            <button class="row-btn delete"
-              onclick="deletePerson('${p.person_id}', '${esc(p.name)}')">Remove</button>
+          <div class="person-card-footer" onclick="event.stopPropagation()">
+            <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center;">
+              ${activePill}${pastPill}
+            </div>
+            <div class="person-card-actions">
+              <button class="row-btn edit" onclick="openPersonModal('${p.person_id}')">Edit</button>
+              <button class="row-btn delete"
+                onclick="deletePerson('${p.person_id}', '${esc(p.name)}')">Remove</button>
+            </div>
           </div>
         </div>`;
     }).join('');
