@@ -9281,7 +9281,8 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       const jobBadge = o.job_id
         ? `<span style="color:#60a5fa;font-size:10px;font-weight:600;white-space:nowrap;">${o.job_id}</span>`
         : `<span style="color:#555;">—</span>`;
-      return `<tr style="cursor:pointer;transition:background 0.1s;" onmouseenter="this.style.background='rgba(255,255,255,0.03)'" onmouseleave="this.style.background='none'">
+      const _oJson = JSON.stringify(o).replace(/'/g,'&#39;');
+      return `<tr onclick='openOrderDetail(${_oJson})' style="cursor:pointer;transition:background 0.1s;" onmouseenter="this.style.background='rgba(255,255,255,0.03)'" onmouseleave="this.style.background='none'">
         <td style="${tdStyle}font-size:13px;color:#94a3b8;font-weight:500;text-align:center;">${d}</td>
         <td style="${tdStyle}white-space:normal;">
           <div style="font-size:13px;font-weight:600;color:#f1f5f9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(o.description||'').replace(/"/g,'&quot;')}">${o.description||'—'}</div>
@@ -10292,6 +10293,258 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       </div>
     </div>
   </div>
+
+<!-- Order Detail Slide-Out Panel -->
+<div id="order-detail-panel" style="position:fixed;top:0;right:0;height:100vh;width:480px;background:#1a2535;border-left:1px solid rgba(255,255,255,0.08);z-index:2000;display:none;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,0.5);transform:translateX(100%);transition:transform 0.25s ease;">
+  <!-- Header -->
+  <div style="padding:20px 24px 0;flex-shrink:0;">
+    <button onclick="closeOrderDetail()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;">✕</button>
+    <div id="odp-title" style="font-size:15px;font-weight:700;color:#f1f5f9;padding-right:30px;"></div>
+    <div id="odp-sub" style="font-size:12px;color:#475569;margin-top:4px;"></div>
+    <div id="odp-meta" style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;margin-top:10px;"></div>
+    <!-- Tab bar -->
+    <div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.08);margin-top:14px;">
+      <button onclick="odpSwitchTab('lineitems')" data-odptab="lineitems" style="padding:8px 12px;font-size:12px;font-weight:600;background:none;border:none;border-bottom:2px solid #e8650a;color:#f0f0f0;cursor:pointer;">Line Items</button>
+      <button onclick="odpSwitchTab('comms')" data-odptab="comms" style="padding:8px 12px;font-size:12px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#64748b;cursor:pointer;">Communications</button>
+      <button onclick="odpSwitchTab('docs')" data-odptab="docs" style="padding:8px 12px;font-size:12px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#64748b;cursor:pointer;">Documents</button>
+      <button onclick="odpSwitchTab('timeline')" data-odptab="timeline" style="padding:8px 12px;font-size:12px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#64748b;cursor:pointer;">Timeline</button>
+    </div>
+  </div>
+  <!-- Body -->
+  <div style="padding:16px 24px 24px;overflow-y:auto;flex:1;">
+    <!-- Line Items Tab -->
+    <div id="odp-tab-lineitems"></div>
+    <!-- Communications Tab -->
+    <div id="odp-tab-comms" style="display:none;"></div>
+    <!-- Documents Tab -->
+    <div id="odp-tab-docs" style="display:none;"></div>
+    <!-- Timeline Tab -->
+    <div id="odp-tab-timeline" style="display:none;"></div>
+  </div>
+</div>
+
+<script>
+  let _odpOrder = null;
+
+  function openOrderDetail(order) {
+    _odpOrder = order;
+    const panel = document.getElementById('order-detail-panel');
+
+    // Title & sub
+    document.getElementById('odp-title').textContent = order.description || 'Order';
+    const supplierName = document.getElementById('sdp-name') ? document.getElementById('sdp-name').textContent : '';
+    document.getElementById('odp-sub').textContent = supplierName + (order.id ? ' · Order #' + order.id.slice(0,8) : '');
+
+    // Meta row
+    const metaEl = document.getElementById('odp-meta');
+    const metaItems = [];
+    if (order.order_date) metaItems.push(`<span style="font-size:10px;color:#94a3b8;">Ordered: <strong style="color:#cbd5e1;">${_ordFmtDate(order.order_date)}</strong></span>`);
+    if (order.expected_delivery) metaItems.push(`<span style="font-size:10px;color:#94a3b8;">Expected: <strong style="color:#cbd5e1;">${_ordFmtDate(order.expected_delivery)}</strong></span>`);
+    if (order.job_id) metaItems.push(`<span style="font-size:10px;font-weight:600;color:#60a5fa;background:rgba(96,165,250,0.1);padding:2px 8px;border-radius:6px;">${order.job_id}</span>`);
+    if (order.status) {
+      const sc = _ordStatusColors[order.status] || _ordStatusColors.pending;
+      metaItems.push(`<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;${sc}">${order.status}</span>`);
+    }
+    metaEl.innerHTML = metaItems.join('<span style="color:#334155;">·</span>');
+
+    // Populate Line Items
+    _odpRenderLineItems(order);
+
+    // Populate Communications
+    _odpRenderComms(order);
+
+    // Populate Documents
+    _odpRenderDocs(order);
+
+    // Populate Timeline
+    _odpRenderTimeline(order);
+
+    // Switch to first tab
+    odpSwitchTab('lineitems');
+
+    // Slide in
+    panel.style.display = 'flex';
+    requestAnimationFrame(() => { panel.style.transform = 'translateX(0)'; });
+  }
+
+  function closeOrderDetail() {
+    const panel = document.getElementById('order-detail-panel');
+    panel.style.transform = 'translateX(100%)';
+    setTimeout(() => { panel.style.display = 'none'; }, 250);
+    _odpOrder = null;
+  }
+
+  function odpSwitchTab(tab) {
+    ['lineitems','comms','docs','timeline'].forEach(t => {
+      const el = document.getElementById('odp-tab-' + t);
+      if (el) el.style.display = t === tab ? 'block' : 'none';
+      const btn = document.querySelector(`[data-odptab="${t}"]`);
+      if (btn) {
+        btn.style.borderBottomColor = t === tab ? '#e8650a' : 'transparent';
+        btn.style.color = t === tab ? '#f0f0f0' : '#64748b';
+      }
+    });
+  }
+
+  function _odpRenderLineItems(order) {
+    const el = document.getElementById('odp-tab-lineitems');
+    const thS = 'font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.07em;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);';
+    const qty = order.quantity || 0;
+    const unitPrice = order.unit_price || 0;
+    const total = qty * unitPrice;
+
+    let html = `<table style="width:100%;border-collapse:collapse;margin-top:4px;">
+      <thead><tr>
+        <th style="${thS}text-align:left;width:28px;">#</th>
+        <th style="${thS}text-align:left;">Description</th>
+        <th style="${thS}text-align:center;width:50px;">Qty</th>
+        <th style="${thS}text-align:right;width:80px;">Unit Price</th>
+        <th style="${thS}text-align:right;width:80px;">Total</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:#64748b;">1</td>
+          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);max-width:0;">
+            <div style="font-size:13px;font-weight:600;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${order.description || '—'}</div>
+          </td>
+          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-align:center;font-size:13px;color:#cbd5e1;">${qty}</td>
+          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-align:right;font-size:13px;color:#94a3b8;">${_ordFmtMoney(unitPrice)}</td>
+          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-align:right;font-size:13px;font-weight:700;color:#f1f5f9;">${_ordFmtMoney(total)}</td>
+        </tr>
+      </tbody>
+    </table>`;
+
+    // Total row
+    html += `<div style="display:flex;justify-content:flex-end;align-items:baseline;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);">
+      <span style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Order Total</span>
+      <span style="font-size:15px;font-weight:800;color:#f1f5f9;">${_ordFmtMoney(total)}</span>
+    </div>`;
+
+    // Add line item button
+    html += `<div style="margin-top:16px;">
+      <button style="font-size:11px;color:#60a5fa;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:600;">+ Add Line Item</button>
+    </div>`;
+
+    el.innerHTML = html;
+  }
+
+  function _odpRenderComms(order) {
+    const el = document.getElementById('odp-tab-comms');
+    let html = `<div id="odp-comms-list" style="margin-bottom:16px;">
+      <div style="color:#475569;font-size:13px;padding:16px 0;">No communications yet.</div>
+    </div>`;
+    html += `<div style="display:flex;gap:8px;align-items:flex-start;">
+      <input id="odp-comm-input" type="text" placeholder="Add a note..." style="flex:1;padding:8px 12px;background:#0f1419;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#cbd5e1;font-size:13px;font-family:inherit;outline:none;">
+      <button onclick="_odpAddComm()" style="padding:8px 14px;background:var(--orange);border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:12px;font-weight:700;white-space:nowrap;">Add Note</button>
+    </div>`;
+    el.innerHTML = html;
+  }
+
+  function _odpAddComm() {
+    const input = document.getElementById('odp-comm-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+    const list = document.getElementById('odp-comms-list');
+    const now = new Date().toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit', hour12:true });
+    const user = (typeof currentUser !== 'undefined' && currentUser) ? currentUser.username : 'You';
+    const entry = `<div style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;color:#f1f5f9;">${user}</span>
+        <span style="font-size:11px;color:#475569;">${now}</span>
+      </div>
+      <div style="font-size:13px;color:#cbd5e1;line-height:1.5;">${msg.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+    </div>`;
+    if (list.querySelector('[style*="No communications"]')) list.innerHTML = '';
+    list.innerHTML += entry;
+    input.value = '';
+  }
+
+  function _odpRenderDocs(order) {
+    const el = document.getElementById('odp-tab-docs');
+    const secTitle = 'font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;margin-top:16px;';
+    const slotFilled = 'background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;';
+    const slotEmpty = 'background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.12);border-radius:8px;padding:12px 14px;margin-bottom:8px;cursor:pointer;';
+
+    const keyDocs = ['Supplier Invoice', 'Purchase Order', 'Delivery Receipt'];
+
+    let html = `<div style="${secTitle}">Key Documents</div>`;
+    keyDocs.forEach((docType, i) => {
+      html += `<div style="${slotEmpty}" onclick="document.getElementById('odp-file-key-${i}').click()">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#94a3b8;">${docType}</div>
+          <div style="font-size:10px;color:#475569;margin-top:2px;">Upload</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <input type="file" id="odp-file-key-${i}" style="display:none;" onchange="_odpFileUploaded(this,'odp-slot-key-${i}','${docType}')">
+      </div>`;
+    });
+
+    html += `<div style="${secTitle}margin-top:20px;">Other Documents</div>`;
+    html += `<div style="${slotEmpty}" onclick="document.getElementById('odp-file-other').click()">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#94a3b8;">Upload Document</div>
+        <div style="font-size:10px;color:#475569;margin-top:2px;">Any supporting file</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <input type="file" id="odp-file-other" style="display:none;" onchange="_odpFileUploaded(this,'odp-slot-other','Document')">
+    </div>`;
+    html += `<div id="odp-other-docs-list"></div>`;
+
+    el.innerHTML = html;
+  }
+
+  function _odpFileUploaded(input, slotId, docType) {
+    if (!input.files.length) return;
+    const f = input.files[0];
+    const size = f.size < 1024 ? f.size + ' B' : (f.size / 1024).toFixed(1) + ' KB';
+    const now = new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    const html = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#f1f5f9;">${docType}</div>
+        <div style="font-size:11px;color:#475569;margin-top:2px;">${f.name} · ${size} · ${now}</div>
+      </div>
+      <button style="font-size:11px;color:#60a5fa;background:none;border:none;cursor:pointer;font-weight:600;">View</button>
+    </div>`;
+    if (slotId === 'odp-slot-other') {
+      document.getElementById('odp-other-docs-list').innerHTML += html;
+    } else {
+      input.parentElement.outerHTML = html;
+    }
+  }
+
+  function _odpRenderTimeline(order) {
+    const el = document.getElementById('odp-tab-timeline');
+    const events = [];
+    if (order.order_date) events.push({ label: 'Order created', date: order.order_date, color: '#60a5fa' });
+    if (order.status && order.status !== 'pending') {
+      const colors = { ordered:'#60a5fa', partial:'#fb923c', delivered:'#4ade80', cancelled:'#94a3b8' };
+      events.push({ label: 'Status changed to ' + order.status, date: order.order_date, color: colors[order.status] || '#94a3b8' });
+    }
+    if (order.expected_delivery) events.push({ label: 'Expected delivery', date: order.expected_delivery, color: '#94a3b8' });
+
+    if (!events.length) {
+      el.innerHTML = '<div style="color:#475569;font-size:13px;padding:16px 0;">No timeline events.</div>';
+      return;
+    }
+
+    let html = '<div style="padding-top:8px;">';
+    events.forEach((ev, i) => {
+      const isLast = i === events.length - 1;
+      html += `<div style="display:flex;gap:12px;position:relative;padding-bottom:${isLast ? '0' : '20px'};">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:10px;height:10px;border-radius:50%;background:${ev.color};flex-shrink:0;"></div>
+          ${!isLast ? '<div style="width:1px;flex:1;background:rgba(255,255,255,0.08);margin-top:4px;"></div>' : ''}
+        </div>
+        <div style="padding-top:0;">
+          <div style="font-size:13px;font-weight:600;color:#f1f5f9;">${ev.label}</div>
+          <div style="font-size:11px;color:#475569;margin-top:2px;">${_ordFmtDate(ev.date)}</div>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  }
+</script>
 
 </body>
 </html>
