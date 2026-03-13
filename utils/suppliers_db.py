@@ -115,6 +115,14 @@ def init_db():
                 actor       TEXT,
                 created_at  TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS order_line_items (
+                id          TEXT PRIMARY KEY,
+                order_id    TEXT NOT NULL,
+                description TEXT NOT NULL,
+                quantity    REAL NOT NULL DEFAULT 1,
+                unit_price  REAL NOT NULL DEFAULT 0,
+                created_at  TEXT NOT NULL
+            );
             CREATE TABLE IF NOT EXISTS order_documents (
                 id          TEXT PRIMARY KEY,
                 order_id    TEXT NOT NULL,
@@ -429,6 +437,41 @@ def create_order_communication(order_id, data):
             comm,
         )
     return comm
+
+
+# ── Order Line Items CRUD ─────────────────────────────────────────────────────
+
+def get_order_line_items(order_id):
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM order_line_items WHERE order_id = ? ORDER BY created_at ASC",
+            (order_id,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def create_order_line_item(order_id, data):
+    now = datetime.now(timezone.utc).isoformat()
+    item = {
+        "id": str(uuid.uuid4()),
+        "order_id": order_id,
+        "description": data.get("description", ""),
+        "quantity": data.get("quantity", 1),
+        "unit_price": data.get("unit_price", 0),
+        "created_at": data.get("created_at", now),
+    }
+    with _get_conn() as conn:
+        conn.execute(
+            """INSERT INTO order_line_items (id, order_id, description, quantity, unit_price, created_at)
+               VALUES (:id, :order_id, :description, :quantity, :unit_price, :created_at)""",
+            item,
+        )
+    return item
+
+
+def delete_order_line_item(item_id):
+    with _get_conn() as conn:
+        conn.execute("DELETE FROM order_line_items WHERE id = ?", (item_id,))
 
 
 # ── Order Timeline CRUD ───────────────────────────────────────────────────────

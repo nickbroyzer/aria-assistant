@@ -23,17 +23,21 @@ from utils.suppliers_db import (
     create_order,
     create_order_communication,
     create_order_document,
+    create_order_line_item,
     create_supplier,
+    create_timeline_event,
     create_transaction,
     delete_note,
     delete_order,
     delete_order_document,
+    delete_order_line_item,
     delete_supplier,
     delete_transaction,
     get_notes,
     get_order_communications,
     get_order_document_file,
     get_order_documents,
+    get_order_line_items,
     get_order_timeline,
     get_orders,
     get_supplier,
@@ -245,6 +249,40 @@ def api_order_docs_upload(order_id):
 @require_auth
 def api_order_doc_delete(order_id, doc_id):
     delete_order_document(doc_id)
+    return jsonify({"ok": True})
+
+
+# ── Order Line Items ──────────────────────────────────────────────────────────
+
+@suppliers_bp.route("/api/orders/<order_id>/line-items")
+def api_order_line_items_list(order_id):
+    return jsonify(get_order_line_items(order_id))
+
+
+@suppliers_bp.route("/api/orders/<order_id>/line-items", methods=["POST"])
+@require_auth
+def api_order_line_items_create(order_id):
+    data = request.get_json() or {}
+    if not data.get("description", "").strip():
+        return jsonify({"error": "description is required"}), 400
+    item = create_order_line_item(order_id, {
+        "description": data["description"].strip(),
+        "quantity": data.get("quantity", 1),
+        "unit_price": data.get("unit_price", 0),
+    })
+    create_timeline_event(order_id, {
+        "event_type": "note_added",
+        "label": "Line item added",
+        "detail": item["description"][:60],
+        "actor": "Jay",
+    })
+    return jsonify(item), 201
+
+
+@suppliers_bp.route("/api/orders/<order_id>/line-items/<item_id>", methods=["DELETE"])
+@require_auth
+def api_order_line_item_delete(order_id, item_id):
+    delete_order_line_item(item_id)
     return jsonify({"ok": True})
 
 

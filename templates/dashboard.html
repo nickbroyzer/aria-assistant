@@ -10388,44 +10388,127 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   function _odpRenderLineItems(order) {
     const el = document.getElementById('odp-tab-lineitems');
+    el.innerHTML = '<div id="odp-li-container"></div>';
+    _odpLoadLineItems(order);
+  }
+
+  function _odpLoadLineItems(order) {
+    const container = document.getElementById('odp-li-container');
+    fetch('/api/orders/' + order.id + '/line-items')
+      .then(r => r.json())
+      .then(items => {
+        // Fall back to single hardcoded row if no DB line items
+        if (!items.length) {
+          items = [{ id: null, description: order.description || '\u2014', quantity: order.quantity || 0, unit_price: order.unit_price || 0 }];
+        }
+        _odpDrawLineItems(items);
+      })
+      .catch(() => {
+        const items = [{ id: null, description: order.description || '\u2014', quantity: order.quantity || 0, unit_price: order.unit_price || 0 }];
+        _odpDrawLineItems(items);
+      });
+  }
+
+  function _odpDrawLineItems(items) {
+    const container = document.getElementById('odp-li-container');
     const thS = 'font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.07em;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);';
-    const qty = order.quantity || 0;
-    const unitPrice = order.unit_price || 0;
-    const total = qty * unitPrice;
+    const tdS = 'padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);';
+
+    let grandTotal = 0;
+    let rows = '';
+    items.forEach((it, i) => {
+      const q = it.quantity || 0;
+      const up = it.unit_price || 0;
+      const t = q * up;
+      grandTotal += t;
+      const rmBtn = it.id ? `<span onclick="_odpRemoveLineItem('${it.id}')" style="font-size:11px;color:#ef4444;cursor:pointer;font-weight:500;padding-left:6px;">\u2715</span>` : '';
+      rows += `<tr>
+        <td style="${tdS}font-size:12px;color:#64748b;">${i+1}</td>
+        <td style="${tdS}max-width:0;"><div style="font-size:13px;font-weight:600;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${(it.description||'\u2014').replace(/</g,'&lt;')}</div></td>
+        <td style="${tdS}text-align:center;font-size:13px;color:#cbd5e1;">${q}</td>
+        <td style="${tdS}text-align:right;font-size:13px;color:#94a3b8;padding-right:12px;">${_ordFmtMoney(up)}</td>
+        <td style="${tdS}text-align:right;font-size:13px;font-weight:700;color:#f1f5f9;">${_ordFmtMoney(t)}${rmBtn}</td>
+      </tr>`;
+    });
 
     let html = `<table style="width:100%;border-collapse:collapse;margin-top:4px;">
       <thead><tr>
         <th style="${thS}text-align:left;width:28px;">#</th>
         <th style="${thS}text-align:left;">Description</th>
         <th style="${thS}text-align:center;width:50px;">Qty</th>
-        <th style="${thS}text-align:right;width:80px;">Unit Price</th>
+        <th style="${thS}text-align:right;width:80px;padding-right:12px;">Unit Price</th>
         <th style="${thS}text-align:right;width:80px;">Total</th>
       </tr></thead>
-      <tbody>
-        <tr>
-          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:#64748b;">1</td>
-          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);max-width:0;">
-            <div style="font-size:13px;font-weight:600;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${order.description || '—'}</div>
-          </td>
-          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-align:center;font-size:13px;color:#cbd5e1;">${qty}</td>
-          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-align:right;font-size:13px;color:#94a3b8;">${_ordFmtMoney(unitPrice)}</td>
-          <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);text-align:right;font-size:13px;font-weight:700;color:#f1f5f9;">${_ordFmtMoney(total)}</td>
-        </tr>
-      </tbody>
+      <tbody>${rows}</tbody>
     </table>`;
 
-    // Total row
     html += `<div style="display:flex;justify-content:flex-end;align-items:baseline;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);">
       <span style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Order Total</span>
-      <span style="font-size:15px;font-weight:800;color:#f1f5f9;">${_ordFmtMoney(total)}</span>
+      <span style="font-size:15px;font-weight:800;color:#f1f5f9;">${_ordFmtMoney(grandTotal)}</span>
     </div>`;
 
-    // Add line item button
     html += `<div style="margin-top:16px;">
-      <button style="font-size:11px;color:#60a5fa;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:600;">+ Add Line Item</button>
+      <button onclick="_odpShowAddLineItem()" style="font-size:11px;color:#60a5fa;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:600;">+ Add Line Item</button>
     </div>`;
+    html += `<div id="odp-li-form" style="display:none;margin-top:12px;"></div>`;
 
-    el.innerHTML = html;
+    container.innerHTML = html;
+  }
+
+  function _odpShowAddLineItem() {
+    const form = document.getElementById('odp-li-form');
+    const inputS = 'padding:6px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#cbd5e1;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;';
+    const lblS = 'font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:4px;';
+    form.innerHTML = `
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <div style="flex:1;"><label style="${lblS}">Description</label><input id="odp-li-desc" type="text" placeholder="Item description" style="${inputS}width:100%;"></div>
+        <div style="width:60px;"><label style="${lblS}">Qty</label><input id="odp-li-qty" type="number" placeholder="1" value="1" min="1" step="1" style="${inputS}width:100%;"></div>
+        <div style="width:90px;"><label style="${lblS}">Unit Price</label><div style="position:relative;"><span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:13px;pointer-events:none;">$</span><input id="odp-li-price" type="text" placeholder="0.00" style="${inputS}width:100%;padding-left:24px;" onfocus="_odpPriceFocus(this)" onblur="_odpPriceBlur(this)"></div></div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button onclick="_odpCancelAddLineItem()" style="padding:5px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#94a3b8;cursor:pointer;font-size:11px;font-weight:600;">Cancel</button>
+        <button onclick="_odpSaveLineItem()" style="padding:5px 12px;background:#f97316;border:none;border-radius:6px;color:#fff;cursor:pointer;font-size:11px;font-weight:600;">Save</button>
+      </div>`;
+    form.style.display = 'block';
+  }
+
+  function _odpCancelAddLineItem() {
+    const form = document.getElementById('odp-li-form');
+    form.style.display = 'none';
+    form.innerHTML = '';
+  }
+
+  function _odpPriceFocus(el) { el.value = el.value.replace(/,/g, ''); }
+  function _odpPriceBlur(el) {
+    const v = parseFloat(el.value.replace(/,/g, '')) || 0;
+    el.value = v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function _odpSaveLineItem() {
+    const descEl = document.getElementById('odp-li-desc');
+    const desc = descEl ? descEl.value.trim() : '';
+    if (!desc) { if (descEl) descEl.focus(); return; }
+    if (!_odpOrder) return;
+    const qty = parseInt(document.getElementById('odp-li-qty').value) || 1;
+    const priceRaw = document.getElementById('odp-li-price').value.replace(/,/g, '');
+    const price = parseFloat(priceRaw) || 0;
+    fetch('/api/orders/' + _odpOrder.id + '/line-items', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ description: desc, quantity: qty, unit_price: price })
+    })
+    .then(r => {
+      if (r.ok) { _odpCancelAddLineItem(); _odpLoadLineItems(_odpOrder); }
+      else { r.json().then(d => alert(d.error || 'Failed to save')).catch(() => alert('Failed to save')); }
+    })
+    .catch(() => alert('Network error — could not save line item'));
+  }
+
+  function _odpRemoveLineItem(itemId) {
+    if (!_odpOrder) return;
+    fetch('/api/orders/' + _odpOrder.id + '/line-items/' + itemId, { method: 'DELETE' })
+      .then(r => { if (r.ok) _odpLoadLineItems(_odpOrder); else alert('Failed to remove line item'); })
+      .catch(() => alert('Network error — could not remove line item'));
   }
 
   function _odpRenderComms(order) {
