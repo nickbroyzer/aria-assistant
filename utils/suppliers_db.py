@@ -106,6 +106,15 @@ def init_db():
                 note        TEXT NOT NULL DEFAULT '',
                 created_at  TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS order_timeline (
+                id          TEXT PRIMARY KEY,
+                order_id    TEXT NOT NULL,
+                event_type  TEXT NOT NULL,
+                label       TEXT NOT NULL,
+                detail      TEXT,
+                actor       TEXT,
+                created_at  TEXT NOT NULL
+            );
             CREATE TABLE IF NOT EXISTS order_documents (
                 id          TEXT PRIMARY KEY,
                 order_id    TEXT NOT NULL,
@@ -420,6 +429,37 @@ def create_order_communication(order_id, data):
             comm,
         )
     return comm
+
+
+# ── Order Timeline CRUD ───────────────────────────────────────────────────────
+
+def get_order_timeline(order_id):
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM order_timeline WHERE order_id = ? ORDER BY created_at DESC",
+            (order_id,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def create_timeline_event(order_id, data):
+    now = datetime.now(timezone.utc).isoformat()
+    event = {
+        "id": str(uuid.uuid4()),
+        "order_id": order_id,
+        "event_type": data.get("event_type", ""),
+        "label": data.get("label", ""),
+        "detail": data.get("detail"),
+        "actor": data.get("actor", "System"),
+        "created_at": data.get("created_at", now),
+    }
+    with _get_conn() as conn:
+        conn.execute(
+            """INSERT INTO order_timeline (id, order_id, event_type, label, detail, actor, created_at)
+               VALUES (:id, :order_id, :event_type, :label, :detail, :actor, :created_at)""",
+            event,
+        )
+    return event
 
 
 # ── Order Documents CRUD ──────────────────────────────────────────────────────

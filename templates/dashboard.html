@@ -10711,35 +10711,48 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   function _odpRenderTimeline(order) {
     const el = document.getElementById('odp-tab-timeline');
-    const events = [];
-    if (order.order_date) events.push({ label: 'Order created', date: order.order_date, color: '#60a5fa' });
-    if (order.status && order.status !== 'pending') {
-      const colors = { ordered:'#60a5fa', partial:'#fb923c', delivered:'#4ade80', cancelled:'#94a3b8' };
-      events.push({ label: 'Status changed to ' + order.status, date: order.order_date, color: colors[order.status] || '#94a3b8' });
-    }
-    if (order.expected_delivery) events.push({ label: 'Expected delivery', date: order.expected_delivery, color: '#94a3b8' });
+    el.innerHTML = '<div id="odp-timeline-list" style="overflow-y:auto;max-height:calc(100vh - 340px);"></div>';
+    _odpLoadTimeline(order.id);
+  }
 
-    if (!events.length) {
-      el.innerHTML = '<div style="color:#475569;font-size:13px;padding:16px 0;">No timeline events.</div>';
-      return;
-    }
+  function _odpLoadTimeline(orderId) {
+    const list = document.getElementById('odp-timeline-list');
+    fetch('/api/orders/' + orderId + '/timeline')
+      .then(r => r.json())
+      .then(events => {
+        if (!events.length) {
+          list.innerHTML = '<div style="text-align:center;color:#64748b;font-size:13px;padding:32px 0;font-style:italic;">No timeline events yet.</div>';
+          return;
+        }
+        list.innerHTML = events.map(e => _odpTimelineCard(e)).join('');
+      })
+      .catch(() => {
+        list.innerHTML = '<div style="text-align:center;color:#64748b;font-size:13px;padding:32px 0;">Could not load timeline.</div>';
+      });
+  }
 
-    let html = '<div style="padding-top:8px;">';
-    events.forEach((ev, i) => {
-      const isLast = i === events.length - 1;
-      html += `<div style="display:flex;gap:12px;position:relative;padding-bottom:${isLast ? '0' : '20px'};">
-        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
-          <div style="width:10px;height:10px;border-radius:50%;background:${ev.color};flex-shrink:0;"></div>
-          ${!isLast ? '<div style="width:1px;flex:1;background:rgba(255,255,255,0.08);margin-top:4px;"></div>' : ''}
-        </div>
-        <div style="padding-top:0;">
-          <div style="font-size:13px;font-weight:600;color:#f1f5f9;">${ev.label}</div>
-          <div style="font-size:11px;color:#475569;margin-top:2px;">${_ordFmtDate(ev.date)}</div>
-        </div>
-      </div>`;
-    });
-    html += '</div>';
-    el.innerHTML = html;
+  function _odpTimelineCard(e) {
+    const borderColors = { order_created:'#60a5fa', status_change:'#4ade80', document_uploaded:'#a78bfa', note_added:'#94a3b8', ai_detected:'#f97316' };
+    const borderColor = borderColors[e.event_type] || '#94a3b8';
+    const actors = {
+      Jay:    { bg:'#1d4ed8', color:'#bfdbfe', text:'J' },
+      Ash:    { bg:'#f97316', color:'#fff',    text:'AI' },
+      System: { bg:'#475569', color:'#94a3b8', text:'S' },
+    };
+    const a = actors[e.actor] || actors.System;
+    const d = new Date(e.created_at);
+    const dateStr = d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    const timeStr = d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
+    const detail = e.detail ? `<div style="font-size:13px;color:#94a3b8;line-height:1.5;margin-left:34px;margin-top:2px;">${(e.detail||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>` : '';
+    return `<div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;margin-bottom:8px;border-left:3px solid ${borderColor};">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <div style="width:26px;height:26px;border-radius:50%;background:${a.bg};color:${a.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">${a.text}</div>
+        <span style="font-size:12px;color:#cbd5e1;flex:1;">${e.actor || 'System'}</span>
+        <span style="font-size:10px;color:#64748b;white-space:nowrap;">${dateStr} \u00b7 ${timeStr}</span>
+      </div>
+      <div style="font-size:13px;font-weight:500;color:#f1f5f9;margin-left:34px;">${(e.label||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      ${detail}
+    </div>`;
   }
 </script>
 

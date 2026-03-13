@@ -34,6 +34,7 @@ from utils.suppliers_db import (
     get_order_communications,
     get_order_document_file,
     get_order_documents,
+    get_order_timeline,
     get_orders,
     get_supplier,
     get_transactions,
@@ -245,6 +246,13 @@ def api_order_docs_upload(order_id):
 def api_order_doc_delete(order_id, doc_id):
     delete_order_document(doc_id)
     return jsonify({"ok": True})
+
+
+# ── Order Timeline ────────────────────────────────────────────────────────────
+
+@suppliers_bp.route("/api/orders/<order_id>/timeline")
+def api_order_timeline_list(order_id):
+    return jsonify(get_order_timeline(order_id))
 
 
 @suppliers_bp.route("/api/documents/<doc_id>/meta")
