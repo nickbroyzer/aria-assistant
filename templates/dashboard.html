@@ -10430,33 +10430,65 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   function _odpRenderComms(order) {
     const el = document.getElementById('odp-tab-comms');
-    let html = `<div id="odp-comms-list" style="margin-bottom:16px;">
-      <div style="color:#475569;font-size:13px;padding:16px 0;">No communications yet.</div>
+    el.innerHTML = `
+      <div id="odp-comms-list" style="overflow-y:auto;max-height:calc(100vh - 340px);margin-bottom:14px;"></div>
+      <div style="flex-shrink:0;">
+        <textarea id="odp-comm-input" placeholder="Add a note about this order…" style="width:100%;min-height:70px;resize:none;padding:10px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#cbd5e1;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;"></textarea>
+        <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+          <button onclick="_odpAddComm()" style="padding:8px 18px;background:#f97316;border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:12px;font-weight:500;white-space:nowrap;">Add Note</button>
+        </div>
+      </div>`;
+    _odpLoadComms(order.id);
+  }
+
+  function _odpLoadComms(orderId) {
+    const list = document.getElementById('odp-comms-list');
+    fetch('/api/orders/' + orderId + '/communications')
+      .then(r => r.json())
+      .then(comms => {
+        if (!comms.length) {
+          list.innerHTML = '<div style="text-align:center;color:#64748b;font-size:13px;padding:32px 0;font-style:italic;">No notes yet. Add the first one below.</div>';
+          return;
+        }
+        list.innerHTML = comms.map(c => _odpCommCard(c)).join('');
+      })
+      .catch(() => {
+        list.innerHTML = '<div style="text-align:center;color:#64748b;font-size:13px;padding:32px 0;">Could not load communications.</div>';
+      });
+  }
+
+  function _odpCommCard(c) {
+    const isAI = c.author === 'Ash';
+    const bg = isAI ? 'rgba(249,115,22,0.08)' : 'rgba(255,255,255,0.04)';
+    const avatarBg = isAI ? '#f97316' : '#1d4ed8';
+    const avatarColor = isAI ? '#fff' : '#bfdbfe';
+    const avatarText = isAI ? 'AI' : (c.author || 'J').charAt(0).toUpperCase();
+    const label = isAI ? 'Ash \u00b7 Auto-detected' : (c.author || 'Jay');
+    const d = new Date(c.created_at);
+    const dateStr = d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    const timeStr = d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
+    const note = (c.note || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return `<div style="background:${bg};border-radius:10px;padding:12px 14px;margin-bottom:8px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <div style="width:26px;height:26px;border-radius:50%;background:${avatarBg};color:${avatarColor};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">${avatarText}</div>
+        <span style="font-size:12px;color:#cbd5e1;flex:1;">${label}</span>
+        <span style="font-size:10px;color:#64748b;white-space:nowrap;">${dateStr} \u00b7 ${timeStr}</span>
+      </div>
+      <div style="font-size:13px;color:#94a3b8;line-height:1.5;margin-left:34px;">${note}</div>
     </div>`;
-    html += `<div style="display:flex;gap:8px;align-items:flex-start;">
-      <input id="odp-comm-input" type="text" placeholder="Add a note..." style="flex:1;padding:8px 12px;background:#0f1419;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#cbd5e1;font-size:13px;font-family:inherit;outline:none;">
-      <button onclick="_odpAddComm()" style="padding:8px 14px;background:var(--orange);border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:12px;font-weight:700;white-space:nowrap;">Add Note</button>
-    </div>`;
-    el.innerHTML = html;
   }
 
   function _odpAddComm() {
     const input = document.getElementById('odp-comm-input');
     const msg = input.value.trim();
-    if (!msg) return;
-    const list = document.getElementById('odp-comms-list');
-    const now = new Date().toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit', hour12:true });
-    const user = (typeof currentUser !== 'undefined' && currentUser) ? currentUser.username : 'You';
-    const entry = `<div style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;color:#f1f5f9;">${user}</span>
-        <span style="font-size:11px;color:#475569;">${now}</span>
-      </div>
-      <div style="font-size:13px;color:#cbd5e1;line-height:1.5;">${msg.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-    </div>`;
-    if (list.querySelector('[style*="No communications"]')) list.innerHTML = '';
-    list.innerHTML += entry;
-    input.value = '';
+    if (!msg || !_odpOrder) return;
+    fetch('/api/orders/' + _odpOrder.id + '/communications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ note: msg })
+    })
+    .then(r => { if (r.ok) { input.value = ''; _odpLoadComms(_odpOrder.id); } })
+    .catch(() => {});
   }
 
   function _odpRenderDocs(order) {

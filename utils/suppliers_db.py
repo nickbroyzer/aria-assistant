@@ -99,6 +99,13 @@ def init_db():
                 author      TEXT NOT NULL DEFAULT '',
                 created_at  TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS order_communications (
+                id          TEXT PRIMARY KEY,
+                order_id    TEXT NOT NULL,
+                author      TEXT NOT NULL DEFAULT '',
+                note        TEXT NOT NULL DEFAULT '',
+                created_at  TEXT NOT NULL
+            );
         """)
 
 
@@ -375,6 +382,35 @@ def create_note(supplier_id, data):
 def delete_note(note_id):
     with _get_conn() as conn:
         conn.execute("DELETE FROM supplier_notes WHERE id = ?", (note_id,))
+
+
+# ── Order Communications CRUD ─────────────────────────────────────────────────
+
+def get_order_communications(order_id):
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM order_communications WHERE order_id = ? ORDER BY created_at DESC",
+            (order_id,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def create_order_communication(order_id, data):
+    now = datetime.now(timezone.utc).isoformat()
+    comm = {
+        "id": str(uuid.uuid4()),
+        "order_id": order_id,
+        "author": data.get("author", "Jay"),
+        "note": data.get("note", ""),
+        "created_at": now,
+    }
+    with _get_conn() as conn:
+        conn.execute(
+            """INSERT INTO order_communications (id, order_id, author, note, created_at)
+               VALUES (:id, :order_id, :author, :note, :created_at)""",
+            comm,
+        )
+    return comm
 
 
 # ── Seed data ─────────────────────────────────────────────────────────────────

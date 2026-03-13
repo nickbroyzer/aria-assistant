@@ -10,6 +10,7 @@ Routes:
   /dashboard/api/suppliers/<id>/transactions/<tid>              → PUT / DELETE
   /dashboard/api/suppliers/<id>/notes                           → GET / POST
   /dashboard/api/suppliers/<id>/notes/<nid>                     → DELETE
+  /api/orders/<order_id>/communications                         → GET / POST
 """
 
 from flask import Blueprint, jsonify, request
@@ -18,6 +19,7 @@ from utils.auth import require_auth
 from utils.suppliers_db import (
     create_note,
     create_order,
+    create_order_communication,
     create_supplier,
     create_transaction,
     delete_note,
@@ -25,6 +27,7 @@ from utils.suppliers_db import (
     delete_supplier,
     delete_transaction,
     get_notes,
+    get_order_communications,
     get_orders,
     get_supplier,
     get_transactions,
@@ -181,3 +184,20 @@ def api_notes_create(supplier_id):
 def api_note_delete(supplier_id, note_id):
     delete_note(note_id)
     return jsonify({"ok": True})
+
+
+# ── Order Communications ─────────────────────────────────────────────────────
+
+@suppliers_bp.route("/api/orders/<order_id>/communications")
+def api_order_comms_list(order_id):
+    return jsonify(get_order_communications(order_id))
+
+
+@suppliers_bp.route("/api/orders/<order_id>/communications", methods=["POST"])
+@require_auth
+def api_order_comms_create(order_id):
+    data = request.get_json() or {}
+    if not data.get("note", "").strip():
+        return jsonify({"error": "note is required"}), 400
+    comm = create_order_communication(order_id, {"note": data["note"].strip(), "author": "Jay"})
+    return jsonify(comm), 201
