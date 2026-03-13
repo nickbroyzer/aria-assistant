@@ -11,23 +11,29 @@ Routes:
   /dashboard/api/suppliers/<id>/notes                           → GET / POST
   /dashboard/api/suppliers/<id>/notes/<nid>                     → DELETE
   /api/orders/<order_id>/communications                         → GET / POST
+  /api/orders/<order_id>/documents                              → GET / POST / DELETE
+  /api/documents/<doc_id>/download                              → GET
 """
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, Response, jsonify, request, send_file
 
 from utils.auth import require_auth
 from utils.suppliers_db import (
     create_note,
     create_order,
     create_order_communication,
+    create_order_document,
     create_supplier,
     create_transaction,
     delete_note,
     delete_order,
+    delete_order_document,
     delete_supplier,
     delete_transaction,
     get_notes,
     get_order_communications,
+    get_order_document_file,
+    get_order_documents,
     get_orders,
     get_supplier,
     get_transactions,
@@ -201,3 +207,91 @@ def api_order_comms_create(order_id):
         return jsonify({"error": "note is required"}), 400
     comm = create_order_communication(order_id, {"note": data["note"].strip(), "author": "Jay"})
     return jsonify(comm), 201
+
+
+# ── Order Documents ──────────────────────────────────────────────────────────
+
+@suppliers_bp.route("/api/orders/<order_id>/documents")
+def api_order_docs_list(order_id):
+    return jsonify(get_order_documents(order_id))
+
+
+@suppliers_bp.route("/api/orders/<order_id>/documents", methods=["POST"])
+@require_auth
+def api_order_docs_upload(order_id):
+    f = request.files.get("file")
+    if not f or not f.filename:
+        return jsonify({"error": "file is required"}), 400
+    doc_type = request.form.get("doc_type", "other")
+    file_bytes = f.read()
+    size = len(file_bytes)
+    if size < 1024:
+        size_str = f"{size} B"
+    elif size < 1024 * 1024:
+        size_str = f"{size / 1024:.1f} KB"
+    else:
+        size_str = f"{size / (1024 * 1024):.1f} MB"
+    doc = create_order_document(order_id, {
+        "doc_type": doc_type,
+        "filename": f.filename,
+        "file_size": size_str,
+        "file_data": file_bytes,
+    })
+    return jsonify(doc), 201
+
+
+@suppliers_bp.route("/api/orders/<order_id>/documents/<doc_id>", methods=["DELETE"])
+@require_auth
+def api_order_doc_delete(order_id, doc_id):
+    delete_order_document(doc_id)
+    return jsonify({"ok": True})
+
+
+@suppliers_bp.route("/api/documents/<doc_id>/meta")
+def api_doc_meta(doc_id):
+    docs = None
+    with __import__('sqlite3').connect(__import__('utils.suppliers_db', fromlist=['DB_PATH']).DB_PATH) as conn:
+        conn.row_factory = __import__('sqlite3').Row
+        row = conn.execute(
+            "SELECT id, order_id, doc_type, filename, file_size, uploaded_at FROM order_documents WHERE id = ?",
+            (doc_id,),
+        ).fetchone()
+    if not row:
+        return jsonify({"error": "Document not found"}), 404
+    doc = dict(row)
+    # Enrich with order + supplier info
+    from utils.suppliers_db import DB_PATH as _dbp
+    import sqlite3 as _sql
+    c2 = _sql.connect(_dbp)
+    c2.row_factory = _sql.Row
+    order = c2.execute(
+        "SELECT description, order_date, status, supplier_id FROM supplier_orders WHERE id = ?",
+        (doc["order_id"],),
+    ).fetchone()
+    if order:
+        order = dict(order)
+        doc["item_description"] = order.get("description", "")
+        doc["order_date"] = order.get("order_date", "")
+        doc["status"] = order.get("status", "")
+        supplier = c2.execute(
+            "SELECT name FROM suppliers WHERE id = ?", (order.get("supplier_id", ""),)
+        ).fetchone()
+        doc["supplier_name"] = supplier["name"] if supplier else ""
+    c2.close()
+    return jsonify(doc)
+
+
+@suppliers_bp.route("/api/documents/<doc_id>/download")
+def api_doc_download(doc_id):
+    row = get_order_document_file(doc_id)
+    if not row:
+        return jsonify({"error": "Document not found"}), 404
+    import io
+    import mimetypes
+    mime = mimetypes.guess_type(row["filename"])[0] or "application/octet-stream"
+    return send_file(
+        io.BytesIO(row["file_data"] or b""),
+        mimetype=mime,
+        as_attachment=False,
+        download_name=row["filename"],
+    )

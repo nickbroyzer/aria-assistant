@@ -106,6 +106,15 @@ def init_db():
                 note        TEXT NOT NULL DEFAULT '',
                 created_at  TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS order_documents (
+                id          TEXT PRIMARY KEY,
+                order_id    TEXT NOT NULL,
+                doc_type    TEXT NOT NULL,
+                filename    TEXT NOT NULL,
+                file_size   TEXT,
+                uploaded_at TEXT NOT NULL,
+                file_data   BLOB
+            );
         """)
 
 
@@ -411,6 +420,50 @@ def create_order_communication(order_id, data):
             comm,
         )
     return comm
+
+
+# ── Order Documents CRUD ──────────────────────────────────────────────────────
+
+def get_order_documents(order_id):
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT id, order_id, doc_type, filename, file_size, uploaded_at FROM order_documents WHERE order_id = ? ORDER BY uploaded_at DESC",
+            (order_id,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def create_order_document(order_id, data):
+    now = datetime.now(timezone.utc).isoformat()
+    doc = {
+        "id": str(uuid.uuid4()),
+        "order_id": order_id,
+        "doc_type": data.get("doc_type", "other"),
+        "filename": data.get("filename", ""),
+        "file_size": data.get("file_size", ""),
+        "uploaded_at": data.get("uploaded_at", now),
+        "file_data": data.get("file_data", b""),
+    }
+    with _get_conn() as conn:
+        conn.execute(
+            """INSERT INTO order_documents (id, order_id, doc_type, filename, file_size, uploaded_at, file_data)
+               VALUES (:id, :order_id, :doc_type, :filename, :file_size, :uploaded_at, :file_data)""",
+            doc,
+        )
+    return {k: v for k, v in doc.items() if k != "file_data"}
+
+
+def get_order_document_file(doc_id):
+    with _get_conn() as conn:
+        row = conn.execute(
+            "SELECT filename, file_data FROM order_documents WHERE id = ?", (doc_id,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def delete_order_document(doc_id):
+    with _get_conn() as conn:
+        conn.execute("DELETE FROM order_documents WHERE id = ?", (doc_id,))
 
 
 # ── Seed data ─────────────────────────────────────────────────────────────────

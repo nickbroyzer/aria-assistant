@@ -10491,57 +10491,222 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     .catch(() => {});
   }
 
-  function _odpRenderDocs(order) {
-    const el = document.getElementById('odp-tab-docs');
-    const secTitle = 'font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;margin-top:16px;';
-    const slotFilled = 'background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;';
-    const slotEmpty = 'background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.12);border-radius:8px;padding:12px 14px;margin-bottom:8px;cursor:pointer;';
+  const _docTypeMap = { supplier_invoice: 'Supplier Invoice', purchase_order: 'Purchase Order', delivery_receipt: 'Delivery Receipt' };
+  const _docTypeKeys = ['supplier_invoice', 'purchase_order', 'delivery_receipt'];
 
-    const keyDocs = ['Supplier Invoice', 'Purchase Order', 'Delivery Receipt'];
-
-    let html = `<div style="${secTitle}">Key Documents</div>`;
-    keyDocs.forEach((docType, i) => {
-      html += `<div style="${slotEmpty}" onclick="document.getElementById('odp-file-key-${i}').click()">
-        <div>
-          <div style="font-size:12px;font-weight:600;color:#94a3b8;">${docType}</div>
-          <div style="font-size:10px;color:#475569;margin-top:2px;">Upload</div>
-        </div>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <input type="file" id="odp-file-key-${i}" style="display:none;" onchange="_odpFileUploaded(this,'odp-slot-key-${i}','${docType}')">
-      </div>`;
-    });
-
-    html += `<div style="${secTitle}margin-top:20px;">Other Documents</div>`;
-    html += `<div style="${slotEmpty}" onclick="document.getElementById('odp-file-other').click()">
-      <div>
-        <div style="font-size:12px;font-weight:600;color:#94a3b8;">Upload Document</div>
-        <div style="font-size:10px;color:#475569;margin-top:2px;">Any supporting file</div>
-      </div>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      <input type="file" id="odp-file-other" style="display:none;" onchange="_odpFileUploaded(this,'odp-slot-other','Document')">
-    </div>`;
-    html += `<div id="odp-other-docs-list"></div>`;
-
-    el.innerHTML = html;
+  function _odpDocBadge(filename) {
+    const ext = (filename || '').split('.').pop().toLowerCase();
+    if (ext === 'pdf') return { label: 'PDF', bg: '#166534', color: '#86efac' };
+    if (['jpg','jpeg','png','gif','webp','svg'].includes(ext)) return { label: 'IMG', bg: '#1d3461', color: '#93c5fd' };
+    return { label: ext.toUpperCase().slice(0,3) || 'FILE', bg: '#334155', color: '#94a3b8' };
   }
 
-  function _odpFileUploaded(input, slotId, docType) {
-    if (!input.files.length) return;
-    const f = input.files[0];
-    const size = f.size < 1024 ? f.size + ' B' : (f.size / 1024).toFixed(1) + ' KB';
-    const now = new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
-    const html = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
-      <div>
-        <div style="font-size:12px;font-weight:600;color:#f1f5f9;">${docType}</div>
-        <div style="font-size:11px;color:#475569;margin-top:2px;">${f.name} · ${size} · ${now}</div>
+  function _odpDocCardHtml(doc) {
+    const b = _odpDocBadge(doc.filename);
+    const label = _docTypeMap[doc.doc_type] || doc.filename;
+    const d = new Date(doc.uploaded_at);
+    const dateStr = d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    return `<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:11px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:6px;background:${b.bg};color:${b.color};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;">${b.label}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:500;color:#f1f5f9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${label}</div>
+        <div style="font-size:11px;color:#64748b;margin-top:1px;">${doc.filename} · ${doc.file_size || '—'} · ${dateStr}</div>
       </div>
-      <button style="font-size:11px;color:#60a5fa;background:none;border:none;cursor:pointer;font-weight:600;">View</button>
+      <div style="display:flex;gap:10px;flex-shrink:0;">
+        <span onclick="_odpViewDoc('${doc.id}','${doc.doc_type}','${doc.filename}','${doc.file_size || ''}')" style="font-size:11px;color:#60a5fa;cursor:pointer;font-weight:500;">View</span>
+        <span onclick="_odpRemoveDoc('${doc.id}')" style="font-size:11px;color:#ef4444;cursor:pointer;font-weight:500;">Remove</span>
+      </div>
     </div>`;
-    if (slotId === 'odp-slot-other') {
-      document.getElementById('odp-other-docs-list').innerHTML += html;
-    } else {
-      input.parentElement.outerHTML = html;
-    }
+  }
+
+  function _odpEmptySlotHtml(label, docType, inputId) {
+    return `<div style="background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.1);border-radius:10px;padding:11px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:6px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:13px;color:#64748b;">${label}</div>
+        <div style="font-size:11px;color:#475569;margin-top:1px;">No file uploaded</div>
+      </div>
+      <label style="font-size:11px;color:#f97316;cursor:pointer;font-weight:500;flex-shrink:0;">
+        Upload<input type="file" style="display:none;" onchange="_odpUploadDoc(this,'${docType}')">
+      </label>
+    </div>`;
+  }
+
+  function _odpRenderDocs(order) {
+    const el = document.getElementById('odp-tab-docs');
+    el.innerHTML = '<div id="odp-docs-container"></div>';
+    _odpLoadDocs(order.id);
+  }
+
+  function _odpLoadDocs(orderId) {
+    const container = document.getElementById('odp-docs-container');
+    fetch('/api/orders/' + orderId + '/documents')
+      .then(r => r.json())
+      .then(docs => {
+        const secS = 'font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;margin-top:16px;';
+        let html = `<div style="${secS}">Key Documents</div>`;
+        _docTypeKeys.forEach(dt => {
+          const found = docs.find(d => d.doc_type === dt);
+          if (found) {
+            html += _odpDocCardHtml(found);
+          } else {
+            html += _odpEmptySlotHtml(_docTypeMap[dt], dt, 'odp-file-' + dt);
+          }
+        });
+        html += `<div style="${secS}margin-top:20px;">Other Documents</div>`;
+        const others = docs.filter(d => d.doc_type === 'other');
+        others.forEach(d => { html += _odpDocCardHtml(d); });
+        html += _odpEmptySlotHtml('Upload Document', 'other', 'odp-file-other');
+        container.innerHTML = html;
+      })
+      .catch(() => {
+        container.innerHTML = '<div style="color:#64748b;font-size:13px;padding:16px 0;text-align:center;">Could not load documents.</div>';
+      });
+  }
+
+  function _odpUploadDoc(input, docType) {
+    if (!input.files.length || !_odpOrder) return;
+    const fd = new FormData();
+    fd.append('file', input.files[0]);
+    fd.append('doc_type', docType);
+    fetch('/api/orders/' + _odpOrder.id + '/documents', { method: 'POST', body: fd })
+      .then(r => { if (r.ok) _odpLoadDocs(_odpOrder.id); })
+      .catch(() => {});
+  }
+
+  function _odpRemoveDoc(docId) {
+    if (!_odpOrder) return;
+    fetch('/api/orders/' + _odpOrder.id + '/documents/' + docId, { method: 'DELETE' })
+      .then(r => { if (r.ok) _odpLoadDocs(_odpOrder.id); })
+      .catch(() => {});
+  }
+
+  function _odpHashCode(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
+    return h;
+  }
+
+  function _odpViewDoc(docId, docType, filename, fileSize) {
+    const modal = document.getElementById('docViewerModal');
+    const body = document.getElementById('dv-body');
+    document.getElementById('dv-title').textContent = _docTypeMap[docType] || 'Document';
+    document.getElementById('dv-download').href = '/api/documents/' + docId + '/download';
+    document.getElementById('dv-download').setAttribute('download', filename);
+    body.innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--dim);">Loading document\u2026</div>';
+    modal.classList.add('open');
+
+    fetch('/api/documents/' + docId + '/meta')
+      .then(r => r.json())
+      .then(meta => {
+        const supplierName = meta.supplier_name || (document.getElementById('sdp-name') ? document.getElementById('sdp-name').textContent : '\u2014');
+        const itemDesc = meta.item_description || (_odpOrder ? _odpOrder.description : '\u2014');
+        const orderDate = meta.order_date ? meta.order_date.slice(0,10) : '\u2014';
+        const orderId = (meta.order_id || '').slice(0,16) + '\u2026';
+        const fmt = v => '$' + (v||0).toLocaleString('en-US', {minimumFractionDigits:2});
+
+        const stamps = { supplier_invoice:'INVOICE', purchase_order:'PURCHASE ORDER', delivery_receipt:'DELIVERY RECEIPT', other:'DOCUMENT' };
+
+        let html = `<div style="background:#fff;color:#1a1a1a;padding:36px 40px;font-family:'Inter',sans-serif;max-width:680px;margin:0 auto;border-radius:8px;">
+          <!-- Header -->
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;">
+            <div>
+              <div style="font-size:22px;font-weight:800;color:#1a1a1a;letter-spacing:-0.5px;">${supplierName}</div>
+              <div style="font-size:12px;color:#444;margin-top:4px;line-height:1.7;">${filename} &nbsp;\u00b7&nbsp; ${fileSize || '\u2014'}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:26px;font-weight:800;color:#e8650a;letter-spacing:-1px;">${stamps[docType] || 'DOCUMENT'}</div>
+              <div style="font-size:13px;color:#444;margin-top:6px;line-height:1.8;">
+                Date: ${orderDate}<br>
+                Order: <strong style="color:#1a1a1a;">#${(meta.order_id||'').slice(0,8)}</strong>
+              </div>
+            </div>
+          </div>
+          <!-- Bill To / From -->
+          <div style="display:flex;gap:40px;margin-bottom:28px;padding:16px;background:#f9fafb;border-radius:6px;">
+            <div>
+              <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:4px;">Bill To</div>
+              <div style="font-size:13px;font-weight:700;color:#1a1a1a;">Pacific Construction</div>
+              <div style="font-size:12px;color:#444;line-height:1.7;">Pacific, WA Job Site</div>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:4px;">From</div>
+              <div style="font-size:13px;font-weight:700;color:#1a1a1a;">${supplierName}</div>
+              <div style="font-size:12px;color:#444;line-height:1.7;">Order ${orderId}</div>
+            </div>
+          </div>`;
+
+        if (docType === 'supplier_invoice') {
+          const amt = 1200 + Math.abs(_odpHashCode(meta.order_id || '')) % 8000;
+          html += `<!-- Line items -->
+          <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+            <thead>
+              <tr style="background:#1e2530;">
+                <th style="padding:9px 10px;text-align:left;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#fff;">Description</th>
+                <th style="padding:9px 10px;text-align:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#fff;">Qty</th>
+                <th style="padding:9px 10px;text-align:right;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#fff;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;color:#1a1a1a;">${(itemDesc||'Materials').slice(0,60)}</td>
+                <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:center;color:#1a1a1a;">1</td>
+                <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:right;font-weight:600;color:#1a1a1a;">${fmt(amt)}</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;color:#1a1a1a;">Shipping &amp; Handling</td>
+                <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:center;color:#1a1a1a;">\u2014</td>
+                <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:right;font-weight:600;color:#1a1a1a;">$125.00</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Totals -->
+          <div style="display:flex;justify-content:flex-end;margin-bottom:24px;">
+            <div style="min-width:220px;">
+              <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-top:1px solid #e5e7eb;color:#1a1a1a;">
+                <span style="color:#444;">Subtotal</span><span>${fmt(amt + 125)}</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:15px;font-weight:800;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-top:2px;color:#1a1a1a;">
+                <span>Total Due</span><span style="color:#e8650a;">${fmt(amt + 125)}</span>
+              </div>
+            </div>
+          </div>`;
+        } else if (docType === 'purchase_order') {
+          html += `<div style="margin-bottom:24px;">
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:12px;">Purchase Order Details</div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;"><span style="color:#444;">Authorized By</span><span style="font-weight:600;color:#1a1a1a;">Jay \u2014 Pacific Construction</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;"><span style="color:#444;">Deliver To</span><span style="font-weight:600;color:#1a1a1a;">Pacific, WA Job Site</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;"><span style="color:#444;">Item</span><span style="font-weight:600;color:#1a1a1a;">${(itemDesc||'\u2014').slice(0,50)}</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;"><span style="color:#444;">Terms</span><span style="font-weight:600;color:#1a1a1a;">Net 30</span></div>
+          </div>`;
+        } else if (docType === 'delivery_receipt') {
+          html += `<div style="margin-bottom:24px;">
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:12px;">Delivery Confirmation</div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;"><span style="color:#444;">Received By</span><span style="font-weight:600;color:#1a1a1a;">Jay \u2014 Pacific Construction</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;"><span style="color:#444;">Item</span><span style="font-weight:600;color:#1a1a1a;">${(itemDesc||'\u2014').slice(0,50)}</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e5e7eb;font-size:13px;"><span style="color:#444;">Condition</span><span style="font-weight:600;color:#1a1a1a;">Good \u2014 matches purchase order</span></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;"><span style="color:#444;">Signature</span><span style="font-weight:600;color:#1a1a1a;">___________________________</span></div>
+          </div>`;
+        } else {
+          html += `<div style="margin-bottom:24px;">
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#444;margin-bottom:12px;">Document</div>
+            <div style="font-size:13px;color:#444;line-height:1.7;">Supporting document attached to this order.</div>
+          </div>`;
+        }
+
+        html += `<div style="font-size:11px;color:#999;border-top:1px solid #e5e7eb;padding-top:14px;text-align:center;">Pacific Construction \u2014 Confidential</div>`;
+        html += `</div>`;
+        body.innerHTML = html;
+      })
+      .catch(() => {
+        body.innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--dim);">Failed to load document.</div>';
+      });
+  }
+
+  function _odpCloseDocViewer() {
+    document.getElementById('docViewerModal').classList.remove('open');
   }
 
   function _odpRenderTimeline(order) {
@@ -10577,6 +10742,20 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     el.innerHTML = html;
   }
 </script>
+
+<!-- Document Viewer Modal -->
+<div id="docViewerModal" class="modal-overlay" style="z-index:2000;" onclick="if(event.target===this)_odpCloseDocViewer()">
+  <div class="modal-box" style="width:min(720px,95vw);max-height:90vh;overflow-y:auto;">
+    <div class="modal-head" style="display:flex;justify-content:space-between;align-items:center;">
+      <h3 id="dv-title">Document</h3>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <a id="dv-download" href="#" download="" style="background:var(--orange);border:none;color:#fff;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;">Download PDF</a>
+        <button class="modal-close" onclick="_odpCloseDocViewer()">✕</button>
+      </div>
+    </div>
+    <div id="dv-body" class="modal-body"></div>
+  </div>
+</div>
 
 </body>
 </html>
