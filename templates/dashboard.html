@@ -9208,13 +9208,109 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     cancelled: 'background:rgba(255,255,255,0.08);color:#94a3b8;',
   };
 
-  const _ordGridCols = '90px 1fr 80px 80px 80px 90px 30px';
-
   function _ordFmtDate(iso) {
     if (!iso) return '—';
     const parts = iso.split('T')[0].split('-');
     const d = new Date(+parts[0], +parts[1] - 1, +parts[2]);
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function _ordFmtMoney(v) {
+    return '$' + (v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  let _allOrders = [];
+  let _ordFilterStatus = null;
+
+  function _ordRenderTable() {
+    const el = document.getElementById('sdp-order-list');
+    const orders = _allOrders;
+    const filtered = _ordFilterStatus ? orders.filter(o => o.status === _ordFilterStatus) : orders;
+
+    // Status summary pills
+    const counts = {};
+    orders.forEach(o => { counts[o.status] = (counts[o.status]||0) + 1; });
+    const pills = Object.entries(counts).map(([s,c]) => {
+      const sc = _ordStatusColors[s] || _ordStatusColors.pending;
+      const active = _ordFilterStatus === s;
+      const border = active ? 'border:1px solid currentColor;' : 'border:1px solid transparent;';
+      const opacity = (_ordFilterStatus && !active) ? 'opacity:0.5;' : '';
+      return `<span onclick="_ordToggleFilter('${s}')" style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;cursor:pointer;${sc}${border}${opacity}">${c} ${s}</span>`;
+    }).join('');
+
+    // Toolbar
+    const countText = _ordFilterStatus
+      ? `${filtered.length} of ${orders.length} order${orders.length!==1?'s':''}`
+      : `${orders.length} order${orders.length!==1?'s':''}`;
+    const thStyle = 'font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.07em;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,0.08);';
+    let html = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <span style="font-size:11px;font-weight:700;color:#64748b;">${countText}</span>
+      ${pills}
+      <span style="flex:1;"></span>
+      <button onclick="document.getElementById('sdp-order-form').style.display='block'" class="btn-add" style="font-size:11px;padding:5px 12px;">+ Add Order</button>
+    </div>`;
+
+    // Grand total of filtered rows
+    const grandTotal = filtered.reduce((s, o) => s + (o.quantity || 0) * (o.unit_price || 0), 0);
+
+    // Table
+    html += `<table style="width:100%;border-collapse:collapse;">
+      <thead><tr>
+        <th style="${thStyle}text-align:center;">Date</th>
+        <th style="${thStyle}text-align:left;">Item / Description</th>
+        <th style="${thStyle}text-align:center;">Job</th>
+        <th style="${thStyle}text-align:center;">Qty</th>
+        <th style="${thStyle}text-align:center;">Unit Price</th>
+        <th style="${thStyle}text-align:center;">Total</th>
+        <th style="${thStyle}text-align:center;">Expected</th>
+        <th style="${thStyle}text-align:center;">Status</th>
+        <th style="${thStyle}width:28px;"></th>
+      </tr></thead>
+      <tbody>`;
+
+    const tdStyle = 'padding:9px 10px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle;white-space:nowrap;';
+    html += filtered.map(o => {
+      const d = _ordFmtDate(o.order_date);
+      const ed = _ordFmtDate(o.expected_delivery);
+      const qty = o.quantity || 0;
+      const qtyDisplay = qty;
+      const unitPrice = o.unit_price || 0;
+      const total = qty * unitPrice;
+      const sc = _ordStatusColors[o.status] || _ordStatusColors.pending;
+      const subLine = o.notes || '';
+      const jobBadge = o.job_id
+        ? `<span style="color:#60a5fa;font-size:10px;font-weight:600;white-space:nowrap;">${o.job_id}</span>`
+        : `<span style="color:#555;">—</span>`;
+      return `<tr style="cursor:pointer;transition:background 0.1s;" onmouseenter="this.style.background='rgba(255,255,255,0.03)'" onmouseleave="this.style.background='none'">
+        <td style="${tdStyle}font-size:13px;color:#94a3b8;font-weight:500;text-align:center;">${d}</td>
+        <td style="${tdStyle}white-space:normal;">
+          <div style="font-size:13px;font-weight:600;color:#f1f5f9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(o.description||'').replace(/"/g,'&quot;')}">${o.description||'—'}</div>
+          ${subLine ? `<div style="font-size:10px;color:#475569;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${subLine}</div>` : ''}
+        </td>
+        <td style="${tdStyle}text-align:center;">${jobBadge}</td>
+        <td style="${tdStyle}text-align:center;font-size:13px;color:#cbd5e1;">${qtyDisplay}</td>
+        <td style="${tdStyle}text-align:center;font-size:13px;color:#94a3b8;">${_ordFmtMoney(unitPrice)}</td>
+        <td style="${tdStyle}text-align:center;font-size:13px;font-weight:700;color:#f1f5f9;">${_ordFmtMoney(total)}</td>
+        <td style="${tdStyle}font-size:13px;color:#94a3b8;font-weight:500;text-align:center;">${ed}</td>
+        <td style="${tdStyle}text-align:center;"><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:7px;${sc}">${o.status}</span></td>
+        <td style="${tdStyle}text-align:center;"><button onclick="event.stopPropagation();sdpDeleteOrder('${o.id}')" style="background:none;border:none;color:#475569;cursor:pointer;font-size:14px;padding:0;line-height:1;" title="Delete">✕</button></td>
+      </tr>`;
+    }).join('');
+
+    html += `</tbody>
+      <tfoot><tr>
+        <td colspan="5" style="padding:9px 10px;border-top:1px solid rgba(255,255,255,0.1);text-align:right;font-size:13px;font-weight:700;color:#94a3b8;">Total</td>
+        <td style="padding:9px 10px;border-top:1px solid rgba(255,255,255,0.1);text-align:right;font-size:13px;font-weight:700;color:#f1f5f9;">${_ordFmtMoney(grandTotal)}</td>
+        <td colspan="3" style="padding:9px 10px;border-top:1px solid rgba(255,255,255,0.1);"></td>
+      </tr></tfoot>
+    </table>`;
+
+    el.innerHTML = html;
+  }
+
+  function _ordToggleFilter(status) {
+    _ordFilterStatus = _ordFilterStatus === status ? null : status;
+    _ordRenderTable();
   }
 
   async function sdpLoadOrders() {
@@ -9223,61 +9319,15 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     try {
       const res = await fetch(`/dashboard/api/suppliers/${_sdpSupplierId}/orders`);
       if (!res.ok) throw new Error();
-      const orders = await res.json();
-      if (!orders.length) {
+      _allOrders = await res.json();
+      _ordFilterStatus = null;
+      if (!_allOrders.length) {
         el.innerHTML = `
           <div style="color:#94a3b8;font-size:14px;padding:16px 0;line-height:1.6;">No orders yet.</div>
-          <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:7px 14px;background:rgba(96,165,250,0.15);border:1px solid rgba(96,165,250,0.3);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:12px;font-weight:600;">+ Add Order</button>`;
+          <button onclick="document.getElementById('sdp-order-form').style.display='block'" class="btn-add" style="font-size:12px;padding:7px 14px;">+ Add Order</button>`;
         return;
       }
-      // Status summary pills
-      const counts = {};
-      orders.forEach(o => { counts[o.status] = (counts[o.status]||0) + 1; });
-      const pills = Object.entries(counts).map(([s,c]) => {
-        const sc = _ordStatusColors[s] || _ordStatusColors.pending;
-        return `<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;${sc}">${c} ${s}</span>`;
-      }).join('');
-
-      // Toolbar: count + pills left, add button right
-      let html = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <span style="font-size:13px;color:#f0f0f0;font-weight:600;">${orders.length} order${orders.length!==1?'s':''}</span>
-        ${pills}
-        <span style="flex:1;"></span>
-        <button onclick="document.getElementById('sdp-order-form').style.display='block'" style="padding:5px 12px;background:rgba(96,165,250,0.12);border:1px solid rgba(96,165,250,0.25);border-radius:6px;color:#60a5fa;cursor:pointer;font-size:11px;font-weight:600;">+ Add Order</button>
-      </div>`;
-
-      // Header row
-      html += `<div style="display:grid;grid-template-columns:${_ordGridCols};gap:6px;padding:6px 0 8px;border-bottom:1px solid rgba(255,255,255,0.08);">
-        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Date</span>
-        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Item</span>
-        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Qty</span>
-        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Job</span>
-        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Expected</span>
-        <span style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">Status</span>
-        <span></span>
-      </div>`;
-
-      // Order rows
-      html += orders.map(o => {
-        const d = _ordFmtDate(o.order_date);
-        const ed = _ordFmtDate(o.expected_delivery);
-        const qty = o.quantity ? o.quantity + (o.unit ? ' ' + o.unit : '') : '—';
-        const sc = _ordStatusColors[o.status] || _ordStatusColors.pending;
-        const jobBadge = o.job_id
-          ? `<span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:6px;background:rgba(232,101,10,0.12);color:#fb923c;white-space:nowrap;">${o.job_id}</span>`
-          : `<span style="color:#555;">—</span>`;
-        return `<div onclick="console.log('order',\`${o.id}\`)" style="display:grid;grid-template-columns:${_ordGridCols};gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.1s;" onmouseenter="this.style.background='rgba(255,255,255,0.03)'" onmouseleave="this.style.background='none'">
-          <span style="font-size:13px;color:#94a3b8;">${d}</span>
-          <span style="font-size:13px;color:#f0f0f0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(o.description||'').replace(/"/g,'&quot;')}">${o.description||'—'}</span>
-          <span style="font-size:13px;color:#cbd5e1;">${qty}</span>
-          <span style="text-align:center;">${jobBadge}</span>
-          <span style="font-size:13px;color:#94a3b8;text-align:center;white-space:nowrap;">${ed}</span>
-          <span style="text-align:center;"><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:7px;${sc}">${o.status}</span></span>
-          <button onclick="event.stopPropagation();sdpDeleteOrder('${o.id}')" style="background:none;border:none;color:rgba(239,68,68,0.6);cursor:pointer;font-size:12px;padding:0;line-height:1;" title="Delete">✕</button>
-        </div>`;
-      }).join('');
-
-      el.innerHTML = html;
+      _ordRenderTable();
     } catch(e) {
       el.innerHTML = '<div style="color:#f87171;font-size:14px;padding:12px 0;">Failed to load orders.</div>';
     }
@@ -10097,7 +10147,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   <!-- Supplier Detail Panel -->
   <div id="supplier-detail-panel" onclick="if(event.target===this)closeSupplierDetail()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;">
-    <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(760px,95vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.6);position:relative;">
+    <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(960px,95vw);max-height:88vh;min-height:600px;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.6);position:relative;">
       <!-- Header -->
       <div style="padding:28px 36px 0;flex-shrink:0;">
         <button onclick="closeSupplierDetail()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;">✕</button>
