@@ -245,7 +245,7 @@
     "lead_name": "Carla Nunes",
     "lead_email": "cnunes@nunescold.com",
     "status": "active",
-    "current_step": 2,
+    "current_step": 3,
     "started_at": "2026-03-11T22:22:08.887639+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -261,8 +261,8 @@
         "step": 2,
         "label": "Value Touch",
         "scheduled_date": "2026-03-13",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-13T15:42:20.909046+00:00",
+        "status": "sent"
       },
       {
         "step": 3,
@@ -279,7 +279,7 @@
     "lead_name": "Mike Johnson",
     "lead_email": "mike@johnsonlogistics.com",
     "status": "active",
-    "current_step": 1,
+    "current_step": 2,
     "started_at": "2026-03-11T22:22:08.887804+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -288,8 +288,8 @@
         "step": 1,
         "label": "Check-In",
         "scheduled_date": "2026-03-13",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-13T15:42:22.314912+00:00",
+        "status": "sent"
       },
       {
         "step": 2,
@@ -306,7 +306,7 @@
     "lead_name": "Tanya Okafor",
     "lead_email": "tokafor@okafor-industrial.com",
     "status": "active",
-    "current_step": 2,
+    "current_step": 3,
     "started_at": "2026-03-11T22:22:08.887807+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -322,8 +322,8 @@
         "step": 2,
         "label": "Urgency",
         "scheduled_date": "2026-03-13",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-13T15:42:23.906151+00:00",
+        "status": "sent"
       },
       {
         "step": 3,

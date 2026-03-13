@@ -299,6 +299,9 @@
       background: var(--surface2); border: 1px solid var(--border);
       border-radius: 10px; overflow: hidden;
     }
+    #leads-table-wrap th:nth-child(5) { width: 11%; } /* Email */
+    #leads-table-wrap th:nth-child(6) { width: 10%; } /* Phone */
+    #leads-table-wrap th:nth-child(7) { width: 25%; } /* Project */
     table { width: 100%; border-collapse: collapse; }
     thead th {
       padding: 8px 10px; text-align: left;
@@ -1819,9 +1822,8 @@
           </div>
         </div>
 
-        <div class="section-header">
+        <div class="section-header" style="margin-bottom:12px;">
           <div class="section-title">All Leads</div>
-          <button class="btn-add" onclick="openNewLeadModal()">+ New Lead</button>
         </div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
           <button class="filter-tab active" data-filter="all"       onclick="setFilter('all')">All</button>
@@ -1834,14 +1836,18 @@
           <button class="filter-tab"        data-filter="converted" onclick="setFilter('converted')">Converted</button>
           <button class="filter-tab"        data-filter="lost"      onclick="setFilter('lost')">Lost</button>
           <button class="filter-tab"        data-filter="due_today" onclick="setFilter('due_today')">Due Today</button>
-          <div style="margin-left:auto;position:relative;display:flex;align-items:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" id="lead-search" placeholder="Search leads…" oninput="renderLeads()"
-                   style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
-                          color:var(--text);font-size:12px;padding:5px 10px 5px 28px;width:200px;outline:none;">
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <span id="leads-count" style="font-size:11px;font-weight:700;color:#64748b;"></span>
+            <div style="position:relative;display:flex;align-items:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" id="lead-search" placeholder="Search leads…" oninput="renderLeads()"
+                     style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+                            color:var(--text);font-size:12px;padding:5px 10px 5px 28px;width:200px;outline:none;">
+            </div>
+            <button class="btn-add" onclick="openNewLeadModal()">+ New Lead</button>
           </div>
         </div>
 
@@ -1850,11 +1856,11 @@
             <thead>
               <tr>
                 <th>Score</th><th>Status</th><th>Name</th><th>Company</th>
-                <th>Contact</th><th>Project</th><th>Source</th><th>Date</th>
+                <th>Email</th><th>Phone</th><th>Project</th><th>Source</th><th>Date</th>
               </tr>
             </thead>
             <tbody id="leads-tbody">
-              <tr><td colspan="8" class="no-leads">Loading leads...</td></tr>
+              <tr><td colspan="9" class="no-leads">Loading leads...</td></tr>
             </tbody>
           </table>
         </div>
@@ -1864,7 +1870,6 @@
       <div class="page" id="page-jobs">
         <div class="section-header" style="margin-bottom:12px;">
           <div class="section-title">Job Tracker</div>
-          <button class="btn-add" onclick="openJobModal()">+ New Job</button>
         </div>
         <div class="inv-summary-bar" id="job-summary-bar" style="margin-bottom:16px;"></div>
 
@@ -1886,18 +1891,21 @@
           <button class="filter-tab"        data-jfilter="invoiced"   onclick="setJobFilter('invoiced')">Invoiced</button>
           <button class="filter-tab"        data-jfilter="complete"   onclick="setJobFilter('complete')">Completed</button>
           <button class="filter-tab"        data-jfilter="overbudget" onclick="setJobFilter('overbudget')" style="color:#fbbf24;">⚠ Over Budget</button>
-          <div style="margin-left:auto;position:relative;display:flex;align-items:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input id="job-search" type="text" placeholder="Search client or company…"
-                   oninput="setJobSearch(this.value)"
-                   style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
-                          color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:220px;outline:none;">
-            <button id="job-search-clear" onclick="clearJobSearch()"
-                    style="display:none;position:absolute;right:7px;background:none;border:none;
-                           color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <div style="position:relative;display:flex;align-items:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input id="job-search" type="text" placeholder="Search client or company…"
+                     oninput="setJobSearch(this.value)"
+                     style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+                            color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:220px;outline:none;">
+              <button id="job-search-clear" onclick="clearJobSearch()"
+                      style="display:none;position:absolute;right:7px;background:none;border:none;
+                             color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+            </div>
+            <button class="btn-add" onclick="openJobModal()">+ New Job</button>
           </div>
           <span id="jobs-count" style="font-size:12px;color:var(--dim);"></span>
         </div>
@@ -1914,7 +1922,6 @@
       <div class="page" id="page-suppliers">
         <div class="section-header" style="margin-bottom:12px;">
           <div class="section-title">Suppliers & Vendors</div>
-          <button class="btn-add" onclick="openSupplierModal()">+ Add Supplier</button>
         </div>
 
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
@@ -1926,18 +1933,21 @@
           <button class="filter-tab"        data-sfilter="modular"       onclick="setSupplierFilter('modular')">Modular Offices</button>
           <button class="filter-tab"        data-sfilter="safety"        onclick="setSupplierFilter('safety')">Safety & Accessories</button>
           <button class="filter-tab"        data-sfilter="rental"        onclick="setSupplierFilter('rental')" style="color:#a78bfa;">🔑 Equipment Rentals</button>
-          <div style="margin-left:auto;position:relative;display:flex;align-items:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input id="supplier-search" type="text" placeholder="Search suppliers…"
-                   oninput="setSupplierSearch(this.value)"
-                   style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
-                          color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:220px;outline:none;">
-            <button id="supplier-search-clear" onclick="clearSupplierSearch()"
-                    style="display:none;position:absolute;right:7px;background:none;border:none;
-                           color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <div style="position:relative;display:flex;align-items:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input id="supplier-search" type="text" placeholder="Search suppliers…"
+                     oninput="setSupplierSearch(this.value)"
+                     style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+                            color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:220px;outline:none;">
+              <button id="supplier-search-clear" onclick="clearSupplierSearch()"
+                      style="display:none;position:absolute;right:7px;background:none;border:none;
+                             color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+            </div>
+            <button class="btn-add" onclick="openSupplierModal()">+ Add Supplier</button>
           </div>
           <span id="suppliers-count" style="font-size:12px;color:var(--dim);"></span>
         </div>
@@ -1949,7 +1959,6 @@
       <div class="page" id="page-invoices">
         <div class="section-header" style="margin-bottom:12px;">
           <div class="section-title">Invoices</div>
-          <button class="btn-add" onclick="openInvModal()">+ New Invoice</button>
         </div>
         <div class="inv-summary-bar" id="inv-summary-bar" style="margin-bottom:16px;"></div>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
@@ -1958,20 +1967,23 @@
           <button class="filter-tab"        data-ifilter="sent"    onclick="setInvFilter('sent')">Sent</button>
           <button class="filter-tab"        data-ifilter="paid"    onclick="setInvFilter('paid')">Paid</button>
           <button class="filter-tab"        data-ifilter="overdue" onclick="setInvFilter('overdue')">Overdue</button>
-          <div style="margin-left:auto;position:relative;display:flex;align-items:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input id="inv-search" type="text" placeholder="Search client or invoice #…"
-                   oninput="setInvSearch(this.value)"
-                   style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
-                          color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:220px;outline:none;">
-            <button id="inv-search-clear" onclick="clearInvSearch()"
-                    style="display:none;position:absolute;right:7px;background:none;border:none;
-                           color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <span id="inv-count" style="font-size:11px;font-weight:700;color:#64748b;"></span>
+            <div style="position:relative;display:flex;align-items:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input id="inv-search" type="text" placeholder="Search client or invoice #…"
+                     oninput="setInvSearch(this.value)"
+                     style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+                            color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:220px;outline:none;">
+              <button id="inv-search-clear" onclick="clearInvSearch()"
+                      style="display:none;position:absolute;right:7px;background:none;border:none;
+                             color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+            </div>
+            <button class="btn-add" onclick="openInvModal()">+ New Invoice</button>
           </div>
-          <span id="inv-count" style="font-size:12px;color:var(--dim);"></span>
         </div>
         <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
           <table><thead><tr>
@@ -1986,9 +1998,6 @@
       <div class="page" id="page-jobcosts">
         <div class="section-header" style="margin-bottom:12px;">
           <div class="section-title">Job Costs</div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn-add" onclick="openCostModal()">+ Add Cost</button>
-          </div>
         </div>
 
         <!-- View toggle -->
@@ -2009,20 +2018,23 @@
           <button class="filter-tab"        data-cfilter="Equipment"   onclick="setCostFilter('Equipment')">Equipment</button>
           <button class="filter-tab"        data-cfilter="Permits"     onclick="setCostFilter('Permits')">Permits</button>
           <button class="filter-tab"        data-cfilter="Other"       onclick="setCostFilter('Other')">Other</button>
-          <div style="margin-left:auto;position:relative;display:flex;align-items:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input id="cost-search" type="text" placeholder="Search job, vendor…"
-                   oninput="setCostSearch(this.value)"
-                   style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
-                          color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:200px;outline:none;">
-            <button id="cost-search-clear" onclick="clearCostSearch()"
-                    style="display:none;position:absolute;right:7px;background:none;border:none;
-                           color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <span id="costs-count" style="font-size:11px;font-weight:700;color:#64748b;"></span>
+            <div style="position:relative;display:flex;align-items:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   style="width:13px;height:13px;position:absolute;left:9px;color:var(--dim);pointer-events:none;">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input id="cost-search" type="text" placeholder="Search job, vendor…"
+                     oninput="setCostSearch(this.value)"
+                     style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+                            color:var(--text);font-size:12px;padding:5px 28px 5px 28px;width:200px;outline:none;">
+              <button id="cost-search-clear" onclick="clearCostSearch()"
+                      style="display:none;position:absolute;right:7px;background:none;border:none;
+                             color:var(--dim);cursor:pointer;font-size:14px;line-height:1;padding:0;">✕</button>
+            </div>
+            <button class="btn-add" onclick="openCostModal()">+ Add Cost</button>
           </div>
-          <span id="costs-count" style="font-size:12px;color:var(--dim);"></span>
         </div>
         <div class="leads-table-wrap" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
           <table><thead><tr>
@@ -3837,7 +3849,7 @@
       allLeads = await res.json();
       renderLeads();
     } catch {
-      document.getElementById('leads-tbody').innerHTML = '<tr><td colspan="7" class="no-leads">Failed to load leads.</td></tr>';
+      document.getElementById('leads-tbody').innerHTML = '<tr><td colspan="9" class="no-leads">Failed to load leads.</td></tr>';
     }
   }
 
@@ -3845,6 +3857,15 @@
     currentFilter = f;
     document.querySelectorAll('.filter-tab').forEach(t => t.classList.toggle('active', t.dataset.filter === f));
     renderLeads();
+  }
+
+  function renderSource(source) {
+    const s = (source || 'chat').toLowerCase();
+    if (s === 'chat-auto') return '<span style="display:inline-flex;align-items:center;gap:5px;color:#60a5fa;font-size:12px;font-weight:500;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>chat-auto</span>';
+    if (s === 'chat') return '<span style="display:inline-flex;align-items:center;gap:5px;color:#a78bfa;font-size:12px;font-weight:500;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>chat</span>';
+    if (s === 'referral') return '<span style="display:inline-flex;align-items:center;gap:5px;color:#34d399;font-size:12px;font-weight:500;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>referral</span>';
+    if (s === 'test') return '<span style="display:inline-flex;align-items:center;gap:5px;color:#facc15;font-size:12px;font-weight:500;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>test</span>';
+    return `<span style="display:inline-flex;align-items:center;gap:5px;color:#fb923c;font-size:12px;font-weight:500;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>${esc(source || 'chat')}</span>`;
   }
 
   function renderLeads() {
@@ -3883,7 +3904,10 @@
     const showProject = d.col_project !== false;
     const showSource  = d.col_source  !== false;
     const showDate    = d.col_date    !== false;
-    const visibleCols = 3 + [showScore,showCompany,showContact,showProject,showSource,showDate].filter(Boolean).length;
+    const visibleCols = 3 + [showScore,showCompany,showProject,showSource,showDate].filter(Boolean).length + (showContact ? 2 : 0);
+
+    const leadsCountEl = document.getElementById('leads-count');
+    if (leadsCountEl) leadsCountEl.textContent = leads.length < allLeads.length ? `${leads.length} of ${allLeads.length}` : `${allLeads.length} lead${allLeads.length !== 1 ? 's' : ''}`;
 
     const tbody = document.getElementById('leads-tbody');
     if (leads.length === 0) {
@@ -3897,10 +3921,22 @@
       cells.push(`<td>${leadStatusBadge(l.lead_status || 'new')}</td>`);
       cells.push(`<td><strong>${esc(l.name || '—')}</strong></td>`);
       if (showCompany) cells.push(`<td class="td-muted">${esc(l.company || '—')}</td>`);
-      if (showContact) cells.push(`<td class="td-muted">${esc(l.contact || '—')}</td>`);
-      if (showProject) cells.push(`<td class="td-muted" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(l.project_details || '—')}</td>`);
+      if (showContact) {
+        const raw = l.contact || '';
+        const parts = (raw.includes(' | ') ? raw.split(' | ') : raw.includes(', ') ? raw.split(', ') : [raw]).map(p => p.trim());
+        let email = '—', phone = '—';
+        parts.forEach(p => {
+          if (p.includes('@')) email = p;
+          else if (p.match(/[\d()\-+\s]{7,}/)) phone = p;
+          else if (email === '—') email = p || '—';
+        });
+        const emailHtml = (email !== '—' && email.includes('@')) ? `<a href="mailto:${esc(email)}" style="color:#60a5fa;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${esc(email)}</a>` : esc(email);
+        cells.push(`<td class="td-muted" style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${emailHtml}</td>`);
+        cells.push(`<td class="td-muted" style="white-space:nowrap;">${esc(phone)}</td>`);
+      }
+      if (showProject) cells.push(`<td class="td-muted" style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(l.project_details || '—')}</td>`);
       if (showSource) {
-        let src = `<span class="source-badge">${esc(l.source || 'chat')}</span>`;
+        let src = renderSource(l.source);
         if (l.nurture && l.nurture.active) src += ` <span class="nurture-pill">✉ ${l.nurture.steps_sent}/${l.nurture.total_steps}</span>`;
         cells.push(`<td>${src}</td>`);
       }
@@ -4044,7 +4080,7 @@
       <!-- ⑤ Lead Info — bottom, low priority -->
       <div class="panel-section" style="border-top:1px solid var(--border);padding-top:12px;margin-top:4px;">
         <div style="display:flex;gap:16px;flex-wrap:wrap;">
-          <div style="font-size: 13px;color:var(--dim);">Source: <span class="source-badge" style="font-size: 13px;">${esc(l.source||'chat')}</span></div>
+          <div style="font-size: 13px;color:var(--dim);">Source: ${renderSource(l.source)}</div>
           <div style="font-size: 13px;color:var(--dim);">Captured: ${formatDate(l.timestamp)}</div>
         </div>
       </div>
@@ -5584,8 +5620,8 @@
     const fmt = v => '$'+v.toLocaleString('en-US',{minimumFractionDigits:2});
     bar.innerHTML = [
       ['Total Costs',     fmt(total),   ''],
-      ['Materials',       fmt(mats),    'style="color:var(--warm)"'],
-      ['Labor & Subs',    fmt(labor),   'style="color:var(--orange)"'],
+      ['Materials',       fmt(mats),    'style="color:#f97316"'],
+      ['Labor & Subs',    fmt(labor),   'style="color:#e879f9"'],
       ['Pending Payment', fmt(pending), 'style="color:var(--hot)"'],
     ].map(([label,val,style]) => `
       <div class="stat-card">
@@ -5622,11 +5658,11 @@
     }
 
     const catColors = {
-      'Materials':   'color:#f59e0b',
-      'Labor & Subs':'color:var(--orange)',
-      'Equipment':   'color:#60a5fa',
-      'Permits':     'color:#a78bfa',
-      'Other':       'color:var(--dim)',
+      'Materials':   'color:#f97316',
+      'Labor & Subs':'color:#e879f9',
+      'Equipment':   'color:#67e8f9',
+      'Permits':     'color:#10b981',
+      'Other':       'color:#facc15',
     };
 
     tbody.innerHTML = costs.map(c => {
@@ -8636,13 +8672,15 @@
 
   function applyLeadColumns() {
     const d = _dashCfg;
-    const cols  = ['score','company','contact','project','source','date'];
     const heads = document.querySelectorAll('#leads-table-wrap thead th');
-    // heads order: Score(0), Name(1), Company(2), Contact(3), Project(4), Source(5), Date(6)
-    const headIdx = { score:0, company:2, contact:3, project:4, source:5, date:6 };
-    cols.forEach(k => {
-      const show = d['col_' + k] !== false;
-      const th = heads[headIdx[k]];
+    // heads order: Score(0), Status(1), Name(2), Company(3), Email(4), Phone(5), Project(6), Source(7), Date(8)
+    const colMap = { score:0, company:3, email:4, phone:5, project:6, source:7, date:8 };
+    const showContact = d.col_contact !== false;
+    Object.entries(colMap).forEach(([k, idx]) => {
+      let show;
+      if (k === 'email' || k === 'phone') show = showContact;
+      else show = d['col_' + k] !== false;
+      const th = heads[idx];
       if (th) th.style.display = show ? '' : 'none';
     });
     renderLeads();
