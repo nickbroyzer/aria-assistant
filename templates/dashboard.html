@@ -53,7 +53,7 @@
 
     /* ── Sidebar ── */
     #sidebar {
-      width: 220px; flex-shrink: 0;
+      width: clamp(160px, 15vw, 220px); flex-shrink: 0;
       background: var(--surface);
       border-right: 1px solid var(--border);
       display: flex; flex-direction: column;
@@ -563,7 +563,7 @@
 
     /* ── Lead detail panel ── */
     #lead-panel {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 440px;
+      position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw);
       background: #1e2530; border-left: 1px solid rgba(255,255,255,0.08);
       z-index: 100; transform: translateX(100%);
       transition: transform .25s cubic-bezier(.4,0,.2,1);
@@ -954,7 +954,7 @@
 
     /* ── Job detail panel ── */
     #job-panel {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 440px;
+      position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw);
       background: #1e2530; border-left: 1px solid rgba(255,255,255,0.08);
       z-index: 100; transform: translateX(100%);
       transition: transform .25s cubic-bezier(.4,0,.2,1);
@@ -1042,7 +1042,7 @@
 
     /* ── Person detail panel ── */
     #person-panel {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 440px;
+      position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw);
       background: #1e2530; border-left: 1px solid rgba(255,255,255,0.08);
       z-index: 100; transform: translateX(100%);
       transition: transform .25s cubic-bezier(.4,0,.2,1);
@@ -9669,7 +9669,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
 <!-- Activity Detail Panel -->
 <div id="act-detail-overlay" style="display:none;position:fixed;inset:0;z-index:99;background:rgba(0,0,0,0.75);" onclick="if(event.target===this)closeActDetail()"></div>
-<div id="act-detail-panel" style="position:fixed;top:0;right:0;width:440px;height:100vh;background:#1e2530;border-left:1px solid rgba(255,255,255,0.08);z-index:100;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,0.5);">
+<div id="act-detail-panel" style="position:fixed;top:0;right:0;width:min(440px, 100vw);height:100vh;background:#1e2530;border-left:1px solid rgba(255,255,255,0.08);z-index:100;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,0.5);">
   <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
     <div id="act-detail-icon-title" style="display:flex;align-items:center;gap:10px;">
       <div id="act-detail-icon" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;"></div>
@@ -10312,7 +10312,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
   </div>
 
 <!-- Order Detail Slide-Out Panel -->
-<div id="order-detail-panel" style="position:fixed;top:0;right:0;height:100vh;width:480px;background:#1a2535;border-left:1px solid rgba(255,255,255,0.08);z-index:2000;display:none;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,0.5);transform:translateX(100%);transition:transform 0.25s ease;">
+<div id="order-detail-panel" style="position:fixed;top:0;right:0;height:100vh;width:min(480px, 100vw);background:#1a2535;border-left:1px solid rgba(255,255,255,0.08);z-index:2000;display:none;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,0.5);transform:translateX(100%);transition:transform 0.25s ease;">
   <!-- Header -->
   <div style="padding:20px 24px 0;flex-shrink:0;">
     <button onclick="closeOrderDetail()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;">✕</button>
