@@ -211,7 +211,7 @@
     .perm-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
 
     /* ── Main ── */
-    #main { flex: 1; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+    #main { flex: 1; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
 
     /* ── Top bar ── */
     #topbar {
@@ -3366,7 +3366,7 @@
     document.getElementById('topbar-title').textContent = titles[page] || page;
     const contentEl = document.getElementById('content');
     if (page === 'home') {
-      contentEl.style.overflow = 'hidden';
+      contentEl.style.overflow = 'auto';
       contentEl.style.padding = '0';
       contentEl.style.display = 'flex';
       contentEl.style.flexDirection = 'column';
