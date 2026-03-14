@@ -1719,13 +1719,13 @@
                   <div class="mc-card-label">Follow-ups Due</div>
                   <div class="mc-card-sub">Nurtures due today</div>
                 </div>
-                <div class="mc-card orange" style="cursor:pointer;" onclick="window.location.href='#quotes'">
+                <div class="mc-card orange" style="cursor:pointer;" onclick="mcOpenQuoteAging()">
                   <div class="mc-card-icon">⏳</div>
                   <div class="mc-card-count" id="mc-c-quoteage-count">—</div>
                   <div class="mc-card-label">Quote Aging</div>
                   <div class="mc-card-sub">Oldest open quotes</div>
                 </div>
-                <div class="mc-card" style="cursor:pointer; border:1px solid rgba(99,179,237,0.25);" onclick="window.location.href='#suppliers'">
+                <div class="mc-card" style="cursor:pointer; border:1px solid rgba(99,179,237,0.25);" onclick="mcOpenAshAlerts()">
                   <div class="mc-card-icon">📥</div>
                   <div class="mc-card-count" id="mc-c-ash-alerts" style="color:#60a5fa;">0</div>
                   <div class="mc-card-label">Ash Alerts <span style="font-size:9px; color:#60a5fa; background:rgba(99,179,237,0.12); padding:1px 6px; border-radius:4px; margin-left:5px; vertical-align:middle;">Ash</span></div>
@@ -3692,15 +3692,23 @@
       }).sort((a,b) => b.daysAgo - a.daysAgo);
       const agingCount = quotedAging.filter(q => q.daysAgo >= 8).length;
       document.getElementById('mc-c-quoteage-count').textContent = agingCount;
-      const topQuotes = quotedAging.slice(0, 3);
-      const qaChipsEl = document.getElementById('mc-c-quoteage-chips');
-      if (qaChipsEl) {
-        qaChipsEl.innerHTML = topQuotes.map(q => {
-          const cls = q.daysAgo <= 7 ? 'fresh' : q.daysAgo <= 14 ? 'warm' : 'cold';
-          const name = (q.client_company || q.client_name || 'Unknown').split(' ')[0];
-          return `<span class="qa-chip ${cls}" onclick="mcOpenJob('${q.job_id}')">${name} · ${q.daysAgo}d</span>`;
-        }).join('');
-      }
+      fetch('/api/suppliers/orders?limit=500').then(r=>r.json()).then(data=>{
+        const orders = data.orders || [];
+        const today = new Date().toDateString();
+        const ashCount = orders.filter(o => {
+          const updated = new Date(o.updated_at || o.order_date);
+          return updated.toDateString() === today;
+        }).length;
+        const ashEl = document.getElementById('mc-c-ash-alerts');
+        if (ashEl) {
+          ashEl.textContent = ashCount;
+          const card = ashEl.closest('.mc-card');
+          if (card) {
+            const sub = card.querySelector('.mc-card-sub');
+            if (sub) sub.textContent = ashCount > 0 ? ashCount + ' orders updated today' : 'No new alerts';
+          }
+        }
+      }).catch(()=>{});
 
       // Ash Call Summary — rich compact cards in Col 4 (2 most recent)
       const ashCalls = [
@@ -6860,6 +6868,15 @@
 
   // ── Job detail panel ──
   let currentJobId = null;
+
+  function mcOpenQuoteAging() {
+    showPage('jobs');
+    setTimeout(function(){ setJobFilter('quoted'); }, 300);
+  }
+
+  function mcOpenAshAlerts() {
+    showPage('suppliers');
+  }
 
   function mcOpenJob(jobId) {
     showPage('jobs');
