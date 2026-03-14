@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ash Gmail Scanner — Changes Summary</title>
+<title>Session Summary — All Changes</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #1a1a1a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace; padding: 32px; max-width: 900px; margin: 0 auto; }
@@ -25,128 +25,82 @@
   .test-results h3 { color: #4caf50; margin-top: 0; }
   .test-line { font-family: monospace; font-size: 13px; margin: 4px 0; }
   .pass { color: #4caf50; }
-  .endpoint { background: #1a1a2e; border: 1px solid #333; border-radius: 6px; padding: 12px; margin: 8px 0; }
-  .endpoint .method { color: #4caf50; font-weight: bold; }
-  .endpoint .path { color: #f0a060; }
 </style>
 </head>
 <body>
 
-<h1>Ash Gmail Scanner — Changes Summary</h1>
-<div class="subtitle">Pacific Construction Dashboard &middot; March 14, 2026</div>
-<div class="status">✅ Working End-to-End</div>
+<h1>Pacific Construction Dashboard — Session Summary</h1>
+<div class="subtitle">Full Session Changes &middot; March 14, 2026</div>
+<div class="status">✅ All Changes Applied</div>
 
-<h2>Test Results</h2>
+<h2>1. Ash Gmail Scanner — OAuth &amp; API</h2>
 <div class="test-results">
-  <h3>Terminal Test (python3 direct API)</h3>
-  <div class="test-line pass">✅ Connected: True</div>
-  <div class="test-line pass">✅ Account: leads.pacificconstruction@gmail.com</div>
-  <div class="test-line pass">✅ Service OK — Gmail API v1 authorized</div>
-  <div class="test-line pass">✅ Unread messages query executed (0 unread)</div>
-  <h3 style="margin-top:12px">Flask Endpoint Test</h3>
-  <div class="test-line pass">✅ GET /api/ash/status → { "connected": true, "email": "leads.pacificconstruction@gmail.com" }</div>
-  <div class="test-line pass">✅ GET /api/ash/scan?days_back=30 → { "count": 34, "results": [...] } — 34 emails found!</div>
-  <div class="test-line pass">✅ Email types detected: invoice, tracking, delay — classification working</div>
-  <div class="test-line pass">✅ OAuth flow → Google consent → redirect back to /dashboard</div>
+  <h3>Test Results</h3>
+  <div class="test-line pass">✅ OAuth flow completed end-to-end (leads.pacificconstruction@gmail.com)</div>
+  <div class="test-line pass">✅ GET /api/ash/status → { connected: true, email: "leads.pacificconstruction@gmail.com" }</div>
+  <div class="test-line pass">✅ GET /api/ash/scan?days_back=30 → 34 emails found (invoices, tracking, delays)</div>
+  <div class="test-line pass">✅ Token auto-refresh working</div>
 </div>
 
-<h2>Files Created</h2>
-
-<h3>1. <code>utils/gmail_auth.py</code> — Gmail OAuth Module</h3>
+<h3>Files Created</h3>
 <ul>
-  <li><code>gmail_auth_url()</code> — Builds Google OAuth consent URL (direct URL, no PKCE)</li>
-  <li><code>gmail_exchange_code(code, state)</code> — Exchanges auth code for tokens via requests.post</li>
-  <li><code>get_gmail_service()</code> — Returns authorized Gmail API v1 service (auto-refreshes tokens)</li>
-  <li><code>is_gmail_connected()</code> — Checks if valid gmail_token.json exists</li>
-  <li><code>get_gmail_account_info()</code> — Returns connected email from Gmail profile</li>
+  <li><code>utils/gmail_auth.py</code> — Direct requests-based OAuth (no PKCE)</li>
+  <li><code>utils/ash_scanner.py</code> — Email scanner (classify, fuzzy-match suppliers/orders)</li>
+  <li><code>routes/ash.py</code> — Flask blueprint: /api/ash/scan, /api/ash/status, /oauth/gmail/start, /oauth/gmail/callback</li>
+  <li><code>gmail_credentials.json</code> — OAuth web client "Ash Gmail Scanner"</li>
+  <li><code>gmail_token.json</code> — Auto-generated OAuth token (access + refresh)</li>
 </ul>
 
-<h3>2. <code>utils/ash_scanner.py</code> — Email Scanner</h3>
+<h3>Files Modified</h3>
 <ul>
-  <li><code>scan_inbox(max_results, days_back)</code> — Searches Gmail for supplier keywords</li>
-  <li><code>classify_email(subject, snippet)</code> — Regex classification: invoice/shipment/delay/tracking/etc</li>
-  <li><code>match_supplier(sender, sender_email, suppliers)</code> — Fuzzy match via SequenceMatcher (60%)</li>
-  <li><code>match_order(subject, snippet, orders)</code> — Matches order IDs/PO numbers in text</li>
+  <li><code>utils/constants.py</code> — Added GMAIL_TOKEN, GMAIL_CREDS, GMAIL_SCOPES</li>
+  <li><code>routes/__init__.py</code> — Registered ash_bp in ALL_BLUEPRINTS</li>
 </ul>
 
-<h3>3. <code>routes/ash.py</code> — Flask Blueprint</h3>
-<div class="endpoint"><span class="method">GET</span> <span class="path">/api/ash/scan</span> — Scan inbox for supplier emails (params: max_results, days_back)</div>
-<div class="endpoint"><span class="method">GET</span> <span class="path">/api/ash/status</span> — Gmail connection status</div>
-<div class="endpoint"><span class="method">GET</span> <span class="path">/oauth/gmail/start</span> — Redirects to Google OAuth consent</div>
-<div class="endpoint"><span class="method">GET</span> <span class="path">/oauth/gmail/callback</span> — Handles OAuth callback, saves token</div>
-
-<h3>4. <code>gmail_credentials.json</code> — OAuth Web Client</h3>
-<p>Client "Ash Gmail Scanner" (Web type), redirect URI: <code>http://localhost:5000/oauth/gmail/callback</code></p>
-
-<h3>5. <code>gmail_token.json</code> — Auto-generated after OAuth</h3>
-<p>Contains access_token, refresh_token, auto-refreshes when expired</p>
-
-<h2>Files Modified</h2>
-
-<h3>6. <code>utils/constants.py</code> — Added Gmail constants</h3>
-<pre>GMAIL_TOKEN  = "gmail_token.json"
-GMAIL_CREDS  = "gmail_credentials.json"
-GMAIL_SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]</pre>
-
-<h3>7. <code>routes/__init__.py</code> — Registered ash blueprint</h3>
-<pre>from routes.ash import ash_bp
-# Added ash_bp to ALL_BLUEPRINTS list</pre>
-
-<h2>Google Cloud Setup Completed</h2>
-<ul>
-  <li>✅ Gmail API enabled on project <code>pacific-construction-assistant</code></li>
-  <li>✅ OAuth consent screen configured with test user</li>
-  <li>✅ Web OAuth client "Ash Gmail Scanner" created</li>
-  <li>✅ Client secret generated and saved</li>
-  <li>✅ Full OAuth flow tested end-to-end</li>
-</ul>
-
-<h2>Key Fix: PKCE Error</h2>
-<p>Original implementation used <code>google_auth_oauthlib.flow.Flow</code> which adds PKCE (code_verifier) by default, causing "Missing code verifier" errors. Rewrote <code>gmail_auth.py</code> to use direct <code>requests</code>-based OAuth — manually constructing the auth URL and exchanging the code via HTTP POST. No PKCE, no code verifier, clean flow.</p>
-
-<h2>Latest Change: days_back Default → 30</h2>
-<p>Changed <code>routes/ash.py</code> line 38: default <code>days_back</code> from <code>7</code> to <code>30</code> so the scan covers a full month by default. With 7 days the inbox returned 0 results; with 30 days it found <strong>34 emails</strong> (invoices, tracking, delays).</p>
+<h2>2. days_back Default Fix</h2>
+<p>Changed <code>routes/ash.py</code> line 38: default <code>days_back</code> from <code>7</code> → <code>30</code> so the scan covers a full month. With 7 days: 0 results. With 30 days: <strong>34 emails</strong> found.</p>
 <pre>- days_back = request.args.get("days_back", default=7, type=int)
 + days_back = request.args.get("days_back", default=30, type=int)</pre>
+
+<h2>3. Dashboard Zoom Optimization</h2>
+<p>Tested zoom values to fill the browser window (1512x770) with no black gap at bottom and no content cut off.</p>
+<pre>Screen: 1512x982, DPR: 2 (Retina), Browser: 1512x770
+
+Tested:
+  zoom: 0.9   → original, black gap at bottom
+  zoom: 0.85  → all content visible but elements slightly small
+  zoom: 0.875 → best balance, selected as final value</pre>
+<p>Changed <code>templates/dashboard.html</code> line 34:</p>
+<pre>- html, body { zoom: 0.9;
++ html, body { zoom: 0.875;</pre>
 
 <h2>Copy-Paste Summary</h2>
 <div class="copy-section">
   <button class="copy-btn" onclick="copyText(this)">📋 Copy to Clipboard</button>
-  <div class="copy-content" id="copyable">## Ash Gmail Scanner — All Changes
+  <div class="copy-content" id="copyable">## Session Summary — All Changes (March 14, 2026)
 
-**Status:** ✅ Working end-to-end
-**Account:** leads.pacificconstruction@gmail.com
+**Status:** All changes applied and working
 
-### Files Created
-1. `utils/gmail_auth.py` — Gmail OAuth module (direct requests-based, no PKCE)
-   - gmail_auth_url(), gmail_exchange_code(), get_gmail_service(), is_gmail_connected(), get_gmail_account_info()
-2. `utils/ash_scanner.py` — Email scanner (scan_inbox, classify_email, match_supplier, match_order)
-3. `routes/ash.py` — Flask blueprint with 4 routes:
-   - GET /api/ash/scan — Scan inbox for supplier emails
-   - GET /api/ash/status — Gmail connection status
-   - GET /oauth/gmail/start — Start OAuth flow
-   - GET /oauth/gmail/callback — OAuth callback handler
-4. `gmail_credentials.json` — OAuth web client credentials (Ash Gmail Scanner)
-5. `gmail_token.json` — Auto-generated OAuth token (access + refresh)
+### 1. Ash Gmail Scanner (OAuth + API)
+- Created `utils/gmail_auth.py` — Direct requests-based OAuth 2.0 (no PKCE)
+- Created `utils/ash_scanner.py` — Email scanner with classify + fuzzy match
+- Created `routes/ash.py` — 4 endpoints: /api/ash/scan, /api/ash/status, /oauth/gmail/start, /oauth/gmail/callback
+- Created `gmail_credentials.json` — OAuth web client credentials
+- Created `gmail_token.json` — Auto-generated after successful OAuth
+- Modified `utils/constants.py` — Added GMAIL_TOKEN, GMAIL_CREDS, GMAIL_SCOPES
+- Modified `routes/__init__.py` — Registered ash_bp
+- Google Cloud: Gmail API enabled, OAuth consent screen configured, test user added
+- Key fix: Rewrote gmail_auth.py from google_auth_oauthlib (PKCE errors) to direct requests-based OAuth
+- Test: Connected=True, 34 emails scanned (invoices, tracking, delays)
 
-### Files Modified
-6. `utils/constants.py` — Added GMAIL_TOKEN, GMAIL_CREDS, GMAIL_SCOPES
-7. `routes/__init__.py` — Registered ash_bp in ALL_BLUEPRINTS
+### 2. days_back Default Fix
+- Changed `routes/ash.py` line 38: default days_back 7 → 30
+- Result: 0 emails → 34 emails found
 
-### Google Cloud Setup
-- Gmail API enabled on project `pacific-construction-assistant`
-- OAuth consent screen configured with test user leads.pacificconstruction@gmail.com
-- Web OAuth client "Ash Gmail Scanner" created with redirect URI http://localhost:5000/oauth/gmail/callback
-
-### Key Fixes
-1. Rewrote gmail_auth.py from google_auth_oauthlib.flow.Flow (which adds PKCE causing "Missing code verifier" errors) to direct requests-based OAuth 2.0 — manual URL construction + requests.post token exchange. No PKCE, no code verifier.
-2. Changed routes/ash.py default days_back from 7 → 30 so scan covers a full month by default.
-
-### Test Results
-- ✅ Terminal: Connected=True, Account=leads.pacificconstruction@gmail.com, Service OK
-- ✅ GET /api/ash/status → { connected: true, email: "leads.pacificconstruction@gmail.com" }
-- ✅ GET /api/ash/scan?days_back=30 → { count: 34, results: [...] } — 34 emails found (invoices, tracking, delays)
-- ✅ Full OAuth flow: /oauth/gmail/start → Google consent → /oauth/gmail/callback → /dashboard redirect</div>
+### 3. Dashboard Zoom Optimization
+- Screen: 1512x982, DPR:2, Browser: 1512x770
+- Changed `templates/dashboard.html` line 34: zoom 0.9 → 0.875
+- Best balance: fills browser, no black gap, no content cut off</div>
 </div>
 
 <script>
