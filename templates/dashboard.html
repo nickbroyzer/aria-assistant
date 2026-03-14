@@ -297,7 +297,7 @@
     /* ── Lead table ── */
     #leads-table-wrap {
       background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden;
+      border-radius: 10px; overflow: hidden; overflow-x: auto;
     }
     #leads-table-wrap th:nth-child(5) { width: 11%; } /* Email */
     #leads-table-wrap th:nth-child(6) { width: 10%; } /* Phone */
@@ -656,7 +656,7 @@
     #pw-screen.hidden { display: none; }
     #pw-box {
       background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: 16px; width: 340px; overflow: hidden;
+      border-radius: 16px; width: min(340px, 95vw); overflow: hidden;
       box-shadow: 0 40px 100px rgba(0,0,0,0.7);
     }
     #pw-header {
@@ -726,7 +726,7 @@
     .modal-overlay.open { display: flex; }
     .modal-box {
       background: #1e2530; border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px; width: 560px; max-height: 90vh;
+      border-radius: 16px; width: min(560px, 95vw); max-height: 90vh;
       overflow-y: auto; box-shadow: 0 32px 80px rgba(0,0,0,0.7);
     }
     .modal-box::-webkit-scrollbar { width: 4px; }
@@ -1901,7 +1901,7 @@
           </div>
           <span id="jobs-count" style="font-size:12px;color:var(--dim);"></span>
         </div>
-        <div id="jobs-table-wrap" class="leads-table-wrap" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div id="jobs-table-wrap" class="leads-table-wrap" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;overflow-x:auto;">
           <table><thead><tr>
             <th>Status</th><th>Job #</th><th>Client</th><th style="min-width:220px;">Description</th><th>Type</th><th>Value</th><th>Start Date</th><th>Actions</th>
           </tr></thead>
@@ -1977,7 +1977,7 @@
             <button class="btn-add" onclick="openInvModal()">+ New Invoice</button>
           </div>
         </div>
-        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;overflow-x:auto;">
           <table><thead><tr>
             <th>Status</th><th>Invoice #</th><th>Client</th><th>Date</th><th>Due</th><th>Total</th><th>Actions</th>
           </tr></thead>
@@ -2028,7 +2028,7 @@
             <button class="btn-add" onclick="openCostModal()">+ Add Cost</button>
           </div>
         </div>
-        <div class="leads-table-wrap" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div class="leads-table-wrap" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;overflow-x:auto;">
           <table><thead><tr>
             <th>Status</th><th>Date</th><th>Job</th><th>Client</th><th>Vendor</th><th>Description</th><th>Category</th><th>Amount</th><th>Actions</th>
           </tr></thead>
@@ -2166,6 +2166,7 @@
                   <span>Team Members</span>
                   <button class="settings-btn-ghost" onclick="toggleAddUser()">+ Add User</button>
                 </div>
+                <div style="overflow-x:auto;">
                 <table class="users-table">
                   <colgroup>
                     <col style="width:13%"><!-- Name -->
@@ -2199,6 +2200,7 @@
                   </thead>
                   <tbody id="users-table-body"></tbody>
                 </table>
+                </div>
               </div>
 
               <!-- Add user form -->
@@ -2351,6 +2353,7 @@
     <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">
       Choose who receives lead alerts and the weekly digest. Recipients must have an email address set on their account.
     </div>
+    <div style="overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px;">
       <thead>
         <tr>
@@ -2365,6 +2368,7 @@
         <tr><td colspan="5" style="padding:14px 10px;color:var(--dim);font-size:12px;">Loading...</td></tr>
       </tbody>
     </table>
+    </div>
 
     <!-- External email (non-user) -->
     <div style="padding:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;">
@@ -2825,7 +2829,7 @@
 </div>
 
 <div class="modal-overlay" id="pay-modal">
-  <div class="modal-box" style="width:460px;">
+  <div class="modal-box" style="width:min(460px, 95vw);">
     <div class="modal-head">
       <h3 id="pay-modal-title">Add Pay Record</h3>
       <button class="modal-close" onclick="closePayModal()">✕</button>
@@ -2876,7 +2880,7 @@
 
 <!-- Person Modal -->
 <div class="modal-overlay" id="person-modal">
-  <div class="modal-box" style="width:500px;">
+  <div class="modal-box" style="width:min(500px, 95vw);">
     <div class="modal-head">
       <h3 id="person-modal-title">Add Person</h3>
       <button class="modal-close" onclick="closePersonModal()">✕</button>
@@ -3061,7 +3065,7 @@
 
 <!-- Invoice Modal -->
 <div class="modal-overlay" id="inv-modal">
-  <div class="modal-box" style="width:640px;">
+  <div class="modal-box" style="width:min(640px, 95vw);">
     <div class="modal-head">
       <h3 id="inv-modal-title">New Invoice</h3>
       <button class="modal-close" onclick="closeInvModal()">✕</button>
@@ -3081,10 +3085,12 @@
       </div>
       <div class="form-field full">
         <label>Line Items</label>
+        <div style="overflow-x:auto;">
         <table class="line-items-table" id="line-items-table">
           <thead><tr><th style="width:45%">Description</th><th style="width:10%">Qty</th><th style="width:18%">Rate ($)</th><th style="width:18%">Amount ($)</th><th style="width:9%"></th></tr></thead>
           <tbody id="line-items-body"></tbody>
         </table>
+        </div>
         <button id="add-line-btn" onclick="addLineItem()">+ Add Line Item</button>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:flex-end;">
@@ -5803,6 +5809,7 @@
             </div>
           </div>
           <!-- Line items -->
+          <div style="overflow-x:auto;">
           <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
             <thead>
               <tr style="background:#1e2530;">
@@ -5814,6 +5821,7 @@
             </thead>
             <tbody>${rows}</tbody>
           </table>
+          </div>
           <!-- Totals -->
           <div style="display:flex;justify-content:flex-end;margin-bottom:24px;">
             <div style="min-width:220px;">
@@ -10206,7 +10214,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         </div>
         <!-- Orders Tab -->
         <div id="sdp-tab-orders" style="display:none;">
-          <div id="sdp-order-list"></div>
+          <div id="sdp-order-list" style="overflow-x:auto;"></div>
           <div id="sdp-order-form" style="display:none;margin-top:16px;background:#0f1419;border-radius:8px;padding:16px;">
             <div style="font-size:14px;font-weight:600;color:#f0f0f0;margin-bottom:12px;">Add Order</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
@@ -10397,7 +10405,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   function _odpRenderLineItems(order) {
     const el = document.getElementById('odp-tab-lineitems');
-    el.innerHTML = '<div id="odp-li-container"></div>';
+    el.innerHTML = '<div id="odp-li-container" style="overflow-x:auto;"></div>';
     _odpLoadLineItems(order);
   }
 
@@ -10733,6 +10741,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         if (docType === 'supplier_invoice') {
           const amt = 1200 + Math.abs(_odpHashCode(meta.order_id || '')) % 8000;
           html += `<!-- Line items -->
+          <div style="overflow-x:auto;">
           <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
             <thead>
               <tr style="background:#1e2530;">
@@ -10754,6 +10763,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
               </tr>
             </tbody>
           </table>
+          </div>
           <!-- Totals -->
           <div style="display:flex;justify-content:flex-end;margin-bottom:24px;">
             <div style="min-width:220px;">
