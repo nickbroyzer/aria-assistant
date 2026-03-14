@@ -9,3 +9,7 @@ venv/
 .locks/
 config.json
 retell-twilio-troubleshooting-summary.md
+gmail_credentials.json
+gmail_token.json
+token.json
+*.token

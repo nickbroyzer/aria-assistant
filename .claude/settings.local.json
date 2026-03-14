@@ -11,7 +11,13 @@
       "Bash(curl -s http://localhost:5001/dashboard/api/suppliers)",
       "Bash(lsof -ti :5001 | xargs kill -9 2>/dev/null; echo \"killed\")",
       "Bash(cd ~/Projects/my-assistant && PORT=5001 python3 app.py)",
-      "Bash(cd ~/Projects/my-assistant && lsof -ti :5001 | xargs kill -9 2>/dev/null; PORT=5001 python3 app.py)"
+      "Bash(cd ~/Projects/my-assistant && lsof -ti :5001 | xargs kill -9 2>/dev/null; PORT=5001 python3 app.py)",
+      "Bash(python -c \"from utils.suppliers_db import init_db; init_db\\(\\); print\\('DB table created OK'\\)\")",
+      "Bash(lsof -ti:5000 2>/dev/null | head -1)",
+      "Bash(curl -s http://localhost:5000/api/orders/test-order-123/communications | python3 -m json.tool)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\" http://localhost:5000/api/orders/test-order-123/communications)",
+      "Bash(curl -s -X POST http://localhost:5000/api/orders/test-order-123/communications \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -d '{\"note\":\"Testing the new communications feature\"}' | python3 -m json.tool)",
+      "Bash(curl -s \"http://localhost:5000/api/orders/a1914bee-bd94-4c5c-b1d2-482260ecde26/documents\" | python3 -m json.tool)"
     ]
   }
 }

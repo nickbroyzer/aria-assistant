@@ -51,6 +51,11 @@ CALENDAR_SCOPES = ["https://www.googleapis.com/auth/calendar"]
 BUSINESS_HOURS  = {"start": 8, "end": 17}   # 8am–5pm
 SLOT_DURATION   = 60                          # minutes
 
+# ── Gmail / Ash Scanner ───────────────────────────────────────────────────────
+GMAIL_TOKEN  = "gmail_token.json"
+GMAIL_CREDS  = "gmail_credentials.json"
+GMAIL_SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
+
 # ── Settings Sections ────────────────────────────────────────────────────────
 SETTINGS_SECTIONS = {"company", "notifications", "billing", "jobs", "dashboard", "followup", "lead_nurture"}
 

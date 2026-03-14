@@ -1,0 +1,24 @@
+[
+  {
+    "inbox_id": "f26486df-cb13-45a5-813b-d80b589eb5f0",
+    "email_message_id": "<CA+Ofryag=vCX=TQ8B3p=Fq-2hpvJ0=giMBZnqOas3+LW2wWuaQ@mail.gmail.com>",
+    "received_at": "2026-03-14T04:15:48.130690+00:00",
+    "subject": "Invoice from Pacific Supply Co \u2014 $1,250.00",
+    "vendor_name": "Nick Broyzer",
+    "vendor_email": "Nick Broyzer <broyzer@gmail.com>",
+    "invoice_ref": "INV-2024-089",
+    "date": "2026-03-27",
+    "amount": 2026.0,
+    "category": "Equipment",
+    "job_id": "",
+    "job_number": "",
+    "client_name": "",
+    "description": "Invoice from Pacific Supply Co \u2014 $1,250.00",
+    "parsed_text": "Hi, Please find attached invoice #INV-2024-089 for warehouse shelving\r\nmaterials delivered on March 10. Supplier: Pacific Supply Co Amount Due:\r\n$1,250.00 Due Date: March 27, 2026 Let me know if you have any questions.\r\nThanks\r\n\nCCH2O CLEANING & SANITIZATION PROCEDURES\nPost-Harvest Under Current\u00ae System CIP (Clean In Place) Sanitization SOP\nThe CIP process is the most effective means of sanitizing the Under Current System. Sanitization utilizing an aqueous cleaning solution allows for\nthorough internal cleaning within plumbing, while reducing labor and necessary down time. By utilizing a CIP strategy, the Under Current does not require\nfull disassembly during the sanitization process.\nRecommended Products\n(cid:129) BioSafe SaniDate 5.0 is a Hazardous Material --- most cost effective for commercial applications.\n-OR-\n(cid:129) BioSafe ZeroTol 2.0 is a Hazardous Material --- appropriate for commercial applications.\n-OR-\n(cid:129) BioSafe ZeroTol HC is a Non-Hazardous Material --- appropriate for residential applications.\n(cid:129) BioSafe GreenClean Acid Cleaner (OPTIONAL --- for aggressive internal cleaning) is a Hazardous Material - recommended for commercial applications only.\n(cid:129) For systems that have been exposed to more severe conditions, with elevated build up, a more intensive cleaning practice may be necessary.\nIn this instance, the use of Biosafe GreenClean Acid Cleaner is recommended.\n(cid:129) See additional process sheet at the end of this SOP for reference.\n(cid:129) **Requires the handling of Hazardous Materials**\nRecommended Equipment\n(cid:129) Personal Protective Equipment (PPE)\n(cid:129) Always use the appropriate PPE, for detailed recommendations, consult the BioSafe website @biosafesystems.com\n(cid:129) Ie. Chemical resistant gloves, eye protection, etc.\n(cid:129) Sponge and Towel (non-abrasive)\n(cid:129) Scratching plastic surfaces increases the potential for microbial associated issues to develop. Do not use abrasive cleaning pads or cleane",
+    "has_pdf": true,
+    "status": "pending_review",
+    "reviewed_by": null,
+    "cost_id": null,
+    "skipped": false
+  }
+]

@@ -4,6 +4,7 @@ Routes package for Ash (Pacific Construction Assistant).
 Each module defines a Flask Blueprint. Register them all via register_blueprints().
 """
 
+from routes.ash import ash_bp
 from routes.chat import chat_bp
 from routes.dashboard import dashboard_bp
 from routes.invoices import invoices_bp
@@ -13,6 +14,7 @@ from routes.payroll import payroll_bp
 from routes.suppliers import suppliers_bp
 
 ALL_BLUEPRINTS = [
+    ash_bp,
     chat_bp,
     dashboard_bp,
     invoices_bp,
