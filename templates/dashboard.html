@@ -250,7 +250,7 @@
 
     /* ── Stats cards ── */
     #stats-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 10px; margin-bottom: 16px;
     }
     .stat-card {
@@ -856,7 +856,7 @@
     .cost-row:hover td { background: rgba(255,255,255,0.03); }
 
     .inv-summary-bar {
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 16px;
     }
 
     /* ── People type badges ── */
@@ -1135,7 +1135,7 @@
 
     /* ── Payroll section ── */
     .payroll-summary-bar {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 16px;
     }
     .pay-stat {
       background: var(--surface3); border-radius: 8px; padding: 12px;
@@ -2446,7 +2446,7 @@
     <div style="display:flex;gap:14px;margin-bottom:20px;">
       <div>
         <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:600;">Default Status (on creation)</label>
-        <select class="settings-input" id="job-default-status" style="width:200px;">
+        <select class="settings-input" id="job-default-status" style="max-width:200px;width:100%;">
           <option value="quoted">Quoted</option>
           <option value="active">Active</option>
           <option value="complete">Complete</option>
@@ -2454,7 +2454,7 @@
       </div>
       <div>
         <label style="display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:600;">Job Number Prefix</label>
-        <input class="settings-input" id="job-prefix" placeholder="JOB" style="width:100px;">
+        <input class="settings-input" id="job-prefix" placeholder="JOB" style="max-width:100px;width:100%;">
       </div>
     </div>
 
@@ -2464,7 +2464,7 @@
       <div style="font-size:12px;color:var(--dim);margin-bottom:12px;">Appear in the job type dropdown when creating or editing a job.</div>
       <div id="job-types-list" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;"></div>
       <div style="display:flex;gap:8px;align-items:center;">
-        <input class="settings-input" id="job-type-new" placeholder="Add new job type..." style="width:240px;" onkeydown="if(event.key==='Enter')addJobType()">
+        <input class="settings-input" id="job-type-new" placeholder="Add new job type..." style="max-width:240px;width:100%;" onkeydown="if(event.key==='Enter')addJobType()">
         <button class="settings-btn-ghost" onclick="addJobType()">+ Add</button>
       </div>
     </div>
@@ -2568,7 +2568,7 @@
     <div style="margin-bottom:22px;">
       <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px;">Default Landing Page</div>
       <div style="font-size:12px;color:var(--dim);margin-bottom:10px;">Which section opens automatically after login.</div>
-      <select id="db-default-page" class="settings-input" style="width:200px;padding:8px 10px;">
+      <select id="db-default-page" class="settings-input" style="max-width:200px;width:100%;padding:8px 10px;">
         <option value="leads">Leads</option>
         <option value="appointments">Appointments</option>
         <option value="jobs">Jobs</option>
@@ -2647,7 +2647,7 @@
     <div style="display:flex;gap:32px;margin-bottom:22px;flex-wrap:wrap;">
       <div>
         <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Rows Per Page</div>
-        <select id="db-rows-per-page" class="settings-input" style="width:130px;padding:8px 10px;">
+        <select id="db-rows-per-page" class="settings-input" style="max-width:130px;width:100%;padding:8px 10px;">
           <option value="10">10 rows</option>
           <option value="25">25 rows</option>
           <option value="50">50 rows</option>
@@ -2656,7 +2656,7 @@
       </div>
       <div>
         <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px;">Auto-Refresh Leads</div>
-        <select id="db-auto-refresh" class="settings-input" style="width:160px;padding:8px 10px;">
+        <select id="db-auto-refresh" class="settings-input" style="max-width:160px;width:100%;padding:8px 10px;">
           <option value="0">Off</option>
           <option value="30">Every 30 seconds</option>
           <option value="60">Every minute</option>
@@ -2746,7 +2746,7 @@
 <div id="settings-data" style="display:none;">
   <div class="settings-section">
     <div class="settings-section-title">Data Summary</div>
-    <div id="data-summary-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px;">
+    <div id="data-summary-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));gap:12px;margin-bottom:28px;">
       <div class="stat-card" style="padding:14px;text-align:center;">
         <div style="font-size:22px;font-weight:800;color:var(--orange);" id="ds-leads">&#x2014;</div>
         <div style="font-size: 13px;color:var(--dim);margin-top:4px;">Leads</div>
