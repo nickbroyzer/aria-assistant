@@ -3495,7 +3495,7 @@
     if (ni) ni.classList.add('active');
     if (page === 'settings') document.getElementById('nav-settings').classList.add('active');
 
-    const titles = {home:'Mission Control',leads:'Leads',appointments:'Appointments',jobs:'Jobs',invoices:'Invoices',people:'Staff & Subs',settings:'Admin Settings',jobcosts:'Job Costs'};
+    const titles = {home:'Mission Control',leads:'Leads',appointments:'Appointments',jobs:'Jobs',invoices:'Invoices',people:'Staff & Subs',settings:'Admin Settings',jobcosts:'Job Costs','ash-inbox':'Ash — Inbox','ash-activity':'Ash — Activity'};
     document.getElementById('topbar-title').textContent = titles[page] || page;
     const contentEl = document.getElementById('content');
     if (page === 'home') {
@@ -3516,6 +3516,8 @@
     if (page === 'jobcosts') { loadCosts(); loadInvoiceInbox(); }
     if (page === 'people') loadPeople();
     if (page === 'settings') loadSettingsPage();
+    if (page === 'ash-inbox')    loadAshInbox();
+    if (page === 'ash-activity') loadAshActivity();
   }
 
   // ── Mission Control ──
@@ -11002,6 +11004,24 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       <div style="font-size:13px;font-weight:500;color:#f1f5f9;margin-left:34px;">${(e.label||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
       ${detail}
     </div>`;
+  }
+
+  // ── Ash Tab ──────────────────────────────────────────────
+  let allAshItems = [];
+
+  async function loadAshInbox() {
+    try {
+      const res = await fetch('/api/ash/inbox/stats');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const stats = await res.json();
+      const el = (id) => document.getElementById(id);
+      if (el('ash-stat-total'))    el('ash-stat-total').textContent    = stats.total        ?? '—';
+      if (el('ash-stat-leads'))    el('ash-stat-leads').textContent    = stats.leads_created ?? '—';
+      if (el('ash-stat-invoices')) el('ash-stat-invoices').textContent = stats.invoices      ?? '—';
+      if (el('ash-stat-nq'))       el('ash-stat-nq').textContent       = stats.not_qualified ?? '—';
+    } catch (err) {
+      console.error('loadAshInbox stats failed:', err);
+    }
   }
 </script>
 
