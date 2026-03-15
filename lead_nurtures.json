@@ -5,7 +5,7 @@
     "lead_name": "Test Customer",
     "lead_email": "leads.pacificconstruction@gmail.com",
     "status": "active",
-    "current_step": 2,
+    "current_step": 3,
     "started_at": "2026-03-09T07:14:26.415391+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -21,8 +21,8 @@
         "step": 2,
         "label": "Value Touch",
         "scheduled_date": "2026-03-14",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-14T22:48:18.137663+00:00",
+        "status": "sent"
       },
       {
         "step": 3,
@@ -101,7 +101,7 @@
     "lead_name": "Test User",
     "lead_email": "test@test.com",
     "status": "active",
-    "current_step": 2,
+    "current_step": 3,
     "started_at": "2026-03-09T07:22:10.616526+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -117,8 +117,8 @@
         "step": 2,
         "label": "Value Touch",
         "scheduled_date": "2026-03-14",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-14T22:48:20.429798+00:00",
+        "status": "sent"
       },
       {
         "step": 3,
@@ -197,7 +197,7 @@
     "lead_name": "Marcus Webb",
     "lead_email": "mwebb@webdistribution.net",
     "status": "active",
-    "current_step": 2,
+    "current_step": 3,
     "started_at": "2026-03-09T22:08:10.770360+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -213,8 +213,8 @@
         "step": 2,
         "label": "Value Touch",
         "scheduled_date": "2026-03-14",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-14T22:48:22.816640+00:00",
+        "status": "sent"
       },
       {
         "step": 3,
