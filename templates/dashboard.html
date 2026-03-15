@@ -1520,6 +1520,25 @@
 @media (max-height: 768px)  { #page-home { zoom: 0.65; } }
 @media (max-height: 699px)  { #page-home { zoom: 0.70; } }
 @media (max-height: 599px)  { #page-home { zoom: 0.62; } }
+
+  /* ── Ash Tab ── */
+  .nav-divider { height: 1px; background: var(--border); margin: 6px 0; }
+  .nav-ash-parent { color: #a78bfa; border-left: 3px solid #7c3aed; background: rgba(124,58,237,0.08); }
+  .nav-ash-parent svg { stroke: #a78bfa; }
+  .nav-ash-sub { padding-left: 42px; font-size: 13px; border-left: 3px solid transparent; }
+  .nav-ash-sub.active { color: #a78bfa; border-left: 3px solid #7c3aed; }
+  .ash-status-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+  .ash-page-title { font-size:20px; font-weight:600; color:var(--text); }
+  .ash-gmail-status { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--dim); }
+  .ash-status-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; display:inline-block; flex-shrink:0; }
+  #ash-stats-grid, #ash-activity-stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+  .section-divider { height:1px; background:var(--border); margin-bottom:20px; }
+  .ash-two-col { display:grid; grid-template-columns:1fr 340px; gap:16px; }
+  .ash-left-col { display:flex; flex-direction:column; gap:0; }
+  .ash-right-col { background:var(--surface2); border-radius:8px; border:1px solid var(--border); min-height:200px; }
+  .ash-filter-pills { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  .ash-pill { background:var(--surface2); color:var(--dim); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; border:1px solid var(--border); cursor:pointer; }
+  .ash-pill.active { background:#7c3aed; color:#ede9fe; border-color:#7c3aed; }
 </style>
 </head>
 <body>
@@ -1591,6 +1610,18 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Suppliers</span>
       </div>
+
+    <div class="nav-divider"></div>
+    <div class="nav-item nav-ash-parent" id="nav-ash" onclick="showPage('ash-inbox')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <span>Ash</span>
+    </div>
+    <div class="nav-item nav-ash-sub" id="nav-ash-inbox" onclick="showPage('ash-inbox')">
+      <span>Inbox</span>
+    </div>
+    <div class="nav-item nav-ash-sub" id="nav-ash-activity" onclick="showPage('ash-activity')">
+      <span>Activity</span>
+    </div>
     </nav>
     <div class="nav-item-settings" id="nav-settings" onclick="showPage('settings')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -1955,6 +1986,101 @@
       </div>
 
       <!-- Invoices page -->
+
+      <!-- Ash Inbox page -->
+      <div class="page" id="page-ash-inbox">
+        <div class="ash-status-bar">
+          <div class="ash-page-title">Ash &mdash; Inbox</div>
+          <div class="ash-gmail-status">
+            <span class="ash-status-dot"></span>
+            <span id="ash-gmail-label">Gmail connected</span>
+          </div>
+        </div>
+
+        <div id="ash-stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Today's Total</div>
+            <div class="stat-value" id="ash-stat-total">—</div>
+            <div class="stat-sub">calls, emails &amp; messages</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Leads Created</div>
+            <div class="stat-value" id="ash-stat-leads">—</div>
+            <div class="stat-sub">auto-created today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Invoices</div>
+            <div class="stat-value" id="ash-stat-invoices">—</div>
+            <div class="stat-sub">flagged today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Not Qualified</div>
+            <div class="stat-value" id="ash-stat-nq">—</div>
+            <div class="stat-sub">screened out</div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="ash-two-col">
+          <div class="ash-left-col">
+            <div class="ash-filter-pills">
+              <button class="ash-pill active" data-ashfilter="all"      onclick="setAshFilter('all')">All</button>
+              <button class="ash-pill"        data-ashfilter="calls"    onclick="setAshFilter('calls')">Calls</button>
+              <button class="ash-pill"        data-ashfilter="emails"   onclick="setAshFilter('emails')">Emails</button>
+              <button class="ash-pill"        data-ashfilter="messages" onclick="setAshFilter('messages')">Messages</button>
+            </div>
+            <div id="ash-inbox-list"></div>
+          </div>
+          <div class="ash-right-col" id="ash-detail-panel">
+          </div>
+        </div>
+      </div>
+
+      <!-- Ash Activity page -->
+      <div class="page" id="page-ash-activity">
+        <div class="ash-status-bar">
+          <div class="ash-page-title">Ash &mdash; Activity</div>
+          <div class="ash-gmail-status">
+            <span class="ash-status-dot"></span>
+            <span id="ash-activity-gmail-label">Gmail connected</span>
+          </div>
+        </div>
+
+        <div id="ash-activity-stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Today's Total</div>
+            <div class="stat-value" id="ash-act-stat-total">—</div>
+            <div class="stat-sub">calls, emails &amp; messages</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Leads Created</div>
+            <div class="stat-value" id="ash-act-stat-leads">—</div>
+            <div class="stat-sub">auto-created today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Invoices</div>
+            <div class="stat-value" id="ash-act-stat-invoices">—</div>
+            <div class="stat-sub">flagged today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Not Qualified</div>
+            <div class="stat-value" id="ash-act-stat-nq">—</div>
+            <div class="stat-sub">screened out</div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="ash-two-col">
+          <div class="ash-left-col">
+            <div id="ash-activity-feed"></div>
+          </div>
+          <div class="ash-right-col">
+            <div id="ash-weekly"></div>
+          </div>
+        </div>
+      </div>
       <div class="page" id="page-invoices">
         <div class="section-header" style="margin-bottom:12px;">
           <div class="section-title">Invoices</div>
