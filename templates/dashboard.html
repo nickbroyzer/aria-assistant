@@ -9569,6 +9569,20 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     if (document.getElementById('suppliers-grid')) loadSuppliers();
   });
 
+  function applyResponsiveZoom() {
+    const DESIGN_HEIGHT = 1298;
+    const MIN_ZOOM = 0.5;
+    const h = window.innerHeight;
+    let zoom = 1;
+    if (h < DESIGN_HEIGHT) {
+      zoom = h / DESIGN_HEIGHT;
+      zoom = Math.max(zoom, MIN_ZOOM);
+    }
+    const el = document.getElementById("page-home");
+    if (el) el.style.zoom = zoom;
+  }
+  window.addEventListener("resize", applyResponsiveZoom);
+  document.addEventListener("DOMContentLoaded", applyResponsiveZoom);
   </script>
 
 <!-- Follow-up Email Preview Modal — at body level so position:fixed works from any page -->
