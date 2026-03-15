@@ -1513,13 +1513,6 @@
     .mc-card.purple:hover { box-shadow: 0 0 18px rgba(168,85,247,0.45); }
     .mc-card.orange:hover { box-shadow: 0 0 18px rgba(249,115,22,0.45); }
 
-  /* Responsive zoom */
-@media (max-height: 1199px) { #page-home { zoom: 0.95; } }
-@media (max-height: 899px)  { #page-home { zoom: 0.80; } }
-@media (max-height: 799px)  { #page-home { zoom: 0.78; } }
-@media (max-height: 768px)  { #page-home { zoom: 0.65; } }
-@media (max-height: 699px)  { #page-home { zoom: 0.70; } }
-@media (max-height: 599px)  { #page-home { zoom: 0.62; } }
 </style>
 </head>
 <body>
@@ -9569,7 +9562,23 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     if (document.getElementById('suppliers-grid')) loadSuppliers();
   });
 
-  </script>
+  function applyResponsiveZoom() {
+    const h = window.innerHeight;
+    let zoom;
+    if (h >= 1200)      zoom = 1.0;
+    else if (h >= 900)  zoom = 0.95;
+    else if (h >= 800)  zoom = 0.85;
+    else if (h >= 750)  zoom = 0.80;
+    else if (h >= 700)  zoom = 0.75;
+    else if (h >= 650)  zoom = 0.70;
+    else if (h >= 600)  zoom = 0.65;
+    else                zoom = 0.60;
+    const el = document.getElementById("page-home");
+    if (el) el.style.zoom = zoom;
+}
+window.addEventListener("resize", applyResponsiveZoom);
+document.addEventListener("DOMContentLoaded", applyResponsiveZoom);
+</script>
 
 <!-- Follow-up Email Preview Modal — at body level so position:fixed works from any page -->
 <!-- ── Schedule Event Modal ── -->
@@ -10863,8 +10872,6 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       ${detail}
     </div>`;
   }
-</script>
-
 <!-- Document Viewer Modal -->
 <div id="docViewerModal" class="modal-overlay" style="z-index:2000;" onclick="if(event.target===this)_odpCloseDocViewer()">
   <div class="modal-box" style="width:min(720px,95vw);max-height:90vh;overflow-y:auto;">
