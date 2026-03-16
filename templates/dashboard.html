@@ -11140,9 +11140,54 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       if (el('ash-act-stat-leads'))    el('ash-act-stat-leads').textContent    = leads;
       if (el('ash-act-stat-invoices')) el('ash-act-stat-invoices').textContent = invoices;
       if (el('ash-act-stat-nq'))       el('ash-act-stat-nq').textContent       = nq;
+      renderAshActivity();
     } catch (err) {
       console.error('loadAshActivity failed:', err);
     }
+  }
+
+  function renderAshActivity() {
+    const feed = document.getElementById('ash-activity-feed');
+    if (!feed) return;
+    if (allAshActivity.length === 0) {
+      feed.innerHTML = '<div style="color:#64748b;padding:20px;font-size:14px;">No activity yet.</div>';
+      return;
+    }
+    const actionMap = {
+      lead_created:   { icon: '👤', color: '#22c55e', label: 'Lead Created' },
+      invoice_logged: { icon: '📄', color: '#60a5fa', label: 'Invoice Logged' },
+      not_qualified:  { icon: '🚫', color: '#f87171', label: 'Not Qualified' },
+      forwarded:      { icon: '↗️',  color: '#fbbf24', label: 'Forwarded' },
+      spam_blocked:   { icon: '🛡️', color: '#94a3b8', label: 'Spam Blocked' }
+    };
+    const groups = {};
+    allAshActivity.forEach(item => {
+      const d = item.timestamp.split('T')[0];
+      const today = new Date().toLocaleDateString('en-CA');
+      const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-CA');
+      const label = d === today ? 'Today' : d === yesterday ? 'Yesterday' : d;
+      if (!groups[label]) groups[label] = [];
+      groups[label].push(item);
+    });
+    let html = '';
+    Object.keys(groups).forEach(label => {
+      html += `<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;padding:10px 0 6px;">${label}</div>`;
+      groups[label].forEach(item => {
+        const a = actionMap[item.action_type] || { icon: '•', color: '#94a3b8', label: item.action_type };
+        const time = new Date(item.timestamp).toLocaleTimeString('en-US', {hour:'numeric',minute:'2-digit'});
+        html += `<div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;margin-bottom:8px;border-left:3px solid ${a.color}20;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:16px;line-height:1;">${a.icon}</span>
+            <span style="font-size:13px;color:#f1f5f9;flex:1;line-height:1.4;">${item.description}</span>
+            <span style="font-size:11px;color:#64748b;white-space:nowrap;margin-left:8px;">${time}</span>
+          </div>
+          <div style="margin-top:6px;margin-left:24px;">
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:${a.color}20;color:${a.color};">${a.label}</span>
+          </div>
+        </div>`;
+      });
+    });
+    feed.innerHTML = html;
   }
 </script>
 
