@@ -226,20 +226,132 @@ ASH_INBOX_DEMO = [
 ]
 
 ASH_ACTIVITY_DEMO = [
-    {"id": "act-001", "timestamp": "2026-03-15T09:15:00-07:00", "action_type": "lead_created", "description": "Created lead — Brian Holloway, Tacoma warehouse racking inquiry. Quality score 92."},
-    {"id": "act-002", "timestamp": "2026-03-15T08:42:00-07:00", "action_type": "lead_created", "description": "Created lead — Sandra Kowalski, Cascade Logistics wire decking quote request."},
-    {"id": "act-003", "timestamp": "2026-03-15T08:04:00-07:00", "action_type": "not_qualified", "description": "Call screened — residential garage shelving inquiry. Not qualified, referred out."},
-    {"id": "act-004", "timestamp": "2026-03-14T16:23:00-07:00", "action_type": "forwarded", "description": "SMS from Derek Tran forwarded to Jay — quote status follow-up for Tran Distribution."},
-    {"id": "act-005", "timestamp": "2026-03-14T14:56:00-07:00", "action_type": "lead_created", "description": "Created lead — Marcus Webb, Auburn cantilever racking. $18K budget. Quality score 95."},
-    {"id": "act-006", "timestamp": "2026-03-14T11:31:00-07:00", "action_type": "invoice_logged", "description": "Supplier email logged — PFP Freight PO-2026-041 delivery confirmation, ETA March 19."},
-    {"id": "act-007", "timestamp": "2026-03-13T15:19:00-07:00", "action_type": "lead_created", "description": "Created lead — Gina Reyes, quote 2026-Q-019 approved. Install scheduled April 7."},
-    {"id": "act-008", "timestamp": "2026-03-13T10:45:00-07:00", "action_type": "lead_created", "description": "Created lead — Tony Marchetti, mezzanine platform inquiry. Site visit offered."},
-    {"id": "act-009", "timestamp": "2026-03-13T09:05:00-07:00", "action_type": "spam_blocked", "description": "Spam call blocked — auto insurance robo-call. No action taken."},
-    {"id": "act-010", "timestamp": "2026-03-12T13:56:00-07:00", "action_type": "forwarded", "description": "Email from Kim Wholesale flagged for Jay — invoice dispute on INV-2026-010."},
-    {"id": "act-011", "timestamp": "2026-03-12T10:20:00-07:00", "action_type": "lead_created", "description": "Created lead — Pacific Northwest Cold Storage, freezer rack expansion. $42K estimate."},
-    {"id": "act-012", "timestamp": "2026-03-11T14:10:00-07:00", "action_type": "lead_created", "description": "Created lead — Apex 3PL, bulk shelving for new Kent facility. Site visit booked March 18."},
-    {"id": "act-013", "timestamp": "2026-03-10T11:30:00-07:00", "action_type": "not_qualified", "description": "Call screened — looking for moving company. Misdial, not qualified."},
-    {"id": "act-014", "timestamp": "2026-03-10T09:15:00-07:00", "action_type": "invoice_logged", "description": "Supplier invoice logged — Unarco Industries INV-U-2026-088, $6,240.00 due March 25."}
+    {
+        "id": "act-001",
+        "timestamp": "2026-03-15T09:15:00-07:00",
+        "action_type": "lead_created",
+        "description": "Created lead — Brian Holloway, Tacoma warehouse racking inquiry. Quality score 92.",
+        "sender": "Brian Holloway",
+        "quality_score": 92,
+        "type": "call"
+    },
+    {
+        "id": "act-002",
+        "timestamp": "2026-03-15T08:42:00-07:00",
+        "action_type": "lead_created",
+        "description": "Created lead — Sandra Kowalski, Cascade Logistics wire decking quote request.",
+        "sender": "Sandra Kowalski",
+        "quality_score": 87,
+        "type": "email"
+    },
+    {
+        "id": "act-003",
+        "timestamp": "2026-03-15T08:04:00-07:00",
+        "action_type": "not_qualified",
+        "description": "Call screened — residential garage shelving inquiry. Not qualified, referred out.",
+        "sender": "Unknown Caller",
+        "quality_score": 12,
+        "type": "call"
+    },
+    {
+        "id": "act-004",
+        "timestamp": "2026-03-14T16:23:00-07:00",
+        "action_type": "forwarded",
+        "description": "SMS from Derek Tran forwarded to Jay — quote status follow-up for Tran Distribution.",
+        "sender": "Derek Tran",
+        "quality_score": 55,
+        "type": "sms"
+    },
+    {
+        "id": "act-005",
+        "timestamp": "2026-03-14T14:56:00-07:00",
+        "action_type": "lead_created",
+        "description": "Created lead — Marcus Webb, Auburn cantilever racking. $18K budget. Quality score 95.",
+        "sender": "Marcus Webb",
+        "quality_score": 95,
+        "type": "call"
+    },
+    {
+        "id": "act-006",
+        "timestamp": "2026-03-14T11:31:00-07:00",
+        "action_type": "invoice_logged",
+        "description": "Supplier email logged — PFP Freight PO-2026-041 delivery confirmation, ETA March 19.",
+        "sender": "PFP Freight Systems",
+        "quality_score": 78,
+        "type": "email"
+    },
+    {
+        "id": "act-007",
+        "timestamp": "2026-03-13T15:19:00-07:00",
+        "action_type": "lead_created",
+        "description": "Created lead — Gina Reyes, quote 2026-Q-019 approved. Install scheduled April 7.",
+        "sender": "Gina Reyes",
+        "quality_score": 98,
+        "type": "call"
+    },
+    {
+        "id": "act-008",
+        "timestamp": "2026-03-13T10:45:00-07:00",
+        "action_type": "lead_created",
+        "description": "Created lead — Tony Marchetti, mezzanine platform inquiry. Site visit offered.",
+        "sender": "Tony Marchetti",
+        "quality_score": 71,
+        "type": "sms"
+    },
+    {
+        "id": "act-009",
+        "timestamp": "2026-03-13T09:05:00-07:00",
+        "action_type": "spam_blocked",
+        "description": "Spam call blocked — auto insurance robo-call. No action taken.",
+        "sender": "Auto Insurance Spam",
+        "quality_score": 2,
+        "type": "call"
+    },
+    {
+        "id": "act-010",
+        "timestamp": "2026-03-12T13:56:00-07:00",
+        "action_type": "forwarded",
+        "description": "Email from Kim Wholesale flagged for Jay — invoice dispute on INV-2026-010.",
+        "sender": "Kim Wholesale Group",
+        "quality_score": 60,
+        "type": "email"
+    },
+    {
+        "id": "act-011",
+        "timestamp": "2026-03-12T10:20:00-07:00",
+        "action_type": "lead_created",
+        "description": "Created lead — Pacific Northwest Cold Storage, freezer rack expansion. $42K estimate.",
+        "sender": "Pacific Northwest Cold Storage",
+        "quality_score": 88,
+        "type": "call"
+    },
+    {
+        "id": "act-012",
+        "timestamp": "2026-03-11T14:10:00-07:00",
+        "action_type": "lead_created",
+        "description": "Created lead — Apex 3PL, bulk shelving for new Kent facility. Site visit booked March 18.",
+        "sender": "Apex 3PL",
+        "quality_score": 82,
+        "type": "call"
+    },
+    {
+        "id": "act-013",
+        "timestamp": "2026-03-10T11:30:00-07:00",
+        "action_type": "not_qualified",
+        "description": "Call screened — looking for moving company. Misdial, not qualified.",
+        "sender": "Unknown Caller",
+        "quality_score": 5,
+        "type": "call"
+    },
+    {
+        "id": "act-014",
+        "timestamp": "2026-03-10T09:15:00-07:00",
+        "action_type": "invoice_logged",
+        "description": "Supplier invoice logged — Unarco Industries INV-U-2026-088, $6,240.00 due March 25.",
+        "sender": "Unarco Industries",
+        "quality_score": 70,
+        "type": "email"
+    }
 ]
 
 ASH_WEEKLY_DEMO = {
