@@ -1556,9 +1556,11 @@
   .ash-act-left { display:flex; flex-direction:column; }
   .ash-act-right { display:flex; flex-direction:column; }
   .ash-feed-date { font-size:11px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:0.8px; padding:8px 0 4px; }
-  .ash-feed-row { display:flex; align-items:center; gap:8px; padding:6px 8px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; margin-bottom:4px; }
+  .ash-feed-row { padding:6px 0; display:flex; align-items:center; gap:8px; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .ash-feed-row + .ash-feed-row { margin-top:0; }
   .ash-feed-name { font-size:12px; font-weight:700; color:var(--text); white-space:nowrap; }
-  .ash-feed-action { font-size:12px; color:var(--muted); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ash-feed-action { font-weight:600; font-size:12px; color:#e2e8f0; white-space:nowrap; }
+  .ash-feed-summary { font-size:12px; color:#94a3b8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:160px; }
   .ash-feed-qs { font-size:10px; font-weight:700; padding:1px 6px; border-radius:8px; white-space:nowrap; flex-shrink:0; }
   .ash-feed-time { font-size:11px; color:var(--dim); white-space:nowrap; flex-shrink:0; }
   .ash-weekly-table { width:100%; border-collapse:collapse; font-size:12px; }
@@ -1567,6 +1569,10 @@
   .ash-weekly-table td { padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--muted); }
   .ash-weekly-table td:not(:first-child) { text-align:center; font-weight:700; }
   .ash-weekly-table tr:last-child td { border-bottom:none; }
+  .ash-week-table { width:100%; border-collapse:collapse; }
+  .ash-week-table th, .ash-week-table td { padding:6px 8px; font-size:12px; }
+  .ash-week-table th:first-child, .ash-week-table td:first-child { width:52%; }
+  .ash-week-table th:not(:first-child), .ash-week-table td:not(:first-child) { width:24%; text-align:right; }
 </style>
 </head>
 <body>
@@ -11178,6 +11184,18 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   let allAshActivity = [];
 
+  function parseAshDescription(raw) {
+    if (!raw) return { action: '', summary: '' };
+    const parts = raw.split(/\s*[—–-]\s*/);
+    if (parts.length >= 2) {
+      const action = parts[0].trim();
+      const fullSummary = parts[1].trim();
+      const summary = fullSummary.split(/[,.]/)[0].trim();
+      return { action, summary };
+    }
+    return { action: raw.substring(0, 40), summary: '' };
+  }
+
   async function loadAshActivity() {
     const el = id => document.getElementById(id);
     try {
@@ -11211,10 +11229,12 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         const time = new Date(item.timestamp).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
         const chClass = item.action_type === 'invoice_logged' ? 'ch-e' : item.action_type === 'lead_created' ? 'ch-c' : 'ch-s';
         const ch = item.action_type === 'invoice_logged' ? 'E' : item.action_type === 'lead_created' ? 'C' : 'S';
+        const { action, summary } = parseAshDescription(item.description);
         html += '<div class="ash-feed-row">' +
           '<div class="ash-ch-icon ' + chClass + '">' + ch + '</div>' +
           '<div class="ash-feed-name">' + a + '</div>' +
-          '<div class="ash-feed-action">' + item.description + '</div>' +
+          '<span class="ash-feed-action">' + action + '</span>' +
+          '<span class="ash-feed-summary">' + summary + '</span>' +
           '<div class="ash-feed-time">' + time + '</div>' +
           '</div>';
       });
