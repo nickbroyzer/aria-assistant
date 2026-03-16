@@ -11122,6 +11122,28 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       label.style.display = allHidden ? 'none' : '';
     });
   }
+
+  let allAshActivity = [];
+
+  async function loadAshActivity() {
+    try {
+      const res = await fetch('/api/ash/activity');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      allAshActivity = data.activity || [];
+      const total    = allAshActivity.length;
+      const leads    = allAshActivity.filter(a => a.action_type === 'lead_created').length;
+      const invoices = allAshActivity.filter(a => a.action_type === 'invoice_logged').length;
+      const nq       = allAshActivity.filter(a => a.action_type === 'not_qualified').length;
+      const el = (id) => document.getElementById(id);
+      if (el('ash-act-stat-total'))    el('ash-act-stat-total').textContent    = total;
+      if (el('ash-act-stat-leads'))    el('ash-act-stat-leads').textContent    = leads;
+      if (el('ash-act-stat-invoices')) el('ash-act-stat-invoices').textContent = invoices;
+      if (el('ash-act-stat-nq'))       el('ash-act-stat-nq').textContent       = nq;
+    } catch (err) {
+      console.error('loadAshActivity failed:', err);
+    }
+  }
 </script>
 
 <!-- Document Viewer Modal -->
