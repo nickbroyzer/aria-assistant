@@ -27,19 +27,27 @@ created: 2026-03-16
 
 ## Spacing Scale
 
-Declared values (must be multiples of 4):
+Declared values (must be multiples of 4) — these are the values this phase introduces or modifies:
 
 | Token | Value | Usage in this phase |
 |-------|-------|---------------------|
-| xs | 4px | Gap between feed row elements (mockup: `gap:4px`) |
-| sm | 8px | Date group header top padding, row inline padding |
+| xs | 4px | Gap between feed row elements (mockup: `gap:4px`); date header bottom padding |
+| sm | 8px | Date group header top padding |
 | md | 16px | Not used directly in feed rows |
-| lg | 24px | Icon circle size (28px — see exception below) |
+| lg | 28px | Icon circle width/height (`.ash-ch-icon`, existing — retained for visual weight) |
 
-Exceptions:
-- Channel icon circle: 28px width/height (existing `.ash-ch-icon`, retained for visual weight)
-- Feed row vertical padding: 6px (existing `.ash-feed-row`, consistent with current rows)
-- Date header bottom padding: 4px (existing `.ash-feed-date`)
+Exceptions: none. All active spacing values are multiples of 4.
+
+### Inherited Values (not modified)
+
+The following values exist in pre-existing CSS that this phase does NOT introduce or modify. They are documented here for implementer awareness but are outside this phase's spacing contract. Do not alter them.
+
+| Value | Source | Element |
+|-------|--------|---------|
+| 6px | Existing `.ash-feed-row` padding-block | Row vertical padding |
+| 5px | Existing `.ash-feed-row` padding-inline | Row inline padding |
+| 6px | Existing `.ash-feed-qs` padding-inline | QS pill horizontal padding |
+| 1px | Existing `.ash-feed-qs` padding-block | QS pill vertical padding |
 
 ---
 
@@ -57,6 +65,7 @@ Notes:
 - Feed name and action summary share 12px size but differ in weight (700 vs 400). This creates the name/action visual hierarchy within a single row.
 - Action summary uses 400 weight with `color: var(--muted)` (rgba(255,255,255,0.4)) for the dimmed look specified in CONTEXT.md ("uniform styling for the whole action column").
 - Date group header uses uppercase + 0.8px letter-spacing (existing style, preserved).
+- Sizes 10/11/12px are tight 1px steps; this is intentional for the compact feed row layout where each element needs distinct but subtle size differentiation.
 
 ---
 
@@ -112,6 +121,8 @@ If `quality_score` is null/undefined (e.g., spam_blocked items): hide the pill e
 
 Layout: `display:flex; align-items:center; gap:4px; padding:6px 5px;`
 
+Note: The `padding:6px 5px` values are inherited from existing CSS and are not modified in this phase. See "Inherited Values (not modified)" in the Spacing Scale section.
+
 | Slot | Element | Flex | Min/Max Width | Overflow |
 |------|---------|------|---------------|----------|
 | 1 | Channel icon (`.ash-ch-icon`) | `flex-shrink:0` | 28px fixed | n/a |
@@ -125,7 +136,7 @@ Layout: `display:flex; align-items:center; gap:4px; padding:6px 5px;`
 ```
 font-size: 10px
 font-weight: 700
-padding: 1px 6px
+padding: 1px 6px          /* inherited, not modified — see Spacing Scale */
 border-radius: 8px
 border: 1px solid {tier-color}
 color: {tier-color}
