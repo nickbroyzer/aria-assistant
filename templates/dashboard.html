@@ -11187,9 +11187,18 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   let allAshActivity = [];
 
-  function extractActionContext(description, sender) {
+  function extractActionContext(description, sender, actionType) {
     if (!description) return '';
     let ctx = description;
+    // Strip action-type prefix from description (e.g. "Created lead", "Call screened", "Spam call blocked")
+    const prefixes = {
+      lead_created: /^Created lead\b/i,
+      invoice_logged: /^Supplier (?:email|invoice) logged\b/i,
+      not_qualified: /^Call screened\b/i,
+      forwarded: /^(?:SMS|Email|Call) from .+? forwarded to \w+/i,
+      spam_blocked: /^Spam (?:call|email) blocked\b/i
+    };
+    if (actionType && prefixes[actionType]) ctx = ctx.replace(prefixes[actionType], '');
     // Strip sender name from description
     if (sender) ctx = ctx.replace(new RegExp(sender.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[,.]?\\s*', 'gi'), '');
     // Strip "Quality score NN" or "Quality score NN." from description
@@ -11239,7 +11248,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
         // Action summary: "Label — context"
         const label = actionLabels[item.action_type] || item.action_type;
-        const context = extractActionContext(item.description, item.sender);
+        const context = extractActionContext(item.description, item.sender, item.action_type);
         const actionText = context ? label + ' — ' + context : label;
 
         // QS pill (hidden if no quality_score)
