@@ -74,7 +74,7 @@ Notes:
 | Role | Value | Usage |
 |------|-------|-------|
 | Dominant (60%) | Inherited from page (`#0e0e0e` body bg) | Feed container background |
-| Secondary (30%) | `#181818` | Feed row background on hover only |
+| Secondary (30%) | `#181818` | Feed row default background |
 | Accent (10%) | Not used | No accent elements in feed rows |
 | Destructive | Not used | No destructive actions in this phase |
 
@@ -87,7 +87,7 @@ Notes:
 | Timestamp text | `var(--dim)` / `rgba(255,255,255,0.2)` | Existing `.ash-feed-time` |
 | Date header text | `var(--dim)` / `rgba(255,255,255,0.2)` | Existing `.ash-feed-date` |
 | Row border bottom | `rgba(255,255,255,0.05)` | Existing `.ash-feed-row` |
-| Row hover background | `rgba(255,255,255,0.03)` | CONTEXT.md: "subtle hover highlight" |
+| Row hover background | `rgba(255,255,255,0.05)` | CONTEXT.md: "subtle hover highlight" |
 
 ### Channel Icon Colors
 
@@ -161,8 +161,11 @@ Format: "TODAY — MAR 16" / "YESTERDAY — MAR 15" / "MAR 14"
 ### Hover State
 
 ```css
+.ash-feed-row {
+  background: #181818;
+}
 .ash-feed-row:hover {
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.05);
 }
 ```
 
@@ -208,8 +211,8 @@ The context portion is derived by stripping the sender name and any "Quality sco
 
 | State | Behavior |
 |-------|----------|
-| Default row | Transparent background, all columns visible |
-| Row hover | `rgba(255,255,255,0.03)` background, no cursor change |
+| Default row | `#181818` background, all columns visible |
+| Row hover | `rgba(255,255,255,0.05)` background, no cursor change |
 | No QS pill | Pill element not rendered; remaining columns fill space naturally |
 | Empty feed | Single line "No activity yet." message |
 | API error | Silent console error (no UI change) |
