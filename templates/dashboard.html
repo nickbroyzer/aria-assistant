@@ -1552,6 +1552,21 @@
   .ash-filter-pills { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
   .ash-pill { background:var(--surface2); color:var(--dim); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; border:1px solid var(--border); cursor:pointer; }
   .ash-pill.active { background:#7c3aed; color:#ede9fe; border-color:#7c3aed; }
+  .ash-activity-two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+  .ash-act-left { display:flex; flex-direction:column; }
+  .ash-act-right { display:flex; flex-direction:column; }
+  .ash-feed-date { font-size:11px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:0.8px; padding:8px 0 4px; }
+  .ash-feed-row { display:flex; align-items:center; gap:8px; padding:6px 8px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; margin-bottom:4px; }
+  .ash-feed-name { font-size:12px; font-weight:700; color:var(--text); white-space:nowrap; }
+  .ash-feed-action { font-size:12px; color:var(--muted); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ash-feed-qs { font-size:10px; font-weight:700; padding:1px 6px; border-radius:8px; white-space:nowrap; flex-shrink:0; }
+  .ash-feed-time { font-size:11px; color:var(--dim); white-space:nowrap; flex-shrink:0; }
+  .ash-weekly-table { width:100%; border-collapse:collapse; font-size:12px; }
+  .ash-weekly-table th { font-size:11px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:0.8px; padding:4px 8px; border-bottom:1px solid var(--border); text-align:left; }
+  .ash-weekly-table th:not(:first-child) { text-align:center; }
+  .ash-weekly-table td { padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--muted); }
+  .ash-weekly-table td:not(:first-child) { text-align:center; font-weight:700; }
+  .ash-weekly-table tr:last-child td { border-bottom:none; }
 </style>
 </head>
 <body>
@@ -2078,37 +2093,40 @@
             <span id="ash-activity-gmail-label">Gmail connected</span>
           </div>
         </div>
-
         <div id="ash-activity-stats-grid">
           <div class="stat-card">
-            <div class="stat-label">Today's Total</div>
-            <div class="stat-value" id="ash-act-stat-total">—</div>
-            <div class="stat-sub">calls, emails &amp; messages</div>
-          </div>
-          <div class="stat-card">
             <div class="stat-label">Leads Created</div>
-            <div class="stat-value" id="ash-act-stat-leads">—</div>
+            <div class="stat-value" id="ash-act-stat-leads" style="color:#22c55e">—</div>
             <div class="stat-sub">auto-created today</div>
           </div>
           <div class="stat-card">
             <div class="stat-label">Invoices</div>
-            <div class="stat-value" id="ash-act-stat-invoices">—</div>
+            <div class="stat-value" id="ash-act-stat-invoices" style="color:#60a5fa">—</div>
             <div class="stat-sub">flagged today</div>
           </div>
           <div class="stat-card">
+            <div class="stat-label">Calls Handled</div>
+            <div class="stat-value" id="ash-act-stat-calls" style="color:#e8650a">—</div>
+            <div class="stat-sub">by Ash today</div>
+          </div>
+          <div class="stat-card">
             <div class="stat-label">Not Qualified</div>
-            <div class="stat-value" id="ash-act-stat-nq">—</div>
+            <div class="stat-value" id="ash-act-stat-nq" style="color:rgba(255,255,255,0.4)">—</div>
             <div class="stat-sub">screened out</div>
           </div>
         </div>
-
         <div class="section-divider"></div>
-
-        <div class="ash-two-col">
-          <div class="ash-left-col">
+        <div class="ash-activity-two-col">
+          <div class="ash-act-left">
+            <div class="ash-col-header">
+              <div class="ash-col-title">Activity Feed</div>
+            </div>
             <div id="ash-activity-feed"></div>
           </div>
-          <div class="ash-right-col">
+          <div class="ash-act-right">
+            <div class="ash-col-header">
+              <div class="ash-col-title">This Week vs Last Week</div>
+            </div>
             <div id="ash-weekly"></div>
           </div>
         </div>
@@ -11161,111 +11179,71 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
   let allAshActivity = [];
 
   async function loadAshActivity() {
+    const el = id => document.getElementById(id);
     try {
       const res = await fetch('/api/ash/activity');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       allAshActivity = data.activity || [];
-      const total    = allAshActivity.length;
       const leads    = allAshActivity.filter(a => a.action_type === 'lead_created').length;
       const invoices = allAshActivity.filter(a => a.action_type === 'invoice_logged').length;
       const nq       = allAshActivity.filter(a => a.action_type === 'not_qualified').length;
-      const el = (id) => document.getElementById(id);
-      if (el('ash-act-stat-total'))    el('ash-act-stat-total').textContent    = total;
+      const calls    = allAshActivity.filter(a => a.action_type === 'forwarded' || a.description.toLowerCase().includes('call')).length;
       if (el('ash-act-stat-leads'))    el('ash-act-stat-leads').textContent    = leads;
       if (el('ash-act-stat-invoices')) el('ash-act-stat-invoices').textContent = invoices;
+      if (el('ash-act-stat-calls'))    el('ash-act-stat-calls').textContent    = calls;
       if (el('ash-act-stat-nq'))       el('ash-act-stat-nq').textContent       = nq;
-      renderAshActivity();
-      renderAshWeekly();
-    } catch (err) {
-      console.error('loadAshActivity failed:', err);
-    }
-  }
 
-  function renderAshActivity() {
-    const feed = document.getElementById('ash-activity-feed');
-    if (!feed) return;
-    if (allAshActivity.length === 0) {
-      feed.innerHTML = '<div style="color:#64748b;padding:20px;font-size:14px;">No activity yet.</div>';
-      return;
-    }
-    const actionMap = {
-      lead_created:   { icon: '👤', color: '#22c55e', label: 'Lead Created' },
-      invoice_logged: { icon: '📄', color: '#60a5fa', label: 'Invoice Logged' },
-      not_qualified:  { icon: '🚫', color: '#f87171', label: 'Not Qualified' },
-      forwarded:      { icon: '↗️',  color: '#fbbf24', label: 'Forwarded' },
-      spam_blocked:   { icon: '🛡️', color: '#94a3b8', label: 'Spam Blocked' }
-    };
-    const groups = {};
-    allAshActivity.forEach(item => {
-      const d = item.timestamp.split('T')[0];
-      const today = new Date().toLocaleDateString('en-CA');
-      const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-CA');
-      const label = d === today ? 'Today' : d === yesterday ? 'Yesterday' : d;
-      if (!groups[label]) groups[label] = [];
-      groups[label].push(item);
-    });
-    let html = '';
-    Object.keys(groups).forEach(label => {
-      html += `<div class="ash-date-header">${label}</div>`;
-      groups[label].forEach(item => {
-        const a = actionMap[item.action_type] || { icon: '•', color: '#94a3b8', label: item.action_type };
-        const time = new Date(item.timestamp).toLocaleTimeString('en-US', {hour:'numeric',minute:'2-digit'});
-        html += `<div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;margin-bottom:8px;border-left:3px solid ${a.color}20;">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:16px;line-height:1;">${a.icon}</span>
-            <span style="font-size:13px;color:#f1f5f9;flex:1;line-height:1.4;">${item.description}</span>
-            <span style="font-size:11px;color:#64748b;white-space:nowrap;margin-left:8px;">${time}</span>
-          </div>
-          <div style="margin-top:6px;margin-left:24px;">
-            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:${a.color}20;color:${a.color};">${a.label}</span>
-          </div>
-        </div>`;
+      // Render feed
+      const feed = document.getElementById('ash-activity-feed');
+      if (!feed) return;
+      if (allAshActivity.length === 0) { feed.innerHTML = '<div style="color:#64748b;padding:20px;font-size:14px;">No activity yet.</div>'; return; }
+      const actionLabels = { lead_created:'Lead created', invoice_logged:'Invoice logged', not_qualified:'Not qualified', forwarded:'Forwarded', spam_blocked:'Spam blocked' };
+      let html = '';
+      let lastDate = '';
+      allAshActivity.forEach(item => {
+        const d = item.timestamp.split('T')[0];
+        const today = new Date().toLocaleDateString('en-CA');
+        const yesterday = new Date(Date.now()-86400000).toLocaleDateString('en-CA');
+        const dateLabel = d === today ? 'Today — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d === yesterday ? 'Yesterday — ' + new Date(Date.now()-86400000).toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d;
+        if (dateLabel !== lastDate) { lastDate = dateLabel; html += '<div class="ash-feed-date">' + dateLabel + '</div>'; }
+        const a = actionLabels[item.action_type] || item.action_type;
+        const time = new Date(item.timestamp).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+        const chClass = item.action_type === 'invoice_logged' ? 'ch-e' : item.action_type === 'lead_created' ? 'ch-c' : 'ch-s';
+        const ch = item.action_type === 'invoice_logged' ? 'E' : item.action_type === 'lead_created' ? 'C' : 'S';
+        html += '<div class="ash-feed-row">' +
+          '<div class="ash-ch-icon ' + chClass + '">' + ch + '</div>' +
+          '<div class="ash-feed-name">' + a + '</div>' +
+          '<div class="ash-feed-action">' + item.description + '</div>' +
+          '<div class="ash-feed-time">' + time + '</div>' +
+          '</div>';
       });
-    });
-    feed.innerHTML = html;
-  }
+      feed.innerHTML = html;
+    } catch(e) { console.error('loadAshActivity failed', e); }
 
-  async function renderAshWeekly() {
-    const el = document.getElementById('ash-weekly');
-    if (!el) return;
     try {
       const res = await fetch('/api/ash/weekly');
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      const tw = data.this_week || {};
-      const lw = data.last_week || {};
-      const rows = [
-        { label: 'Calls Handled',  tw: tw.calls,         lw: lw.calls },
-        { label: 'Leads Created',  tw: tw.leads,         lw: lw.leads },
-        { label: 'Messages',       tw: tw.messages,      lw: lw.messages },
-        { label: 'Invoices',       tw: tw.invoices,      lw: lw.invoices },
-        { label: 'Not Qualified',  tw: tw.not_qualified, lw: lw.not_qualified }
-      ];
-      let html = `<table style="width:100%;border-collapse:collapse;font-size:13px;">
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:8px 12px;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,0.08);">Metric</th>
-            <th style="text-align:center;padding:8px 12px;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,0.08);">This Week</th>
-            <th style="text-align:center;padding:8px 12px;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,0.08);">Last Week</th>
-          </tr>
-        </thead><tbody>`;
-      rows.forEach(row => {
-        const diff = (row.tw ?? 0) - (row.lw ?? 0);
-        const arrow = diff > 0 ? '<span style="color:#22c55e;">▲</span>' : diff < 0 ? '<span style="color:#f87171;">▼</span>' : '';
-        const twColor = diff > 0 ? '#22c55e' : diff < 0 ? '#f87171' : '#f1f5f9';
-        html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-          <td style="padding:10px 12px;color:#cbd5e1;">${row.label}</td>
-          <td style="padding:10px 12px;text-align:center;font-weight:600;color:${twColor};">${row.tw ?? '—'} ${arrow}</td>
-          <td style="padding:10px 12px;text-align:center;color:#64748b;">${row.lw ?? '—'}</td>
-        </tr>`;
-      });
-      html += '</tbody></table>';
-      el.innerHTML = html;
-    } catch (err) {
-      console.error('renderAshWeekly failed:', err);
-      el.innerHTML = '<div style="color:#f87171;padding:20px;font-size:14px;">Failed to load weekly data.</div>';
-    }
+      if (res.ok) {
+        const data = await res.json();
+        const tw = data.this_week || {};
+        const lw = data.last_week || {};
+        const rows = [
+          { label:'Leads Created',    tw:tw.leads,         lw:lw.leads,         color:'#22c55e' },
+          { label:'Calls Handled',    tw:tw.calls,         lw:lw.calls,         color:'#e8650a' },
+          { label:'Invoices Flagged', tw:tw.invoices,      lw:lw.invoices,      color:'#60a5fa' },
+          { label:'Messages',         tw:tw.messages,      lw:lw.messages,      color:'#e8650a' },
+          { label:'Not Qualified',    tw:tw.not_qualified, lw:lw.not_qualified, color:'#ef4444' }
+        ];
+        let html = '<table class="ash-weekly-table"><thead><tr><th>Metric</th><th>This Week</th><th>Last Week</th></tr></thead><tbody>';
+        rows.forEach(row => {
+          const up = row.tw > row.lw;
+          const arr = up ? ' <span style="color:#22c55e">↑</span>' : '';
+          html += '<tr><td>' + row.label + '</td><td style="color:' + row.color + '">' + (row.tw ?? '—') + arr + '</td><td style="color:rgba(255,255,255,0.4)">' + (row.lw ?? '—') + '</td></tr>';
+        });
+        html += '</tbody></table>';
+        document.getElementById('ash-weekly').innerHTML = html;
+      }
+    } catch(e) { console.error('weekly failed', e); }
   }
 </script>
 
