@@ -11187,16 +11187,16 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   let allAshActivity = [];
 
-  function parseAshDescription(raw) {
-    if (!raw) return { action: '', summary: '' };
-    const parts = raw.split(/\s*[—–-]\s*/);
-    if (parts.length >= 2) {
-      const action = parts[0].trim();
-      const fullSummary = parts[1].trim();
-      const summary = fullSummary.split(/[,.]/)[0].trim();
-      return { action, summary };
-    }
-    return { action: raw.substring(0, 40), summary: '' };
+  function extractActionContext(description, sender) {
+    if (!description) return '';
+    let ctx = description;
+    // Strip sender name from description
+    if (sender) ctx = ctx.replace(new RegExp(sender.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[,.]?\\s*', 'gi'), '');
+    // Strip "Quality score NN" or "Quality score NN." from description
+    ctx = ctx.replace(/Quality score \d+\.?\s*/gi, '');
+    // Strip leading/trailing punctuation and whitespace
+    ctx = ctx.replace(/^[\s,.\-—–]+|[\s,.\-—–]+$/g, '').trim();
+    return ctx;
   }
 
   async function loadAshActivity() {
@@ -11223,21 +11223,41 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       let html = '';
       let lastDate = '';
       allAshActivity.forEach(item => {
+        // Date grouping (keep existing logic)
         const d = item.timestamp.split('T')[0];
         const today = new Date().toLocaleDateString('en-CA');
         const yesterday = new Date(Date.now()-86400000).toLocaleDateString('en-CA');
         const dateLabel = d === today ? 'Today — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d === yesterday ? 'Yesterday — ' + new Date(Date.now()-86400000).toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d;
         if (dateLabel !== lastDate) { lastDate = dateLabel; html += '<div class="ash-feed-date">' + dateLabel + '</div>'; }
-        const a = actionLabels[item.action_type] || item.action_type;
+
+        // Icon from type field (not action_type)
+        const iconMap = { call: { cls: 'ch-c', letter: 'C' }, email: { cls: 'ch-e', letter: 'E' }, sms: { cls: 'ch-s', letter: 'S' } };
+        const icon = iconMap[item.type] || { cls: 'ch-e', letter: 'E' };
+
+        // Name from sender field
+        const name = item.sender || '';
+
+        // Action summary: "Label — context"
+        const label = actionLabels[item.action_type] || item.action_type;
+        const context = extractActionContext(item.description, item.sender);
+        const actionText = context ? label + ' — ' + context : label;
+
+        // QS pill (hidden if no quality_score)
+        let qsPill = '';
+        if (item.quality_score != null) {
+          const tier = item.quality_score >= 80 ? 'qs-green' : item.quality_score >= 50 ? 'qs-orange' : 'qs-red';
+          qsPill = '<span class="ash-feed-qs ' + tier + '">' + item.quality_score + '%</span>';
+        }
+
+        // Timestamp
         const time = new Date(item.timestamp).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-        const chClass = item.action_type === 'invoice_logged' ? 'ch-e' : item.action_type === 'lead_created' ? 'ch-c' : 'ch-s';
-        const ch = item.action_type === 'invoice_logged' ? 'E' : item.action_type === 'lead_created' ? 'C' : 'S';
-        const { action, summary } = parseAshDescription(item.description);
+
+        // Build row: icon, name, action, qs pill, time
         html += '<div class="ash-feed-row">' +
-          '<div class="ash-ch-icon ' + chClass + '">' + ch + '</div>' +
-          '<div class="ash-feed-name">' + a + '</div>' +
-          '<span class="ash-feed-action">' + action + '</span>' +
-          '<span class="ash-feed-summary">' + summary + '</span>' +
+          '<div class="ash-ch-icon ' + icon.cls + '">' + icon.letter + '</div>' +
+          '<div class="ash-feed-name">' + name + '</div>' +
+          '<span class="ash-feed-action">' + actionText + '</span>' +
+          qsPill +
           '<div class="ash-feed-time">' + time + '</div>' +
           '</div>';
       });
