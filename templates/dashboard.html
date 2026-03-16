@@ -11094,6 +11094,34 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     });
     list.innerHTML = html;
   }
+
+  let currentAshFilter = 'all';
+
+  function setAshFilter(f) {
+    currentAshFilter = f;
+    document.querySelectorAll('.ash-pill').forEach(p => p.classList.toggle('active', p.dataset.ashfilter === f));
+    const typeMap = { calls: 'call', emails: 'email', messages: 'sms' };
+    const cards = document.querySelectorAll('.ash-inbox-card');
+    cards.forEach(card => {
+      if (f === 'all') {
+        card.style.display = '';
+      } else {
+        card.style.display = card.dataset.ashfilter === (typeMap[f] || f) ? '' : 'none';
+      }
+    });
+    const labels = document.querySelectorAll('[style*="text-transform:uppercase"]');
+    labels.forEach(label => {
+      const next = label.nextElementSibling;
+      if (!next) return;
+      let sibling = next;
+      let allHidden = true;
+      while (sibling && sibling.classList.contains('ash-inbox-card')) {
+        if (sibling.style.display !== 'none') { allHidden = false; break; }
+        sibling = sibling.nextElementSibling;
+      }
+      label.style.display = allHidden ? 'none' : '';
+    });
+  }
 </script>
 
 <!-- Document Viewer Modal -->
