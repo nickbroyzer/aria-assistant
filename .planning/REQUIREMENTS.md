@@ -7,10 +7,10 @@
 
 ### API Data
 
-- [ ] **DATA-01**: Activity items include `sender` field (contact/company name)
-- [ ] **DATA-02**: Activity items include `quality_score` field (integer 0-100)
-- [ ] **DATA-03**: Activity items include `type` field (call/email/sms)
-- [ ] **DATA-04**: Duplicate `ASH_ACTIVITY_DEMO` definition cleaned up
+- [x] **DATA-01**: Activity items include `sender` field (contact/company name)
+- [x] **DATA-02**: Activity items include `quality_score` field (integer 0-100)
+- [x] **DATA-03**: Activity items include `type` field (call/email/sms)
+- [x] **DATA-04**: Duplicate `ASH_ACTIVITY_DEMO` definition cleaned up
 
 ### Feed Renderer
 
@@ -50,10 +50,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | Phase 1 | Pending |
-| DATA-02 | Phase 1 | Pending |
-| DATA-03 | Phase 1 | Pending |
-| DATA-04 | Phase 1 | Pending |
+| DATA-01 | Phase 1 | Complete |
+| DATA-02 | Phase 1 | Complete |
+| DATA-03 | Phase 1 | Complete |
+| DATA-04 | Phase 1 | Complete |
 | FEED-01 | Phase 2 | Pending |
 | FEED-02 | Phase 2 | Pending |
 | FEED-03 | Phase 2 | Pending |
