@@ -117,7 +117,7 @@ If `quality_score` is null/undefined (e.g., spam_blocked items): hide the pill e
 
 ### Feed Row (`.ash-feed-row`)
 
-Layout: `display:flex; align-items:center; gap:4px; padding:6px 5px;`
+Layout: `display:flex; align-items:center; gap:4px; padding:6px 5px; border:1px solid rgba(255,255,255,0.07); border-radius:4px;`
 
 Note: The `padding:6px 5px` values are inherited from existing CSS and are not modified in this phase. See "Inherited Values (not modified)" in the Spacing Scale section.
 
