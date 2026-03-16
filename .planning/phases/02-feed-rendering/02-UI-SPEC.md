@@ -99,17 +99,15 @@ Notes:
 
 Source: Existing CSS (line 1509-1511) and approved mockup. These are already implemented and must be retained.
 
-### Quality Score Pill Colors (outlined style)
+### Quality Score Pill Colors (subtle fill style)
 
-Per CONTEXT.md decision: transparent background, colored border + colored text (NOT solid fill).
+Each tier uses a tinted background with matching colored text — no border.
 
-| Tier | Threshold | Border + Text Color | Background |
-|------|-----------|---------------------|------------|
-| Green | score >= 80 | `#22c55e` | `transparent` |
-| Orange | score 50-79 | `#f59e0b` | `transparent` |
-| Red | score < 50 | `#ef4444` | `transparent` |
-
-Border: `1px solid` with the tier color.
+| Tier | Threshold | Text Color | Background |
+|------|-----------|------------|------------|
+| Green | score >= 80 | `#22c55e` | `rgba(34,197,94,0.15)` |
+| Orange | score 50-79 | `#f59e0b` | `rgba(245,158,11,0.15)` |
+| Red | score < 50 | `#ef4444` | `rgba(239,68,68,0.15)` |
 
 If `quality_score` is null/undefined (e.g., spam_blocked items): hide the pill entirely, do not render a placeholder.
 
@@ -138,9 +136,8 @@ font-size: 10px
 font-weight: 700
 padding: 1px 6px          /* inherited, not modified — see Spacing Scale */
 border-radius: 8px
-border: 1px solid {tier-color}
 color: {tier-color}
-background: transparent
+background: rgba({tier-rgb}, 0.15)
 white-space: nowrap
 flex-shrink: 0
 ```
