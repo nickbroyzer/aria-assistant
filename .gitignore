@@ -7,7 +7,7 @@ google_credentials.json
 user_sessions.json
 venv/
 .locks/
-config.json
+/config.json
 retell-twilio-troubleshooting-summary.md
 gmail_credentials.json
 gmail_token.json
