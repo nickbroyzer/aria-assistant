@@ -26,10 +26,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. `/api/ash/activity` response includes `sender`, `quality_score`, and `type` fields on every item
   2. Only one `ASH_ACTIVITY_DEMO` definition exists in `ash.py` (duplicate removed)
   3. Activity data shape matches the existing Inbox data shape for shared fields
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md — Enrich ASH_ACTIVITY_DEMO and remove duplicate constants block
 
 ### Phase 2: Feed Rendering
 **Goal**: Each activity row displays as one clean horizontal line with icon, name, action summary, quality score pill, and timestamp — no redundant text
