@@ -1,0 +1,77 @@
+# Requirements: Ash Activity Feed Fix
+
+**Defined:** 2026-03-16
+**Core Value:** Feed rows match the approved mockup — one clean horizontal line per activity with no redundant data
+
+## v1 Requirements
+
+### API Data
+
+- [ ] **DATA-01**: Activity items include `sender` field (contact/company name)
+- [ ] **DATA-02**: Activity items include `quality_score` field (integer 0-100)
+- [ ] **DATA-03**: Activity items include `type` field (call/email/sms)
+- [ ] **DATA-04**: Duplicate `ASH_ACTIVITY_DEMO` definition cleaned up
+
+### Feed Renderer
+
+- [ ] **FEED-01**: Each row renders as: `[icon] [Name] [action — summary] [QS pill] [time]`
+- [ ] **FEED-02**: Icon shows C/E/S based on communication channel type
+- [ ] **FEED-03**: Name column shows contact/company name (bold, white)
+- [ ] **FEED-04**: Action column shows short action summary (dimmed, truncates with ellipsis)
+- [ ] **FEED-05**: No redundant text — each piece of data appears exactly once
+
+### Quality Score Pill
+
+- [ ] **QS-01**: Quality score displays as percentage in colored pill
+- [ ] **QS-02**: Green pill for scores >= 80%
+- [ ] **QS-03**: Orange pill for scores 50-79%
+- [ ] **QS-04**: Red pill for scores < 50%
+
+### Styling
+
+- [ ] **CSS-01**: Feed rows use flex layout with proper spacing matching mockup
+- [ ] **CSS-02**: Date group headers preserved (Today, Yesterday, older dates)
+- [ ] **CSS-03**: Typography and colors match approved mockup
+
+## v2 Requirements
+
+(None — this is a focused fix)
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Ash Inbox page changes | Only fixing Activity feed |
+| New API endpoints | Enriching existing data shape only |
+| Weekly comparison table | Already works correctly |
+| Click-to-detail panel on activity rows | Not in current scope |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| DATA-01 | — | Pending |
+| DATA-02 | — | Pending |
+| DATA-03 | — | Pending |
+| DATA-04 | — | Pending |
+| FEED-01 | — | Pending |
+| FEED-02 | — | Pending |
+| FEED-03 | — | Pending |
+| FEED-04 | — | Pending |
+| FEED-05 | — | Pending |
+| QS-01 | — | Pending |
+| QS-02 | — | Pending |
+| QS-03 | — | Pending |
+| QS-04 | — | Pending |
+| CSS-01 | — | Pending |
+| CSS-02 | — | Pending |
+| CSS-03 | — | Pending |
+
+**Coverage:**
+- v1 requirements: 16 total
+- Mapped to phases: 0
+- Unmapped: 16 ⚠️
+
+---
+*Requirements defined: 2026-03-16*
+*Last updated: 2026-03-16 after initial definition*
