@@ -34,7 +34,6 @@ Declared values (must be multiples of 4) — these are the values this phase int
 | xs | 4px | Gap between feed row elements (mockup: `gap:4px`); date header bottom padding |
 | sm | 8px | Date group header top padding |
 | md | 16px | Not used directly in feed rows |
-| lg | 28px | Icon circle width/height (`.ash-ch-icon`, existing — retained for visual weight) |
 
 Exceptions: none. All active spacing values are multiples of 4.
 
@@ -44,6 +43,7 @@ The following values exist in pre-existing CSS that this phase does NOT introduc
 
 | Value | Source | Element |
 |-------|--------|---------|
+| 28px | Existing `.ash-ch-icon` width/height | Icon circle dimensions (retained for visual weight) |
 | 6px | Existing `.ash-feed-row` padding-block | Row vertical padding |
 | 5px | Existing `.ash-feed-row` padding-inline | Row inline padding |
 | 6px | Existing `.ash-feed-qs` padding-inline | QS pill horizontal padding |
