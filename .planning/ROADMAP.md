@@ -40,10 +40,10 @@ Plans:
   2. Quality score pill is green (>=80), orange (50-79), or red (<50)
   3. No data appears more than once per row — icon label, parsed action, and name are not concatenated together
   4. Date grouping headers (Today, Yesterday, older dates) still separate rows correctly
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md — Rewrite feed row renderer with structured layout, QS pills, and updated CSS
 
 ### Phase 3: Visual Polish
 **Goal**: Feed rows match the approved mockup pixel-for-pixel in layout, spacing, and color
