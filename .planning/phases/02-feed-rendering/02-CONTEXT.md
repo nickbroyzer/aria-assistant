@@ -16,9 +16,9 @@ Rewrite the activity feed row renderer to consume structured API fields (`sender
 ### Row Layout & Content
 - Column order: Icon → Name → Action summary → QS pill → Time
 - Name column shows `sender` field only (no company name)
-- Name column uses fixed width (~140px) with ellipsis truncation for long names — keeps columns aligned across rows
+- Name column uses white-space:nowrap with no fixed width — takes only the space the name needs, no truncation
 - Rows have subtle hover highlight (background shift) but no click action
-- Flex row layout: Icon 24px, Name ~140px fixed, Action flex:1, QS pill ~50px, Time ~60px
+- Flex row layout: Icon 24px, Name auto (nowrap), Action flex:1, QS pill ~50px, Time ~60px
 
 ### Quality Score Pill
 - Display format: number only with percent sign, e.g. "92%"
