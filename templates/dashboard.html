@@ -1549,21 +1549,52 @@
   .ash-left-col { display:flex; flex-direction:column; gap:0; }
   .ash-right-col { background:var(--surface2); border-radius:8px; border:1px solid var(--border); min-height:200px; }
   #page-ash-inbox.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
-  .ash-three-col { display:grid; grid-template-columns:1fr 1fr 2fr; gap:8px; align-items:stretch; flex:1; width:100%; min-height:0; }
+  .ash-three-col { display:grid; grid-template-columns:1fr 1fr 3fr; gap:8px; align-items:stretch; flex:1; width:100%; min-height:0; }
   .ash-inbox-col { display:flex; flex-direction:column; min-height:0; min-width:0; overflow:hidden; }
   .ash-inbox-list { display:flex; flex-direction:column; flex:1; overflow-y:auto; padding-right:6px; scroll-behavior:smooth; }
   .ash-inbox-list::-webkit-scrollbar { width:0px; background:transparent; }
   .ash-inbox-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:16px; text-align:center; gap:8px; color:var(--dim); }
   .ash-inbox-empty-icon { font-size:22px; opacity:0.5; }
   .ash-inbox-empty-text { font-size:12px; color:#64748b; line-height:1.4; }
-  .ash-bk-card { background:rgba(255,255,255,0.04); border-radius:8px; padding:10px 12px; margin-bottom:6px; border:1px solid rgba(255,255,255,0.06); }
-  .ash-bk-card-top { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
-  .ash-bk-vendor { font-size:13px; font-weight:700; color:var(--text); line-height:1.2; }
-  .ash-bk-amount { font-size:13px; font-weight:700; margin-left:auto; white-space:nowrap; }
-  .ash-bk-desc { font-size:12px; color:var(--muted); line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:3px; }
-  .ash-bk-foot { display:flex; align-items:center; gap:6px; }
-  .ash-bk-cat { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; padding:1px 7px; border-radius:8px; }
-  .ash-bk-status { font-size:10px; font-weight:600; padding:1px 7px; border-radius:8px; margin-left:auto; }
+  /* ── Bookkeeping Two-Pane Layout ── */
+  .bk-body { display:flex; gap:12px; width:100%; min-height:0; overflow:hidden; }
+  .bk-list-pane { flex:0 0 50%; min-width:0; display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+  .bk-urgency-pane { flex:1; display:flex; flex-direction:column; min-height:0; overflow-y:auto; }
+  .bk-urgency-pane::-webkit-scrollbar { width:0px; background:transparent; }
+
+  /* Net bar */
+  .bk-net-bar { display:flex; align-items:center; background:var(--surface2); border-radius:6px; padding:7px 10px; margin-bottom:8px; }
+  .bk-net-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:1px; }
+  .bk-net-label { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--dim); }
+  .bk-net-value { font-size:12px; font-weight:700; }
+  .bk-net-div { width:0.5px; height:24px; background:rgba(255,255,255,0.12); flex-shrink:0; }
+
+  /* Filter tabs */
+  .bk-filter-tabs { display:flex; gap:5px; margin-bottom:6px; }
+  .bk-tab { background:transparent; color:var(--dim); font-size:10px; font-weight:600; padding:3px 8px; border-radius:10px; border:1px solid var(--border); cursor:pointer; }
+  .bk-tab.active { background:rgba(167,139,250,0.2); color:#a78bfa; border-color:rgba(167,139,250,0.4); }
+
+  /* Transaction rows */
+  .bk-row { display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:6px; border-bottom:1px solid rgba(255,255,255,0.04); }
+  .bk-row:hover { background:rgba(255,255,255,0.03); }
+  .bk-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+  .bk-row-info { flex:1; min-width:0; }
+  .bk-row-name { font-size:11px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bk-row-sub { font-size:10px; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bk-row-right { display:flex; flex-direction:column; align-items:flex-end; flex-shrink:0; gap:1px; }
+  .bk-row-amt { font-size:11px; font-weight:700; }
+  .bk-row-status { font-size:8px; font-weight:600; padding:1px 5px; border-radius:6px; text-transform:uppercase; letter-spacing:0.03em; }
+
+  /* Urgency panel */
+  .bk-urgency-header { font-size:11px; font-weight:700; color:var(--text); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px; }
+  .bk-urgency-section { margin-bottom:10px; }
+  .bk-urgency-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--dim); margin-bottom:4px; }
+  .bk-urgency-row { display:flex; align-items:center; gap:6px; padding:4px 0; }
+  .bk-urgency-bar { width:3px; height:28px; border-radius:2px; flex-shrink:0; }
+  .bk-urgency-info { flex:1; min-width:0; }
+  .bk-urgency-name { font-size:11px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bk-urgency-meta { font-size:10px; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bk-urgency-amt { font-size:11px; font-weight:700; flex-shrink:0; }
   .ash-filter-pills { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
   .ash-pill { background:var(--surface2); color:var(--dim); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; border:1px solid var(--border); cursor:pointer; }
   .ash-pill.active { background:#7c3aed; color:#ede9fe; border-color:#7c3aed; }
@@ -2103,7 +2134,19 @@
               <div class="ash-col-title">Bookkeeping &amp; Accounting</div>
               <div class="ash-col-badge" id="ash-bk-count">0</div>
             </div>
-            <div class="ash-inbox-list" id="ash-bk-list"></div>
+            <div class="bk-body">
+              <div class="bk-list-pane">
+                <div class="bk-net-bar" id="bk-net-bar"></div>
+                <div class="bk-filter-tabs" id="bk-filter-tabs">
+                  <button class="bk-tab active" data-bkfilter="all" onclick="setBookkeepingFilter('all')">All</button>
+                  <button class="bk-tab" data-bkfilter="payable" onclick="setBookkeepingFilter('payable')">Payable</button>
+                  <button class="bk-tab" data-bkfilter="receivable" onclick="setBookkeepingFilter('receivable')">Receivable</button>
+                  <button class="bk-tab" data-bkfilter="expense" onclick="setBookkeepingFilter('expense')">Expense</button>
+                </div>
+                <div class="ash-inbox-list" id="ash-bk-list"></div>
+              </div>
+              <div class="bk-urgency-pane" id="bk-urgency-pane"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -11117,85 +11160,104 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     }
   }
 
-  // ── Bookkeeping Virtualization ─────────────────────────────────────
-  // Only renders visible rows + buffer in the Bookkeeping column.
-  // Today/Yesterday columns are NOT virtualized.
+  // ── Bookkeeping Two-Pane Rendering ──────────────────────────────
+  let _bkItems = [];
+  let _bkFilter = 'all';
 
-  let _bkItems = [];                  // full bookkeeping dataset
-  const BK_ROW_H = 76;               // fixed row height: 10+10 padding + ~50 content + 6 margin
-  const BK_BUFFER = 3;               // extra rows above/below viewport
-  let _bkScrollBound = false;        // track whether scroll listener is attached
-
-  const _bkCatStyle = { payable:'background:rgba(239,68,68,0.15);color:#ef4444;', receivable:'background:rgba(34,197,94,0.15);color:#22c55e;', expense:'background:rgba(251,191,36,0.15);color:#fbbf24;' };
-  const _bkStatusStyle = { pending:'background:rgba(251,191,36,0.15);color:#fbbf24;', overdue:'background:rgba(239,68,68,0.15);color:#ef4444;', paid:'background:rgba(34,197,94,0.15);color:#22c55e;', invoiced:'background:rgba(96,165,250,0.15);color:#60a5fa;', due_soon:'background:rgba(251,146,60,0.15);color:#fb923c;' };
-  const _bkCatLabel = { payable:'Payable', receivable:'Receivable', expense:'Expense' };
+  const _bkDotColor = { payable:'#E24B4A', receivable:'#1D9E75', expense:'#BA7517' };
+  const _bkStatusStyle = { pending:'background:rgba(251,191,36,0.15);color:#fbbf24;', overdue:'background:rgba(226,75,74,0.15);color:#E24B4A;', paid:'background:rgba(29,158,117,0.15);color:#1D9E75;', invoiced:'background:rgba(55,138,221,0.15);color:#378ADD;', due_soon:'background:rgba(186,117,23,0.15);color:#BA7517;' };
   const _bkStatusLabel = { pending:'Pending', overdue:'Overdue', paid:'Paid', invoiced:'Invoiced', due_soon:'Due Soon' };
+  const _bkUrgencyBarColor = { overdue:'#E24B4A', due_soon:'#BA7517', invoiced:'#378ADD', paid:'#1D9E75' };
 
-  function _bkCardHTML(item) {
-    const amtColor = item.category === 'receivable' ? '#22c55e' : item.category === 'payable' ? '#ef4444' : '#fbbf24';
-    const sign = item.category === 'receivable' ? '+' : '-';
-    return `<div class="ash-bk-card" style="height:${BK_ROW_H - 6}px;box-sizing:border-box;">
-      <div class="ash-bk-card-top">
-        <div class="ash-bk-vendor">${item.vendor}</div>
-        <div class="ash-bk-amount" style="color:${amtColor}">${sign}$${item.amount.toLocaleString('en-US',{minimumFractionDigits:2})}</div>
-      </div>
-      <div class="ash-bk-desc">${item.description}</div>
-      <div class="ash-bk-foot">
-        <span class="ash-bk-cat" style="${_bkCatStyle[item.category]||''}">${_bkCatLabel[item.category]||item.category}</span>
-        <span class="ash-bk-status" style="${_bkStatusStyle[item.status]||''}">${_bkStatusLabel[item.status]||item.status}</span>
-      </div>
-    </div>`;
+  function _fmtAmt(n) { return '$' + n.toLocaleString('en-US', {minimumFractionDigits:2}); }
+
+  function renderBookkeepingNetBar(items) {
+    const bar = document.getElementById('bk-net-bar');
+    if (!bar) return;
+    const out = items.filter(i => i.category === 'payable').reduce((s,i) => s + i.amount, 0);
+    const inc = items.filter(i => i.category === 'receivable').reduce((s,i) => s + i.amount, 0);
+    const exp = items.filter(i => i.category === 'expense').reduce((s,i) => s + i.amount, 0);
+    const net = inc - out - exp;
+    bar.innerHTML = `
+      <div class="bk-net-item"><div class="bk-net-label">Out</div><div class="bk-net-value" style="color:#E24B4A">${_fmtAmt(out)}</div></div>
+      <div class="bk-net-div"></div>
+      <div class="bk-net-item"><div class="bk-net-label">In</div><div class="bk-net-value" style="color:#1D9E75">${_fmtAmt(inc)}</div></div>
+      <div class="bk-net-div"></div>
+      <div class="bk-net-item"><div class="bk-net-label">Expenses</div><div class="bk-net-value" style="color:#BA7517">${_fmtAmt(exp)}</div></div>
+      <div class="bk-net-div"></div>
+      <div class="bk-net-item"><div class="bk-net-label">Net</div><div class="bk-net-value" style="color:${net >= 0 ? '#1D9E75' : '#E24B4A'}">${net >= 0 ? '+' : '-'}${_fmtAmt(Math.abs(net))}</div></div>`;
   }
 
-  function _renderVirtualizedBookkeeping() {
+  function renderBookkeepingList() {
     const list = document.getElementById('ash-bk-list');
-    if (!list || _bkItems.length === 0) return;
+    if (!list) return;
+    const filtered = _bkFilter === 'all' ? _bkItems : _bkItems.filter(i => i.category === _bkFilter);
+    if (filtered.length === 0) {
+      list.innerHTML = '<div class="ash-inbox-empty"><div class="ash-inbox-empty-icon">📊</div><div class="ash-inbox-empty-text">No items.</div></div>';
+      return;
+    }
+    list.innerHTML = filtered.map(item => {
+      const sign = item.category === 'receivable' ? '+' : '-';
+      const amtColor = _bkDotColor[item.category] || '#94a3b8';
+      return `<div class="bk-row" data-bkcat="${item.category}">
+        <div class="bk-dot" style="background:${_bkDotColor[item.category]||'#94a3b8'}"></div>
+        <div class="bk-row-info">
+          <div class="bk-row-name">${item.vendor}</div>
+          <div class="bk-row-sub">${item.description}</div>
+        </div>
+        <div class="bk-row-right">
+          <div class="bk-row-amt" style="color:${amtColor}">${sign}${_fmtAmt(item.amount)}</div>
+          <span class="bk-row-status" style="${_bkStatusStyle[item.status]||''}">${_bkStatusLabel[item.status]||item.status}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
 
-    const containerH = list.clientHeight;
-    const scrollTop = list.scrollTop;
-    const totalH = _bkItems.length * BK_ROW_H;
+  function setBookkeepingFilter(f) {
+    _bkFilter = f;
+    document.querySelectorAll('.bk-tab').forEach(t => t.classList.toggle('active', t.dataset.bkfilter === f));
+    renderBookkeepingList();
+  }
 
-    // Compute visible range with buffer
-    const startRaw = Math.floor(scrollTop / BK_ROW_H);
-    const start = Math.max(0, startRaw - BK_BUFFER);
-    const visibleCount = Math.ceil(containerH / BK_ROW_H);
-    const end = Math.min(_bkItems.length, startRaw + visibleCount + BK_BUFFER);
-
-    // Top/bottom spacers preserve total scroll height
-    const topH = start * BK_ROW_H;
-    const bottomH = Math.max(0, totalH - end * BK_ROW_H);
-
-    const cards = _bkItems.slice(start, end).map(_bkCardHTML).join('');
-
-    list.innerHTML =
-      `<div style="height:${topH}px;flex-shrink:0;"></div>` +
-      cards +
-      `<div style="height:${bottomH}px;flex-shrink:0;"></div>`;
+  function renderUrgencyPanel(items) {
+    const pane = document.getElementById('bk-urgency-pane');
+    if (!pane) return;
+    const sections = [
+      { key:'overdue', label:'Overdue', color:'#E24B4A', items: items.filter(i => i.status === 'overdue') },
+      { key:'due_soon', label:'Due Soon', color:'#BA7517', items: items.filter(i => i.status === 'due_soon') },
+      { key:'invoiced', label:'Awaiting Payment', color:'#378ADD', items: items.filter(i => i.status === 'invoiced') },
+      { key:'paid', label:'Recently Paid', color:'#1D9E75', items: items.filter(i => i.status === 'paid' && i.category === 'receivable') },
+    ];
+    let html = '<div class="bk-urgency-header">Needs Attention</div>';
+    sections.forEach(sec => {
+      if (sec.items.length === 0) return;
+      html += `<div class="bk-urgency-section"><div class="bk-urgency-label" style="color:${sec.color}">${sec.label} (${sec.items.length})</div>`;
+      sec.items.forEach(item => {
+        const sign = item.category === 'receivable' ? '+' : '-';
+        const amtColor = _bkDotColor[item.category] || '#94a3b8';
+        html += `<div class="bk-urgency-row">
+          <div class="bk-urgency-bar" style="background:${sec.color}"></div>
+          <div class="bk-urgency-info">
+            <div class="bk-urgency-name">${item.vendor}</div>
+            <div class="bk-urgency-meta">${item.description}</div>
+          </div>
+          <div class="bk-urgency-amt" style="color:${amtColor}">${sign}${_fmtAmt(item.amount)}</div>
+        </div>`;
+      });
+      html += '</div>';
+    });
+    pane.innerHTML = html;
   }
 
   function renderAshBookkeeping(items) {
-    const list = document.getElementById('ash-bk-list');
     const badge = document.getElementById('ash-bk-count');
-    if (!list) return;
     if (badge) badge.textContent = items.length;
-
-    if (items.length === 0) {
-      _bkItems = [];
-      list.innerHTML = '<div class="ash-inbox-empty"><div class="ash-inbox-empty-icon">📊</div><div class="ash-inbox-empty-text">No bookkeeping items.</div></div>';
-      return;
-    }
-
     _bkItems = items;
-    _renderVirtualizedBookkeeping();
-
-    // Bind scroll & resize listeners once
-    if (!_bkScrollBound) {
-      list.addEventListener('scroll', _renderVirtualizedBookkeeping);
-      window.addEventListener('resize', _renderVirtualizedBookkeeping);
-      _bkScrollBound = true;
-    }
+    renderBookkeepingNetBar(items);
+    renderBookkeepingList();
+    renderUrgencyPanel(items);
   }
-  // ── End Bookkeeping Virtualization ───────────────────────────────
+  // ── End Bookkeeping Two-Pane ──────────────────────────────────
 
   function ashChannelIcon(type) {
     if (type === 'call')  return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>';
