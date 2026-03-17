@@ -7,9 +7,12 @@ Routes:
   /oauth/gmail/start              → GET redirect to Gmail OAuth flow
   /oauth/gmail/callback           → GET handle OAuth callback
   /api/ash/bookkeeping            → GET bookkeeping demo items
+  /api/retell/webhook             → POST Retell AI call webhook (no auth)
 """
 
-from datetime import date, timedelta
+import json
+import os
+from datetime import date, datetime, timedelta, timezone
 
 from flask import Blueprint, jsonify, redirect, request, session, url_for
 
@@ -22,6 +25,65 @@ from utils.ash_scanner import scan_inbox
 
 
 ash_bp = Blueprint("ash", __name__)
+
+RETELL_CALLS_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "data", "retell_calls.json",
+)
+
+
+def _load_retell_calls():
+    if not os.path.exists(RETELL_CALLS_PATH):
+        return []
+    with open(RETELL_CALLS_PATH, "r") as f:
+        return json.load(f)
+
+
+def _save_retell_calls(calls):
+    os.makedirs(os.path.dirname(RETELL_CALLS_PATH), exist_ok=True)
+    with open(RETELL_CALLS_PATH, "w") as f:
+        json.dump(calls, f, indent=2)
+
+
+# ── Retell Webhook ────────────────────────────────────────────────────────────
+
+@ash_bp.route("/api/retell/webhook", methods=["POST"])
+def api_retell_webhook():
+    """
+    Receive Retell AI call webhooks. No auth — called externally by Retell.
+    Only processes event == "call_analyzed"; returns 200 for all other events.
+    Deduplicates by call_id.
+    """
+    data = request.get_json(silent=True) or {}
+    event = data.get("event", "")
+
+    if event != "call_analyzed":
+        return jsonify({"status": "ok"})
+
+    call = data.get("call", {})
+    call_id = call.get("call_id")
+    if not call_id:
+        return jsonify({"status": "ok"})
+
+    calls = _load_retell_calls()
+
+    if any(c["call_id"] == call_id for c in calls):
+        return jsonify({"status": "ok"})
+
+    record = {
+        "call_id": call_id,
+        "from_number": call.get("from_number"),
+        "direction": call.get("direction"),
+        "start_timestamp": call.get("start_timestamp"),
+        "end_timestamp": call.get("end_timestamp"),
+        "transcript": call.get("transcript"),
+        "disconnection_reason": call.get("disconnection_reason"),
+        "received_at": datetime.now(timezone.utc).isoformat(),
+    }
+    calls.append(record)
+    _save_retell_calls(calls)
+
+    return jsonify({"status": "ok"})
 
 
 @ash_bp.route("/api/ash/scan", methods=["GET"])
@@ -351,12 +413,39 @@ def _build_weekly_demo():
 def api_ash_inbox():
     """
     Returns all processed Ash inbox items sorted newest first.
+    Real Retell calls (from data/retell_calls.json) are prepended to today's list.
     Optional filter: ?type=call|email|sms
     Fields: id, type, sender, sender_contact, summary, outcome,
             quality_score, timestamp, duration_seconds, lead_id
     """
     item_type = request.args.get("type")
     items = _build_inbox_demo()
+
+    retell_calls = _load_retell_calls()
+    for rc in retell_calls:
+        ts = rc.get("start_timestamp")
+        if ts:
+            ts_str = datetime.fromtimestamp(
+                ts / 1000, tz=timezone.utc
+            ).strftime("%Y-%m-%dT%H:%M:%S-07:00")
+        else:
+            ts_str = rc.get("received_at", "")
+
+        transcript = rc.get("transcript") or ""
+        summary = transcript[:80] if transcript else "Inbound call"
+
+        items.insert(0, {
+            "id": f"retell-{rc['call_id']}",
+            "type": "call",
+            "sender": rc.get("from_number", "Unknown"),
+            "sender_contact": rc.get("from_number", ""),
+            "summary": summary,
+            "outcome": "lead_created",
+            "quality_score": None,
+            "timestamp": ts_str,
+            "duration_seconds": None,
+            "lead_id": None,
+        })
 
     if item_type and item_type in ("call", "email", "sms"):
         items = [i for i in items if i["type"] == item_type]
