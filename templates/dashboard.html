@@ -240,6 +240,7 @@
 
     /* ── Content area ── */
     #content { flex: 1; overflow-y: auto; padding: 20px 24px; }
+    #content:has(#page-ash-inbox.active), #content:has(#page-ash-activity.active) { overflow:hidden; display:flex; flex-direction:column; }
     #content::-webkit-scrollbar { width: 5px; }
     #content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 
@@ -1499,12 +1500,12 @@
     .ash-card-outcome.yellow { background: rgba(251,191,36,0.15); color: #fbbf24; }
     .ash-card-outcome.red { background: rgba(239,68,68,0.15); color: #ef4444; }
     .ash-inbox-cols { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .ash-col-header { display:flex; align-items:center; gap:8px; padding-bottom:8px; border-bottom:1px solid var(--border); margin-bottom:8px; }
+    .ash-col-header { display:flex; align-items:center; gap:8px; padding-bottom:6px; border-bottom:1px solid var(--border); margin-bottom:6px; }
     .ash-col-title { font-size:12px; font-weight:700; color:var(--text); text-transform:uppercase; letter-spacing:0.8px; }
     .ash-col-badge { background:rgba(255,255,255,0.1); border-radius:10px; padding:1px 7px; font-size:11px; color:var(--muted); font-weight:600; }
-    .ash-inbox-card { background: rgba(255,255,255,0.04); border-radius: 10px; padding: 14px 16px; margin-bottom: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.06); transition: border-color 0.15s; }
+    .ash-inbox-card { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; cursor: pointer; border: 1px solid rgba(255,255,255,0.06); transition: border-color 0.15s; }
     .ash-inbox-card:hover { border-color: rgba(232,101,10,0.4); }
-    .ash-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .ash-card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
     .ic-call  { width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.2); background:transparent; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .ic-email { width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.2); background:transparent; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .ic-sms   { width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.2); background:transparent; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -1547,13 +1548,31 @@
   .ash-two-col { display:grid; grid-template-columns:1fr 340px; gap:16px; align-items:start; }
   .ash-left-col { display:flex; flex-direction:column; gap:0; }
   .ash-right-col { background:var(--surface2); border-radius:8px; border:1px solid var(--border); min-height:200px; }
-  .ash-three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; align-items:start; }
-  .ash-filter-pills { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  #page-ash-inbox.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
+  .ash-three-col { display:grid; grid-template-columns:1fr 1fr 2fr; gap:8px; align-items:stretch; flex:1; width:100%; min-height:0; }
+  .ash-inbox-col { display:flex; flex-direction:column; min-height:0; min-width:0; overflow:hidden; }
+  .ash-inbox-list { display:flex; flex-direction:column; flex:1; overflow-y:auto; padding-right:6px; scroll-behavior:smooth; }
+  .ash-inbox-list::-webkit-scrollbar { width:0px; background:transparent; }
+  .ash-inbox-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:16px; text-align:center; gap:8px; color:var(--dim); }
+  .ash-inbox-empty-icon { font-size:22px; opacity:0.5; }
+  .ash-inbox-empty-text { font-size:12px; color:#64748b; line-height:1.4; }
+  .ash-bk-card { background:rgba(255,255,255,0.04); border-radius:8px; padding:10px 12px; margin-bottom:6px; border:1px solid rgba(255,255,255,0.06); }
+  .ash-bk-card-top { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
+  .ash-bk-vendor { font-size:13px; font-weight:700; color:var(--text); line-height:1.2; }
+  .ash-bk-amount { font-size:13px; font-weight:700; margin-left:auto; white-space:nowrap; }
+  .ash-bk-desc { font-size:12px; color:var(--muted); line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:3px; }
+  .ash-bk-foot { display:flex; align-items:center; gap:6px; }
+  .ash-bk-cat { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; padding:1px 7px; border-radius:8px; }
+  .ash-bk-status { font-size:10px; font-weight:600; padding:1px 7px; border-radius:8px; margin-left:auto; }
+  .ash-filter-pills { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
   .ash-pill { background:var(--surface2); color:var(--dim); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; border:1px solid var(--border); cursor:pointer; }
   .ash-pill.active { background:#7c3aed; color:#ede9fe; border-color:#7c3aed; }
-  .ash-activity-two-col { display:grid; grid-template-columns:40fr 60fr; gap:16px; align-items:start; }
-  .ash-act-left { display:flex; flex-direction:column; }
-  .ash-act-right { display:flex; flex-direction:column; }
+  #page-ash-activity.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
+  .ash-activity-two-col { display:grid; grid-template-columns:40fr 60fr; gap:16px; align-items:stretch; flex:1; min-height:0; }
+  .ash-act-left { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+  .ash-act-right { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+  #ash-activity-feed { flex:1; overflow-y:auto; padding-right:6px; scroll-behavior:smooth; }
+  #ash-activity-feed::-webkit-scrollbar { width:0px; background:transparent; }
   .ash-feed-date { font-size:11px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:0.8px; padding:8px 0 4px; }
   .ash-feed-row { padding:6px 5px; display:flex; align-items:center; gap:4px; border:1px solid rgba(255,255,255,0.07); background:#181818; border-radius:4px; }
   .ash-feed-row:hover { background:rgba(255,255,255,0.05); }
@@ -2070,24 +2089,21 @@
               <div class="ash-col-title">Today</div>
               <div class="ash-col-badge" id="ash-today-count">0</div>
             </div>
-            <div id="ash-inbox-today-list"></div>
+            <div class="ash-inbox-list" id="ash-inbox-today-list"></div>
           </div>
           <div class="ash-inbox-col" id="ash-inbox-yesterday">
             <div class="ash-col-header">
               <div class="ash-col-title">Yesterday</div>
               <div class="ash-col-badge" id="ash-yesterday-count">0</div>
             </div>
-            <div id="ash-inbox-yesterday-list"></div>
+            <div class="ash-inbox-list" id="ash-inbox-yesterday-list"></div>
           </div>
           <div class="ash-inbox-col" id="ash-detail-panel">
             <div class="ash-col-header">
               <div class="ash-col-title">Bookkeeping &amp; Accounting</div>
+              <div class="ash-col-badge" id="ash-bk-count">0</div>
             </div>
-            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;gap:12px;">
-              <div style="font-size:28px;">📊</div>
-              <div style="font-size:13px;font-weight:700;color:#a78bfa;">Coming Soon</div>
-              <div style="font-size:12px;color:var(--dim);line-height:1.5;">Ash will auto-scan invoices, flag discrepancies, and log entries here. QuickBooks integration planned.</div>
-            </div>
+            <div class="ash-inbox-list" id="ash-bk-list"></div>
           </div>
         </div>
       </div>
@@ -11091,7 +11107,95 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       const list = document.getElementById('ash-inbox-list');
       if (list) list.innerHTML = '<div style="color:#f87171;padding:20px;font-size:14px;">Failed to load inbox items.</div>';
     }
+    try {
+      const res3 = await fetch('/api/ash/bookkeeping');
+      if (!res3.ok) throw new Error('HTTP ' + res3.status);
+      const bkData = await res3.json();
+      renderAshBookkeeping(bkData.items || []);
+    } catch (err) {
+      console.error('loadAshInbox bookkeeping failed:', err);
+    }
   }
+
+  // ── Bookkeeping Virtualization ─────────────────────────────────────
+  // Only renders visible rows + buffer in the Bookkeeping column.
+  // Today/Yesterday columns are NOT virtualized.
+
+  let _bkItems = [];                  // full bookkeeping dataset
+  const BK_ROW_H = 76;               // fixed row height: 10+10 padding + ~50 content + 6 margin
+  const BK_BUFFER = 3;               // extra rows above/below viewport
+  let _bkScrollBound = false;        // track whether scroll listener is attached
+
+  const _bkCatStyle = { payable:'background:rgba(239,68,68,0.15);color:#ef4444;', receivable:'background:rgba(34,197,94,0.15);color:#22c55e;', expense:'background:rgba(251,191,36,0.15);color:#fbbf24;' };
+  const _bkStatusStyle = { pending:'background:rgba(251,191,36,0.15);color:#fbbf24;', overdue:'background:rgba(239,68,68,0.15);color:#ef4444;', paid:'background:rgba(34,197,94,0.15);color:#22c55e;', invoiced:'background:rgba(96,165,250,0.15);color:#60a5fa;', due_soon:'background:rgba(251,146,60,0.15);color:#fb923c;' };
+  const _bkCatLabel = { payable:'Payable', receivable:'Receivable', expense:'Expense' };
+  const _bkStatusLabel = { pending:'Pending', overdue:'Overdue', paid:'Paid', invoiced:'Invoiced', due_soon:'Due Soon' };
+
+  function _bkCardHTML(item) {
+    const amtColor = item.category === 'receivable' ? '#22c55e' : item.category === 'payable' ? '#ef4444' : '#fbbf24';
+    const sign = item.category === 'receivable' ? '+' : '-';
+    return `<div class="ash-bk-card" style="height:${BK_ROW_H - 6}px;box-sizing:border-box;">
+      <div class="ash-bk-card-top">
+        <div class="ash-bk-vendor">${item.vendor}</div>
+        <div class="ash-bk-amount" style="color:${amtColor}">${sign}$${item.amount.toLocaleString('en-US',{minimumFractionDigits:2})}</div>
+      </div>
+      <div class="ash-bk-desc">${item.description}</div>
+      <div class="ash-bk-foot">
+        <span class="ash-bk-cat" style="${_bkCatStyle[item.category]||''}">${_bkCatLabel[item.category]||item.category}</span>
+        <span class="ash-bk-status" style="${_bkStatusStyle[item.status]||''}">${_bkStatusLabel[item.status]||item.status}</span>
+      </div>
+    </div>`;
+  }
+
+  function _renderVirtualizedBookkeeping() {
+    const list = document.getElementById('ash-bk-list');
+    if (!list || _bkItems.length === 0) return;
+
+    const containerH = list.clientHeight;
+    const scrollTop = list.scrollTop;
+    const totalH = _bkItems.length * BK_ROW_H;
+
+    // Compute visible range with buffer
+    const startRaw = Math.floor(scrollTop / BK_ROW_H);
+    const start = Math.max(0, startRaw - BK_BUFFER);
+    const visibleCount = Math.ceil(containerH / BK_ROW_H);
+    const end = Math.min(_bkItems.length, startRaw + visibleCount + BK_BUFFER);
+
+    // Top/bottom spacers preserve total scroll height
+    const topH = start * BK_ROW_H;
+    const bottomH = Math.max(0, totalH - end * BK_ROW_H);
+
+    const cards = _bkItems.slice(start, end).map(_bkCardHTML).join('');
+
+    list.innerHTML =
+      `<div style="height:${topH}px;flex-shrink:0;"></div>` +
+      cards +
+      `<div style="height:${bottomH}px;flex-shrink:0;"></div>`;
+  }
+
+  function renderAshBookkeeping(items) {
+    const list = document.getElementById('ash-bk-list');
+    const badge = document.getElementById('ash-bk-count');
+    if (!list) return;
+    if (badge) badge.textContent = items.length;
+
+    if (items.length === 0) {
+      _bkItems = [];
+      list.innerHTML = '<div class="ash-inbox-empty"><div class="ash-inbox-empty-icon">📊</div><div class="ash-inbox-empty-text">No bookkeeping items.</div></div>';
+      return;
+    }
+
+    _bkItems = items;
+    _renderVirtualizedBookkeeping();
+
+    // Bind scroll & resize listeners once
+    if (!_bkScrollBound) {
+      list.addEventListener('scroll', _renderVirtualizedBookkeeping);
+      window.addEventListener('resize', _renderVirtualizedBookkeeping);
+      _bkScrollBound = true;
+    }
+  }
+  // ── End Bookkeeping Virtualization ───────────────────────────────
 
   function ashChannelIcon(type) {
     if (type === 'call')  return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1.62-1.62a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>';
@@ -11120,8 +11224,8 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     const yestBadge  = document.getElementById('ash-yesterday-count');
     if (!todayList || !yestList) return;
     if (allAshItems.length === 0) {
-      todayList.innerHTML = '<div style="color:#64748b;padding:20px;font-size:14px;">No items.</div>';
-      yestList.innerHTML = '';
+      todayList.innerHTML = '<div class="ash-inbox-empty"><div class="ash-inbox-empty-icon">📭</div><div class="ash-inbox-empty-text">No calls, emails, or messages yet today.</div></div>';
+      yestList.innerHTML = '<div class="ash-inbox-empty"><div class="ash-inbox-empty-text">Nothing from yesterday.</div></div>';
       return;
     }
     const today = new Date().toLocaleDateString('en-CA');
@@ -11131,7 +11235,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     if (todayBadge)  todayBadge.textContent  = todayItems.length;
     if (yestBadge)   yestBadge.textContent   = yestItems.length;
     function buildCards(items) {
-      if (items.length === 0) return '<div style="color:#64748b;padding:12px 0;font-size:13px;">No items.</div>';
+      if (items.length === 0) return '<div class="ash-inbox-empty"><div class="ash-inbox-empty-icon">📭</div><div class="ash-inbox-empty-text">Nothing here yet.</div></div>';
       return items.map(item => {
         const time = new Date(item.timestamp).toLocaleTimeString('en-US', {hour:'numeric',minute:'2-digit'});
         const score = item.quality_score ?? '—';
@@ -11217,10 +11321,13 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       allAshActivity = data.activity || [];
-      const leads    = allAshActivity.filter(a => a.action_type === 'lead_created').length;
-      const invoices = allAshActivity.filter(a => a.action_type === 'invoice_logged').length;
-      const nq       = allAshActivity.filter(a => a.action_type === 'not_qualified').length;
-      const calls    = allAshActivity.filter(a => a.action_type === 'forwarded' || a.description.toLowerCase().includes('call')).length;
+      // Filter to today only for stats (labels say "auto-created today", "flagged today", etc.)
+      const todayStr = new Date().toLocaleDateString('en-CA');
+      const todayActivity = allAshActivity.filter(a => a.timestamp.split('T')[0] === todayStr);
+      const leads    = todayActivity.filter(a => a.action_type === 'lead_created').length;
+      const invoices = todayActivity.filter(a => a.action_type === 'invoice_logged').length;
+      const nq       = todayActivity.filter(a => a.action_type === 'not_qualified' || a.action_type === 'spam_blocked').length;
+      const calls    = todayActivity.filter(a => a.type === 'call').length;
       if (el('ash-act-stat-leads'))    el('ash-act-stat-leads').textContent    = leads;
       if (el('ash-act-stat-invoices')) el('ash-act-stat-invoices').textContent = invoices;
       if (el('ash-act-stat-calls'))    el('ash-act-stat-calls').textContent    = calls;
@@ -11315,6 +11422,10 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       }
     });
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadAshInbox();
+  });
 </script>
 
 <!-- Document Viewer Modal -->
