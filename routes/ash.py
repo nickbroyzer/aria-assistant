@@ -10,8 +10,6 @@ Routes:
   /api/retell/webhook             → POST Retell AI call webhook (no auth)
 """
 
-import json
-import os
 from datetime import date, datetime, timedelta, timezone
 
 from flask import Blueprint, jsonify, redirect, request, session, url_for
@@ -22,27 +20,10 @@ from utils.gmail_auth import (
     get_gmail_account_info,
 )
 from utils.ash_scanner import scan_inbox
+from utils.suppliers_db import insert_retell_call, get_retell_calls
 
 
 ash_bp = Blueprint("ash", __name__)
-
-RETELL_CALLS_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "data", "retell_calls.json",
-)
-
-
-def _load_retell_calls():
-    if not os.path.exists(RETELL_CALLS_PATH):
-        return []
-    with open(RETELL_CALLS_PATH, "r") as f:
-        return json.load(f)
-
-
-def _save_retell_calls(calls):
-    os.makedirs(os.path.dirname(RETELL_CALLS_PATH), exist_ok=True)
-    with open(RETELL_CALLS_PATH, "w") as f:
-        json.dump(calls, f, indent=2)
 
 
 # ── Retell Webhook ────────────────────────────────────────────────────────────
@@ -65,12 +46,7 @@ def api_retell_webhook():
     if not call_id:
         return jsonify({"status": "ok"})
 
-    calls = _load_retell_calls()
-
-    if any(c["call_id"] == call_id for c in calls):
-        return jsonify({"status": "ok"})
-
-    record = {
+    insert_retell_call({
         "call_id": call_id,
         "from_number": call.get("from_number"),
         "direction": call.get("direction"),
@@ -78,10 +54,7 @@ def api_retell_webhook():
         "end_timestamp": call.get("end_timestamp"),
         "transcript": call.get("transcript"),
         "disconnection_reason": call.get("disconnection_reason"),
-        "received_at": datetime.now(timezone.utc).isoformat(),
-    }
-    calls.append(record)
-    _save_retell_calls(calls)
+    })
 
     return jsonify({"status": "ok"})
 
@@ -421,7 +394,7 @@ def api_ash_inbox():
     item_type = request.args.get("type")
     items = _build_inbox_demo()
 
-    retell_calls = _load_retell_calls()
+    retell_calls = get_retell_calls()
     for rc in retell_calls:
         ts = rc.get("start_timestamp")
         if ts:

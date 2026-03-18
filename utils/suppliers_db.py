@@ -132,6 +132,17 @@ def init_db():
                 uploaded_at TEXT NOT NULL,
                 file_data   BLOB
             );
+            CREATE TABLE IF NOT EXISTS retell_calls (
+                id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+                call_id               TEXT UNIQUE NOT NULL,
+                from_number           TEXT,
+                direction             TEXT,
+                start_timestamp       INTEGER,
+                end_timestamp         INTEGER,
+                transcript            TEXT,
+                disconnection_reason  TEXT,
+                received_at           TEXT
+            );
         """)
 
 
@@ -547,6 +558,41 @@ def get_order_document_file(doc_id):
 def delete_order_document(doc_id):
     with _get_conn() as conn:
         conn.execute("DELETE FROM order_documents WHERE id = ?", (doc_id,))
+
+
+# ── Retell Calls ─────────────────────────────────────────────────────────
+
+def insert_retell_call(call_data):
+    """Insert a Retell call record, ignoring duplicates by call_id."""
+    now = datetime.now(timezone.utc).isoformat()
+    with _get_conn() as conn:
+        conn.execute(
+            """INSERT OR IGNORE INTO retell_calls
+               (call_id, from_number, direction, start_timestamp, end_timestamp,
+                transcript, disconnection_reason, received_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                call_data.get("call_id"),
+                call_data.get("from_number"),
+                call_data.get("direction"),
+                call_data.get("start_timestamp"),
+                call_data.get("end_timestamp"),
+                call_data.get("transcript"),
+                call_data.get("disconnection_reason"),
+                now,
+            ),
+        )
+        return conn.execute("SELECT changes()").fetchone()[0] > 0
+
+
+def get_retell_calls(limit=50):
+    """Return recent Retell calls ordered by start_timestamp DESC."""
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM retell_calls ORDER BY start_timestamp DESC LIMIT ?",
+            (limit,),
+        ).fetchall()
+    return [dict(r) for r in rows]
 
 
 # ── Seed data ─────────────────────────────────────────────────────────────────
