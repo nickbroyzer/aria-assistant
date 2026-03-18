@@ -2956,7 +2956,7 @@
 </div>
 
 <!-- Dev Unlock Modal -->
-<div id="dev-unlock-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;">
+<div id="dev-unlock-modal" onclick="if(event.target===this)closeDevUnlockModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;">
   <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 32px;max-width:420px;width:92%;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
     <div style="font-size:22px;margin-bottom:6px;">🔐</div>
     <div style="font-size:16px;font-weight:700;color:#f0f0f0;margin-bottom:4px;">Developer Access</div>
@@ -3080,7 +3080,7 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="pay-modal">
+<div class="modal-overlay" id="pay-modal" onclick="if(event.target===this)closePayModal()">
   <div class="modal-box" style="width:min(460px, 95vw);">
     <div class="modal-head">
       <h3 id="pay-modal-title">Add Pay Record</h3>
@@ -3131,7 +3131,7 @@
 </div>
 
 <!-- Person Modal -->
-<div class="modal-overlay" id="person-modal">
+<div class="modal-overlay" id="person-modal" onclick="if(event.target===this)closePersonModal()">
   <div class="modal-box" style="width:min(500px, 95vw);">
     <div class="modal-head">
       <h3 id="person-modal-title">Add Person</h3>
@@ -3236,7 +3236,7 @@
 </div>
 
 <!-- Job Modal -->
-<div class="modal-overlay" id="job-modal">
+<div class="modal-overlay" id="job-modal" onclick="if(event.target===this)closeJobModal()">
   <div class="modal-box">
     <div class="modal-head">
       <h3 id="job-modal-title">New Job</h3>
@@ -3316,7 +3316,7 @@
 </div>
 
 <!-- Invoice Modal -->
-<div class="modal-overlay" id="inv-modal">
+<div class="modal-overlay" id="inv-modal" onclick="if(event.target===this)closeInvModal()">
   <div class="modal-box" style="width:min(640px, 95vw);">
     <div class="modal-head">
       <h3 id="inv-modal-title">New Invoice</h3>
@@ -10006,6 +10006,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
   </div>
 </div>
 
+<div id="call-detail-backdrop" onclick="closeCallDetail()" style="display:none;position:fixed;inset:0;z-index:2099;background:rgba(0,0,0,0.5);"></div>
 <!-- Call Detail Slide-Out Panel -->
 <div id="call-detail-panel" style="position:fixed;top:0;right:0;width:min(440px, 100vw);height:100vh;background:#1e2530;border-left:1px solid rgba(255,255,255,0.08);z-index:2100;display:none;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,0.5);">
   <div style="padding:16px 18px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
@@ -10047,6 +10048,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     transcriptEl.innerHTML = '';
 
     panel.style.display = 'flex';
+    document.getElementById('call-detail-backdrop').style.display = 'block';
     requestAnimationFrame(function() { panel.style.transform = 'translateX(0)'; });
 
     fetch('/api/ash/calls/' + encodeURIComponent(callId), { credentials: 'same-origin' })
@@ -10106,6 +10108,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
   function closeCallDetail() {
     var panel = document.getElementById('call-detail-panel');
     panel.style.transform = 'translateX(100%)';
+    document.getElementById('call-detail-backdrop').style.display = 'none';
     setTimeout(function() { panel.style.display = 'none'; }, 250);
   }
 
@@ -10140,7 +10143,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Lead Email Compose Modal -->
-<div id="lead-compose-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:flex-start;justify-content:center;padding-top:48px;">
+<div id="lead-compose-modal" onclick="if(event.target===this)closeLeadCompose()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:flex-start;justify-content:center;padding-top:48px;">
   <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(620px,96vw);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
 
     <!-- Header -->
@@ -10295,7 +10298,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Inbox Review Modal -->
-<div id="inbox-review-modal" class="modal-overlay">
+<div id="inbox-review-modal" class="modal-overlay" onclick="if(event.target===this)closeInboxReview()">
   <div class="modal-box" style="width:min(620px,95vw);max-height:92vh;overflow-y:auto;">
     <div class="modal-head">
       <h3>Review Incoming Invoice</h3>
@@ -10341,7 +10344,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Vendor Invoice Modal -->
-<div id="vendor-invoice-modal" class="modal-overlay">
+<div id="vendor-invoice-modal" class="modal-overlay" onclick="if(event.target===this)closeVendorInvoice()">
   <div class="modal-box" style="width:min(720px,95vw);max-height:90vh;overflow-y:auto;">
     <div class="modal-head" style="display:flex;justify-content:space-between;align-items:center;background:#1e2530;border-bottom:1px solid rgba(255,255,255,0.08);padding:20px 24px;">
       <h3 style="font-size:16px;font-weight:700;color:#f0f0f0;">Vendor Invoice</h3>
@@ -10355,7 +10358,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Invoice Send Compose Modal -->
-<div id="inv-send-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
+<div id="inv-send-modal" onclick="if(event.target===this)closeInvSend()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
   <div style="background:#1e2530;border:1px solid rgba(255,255,255,0.08);border-radius:16px;width:min(560px,96vw);display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);background:#1e2530;border-radius:16px 16px 0 0;flex-shrink:0;">
       <div>
@@ -10452,7 +10455,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 </div>
 
 <!-- Job Cost Modal -->
-<div id="cost-modal" class="modal-overlay">
+<div id="cost-modal" class="modal-overlay" onclick="if(event.target===this)closeCostModal()">
   <div class="modal-box" style="width:min(560px,95vw);">
     <div class="modal-head">
       <h3 id="cost-modal-title">Add Cost</h3>
@@ -10495,7 +10498,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
 
 <!-- AI Sales Analysis Modal -->
-<div id="analysis-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center;">
+<div id="analysis-modal" onclick="if(event.target===this)closeAnalysisModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center;">
   <div style="background:#1e2530; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px; max-width:560px; width:90%; max-height:80vh; overflow-y:auto; box-shadow:0 32px 80px rgba(0,0,0,0.7);">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
       <div style="font-size:16px; font-weight:700; color:#22c55e;">🤖 AI Sales Analysis</div>
@@ -10737,6 +10740,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     </div>
   </div>
 
+<div id="order-detail-backdrop" onclick="closeOrderDetail()" style="display:none;position:fixed;inset:0;z-index:1999;background:rgba(0,0,0,0.5);"></div>
 <!-- Order Detail Slide-Out Panel -->
 <div id="order-detail-panel" style="position:fixed;top:0;right:0;height:100vh;width:min(480px, 100vw);background:#1a2535;border-left:1px solid rgba(255,255,255,0.08);z-index:2000;display:none;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,0.5);transform:translateX(100%);transition:transform 0.25s ease;">
   <!-- Header -->
@@ -10807,12 +10811,14 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
     // Slide in
     panel.style.display = 'flex';
+    document.getElementById('order-detail-backdrop').style.display = 'block';
     requestAnimationFrame(() => { panel.style.transform = 'translateX(0)'; });
   }
 
   function closeOrderDetail() {
     const panel = document.getElementById('order-detail-panel');
     panel.style.transform = 'translateX(100%)';
+    document.getElementById('order-detail-backdrop').style.display = 'none';
     setTimeout(() => { panel.style.display = 'none'; }, 250);
     _odpOrder = null;
   }
