@@ -405,68 +405,101 @@ def _build_weekly_demo():
 def api_ash_inbox():
     """
     Returns all processed Ash inbox items sorted newest first.
-    Real Retell calls (from data/retell_calls.json) are prepended to today's list.
+    Pulls live calls from Retell API via get_recent_calls().
     Optional filter: ?type=call|email|sms
     Fields: id, type, sender, sender_contact, summary, outcome,
             quality_score, timestamp, duration_seconds, lead_id
     """
-    item_type = request.args.get("type")
-    items = _build_inbox_demo()
+    try:
+        from utils.retell_client import get_recent_calls
+        calls = get_recent_calls()
 
-    retell_calls = get_retell_calls()
-    for rc in retell_calls:
-        ts = rc.get("start_timestamp")
-        if ts:
-            ts_str = datetime.fromtimestamp(
-                ts / 1000, tz=timezone.utc
-            ).strftime("%Y-%m-%dT%H:%M:%S-07:00")
-        else:
-            ts_str = rc.get("received_at", "")
+        sentiment_map = {
+            "Positive": 90,
+            "Neutral": 70,
+            "Negative": 40,
+            "Unknown": 60
+        }
 
-        transcript = rc.get("transcript") or ""
-        summary = transcript[:80] if transcript else "Inbound call"
+        items = []
+        for call in (calls or []):
+            phone = call.get("phone_number", "")
+            sentiment = call.get("user_sentiment", "Unknown")
+            outcome = "not_qualified" if sentiment == "Negative" else "lead_created"
 
-        items.insert(0, {
-            "id": f"retell-{rc['call_id']}",
-            "type": "call",
-            "sender": rc.get("from_number", "Unknown"),
-            "sender_contact": rc.get("from_number", ""),
-            "summary": summary,
-            "outcome": "lead_created",
-            "quality_score": None,
-            "timestamp": ts_str,
-            "duration_seconds": None,
-            "lead_id": None,
-        })
+            items.append({
+                "id": call.get("call_id", ""),
+                "type": "call",
+                "sender": call.get("caller_name") or phone or "Unknown Caller",
+                "sender_contact": phone,
+                "summary": call.get("call_summary") or "Inbound call",
+                "outcome": outcome,
+                "quality_score": sentiment_map.get(sentiment, 60),
+                "timestamp": _format_retell_timestamp(call.get("start_timestamp")),
+                "duration_seconds": None,
+                "lead_id": None,
+            })
 
-    if item_type and item_type in ("call", "email", "sms"):
-        items = [i for i in items if i["type"] == item_type]
+        if not items:
+            items = _build_inbox_demo()
 
-    return jsonify({"items": items, "count": len(items)})
+        item_type = request.args.get("type")
+        if item_type and item_type in ("call", "email", "sms"):
+            items = [i for i in items if i["type"] == item_type]
+
+        return jsonify({"items": items, "count": len(items)})
+
+    except Exception as e:
+        items = _build_inbox_demo()
+        item_type = request.args.get("type")
+        if item_type and item_type in ("call", "email", "sms"):
+            items = [i for i in items if i["type"] == item_type]
+        return jsonify({"items": items, "count": len(items), "error": str(e)})
 
 
 @ash_bp.route("/api/ash/inbox/stats", methods=["GET"])
 @require_auth
 def api_ash_inbox_stats():
     """
-    Returns today's Ash inbox counts.
+    Returns today's Ash inbox counts from live Retell API.
     Fields: total, leads_created, invoices, not_qualified
     """
-    today = _today_str()
-    today_items = [i for i in _build_inbox_demo()
-                   if i["timestamp"].startswith(today)]
+    try:
+        from utils.retell_client import get_recent_calls
+        calls = get_recent_calls()
 
-    total = len(today_items)
-    leads_created = sum(1 for i in today_items if i["outcome"] == "lead_created")
-    invoices = sum(1 for i in today_items if i["outcome"] == "invoice_logged")
-    not_qualified = sum(1 for i in today_items if i["outcome"] == "not_qualified")
+        today = _today_str()
+        today_items = []
+        for call in (calls or []):
+            ts = _format_retell_timestamp(call.get("start_timestamp"))
+            if ts and ts.startswith(today):
+                sentiment = call.get("user_sentiment", "Unknown")
+                outcome = "not_qualified" if sentiment == "Negative" else "lead_created"
+                today_items.append({"outcome": outcome})
 
-    return jsonify({
-        "total": total,
-        "leads_created": leads_created,
-        "invoices": invoices,
-        "not_qualified": not_qualified
-    })
+        total = len(today_items)
+        leads_created = sum(1 for i in today_items if i["outcome"] == "lead_created")
+        invoices = sum(1 for i in today_items if i["outcome"] == "invoice_logged")
+        not_qualified = sum(1 for i in today_items if i["outcome"] == "not_qualified")
+
+        return jsonify({
+            "total": total,
+            "leads_created": leads_created,
+            "invoices": invoices,
+            "not_qualified": not_qualified
+        })
+
+    except Exception as e:
+        today = _today_str()
+        today_items = [i for i in _build_inbox_demo()
+                       if i["timestamp"].startswith(today)]
+        return jsonify({
+            "total": len(today_items),
+            "leads_created": sum(1 for i in today_items if i["outcome"] == "lead_created"),
+            "invoices": sum(1 for i in today_items if i["outcome"] == "invoice_logged"),
+            "not_qualified": sum(1 for i in today_items if i["outcome"] == "not_qualified"),
+            "error": str(e)
+        })
 
 
 @ash_bp.route("/api/ash/bookkeeping", methods=["GET"])
