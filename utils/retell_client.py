@@ -47,9 +47,15 @@ def get_recent_calls(limit=10):
     calls = []
     for c in raw:
         duration_ms = c.get("duration_ms")
+        analysis = c.get("call_analysis") or {}
+        custom = analysis.get("custom_analysis_data") or {}
+        caller_name = (custom.get("Caller Name") or "").strip()
         calls.append({
             "call_id": c.get("call_id"),
             "phone_number": c.get("from_number"),
+            "caller_name": caller_name or None,
+            "call_summary": analysis.get("call_summary") or None,
+            "user_sentiment": analysis.get("user_sentiment") or None,
             "duration_seconds": round(duration_ms / 1000) if duration_ms else None,
             "start_timestamp": c.get("start_timestamp"),
             "transcript": c.get("transcript"),

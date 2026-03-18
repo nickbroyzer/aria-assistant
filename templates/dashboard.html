@@ -1499,6 +1499,8 @@
     .ash-card-outcome.green { background: rgba(34,197,94,0.15); color: #22c55e; }
     .ash-card-outcome.yellow { background: rgba(251,191,36,0.15); color: #fbbf24; }
     .ash-card-outcome.red { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .ash-card-outcome.blue { background: rgba(96,165,250,0.15); color: #60a5fa; }
+    .ash-card-outcome.grey { background: rgba(148,163,184,0.15); color: #94a3b8; }
     .ash-inbox-cols { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .ash-col-header { display:flex; align-items:center; gap:8px; padding-bottom:6px; border-bottom:1px solid var(--border); margin-bottom:6px; }
     .ash-col-title { font-size:12px; font-weight:700; color:var(--text); text-transform:uppercase; letter-spacing:0.8px; }
@@ -3440,6 +3442,46 @@
     el.value = (n && !isNaN(n) && Number(n) !== 0) ? formatCurrency(n) : '';
   }
 
+  // ── Retell Call Helpers (global — used by Mission Control cards + slide-out panel) ──
+  function _fmtCallDuration(sec) {
+    if (!sec || sec < 0) return '—';
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return m > 0 ? m + 'm ' + s + 's' : s + 's';
+  }
+  function _fmtCallTime(ts) {
+    const d = new Date(typeof ts === 'number' ? ts : ts);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+    const callDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    let prefix = '';
+    if (callDay.getTime() === today.getTime()) prefix = 'Today ';
+    else if (callDay.getTime() === yesterday.getTime()) prefix = 'Yesterday ';
+    else prefix = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ';
+    return prefix + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  }
+  function _callStatusBadge(status) {
+    const map = { ended: { cls: 'green', label: 'Completed' }, ongoing: { cls: 'yellow', label: 'Ongoing' }, error: { cls: 'red', label: 'Error' } };
+    return map[status] || { cls: 'yellow', label: status.replace(/_/g, ' ') };
+  }
+  function _sentimentBadge(sentiment) {
+    const s = (sentiment || '').toLowerCase();
+    if (s === 'positive') return { cls: 'green', label: 'Positive' };
+    if (s === 'neutral') return { cls: 'blue', label: 'Neutral' };
+    if (s === 'negative') return { cls: 'red', label: 'Negative' };
+    return { cls: 'grey', label: 'Unknown' };
+  }
+  function _escAttr(s) { return (s || '').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+  function _fmtPhone(num) {
+    if (!num) return '';
+    const digits = num.replace(/\D/g, '');
+    if (digits.length === 11 && digits[0] === '1') return '(' + digits.slice(1,4) + ') ' + digits.slice(4,7) + '-' + digits.slice(7);
+    if (digits.length === 10) return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+    return num;
+  }
+  function _escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
   // ── Auth ──
   let currentUser = null;
   const pwScreen   = document.getElementById('pw-screen');
@@ -3968,33 +4010,41 @@
         }
       }).catch(()=>{});
 
-      // Ash Call Summary — rich compact cards in Col 4 (2 most recent)
-      const ashCalls = [
-        { name: 'Mike Rodriguez', phone: '(253) 555-0147', time: '10:32 AM',
-          summary: 'Requesting quote for new pallet shelving in warehouse B',
-          outcome: 'green', outcomeLabel: 'Qualified', followup: '📋 Quote needed' },
-        { name: 'Karen Chen', phone: '(206) 555-0283', time: '9:15 AM',
-          summary: 'Asking about Invoice #1042 — wants itemized breakdown',
-          outcome: 'yellow', outcomeLabel: 'Pending', followup: '📧 Send breakdown' },
-        { name: 'Derek Holloway', phone: '(253) 555-0391', time: '8:47 AM',
-          summary: 'Following up on Phase 3 racking install timeline',
-          outcome: 'green', outcomeLabel: 'Scheduled', followup: '' }
-      ];
-      const ashEl = document.getElementById('mc-ash-calls');
-      ashEl.innerHTML = ashCalls.map(c =>
-        `<div class="ash-card" onclick="document.getElementById('open-ash-btn')?.click()" style="cursor:pointer;">
-          <div class="ash-card-name">${c.name}</div>
-          <div class="ash-card-meta">
-            <span class="ash-card-phone">${c.phone}</span>
-            <span class="ash-card-time">${c.time}</span>
-          </div>
-          <div class="ash-card-summary">${c.summary}</div>
-          <div class="ash-card-foot">
-            <span class="ash-card-outcome ${c.outcome}">${c.outcomeLabel}</span>
-            ${c.followup ? `<span class="ash-card-followup">${c.followup}</span>` : ''}
-          </div>
-        </div>`
-      ).join('');
+      // Ash Call Summary — live Retell API data in Col 3
+      (function loadAshCalls() {
+        const ashEl = document.getElementById('mc-ash-calls');
+        if (!ashEl) return;
+        fetch('/api/ash/calls', { credentials: 'same-origin' })
+          .then(r => r.json())
+          .then(calls => {
+            if (!calls || !calls.length) {
+              ashEl.innerHTML = '<div style="font-size:13px;color:var(--muted);text-align:center;padding:12px 0;">No recent calls</div>';
+              return;
+            }
+            ashEl.innerHTML = calls.slice(0, 3).map(c => {
+              const dur = c.duration_seconds ? _fmtCallDuration(c.duration_seconds) : '—';
+              const time = c.start_timestamp ? _fmtCallTime(c.start_timestamp) : '—';
+              const sentiment = _sentimentBadge(c.user_sentiment);
+              const name = c.caller_name || _fmtPhone(c.phone_number) || 'Unknown';
+              const summary = c.call_summary || '';
+              const truncSummary = summary.length > 80 ? summary.slice(0, 80) + '...' : summary;
+              return `<div class="ash-card" onclick="openCallDetail('${_escAttr(c.call_id)}')" style="cursor:pointer;">
+                <div class="ash-card-name">${_escHtml(name)}</div>
+                <div class="ash-card-meta">
+                  <span class="ash-card-phone">${dur}</span>
+                  <span class="ash-card-time">${time}</span>
+                </div>
+                ${truncSummary ? `<div class="ash-card-summary">${_escHtml(truncSummary)}</div>` : ''}
+                <div class="ash-card-foot">
+                  <span class="ash-card-outcome ${sentiment.cls}">${sentiment.label}</span>
+                </div>
+              </div>`;
+            }).join('');
+          })
+          .catch(() => {
+            ashEl.innerHTML = '<div style="font-size:13px;color:var(--muted);text-align:center;padding:12px 0;">Failed to load calls</div>';
+          });
+      })();
 
       // Smart To-Do list
       const todos = [];
@@ -9955,6 +10005,116 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
     <button id="act-detail-open-btn" style="width:100%;padding:10px;background:#e8650a;border:none;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;"></button>
   </div>
 </div>
+
+<!-- Call Detail Slide-Out Panel -->
+<div id="call-detail-panel" style="position:fixed;top:0;right:0;width:min(440px, 100vw);height:100vh;background:#1e2530;border-left:1px solid rgba(255,255,255,0.08);z-index:2100;display:none;flex-direction:column;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 40px rgba(0,0,0,0.5);">
+  <div style="padding:16px 18px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div id="cdp-phone" style="font-size:14px;font-weight:700;color:#f0f0f0;"></div>
+      <button onclick="closeCallDetail()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">✕</button>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap;">
+      <span id="cdp-duration" style="font-size:12px;color:#94a3b8;"></span>
+      <span id="cdp-time" style="font-size:12px;color:#94a3b8;"></span>
+      <span id="cdp-status" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:1px 6px;border-radius:8px;"></span>
+      <span id="cdp-sentiment" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:1px 6px;border-radius:8px;"></span>
+    </div>
+    <div id="cdp-summary" style="font-size:13px;color:#94a3b8;line-height:1.4;margin-top:8px;"></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:16px 18px;">
+    <div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Transcript</div>
+    <div id="cdp-transcript" style="font-size:13px;color:#cbd5e1;line-height:1.6;"></div>
+  </div>
+</div>
+
+<script>
+  function openCallDetail(callId) {
+    var panel = document.getElementById('call-detail-panel');
+    var phoneEl = document.getElementById('cdp-phone');
+    var durEl = document.getElementById('cdp-duration');
+    var timeEl = document.getElementById('cdp-time');
+    var statusEl = document.getElementById('cdp-status');
+    var sentimentEl = document.getElementById('cdp-sentiment');
+    var summaryEl = document.getElementById('cdp-summary');
+    var transcriptEl = document.getElementById('cdp-transcript');
+
+    phoneEl.textContent = 'Loading...';
+    durEl.textContent = '';
+    timeEl.textContent = '';
+    statusEl.textContent = '';
+    sentimentEl.textContent = '';
+    summaryEl.textContent = '';
+    transcriptEl.innerHTML = '';
+
+    panel.style.display = 'flex';
+    requestAnimationFrame(function() { panel.style.transform = 'translateX(0)'; });
+
+    fetch('/api/ash/calls/' + encodeURIComponent(callId), { credentials: 'same-origin' })
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(c) {
+        var ca = c.call_analysis || {};
+        var custom = ca.custom_analysis_data || {};
+        var callerName = (custom['Caller Name'] || '').trim();
+        phoneEl.textContent = callerName || _fmtPhone(c.from_number) || 'Unknown Caller';
+
+        var durMs = c.duration_ms;
+        durEl.textContent = durMs ? _fmtCallDuration(Math.round(durMs / 1000)) : '—';
+
+        timeEl.textContent = c.start_timestamp ? _fmtCallTime(c.start_timestamp) : '';
+
+        var status = c.call_status || 'unknown';
+        var sBadge = _callStatusBadge(status);
+        statusEl.textContent = sBadge.label;
+        _applyBadgeStyle(statusEl, sBadge.cls);
+
+        var sentiment = ca.user_sentiment || '';
+        if (sentiment) {
+          var senBadge = _sentimentBadge(sentiment);
+          sentimentEl.textContent = senBadge.label;
+          _applyBadgeStyle(sentimentEl, senBadge.cls);
+        }
+
+        summaryEl.textContent = ca.call_summary || '';
+
+        if (c.transcript_object && Array.isArray(c.transcript_object) && c.transcript_object.length) {
+          transcriptEl.innerHTML = c.transcript_object.map(function(t) {
+            var role = t.role === 'agent' ? 'Ash' : 'Caller';
+            var color = t.role === 'agent' ? '#e8650a' : '#60a5fa';
+            return '<div style="margin-bottom:8px;"><span style="font-weight:700;color:' + color + ';">' + _escHtml(role) + ':</span> ' + _escHtml(t.content || '') + '</div>';
+          }).join('');
+        } else if (c.transcript) {
+          transcriptEl.style.whiteSpace = 'pre-wrap';
+          transcriptEl.textContent = c.transcript;
+        } else {
+          transcriptEl.textContent = 'No transcript available.';
+        }
+      })
+      .catch(function(err) {
+        console.error('Call detail fetch error:', err);
+        phoneEl.textContent = 'Error loading call';
+        transcriptEl.textContent = 'Could not fetch call details. ' + (err.message || '');
+      });
+  }
+
+  function _applyBadgeStyle(el, cls) {
+    var colors = { green: ['rgba(34,197,94,0.15)', '#22c55e'], red: ['rgba(239,68,68,0.15)', '#ef4444'], yellow: ['rgba(251,191,36,0.15)', '#fbbf24'], blue: ['rgba(96,165,250,0.15)', '#60a5fa'], grey: ['rgba(148,163,184,0.15)', '#94a3b8'] };
+    var c = colors[cls] || colors.yellow;
+    el.style.background = c[0];
+    el.style.color = c[1];
+  }
+
+  function closeCallDetail() {
+    var panel = document.getElementById('call-detail-panel');
+    panel.style.transform = 'translateX(100%)';
+    setTimeout(function() { panel.style.display = 'none'; }, 250);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('call-detail-panel').style.display === 'flex') {
+      closeCallDetail();
+    }
+  });
+</script>
 
 <!-- Confirm Dialog -->
 <div id="confirm-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;">
