@@ -20,6 +20,7 @@ from utils.gmail_auth import (
     get_gmail_account_info,
 )
 from utils.ash_scanner import scan_inbox
+from utils.retell_client import get_recent_calls, get_call_detail
 from utils.suppliers_db import insert_retell_call, get_retell_calls
 
 
@@ -484,4 +485,24 @@ def api_ash_weekly():
             calls, not_qualified, messages
     """
     return jsonify(_build_weekly_demo())
+
+
+# ── Retell API Routes ─────────────────────────────────────────────────────────
+
+@ash_bp.route("/api/ash/calls", methods=["GET"])
+@require_auth
+def api_ash_calls():
+    """Return recent Retell calls via direct API pull."""
+    calls = get_recent_calls(10)
+    return jsonify(calls)
+
+
+@ash_bp.route("/api/ash/calls/<call_id>", methods=["GET"])
+@require_auth
+def api_ash_call_detail(call_id):
+    """Return full detail for a single Retell call."""
+    detail = get_call_detail(call_id)
+    if detail is None:
+        return jsonify({"error": "Call not found or API error"}), 404
+    return jsonify(detail)
 
