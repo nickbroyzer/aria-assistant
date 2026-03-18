@@ -141,6 +141,24 @@ def oauth_gmail_callback():
 
 # ── Ash Tab Routes ─────────────────────────────────────────────────────────────
 
+def _format_retell_timestamp(ts):
+    if not ts:
+        return ""
+    try:
+        from datetime import datetime, timezone, timedelta
+        if isinstance(ts, (int, float)) and ts > 1e10:
+            ts = ts / 1000
+        dt = datetime.fromtimestamp(float(ts), tz=timezone.utc)
+        # Pacific time: UTC-8 standard, UTC-7 daylight
+        import time
+        is_dst = time.daylight and time.localtime(float(ts)).tm_isdst > 0
+        offset = timedelta(hours=-7 if is_dst else -8)
+        dt_pacific = dt.astimezone(timezone(offset))
+        return dt_pacific.isoformat()
+    except Exception:
+        return str(ts)
+
+
 def _today_str():
     return date.today().isoformat()
 
@@ -465,15 +483,46 @@ def api_ash_bookkeeping():
 @ash_bp.route("/api/ash/activity", methods=["GET"])
 @require_auth
 def api_ash_activity():
-    """
-    Returns chronological feed of all Ash actions, newest first.
-    Fields: id, timestamp, action_type, description
-    """
-    items = _build_activity_demo()
-    return jsonify({
-        "activity": items,
-        "count": len(items)
-    })
+    try:
+        from utils.retell_client import get_recent_calls
+        calls = get_recent_calls()
+
+        sentiment_map = {
+            "Positive": 90,
+            "Neutral": 70,
+            "Negative": 40,
+            "Unknown": 60
+        }
+
+        items = []
+        for call in (calls or []):
+            phone = call.get("phone_number", "")
+            action_type = "outbound_call" if call.get("direction") == "outbound" else "inbound_call"
+            sentiment = call.get("user_sentiment", "Unknown")
+            items.append({
+                "id": call.get("call_id", ""),
+                "timestamp": _format_retell_timestamp(call.get("start_timestamp")),
+                "action_type": action_type,
+                "description": call.get("call_summary") or "No summary available",
+                "sender": call.get("caller_name") or phone or "Unknown Caller",
+                "quality_score": sentiment_map.get(sentiment, 60),
+                "type": "call"
+            })
+
+        # Fall back to demo data if no real calls
+        if not items:
+            items = _build_activity_demo()
+
+        return jsonify({
+            "activity": items,
+            "count": len(items)
+        })
+    except Exception as e:
+        return jsonify({
+            "activity": _build_activity_demo(),
+            "count": 0,
+            "error": str(e)
+        })
 
 
 @ash_bp.route("/api/ash/weekly", methods=["GET"])
