@@ -1541,7 +1541,7 @@
   .nav-ash-parent svg { stroke: #a78bfa; }
   .nav-ash-sub { padding-left: 42px; font-size: 13px; border-left: 3px solid transparent; }
   .nav-ash-sub.active { color: #a78bfa; border-left: 3px solid #7c3aed; }
-  .ash-status-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+  .ash-status-bar { display:flex; align-items:center; justify-content:flex-end; margin-bottom:20px; }
   .ash-page-title { font-size:20px; font-weight:600; color:var(--text); }
   .ash-gmail-status { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--dim); }
   .ash-status-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; display:inline-block; flex-shrink:0; }
@@ -1550,7 +1550,8 @@
   .ash-two-col { display:grid; grid-template-columns:1fr 340px; gap:16px; align-items:start; }
   .ash-left-col { display:flex; flex-direction:column; gap:0; }
   .ash-right-col { background:var(--surface2); border-radius:8px; border:1px solid var(--border); min-height:200px; }
-  #page-ash-overview.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
+  #page-ash-overview { display:none !important; }
+  #page-ash-overview.active { display:flex !important; flex-direction:column; width:100%; height:100%; overflow:hidden; }
   #page-ash-inbox.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
   .ash-three-col { display:grid; grid-template-columns:1fr 1fr 3fr; gap:8px; align-items:stretch; flex:1; width:100%; min-height:0; }
   .ash-inbox-col { display:flex; flex-direction:column; min-height:0; min-width:0; overflow:hidden; }
@@ -1633,14 +1634,15 @@
         .ash-ov-content {
           flex: 1;
           overflow: hidden;
-          padding: 14px 18px;
+          overflow-y: auto;
+          padding: 18px 22px;
           min-width: 0;
         }
         .ash-ov-status-bar {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          margin-bottom: 10px;
+          justify-content: flex-end;
+          margin-bottom: 18px;
         }
         .ash-ov-page-title {
           font-size: 10px;
@@ -1651,7 +1653,7 @@
           display: flex;
           align-items: center;
           gap: 4px;
-          font-size: 7px;
+          font-size: 14px;
           color: #64748b;
         }
         .ash-ov-live-dot {
@@ -1662,20 +1664,20 @@
           flex-shrink: 0;
         }
         .ash-ov-stat-grid {
-          width: 362px;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 8px;
-          margin-bottom: 10px;
+          gap: 6px;
+          margin-bottom: 21px;
         }
         .ash-ov-stat-card {
-          background: rgba(255,255,255,0.04);
+          background: #1a2332;
           border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 6px;
-          padding: 8px 10px;
+          border-radius: 10px;
+          padding: 13px;
+          min-height: 78px;
         }
         .ash-ov-stat-label {
-          font-size: 6px;
+          font-size: 12px;
           font-weight: 700;
           color: #475569;
           text-transform: uppercase;
@@ -1683,13 +1685,13 @@
           margin-bottom: 4px;
         }
         .ash-ov-stat-value {
-          font-size: 22px;
+          font-size: 28px;
           font-weight: 700;
           line-height: 1;
           margin-bottom: 2px;
         }
         .ash-ov-stat-sub {
-          font-size: 6px;
+          font-size: 12px;
           color: #334155;
         }
         .ash-ov-divider {
@@ -1699,14 +1701,13 @@
         }
         .ash-ov-lower {
           display: flex;
-          gap: 12px;
+          gap: 9px;
           align-items: flex-start;
-          width: 362px;
         }
-        .ash-ov-col-calls { width: 150px; flex-shrink: 0; }
-        .ash-ov-col-insight { width: 200px; flex-shrink: 0; }
+        .ash-ov-col-calls { width: 572px; flex-shrink: 0; }
+        .ash-ov-col-insight { width: 534px; flex-shrink: 0; }
         .ash-ov-col-header {
-          font-size: 7px;
+          font-size: 12px;
           font-weight: 700;
           color: #475569;
           text-transform: uppercase;
@@ -1716,12 +1717,14 @@
         .ash-ov-call-row {
           display: flex;
           align-items: center;
-          gap: 7px;
-          padding: 5px 8px;
+          gap: 20px;
+          padding: 15px 20px;
           background: rgba(255,255,255,0.03);
           border: 1px solid rgba(255,255,255,0.05);
           border-radius: 5px;
-          margin-bottom: 4px;
+          margin-bottom: 7px;
+          width: 100%;
+          overflow: hidden;
         }
         .ash-ov-s-dot {
           width: 6px;
@@ -1730,24 +1733,24 @@
           flex-shrink: 0;
         }
         .ash-ov-call-name {
-          font-size: 7px;
+          font-size: 14px;
           font-weight: 600;
           color: #cbd5e1;
         }
         .ash-ov-call-outcome {
-          font-size: 6px;
+          font-size: 13px;
           color: #475569;
         }
         .ash-ov-call-score {
-          font-size: 8px;
+          font-size: 18px;
           font-weight: 700;
         }
         .ash-ov-call-time {
-          font-size: 6px;
+          font-size: 11px;
           color: #334155;
         }
         .ash-ov-loading {
-          font-size: 7px;
+          font-size: 17px;
           color: #475569;
         }
         .ash-ov-insight-box {
@@ -1758,7 +1761,7 @@
           margin-bottom: 8px;
         }
         .ash-ov-insight-eyebrow {
-          font-size: 6px;
+          font-size: 14px;
           font-weight: 700;
           color: #7c3aed;
           text-transform: uppercase;
@@ -1766,13 +1769,13 @@
           margin-bottom: 3px;
         }
         .ash-ov-insight-num {
-          font-size: 20px;
+          font-size: 35px;
           font-weight: 700;
           color: #a78bfa;
           line-height: 1;
         }
         .ash-ov-insight-desc {
-          font-size: 6px;
+          font-size: 11px;
           color: #7c3aed;
           margin-top: 3px;
         }
@@ -1785,8 +1788,8 @@
           background: rgba(255,255,255,0.04);
           border: 1px solid rgba(255,255,255,0.08);
           border-radius: 4px;
-          padding: 5px 8px;
-          font-size: 7px;
+          padding: 6px 14px;
+          font-size: 12px;
           font-weight: 700;
           color: #94a3b8;
           text-align: center;
@@ -2249,7 +2252,6 @@
 
             <!-- Status Bar -->
             <div class="ash-ov-status-bar">
-              <div class="ash-ov-page-title">Ash</div>
               <div class="ash-ov-live-badge">
                 <div class="ash-ov-live-dot"></div>
                 <span>Retell connected</span>
@@ -2315,7 +2317,6 @@
 
       <div class="page" id="page-ash-inbox">
         <div class="ash-status-bar">
-          <div class="ash-page-title">Ash &mdash; Inbox</div>
           <div class="ash-gmail-status">
             <span class="ash-status-dot"></span>
             <span id="ash-gmail-label">Gmail connected</span>
@@ -2393,7 +2394,6 @@
       <!-- Ash Activity page -->
       <div class="page" id="page-ash-activity">
         <div class="ash-status-bar">
-          <div class="ash-page-title">Ash &mdash; Activity</div>
           <div class="ash-gmail-status">
             <span class="ash-status-dot"></span>
             <span id="ash-activity-gmail-label">Gmail connected</span>
@@ -11529,6 +11529,80 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
 
   // ── Ash Tab ──────────────────────────────────────────────
   let allAshItems = [];
+
+  async function loadAshOverview() {
+    var el = function(id) { return document.getElementById(id); };
+
+    // 1. Fetch stats → populate stat cards
+    try {
+      var statsRes = await fetch('/api/ash/inbox/stats', { credentials: 'same-origin' });
+      if (!statsRes.ok) throw new Error('HTTP ' + statsRes.status);
+      var stats = await statsRes.json();
+      if (el('ash-ov-total-calls'))    el('ash-ov-total-calls').textContent    = stats.total ?? '—';
+      if (el('ash-ov-leads'))          el('ash-ov-leads').textContent          = stats.leads_created ?? '—';
+      if (el('ash-ov-not-qualified'))  el('ash-ov-not-qualified').textContent  = stats.not_qualified ?? '—';
+    } catch (err) {
+      console.error('loadAshOverview stats failed:', err);
+    }
+
+    // 2. Fetch activity → populate recent calls + sentiment snapshot
+    try {
+      var actRes = await fetch('/api/ash/activity', { credentials: 'same-origin' });
+      if (!actRes.ok) throw new Error('HTTP ' + actRes.status);
+      var data = await actRes.json();
+      var items = data.activity || [];
+
+      // Avg quality score
+      var scored = items.filter(function(a) { return a.quality_score != null; });
+      if (scored.length > 0) {
+        var avg = scored.reduce(function(sum, a) { return sum + a.quality_score; }, 0) / scored.length;
+        var avgOut10 = (avg / 10).toFixed(1);
+        if (el('ash-ov-avg-quality')) el('ash-ov-avg-quality').textContent = avgOut10;
+      } else {
+        if (el('ash-ov-avg-quality')) el('ash-ov-avg-quality').textContent = '—';
+      }
+
+      // Recent calls list (top 5)
+      var callList = el('ash-ov-call-list');
+      if (callList) {
+        if (items.length === 0) {
+          callList.innerHTML = '<div class="ash-ov-loading">No calls yet</div>';
+        } else {
+          callList.innerHTML = items.slice(0, 5).map(function(item) {
+            var qs = item.quality_score != null ? item.quality_score : 0;
+            var dotColor = qs >= 80 ? '#22c55e' : qs >= 50 ? '#e8650a' : '#ef4444';
+            var scoreColor = qs >= 80 ? '#22c55e' : qs >= 50 ? '#e8650a' : '#ef4444';
+            var name = item.sender || 'Unknown';
+            var time = item.timestamp ? new Date(item.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '';
+            return '<div class="ash-ov-call-row">' +
+              '<div class="ash-ov-s-dot" style="background:' + dotColor + ';"></div>' +
+              '<div style="flex:1;min-width:0;">' +
+                '<div class="ash-ov-call-name">' + _escHtml(name) + '</div>' +
+                '<div class="ash-ov-call-outcome">' + (item.action_type || '').replace(/_/g, ' ') + '</div>' +
+              '</div>' +
+              '<div style="text-align:right;">' +
+                '<div class="ash-ov-call-score" style="color:' + scoreColor + ';">' + qs + '%</div>' +
+                '<div class="ash-ov-call-time">' + time + '</div>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+      }
+
+      // Sentiment snapshot — count positive out of last 10
+      var last10 = items.slice(0, 10);
+      var positive = last10.filter(function(a) { return a.quality_score != null && a.quality_score >= 80; }).length;
+      var total10 = last10.length;
+      var sentimentScore = total10 > 0 ? ((positive / total10) * 10).toFixed(1) : '—';
+      if (el('ash-ov-insight-score')) el('ash-ov-insight-score').textContent = sentimentScore + ' / 10';
+      if (el('ash-ov-insight-desc'))  el('ash-ov-insight-desc').textContent  = positive + ' of ' + total10 + ' recent calls positive';
+
+    } catch (err) {
+      console.error('loadAshOverview activity failed:', err);
+      var callList = el('ash-ov-call-list');
+      if (callList) callList.innerHTML = '<div class="ash-ov-loading">Failed to load calls</div>';
+    }
+  }
 
   async function loadAshInbox() {
     try {

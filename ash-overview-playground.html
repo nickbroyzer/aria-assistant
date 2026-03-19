@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ash Overview — Design Playground</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#e2e8f0;display:flex;height:100vh}
+
+/* Controls */
+.ctrl{width:300px;background:#0d1117;border-right:1px solid #1e2633;overflow-y:auto;padding:14px;flex-shrink:0}
+.ctrl h2{font-size:12px;color:#a78bfa;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
+.g{margin-bottom:14px;border-bottom:1px solid #1e2633;padding-bottom:10px}
+.gt{font-size:10px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.c{margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.c label{font-size:11px;color:#8b949e;flex:1;white-space:nowrap}
+.c input[type=range]{width:100px;accent-color:#a78bfa}
+.c .v{font-size:10px;color:#a78bfa;font-weight:700;min-width:44px;text-align:right;font-family:'SF Mono',monospace}
+.info{font-size:9px;color:#a78bfa;font-family:'SF Mono',monospace;margin-bottom:8px;padding:4px 6px;background:rgba(167,139,250,.08);border-radius:4px}
+
+/* Presets */
+.presets{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.pb{background:#1a1f2e;border:1px solid #2d3548;border-radius:4px;padding:3px 9px;font-size:10px;font-weight:600;color:#8b949e;cursor:pointer;transition:all .15s}
+.pb:hover{border-color:#a78bfa;color:#c4b5fd}
+.pb.on{background:rgba(167,139,250,.12);border-color:#a78bfa;color:#a78bfa}
+
+/* Right */
+.right{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.preview-wrap{flex:1;overflow:auto;padding:16px;background:#0d1117}
+.pbox{background:#161b22;border-radius:8px;overflow:hidden;border:1px solid #1e2633}
+.ptop{height:40px;background:#1a1f2e;border-bottom:1px solid #1e2633;display:flex;align-items:center;padding:0 14px;font-size:13px;font-weight:600;color:#e2e8f0}
+
+/* Prompt */
+.parea{background:#1a1f2e;border-top:1px solid #1e2633;padding:12px 16px;flex-shrink:0}
+.plbl{font-size:9px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.ptxt{font-size:11px;color:#c9d1d9;line-height:1.5;font-family:'SF Mono',Consolas,monospace;white-space:pre-wrap;max-height:110px;overflow-y:auto}
+.cbtn{margin-top:6px;background:#a78bfa;border:none;color:#0d1117;padding:5px 14px;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer}
+.cbtn:hover{background:#c4b5fd}
+.cbtn.ok{background:#22c55e}
+</style>
+</head>
+<body>
+
+<div class="ctrl">
+  <h2>Ash Overview</h2>
+
+  <div class="presets">
+    <button class="pb on" onclick="preset('current',this)">Current</button>
+    <button class="pb" onclick="preset('tight',this)">Tight</button>
+    <button class="pb" onclick="preset('airy',this)">Airy</button>
+    <button class="pb" onclick="preset('wide',this)">Wide</button>
+  </div>
+
+  <div class="g">
+    <div class="gt">Width Constraints</div>
+    <div class="c"><label>Grid Max-W</label><input type=range min=0 max=1400 step=10 id=r-gridMaxW oninput=u()><span class=v id=d-gridMaxW></span></div>
+    <div class="info" id="info-lower">lower: —</div>
+  </div>
+
+  <div class="g">
+    <div class="gt">Content Area</div>
+    <div class="c"><label>Pad Top</label><input type=range min=0 max=40 id=r-padTop oninput=u()><span class=v id=d-padTop></span></div>
+    <div class="c"><label>Pad Side</label><input type=range min=0 max=40 id=r-padSide oninput=u()><span class=v id=d-padSide></span></div>
+  </div>
+
+  <div class="g">
+    <div class="gt">Status Bar</div>
+    <div class="c"><label>Badge Font</label><input type=range min=8 max=18 id=r-badgeFont oninput=u()><span class=v id=d-badgeFont></span></div>
+    <div class="c"><label>Margin Bot</label><input type=range min=0 max=30 id=r-statusMB oninput=u()><span class=v id=d-statusMB></span></div>
+  </div>
+
+  <div class="g">
+    <div class="gt">Stat Cards</div>
+    <div class="c"><label>Padding</label><input type=range min=6 max=28 id=r-cardPad oninput=u()><span class=v id=d-cardPad></span></div>
+    <div class="c"><label>Min Height</label><input type=range min=36 max=110 id=r-cardMinH oninput=u()><span class=v id=d-cardMinH></span></div>
+    <div class="c"><label>Radius</label><input type=range min=2 max=16 id=r-cardR oninput=u()><span class=v id=d-cardR></span></div>
+    <div class="c"><label>Grid Gap</label><input type=range min=2 max=18 id=r-gridGap oninput=u()><span class=v id=d-gridGap></span></div>
+    <div class="c"><label>Grid MB</label><input type=range min=0 max=36 id=r-gridMB oninput=u()><span class=v id=d-gridMB></span></div>
+    <div class="c"><label>Label Font</label><input type=range min=8 max=16 id=r-lblF oninput=u()><span class=v id=d-lblF></span></div>
+    <div class="c"><label>Value Font</label><input type=range min=14 max=40 id=r-valF oninput=u()><span class=v id=d-valF></span></div>
+    <div class="c"><label>Sub Font</label><input type=range min=8 max=16 id=r-subF oninput=u()><span class=v id=d-subF></span></div>
+  </div>
+
+  <div class="g">
+    <div class="gt">Divider</div>
+    <div class="c"><label>Margin Y</label><input type=range min=0 max=24 id=r-divM oninput=u()><span class=v id=d-divM></span></div>
+  </div>
+
+  <div class="g">
+    <div class="gt">Lower Columns</div>
+    <div class="c"><label>Gap</label><input type=range min=4 max=40 id=r-gap oninput=u()><span class=v id=d-gap></span></div>
+    <div class="c"><label>Calls W</label><input type=range min=200 max=700 id=r-cW oninput=u()><span class=v id=d-cW></span></div>
+    <div class="c"><label>Insight W</label><input type=range min=200 max=700 id=r-iW oninput=u()><span class=v id=d-iW></span></div>
+    <div class="c"><label>Header Font</label><input type=range min=8 max=16 id=r-hdrF oninput=u()><span class=v id=d-hdrF></span></div>
+  </div>
+
+  <div class="g">
+    <div class="gt">Call Rows</div>
+    <div class="c"><label>Pad V</label><input type=range min=4 max=20 id=r-rpV oninput=u()><span class=v id=d-rpV></span></div>
+    <div class="c"><label>Pad H</label><input type=range min=6 max=28 id=r-rpH oninput=u()><span class=v id=d-rpH></span></div>
+    <div class="c"><label>Gap</label><input type=range min=4 max=24 id=r-rGap oninput=u()><span class=v id=d-rGap></span></div>
+    <div class="c"><label>Margin Bot</label><input type=range min=2 max=14 id=r-rMB oninput=u()><span class=v id=d-rMB></span></div>
+    <div class="c"><label>Name Font</label><input type=range min=10 max=20 id=r-nF oninput=u()><span class=v id=d-nF></span></div>
+    <div class="c"><label>Outcome Font</label><input type=range min=8 max=16 id=r-oF oninput=u()><span class=v id=d-oF></span></div>
+    <div class="c"><label>Score Font</label><input type=range min=10 max=24 id=r-sF oninput=u()><span class=v id=d-sF></span></div>
+    <div class="c"><label>Time Font</label><input type=range min=8 max=16 id=r-tF oninput=u()><span class=v id=d-tF></span></div>
+  </div>
+
+  <div class="g">
+    <div class="gt">Insight Panel</div>
+    <div class="c"><label>Eyebrow</label><input type=range min=8 max=16 id=r-eyeF oninput=u()><span class=v id=d-eyeF></span></div>
+    <div class="c"><label>Score Num</label><input type=range min=16 max=48 id=r-insF oninput=u()><span class=v id=d-insF></span></div>
+    <div class="c"><label>Desc</label><input type=range min=8 max=16 id=r-dscF oninput=u()><span class=v id=d-dscF></span></div>
+    <div class="c"><label>Nav Btn Font</label><input type=range min=8 max=16 id=r-navF oninput=u()><span class=v id=d-navF></span></div>
+    <div class="c"><label>Nav Btn Pad</label><input type=range min=3 max=14 id=r-navP oninput=u()><span class=v id=d-navP></span></div>
+  </div>
+</div>
+
+<div class="right">
+  <div class="preview-wrap">
+    <div class="pbox">
+      <div class="ptop">Ash</div>
+      <div id="P"></div>
+    </div>
+  </div>
+  <div class="parea">
+    <div class="plbl">CSS Changes — paste into Claude</div>
+    <div class="ptxt" id="out"></div>
+    <button class="cbtn" id="cpb" onclick="cp()">Copy Prompt</button>
+  </div>
+</div>
+
+<script>
+const D={gridMaxW:1080,padTop:20,padSide:22,badgeFont:15,statusMB:20,cardPad:13,cardMinH:59,gridGap:7,cardR:10,lblF:12,valF:28,subF:12,gridMB:26,divM:10,gap:11,cW:532,iW:534,hdrF:12,rpV:15,rpH:20,rGap:20,rMB:7,nF:14,oF:13,sF:18,tF:11,eyeF:14,insF:35,dscF:11,navF:12,navP:6};
+const PR={
+  current:{...D},
+  tight:{...D,padTop:10,padSide:12,cardPad:8,cardMinH:44,gridGap:5,gridMB:14,valF:22,lblF:10,subF:10,statusMB:8,gap:8,cW:400,iW:420,rpV:8,rpH:12,rGap:10,rMB:4,nF:12,oF:10,sF:14,tF:9,eyeF:10,insF:24,dscF:9,navF:10,navP:4,hdrF:10,gridMaxW:840},
+  airy:{...D,padTop:28,padSide:30,cardPad:18,cardMinH:74,gridGap:10,gridMB:30,valF:34,statusMB:24,gap:18,cW:560,iW:560,rpV:18,rpH:24,rMB:10,nF:16,sF:22,insF:42,gridMaxW:1160},
+  wide:{...D,gridMaxW:0,cW:600,iW:640,gap:20}
+};
+let S={...D};
+const $=id=>document.getElementById(id);
+
+function preset(n,b){S={...PR[n]};document.querySelectorAll('.pb').forEach(x=>x.classList.remove('on'));b.classList.add('on');sync();u()}
+function sync(){for(const k in D){const r=$('r-'+k);if(r)r.value=S[k]}}
+
+function u(){
+  for(const k in D){const r=$('r-'+k),d=$('d-'+k);if(r&&d){S[k]=+r.value;d.textContent=r.value==='0'?'none':r.value+'px'}}
+  $('info-lower').textContent='lower: '+S.cW+' + '+S.iW+' + '+S.gap+' = '+(S.cW+S.iW+S.gap)+'px';
+  render();prompt();
+}
+
+function sc(l,v,s,clr){
+  return `<div style="background:#1a1f2e;border:1px solid #2d3548;border-radius:${S.cardR}px;padding:${S.cardPad}px;min-height:${S.cardMinH}px">
+    <div style="font-size:${S.lblF}px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">${l}</div>
+    <div style="font-size:${S.valF}px;font-weight:700;line-height:1;margin-bottom:2px;color:${clr}">${v}</div>
+    <div style="font-size:${S.subF}px;color:#3d4663">${s}</div>
+  </div>`}
+
+function cr(nm,oc,sc_,tm){
+  const dc=sc_>=80?'#22c55e':sc_>=50?'#e8a33e':'#ef4444';
+  return `<div style="display:flex;align-items:center;gap:${S.rGap}px;padding:${S.rpV}px ${S.rpH}px;background:rgba(255,255,255,.02);border:1px solid #1e2633;border-radius:6px;margin-bottom:${S.rMB}px;overflow:hidden">
+    <div style="width:7px;height:7px;border-radius:50%;background:${dc};flex-shrink:0"></div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:${S.nF}px;font-weight:600;color:#e2e8f0">${nm}</div>
+      <div style="font-size:${S.oF}px;color:#525f7f">${oc}</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:${S.sF}px;font-weight:700;color:${dc}">${sc_}%</div>
+      <div style="font-size:${S.tF}px;color:#3d4663">${tm}</div>
+    </div>
+  </div>`}
+
+function render(){
+  const gm=S.gridMaxW>0?`max-width:${S.gridMaxW}px;`:'';
+  $('P').innerHTML=`
+  <div style="padding:${S.padTop}px ${S.padSide}px">
+    <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:${S.statusMB}px">
+      <div style="display:flex;align-items:center;gap:5px;font-size:${S.badgeFont}px;color:#525f7f">
+        <div style="width:7px;height:7px;border-radius:50%;background:#22c55e"></div>Retell connected
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:${S.gridGap}px;margin-bottom:${S.gridMB}px;${gm}">
+      ${sc('Total Calls','3','calls today','#a78bfa')}
+      ${sc('Leads Created','2','auto-created today','#22c55e')}
+      ${sc('Avg Quality','7.5','out of 10','#e8a33e')}
+      ${sc('Not Qualified','1','screened out','rgba(255,255,255,.25)')}
+    </div>
+    <div style="border-top:1px solid #1e2633;margin:${S.divM}px 0"></div>
+    <div style="display:flex;gap:${S.gap}px;align-items:flex-start">
+      <div style="width:${S.cW}px;flex-shrink:0">
+        <div style="font-size:${S.hdrF}px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Recent Calls</div>
+        ${cr('Nick Broiser','inbound call',90,'12:06 PM')}
+        ${cr('+14254437235','inbound call',70,'7:07 PM')}
+        ${cr('+14254437235','inbound call',70,'7:07 PM')}
+        ${cr('Sarah Chen','inbound call',85,'3:22 PM')}
+      </div>
+      <div style="width:${S.iW}px;flex-shrink:0">
+        <div style="font-size:${S.hdrF}px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Sentiment Snapshot</div>
+        <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.15);border-radius:8px;padding:10px 12px;margin-bottom:10px">
+          <div style="font-size:${S.eyeF}px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">Today's trend</div>
+          <div style="font-size:${S.insF}px;font-weight:700;color:#a78bfa;line-height:1">3.0 / 10</div>
+          <div style="font-size:${S.dscF}px;color:#7c3aed;margin-top:4px">3 of 10 recent calls positive</div>
+        </div>
+        <div style="font-size:${S.hdrF}px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;margin-top:8px">Quick Actions</div>
+        <div style="display:flex;gap:6px">
+          <div style="flex:1;background:rgba(255,255,255,.03);border:1px solid #1e2633;border-radius:5px;padding:${S.navP}px 14px;font-size:${S.navF}px;font-weight:700;color:#8b949e;text-align:center;cursor:pointer">→ Inbox</div>
+          <div style="flex:1;background:rgba(255,255,255,.03);border:1px solid #1e2633;border-radius:5px;padding:${S.navP}px 14px;font-size:${S.navF}px;font-weight:700;color:#8b949e;text-align:center;cursor:pointer">→ Activity</div>
+        </div>
+      </div>
+    </div>
+  </div>`}
+
+function prompt(){
+  const ch=[];
+  const m=(k,css,prop,unit='px')=>{if(S[k]!==D[k])ch.push(`${css} { ${prop}: ${S[k]}${S[k]===0&&k==='gridMaxW'?'; /* none */':unit}; }`)};
+
+  if(S.gridMaxW!==D.gridMaxW) ch.push(`.ash-ov-stat-grid { max-width: ${S.gridMaxW>0?S.gridMaxW+'px':'none'}; }`);
+  if(S.padTop!==D.padTop||S.padSide!==D.padSide) ch.push(`.ash-ov-content { padding: ${S.padTop}px ${S.padSide}px; }`);
+  if(S.badgeFont!==D.badgeFont) ch.push(`.ash-ov-live-badge { font-size: ${S.badgeFont}px; }`);
+  if(S.statusMB!==D.statusMB) ch.push(`.ash-ov-status-bar { margin-bottom: ${S.statusMB}px; }`);
+  if(S.cardPad!==D.cardPad||S.cardMinH!==D.cardMinH||S.cardR!==D.cardR) ch.push(`.ash-ov-stat-card { padding: ${S.cardPad}px; min-height: ${S.cardMinH}px; border-radius: ${S.cardR}px; }`);
+  if(S.gridGap!==D.gridGap||S.gridMB!==D.gridMB) ch.push(`.ash-ov-stat-grid { gap: ${S.gridGap}px; margin-bottom: ${S.gridMB}px; }`);
+  if(S.lblF!==D.lblF) ch.push(`.ash-ov-stat-label { font-size: ${S.lblF}px; }`);
+  if(S.valF!==D.valF) ch.push(`.ash-ov-stat-value { font-size: ${S.valF}px; }`);
+  if(S.subF!==D.subF) ch.push(`.ash-ov-stat-sub { font-size: ${S.subF}px; }`);
+  if(S.divM!==D.divM) ch.push(`.ash-ov-divider { margin: ${S.divM}px 0; }`);
+  if(S.gap!==D.gap) ch.push(`.ash-ov-lower { gap: ${S.gap}px; }`);
+  if(S.cW!==D.cW) ch.push(`.ash-ov-col-calls { width: ${S.cW}px; }`);
+  if(S.iW!==D.iW) ch.push(`.ash-ov-col-insight { width: ${S.iW}px; }`);
+  if(S.hdrF!==D.hdrF) ch.push(`.ash-ov-col-header { font-size: ${S.hdrF}px; }`);
+  if(S.rpV!==D.rpV||S.rpH!==D.rpH||S.rGap!==D.rGap||S.rMB!==D.rMB) ch.push(`.ash-ov-call-row { padding: ${S.rpV}px ${S.rpH}px; gap: ${S.rGap}px; margin-bottom: ${S.rMB}px; }`);
+  if(S.nF!==D.nF) ch.push(`.ash-ov-call-name { font-size: ${S.nF}px; }`);
+  if(S.oF!==D.oF) ch.push(`.ash-ov-call-outcome { font-size: ${S.oF}px; }`);
+  if(S.sF!==D.sF) ch.push(`.ash-ov-call-score { font-size: ${S.sF}px; }`);
+  if(S.tF!==D.tF) ch.push(`.ash-ov-call-time { font-size: ${S.tF}px; }`);
+  if(S.eyeF!==D.eyeF) ch.push(`.ash-ov-insight-eyebrow { font-size: ${S.eyeF}px; }`);
+  if(S.insF!==D.insF) ch.push(`.ash-ov-insight-num { font-size: ${S.insF}px; }`);
+  if(S.dscF!==D.dscF) ch.push(`.ash-ov-insight-desc { font-size: ${S.dscF}px; }`);
+  if(S.navF!==D.navF||S.navP!==D.navP) ch.push(`.ash-ov-nav-btn { font-size: ${S.navF}px; padding: ${S.navP}px 14px; }`);
+
+  $('out').textContent=ch.length?'Update these CSS rules in dashboard.html:\n\n'+ch.join('\n'):'No changes from current values.';
+}
+
+function cp(){
+  navigator.clipboard.writeText($('out').textContent);
+  const b=$('cpb');b.textContent='Copied!';b.classList.add('ok');
+  setTimeout(()=>{b.textContent='Copy Prompt';b.classList.remove('ok')},1200);
+}
+
+sync();u();
+</script>
+</body>
+</html>
