@@ -240,7 +240,7 @@
 
     /* ── Content area ── */
     #content { flex: 1; overflow-y: auto; padding: 20px 24px; }
-    #content:has(#page-ash-inbox.active), #content:has(#page-ash-activity.active) { overflow:hidden; display:flex; flex-direction:column; }
+    #content:has(#page-ash-overview.active), #content:has(#page-ash-inbox.active), #content:has(#page-ash-activity.active) { overflow:hidden; display:flex; flex-direction:column; }
     #content::-webkit-scrollbar { width: 5px; }
     #content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 
@@ -1550,6 +1550,7 @@
   .ash-two-col { display:grid; grid-template-columns:1fr 340px; gap:16px; align-items:start; }
   .ash-left-col { display:flex; flex-direction:column; gap:0; }
   .ash-right-col { background:var(--surface2); border-radius:8px; border:1px solid var(--border); min-height:200px; }
+  #page-ash-overview.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
   #page-ash-inbox.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
   .ash-three-col { display:grid; grid-template-columns:1fr 1fr 3fr; gap:8px; align-items:stretch; flex:1; width:100%; min-height:0; }
   .ash-inbox-col { display:flex; flex-direction:column; min-height:0; min-width:0; overflow:hidden; }
@@ -1627,6 +1628,173 @@
   .ash-week-table th, .ash-week-table td { padding:6px 8px; font-size:12px; }
   .ash-week-table th:first-child, .ash-week-table td:first-child { width:52%; }
   .ash-week-table th:not(:first-child), .ash-week-table td:not(:first-child) { width:24%; text-align:right; }
+
+        /* ── Ash Overview Page ── */
+        .ash-ov-content {
+          flex: 1;
+          overflow: hidden;
+          padding: 14px 18px;
+          min-width: 0;
+        }
+        .ash-ov-status-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 10px;
+        }
+        .ash-ov-page-title {
+          font-size: 10px;
+          font-weight: 700;
+          color: #a78bfa;
+        }
+        .ash-ov-live-badge {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 7px;
+          color: #64748b;
+        }
+        .ash-ov-live-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #22c55e;
+          flex-shrink: 0;
+        }
+        .ash-ov-stat-grid {
+          width: 362px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+          margin-bottom: 10px;
+        }
+        .ash-ov-stat-card {
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 6px;
+          padding: 8px 10px;
+        }
+        .ash-ov-stat-label {
+          font-size: 6px;
+          font-weight: 700;
+          color: #475569;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 4px;
+        }
+        .ash-ov-stat-value {
+          font-size: 22px;
+          font-weight: 700;
+          line-height: 1;
+          margin-bottom: 2px;
+        }
+        .ash-ov-stat-sub {
+          font-size: 6px;
+          color: #334155;
+        }
+        .ash-ov-divider {
+          border: none;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          margin: 10px 0;
+        }
+        .ash-ov-lower {
+          display: flex;
+          gap: 12px;
+          align-items: flex-start;
+          width: 362px;
+        }
+        .ash-ov-col-calls { width: 150px; flex-shrink: 0; }
+        .ash-ov-col-insight { width: 200px; flex-shrink: 0; }
+        .ash-ov-col-header {
+          font-size: 7px;
+          font-weight: 700;
+          color: #475569;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 6px;
+        }
+        .ash-ov-call-row {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 5px 8px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.05);
+          border-radius: 5px;
+          margin-bottom: 4px;
+        }
+        .ash-ov-s-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          flex-shrink: 0;
+        }
+        .ash-ov-call-name {
+          font-size: 7px;
+          font-weight: 600;
+          color: #cbd5e1;
+        }
+        .ash-ov-call-outcome {
+          font-size: 6px;
+          color: #475569;
+        }
+        .ash-ov-call-score {
+          font-size: 8px;
+          font-weight: 700;
+        }
+        .ash-ov-call-time {
+          font-size: 6px;
+          color: #334155;
+        }
+        .ash-ov-loading {
+          font-size: 7px;
+          color: #475569;
+        }
+        .ash-ov-insight-box {
+          background: rgba(124,58,237,0.08);
+          border: 1px solid rgba(124,58,237,0.18);
+          border-radius: 6px;
+          padding: 8px 10px;
+          margin-bottom: 8px;
+        }
+        .ash-ov-insight-eyebrow {
+          font-size: 6px;
+          font-weight: 700;
+          color: #7c3aed;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 3px;
+        }
+        .ash-ov-insight-num {
+          font-size: 20px;
+          font-weight: 700;
+          color: #a78bfa;
+          line-height: 1;
+        }
+        .ash-ov-insight-desc {
+          font-size: 6px;
+          color: #7c3aed;
+          margin-top: 3px;
+        }
+        .ash-ov-nav-links {
+          display: flex;
+          gap: 6px;
+        }
+        .ash-ov-nav-btn {
+          flex: 1;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 4px;
+          padding: 5px 8px;
+          font-size: 7px;
+          font-weight: 700;
+          color: #94a3b8;
+          text-align: center;
+          cursor: pointer;
+        }
+        .ash-ov-nav-btn:hover {
+          background: rgba(255,255,255,0.08);
+        }
 </style>
 </head>
 <body>
@@ -1700,7 +1868,7 @@
       </div>
 
     <div class="nav-divider"></div>
-    <div class="nav-item nav-ash-parent" id="nav-ash" onclick="showPage('ash-inbox')">
+    <div class="nav-item nav-ash-parent" id="nav-ash" onclick="showPage('ash-overview')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
       <span>Ash</span>
     </div>
@@ -2076,6 +2244,75 @@
       <!-- Invoices page -->
 
       <!-- Ash Inbox page -->
+        <div class="page" id="page-ash-overview">
+          <div class="ash-ov-content">
+
+            <!-- Status Bar -->
+            <div class="ash-ov-status-bar">
+              <div class="ash-ov-page-title">Ash</div>
+              <div class="ash-ov-live-badge">
+                <div class="ash-ov-live-dot"></div>
+                <span>Retell connected</span>
+              </div>
+            </div>
+
+            <!-- 4 Stat Cards -->
+            <div class="ash-ov-stat-grid">
+              <div class="ash-ov-stat-card">
+                <div class="ash-ov-stat-label">Total Calls</div>
+                <div class="ash-ov-stat-value" id="ash-ov-total-calls" style="color:#a78bfa">—</div>
+                <div class="ash-ov-stat-sub" id="ash-ov-calls-sub">calls today</div>
+              </div>
+              <div class="ash-ov-stat-card">
+                <div class="ash-ov-stat-label">Leads Created</div>
+                <div class="ash-ov-stat-value" id="ash-ov-leads" style="color:#22c55e">—</div>
+                <div class="ash-ov-stat-sub">auto-created today</div>
+              </div>
+              <div class="ash-ov-stat-card">
+                <div class="ash-ov-stat-label">Avg Quality</div>
+                <div class="ash-ov-stat-value" id="ash-ov-avg-quality" style="color:#e8650a">—</div>
+                <div class="ash-ov-stat-sub">out of 10</div>
+              </div>
+              <div class="ash-ov-stat-card">
+                <div class="ash-ov-stat-label">Not Qualified</div>
+                <div class="ash-ov-stat-value" id="ash-ov-not-qualified" style="color:rgba(255,255,255,0.3)">—</div>
+                <div class="ash-ov-stat-sub">screened out</div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="ash-ov-divider"></div>
+
+            <!-- Two-Column Lower Section -->
+            <div class="ash-ov-lower">
+
+              <!-- Recent Calls -->
+              <div class="ash-ov-col-calls">
+                <div class="ash-ov-col-header">Recent Calls</div>
+                <div id="ash-ov-call-list">
+                  <div class="ash-ov-loading">Loading...</div>
+                </div>
+              </div>
+
+              <!-- Sentiment Snapshot -->
+              <div class="ash-ov-col-insight">
+                <div class="ash-ov-col-header">Sentiment Snapshot</div>
+                <div class="ash-ov-insight-box">
+                  <div class="ash-ov-insight-eyebrow">Today's trend</div>
+                  <div class="ash-ov-insight-num" id="ash-ov-insight-score">— / 10</div>
+                  <div class="ash-ov-insight-desc" id="ash-ov-insight-desc">recent calls positive</div>
+                </div>
+                <div class="ash-ov-col-header" style="margin-top:6px;">Quick Actions</div>
+                <div class="ash-ov-nav-links">
+                  <button class="ash-ov-nav-btn" onclick="showPage('ash-inbox')">→ Inbox</button>
+                  <button class="ash-ov-nav-btn" onclick="showPage('ash-activity')">→ Activity</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       <div class="page" id="page-ash-inbox">
         <div class="ash-status-bar">
           <div class="ash-page-title">Ash &mdash; Inbox</div>
@@ -3654,7 +3891,7 @@
     if (ni) ni.classList.add('active');
     if (page === 'settings') document.getElementById('nav-settings').classList.add('active');
 
-    const titles = {home:'Mission Control',leads:'Leads',appointments:'Appointments',jobs:'Jobs',invoices:'Invoices',people:'Staff & Subs',settings:'Admin Settings',jobcosts:'Job Costs','ash-inbox':'Ash — Inbox','ash-activity':'Ash — Activity'};
+    const titles = {home:'Mission Control',leads:'Leads',appointments:'Appointments',jobs:'Jobs',invoices:'Invoices',people:'Staff & Subs',settings:'Admin Settings',jobcosts:'Job Costs','ash-overview':'Ash','ash-inbox':'Ash — Inbox','ash-activity':'Ash — Activity'};
     document.getElementById('topbar-title').textContent = titles[page] || page;
     const contentEl = document.getElementById('content');
     if (page === 'home') {
@@ -3675,6 +3912,7 @@
     if (page === 'jobcosts') { loadCosts(); loadInvoiceInbox(); }
     if (page === 'people') loadPeople();
     if (page === 'settings') loadSettingsPage();
+    if (page === 'ash-overview')  loadAshOverview();
     if (page === 'ash-inbox')    loadAshInbox();
     if (page === 'ash-activity') loadAshActivity();
   }
