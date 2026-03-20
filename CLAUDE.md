@@ -55,7 +55,7 @@ cd ~/Projects/my-assistant && git add CLAUDE.md && git commit -m "Add CLAUDE.md 
 - Terminal commands → bash code block, always. One block per step (pacing rule).
 - File paths → in backticks so they're unambiguous: `/Users/nickbroyzer/Documents/Obsidian/MyVault/PC Project/`
 - Text to paste into claude.ai chat → in a code block labeled "Paste into new chat"
-- CSS values to type into Hoverify/DevTools → in a code block: `.ash-three-col { grid-gap: 12px; }`
+- CSS values to type into Hoverify → in a code block: `.ash-three-col { grid-gap: 12px; }`
 - URLs → full URL, not "go to the Railway dashboard" — give `https://railway.app/dashboard`
 - If Claude is explaining something and NOT asking Kolya to do anything, prose is fine. But the moment there's an action to take, it becomes a code block.
 
@@ -238,7 +238,7 @@ Task: [layout task]
 ```
 MAXIMUM PRECISION MODE
 Data: use ONLY this API response. Flag missing fields. [paste curl output]
-Measurements: use ONLY these DevTools values. Viewport [W]x[H] | Sidebar [N]px | Topbar [N]px
+Measurements: use ONLY these Hoverify values. Viewport [W]x[H] | Sidebar [N]px | Topbar [N]px
 Format answer as: 1. Confirmed fields  2. Confirmed measurements  3. Implementation
 ```
 
@@ -290,7 +290,7 @@ Run this at the start of every build session. Do not start implementation until 
 4. Identify the single highest-risk step in today's work
 5. Decide which verification technique applies to that step (Chain-of-Thought, Best-of-N, Iterative Refinement, CSS Dual-Run, or External Knowledge Restriction)
 6. If any new endpoints are involved: `curl` them NOW, paste response
-7. If any layout work is involved: open DevTools NOW, measure container
+7. If any layout work is involved: open Hoverify NOW, measure container
 8. Confirm Flask is running on port 5001
 9. Confirm last git commit is clean (no uncommitted changes)
 10. Set session message counter to 0 — flag at 20 messages
@@ -310,7 +310,7 @@ These signals mean something has gone wrong — **STOP, don't continue:**
 
 - Claude says "this should work" with no supporting logic → apply Chain-of-Thought
 - Claude references a field name you didn't confirm → stop, `curl` the endpoint
-- Claude proposes a pixel value you didn't measure → stop, open DevTools
+- Claude proposes a pixel value you didn't measure → stop, open Hoverify
 - Two consecutive messages changed the same thing → you're in a regression loop — `git reset` to last clean commit, re-read planning notes
 - Session is at 18+ messages and you're mid-implementation → start fresh session
 - Claude is guessing at Flask route structure → paste your actual `app.py` routes section
@@ -412,7 +412,7 @@ At ~20 messages, proactively suggest starting a fresh session. Don't wait to be 
 When something feels wrong mid-session, run through this:
 
 1. **Is Claude citing a field name, endpoint, or schema you didn't confirm?** → External Knowledge Restriction + curl the endpoint
-2. **Is Claude using a pixel value you didn't measure?** → CSS Measurement Restriction + open DevTools
+2. **Is Claude using a pixel value you didn't measure?** → CSS Measurement Restriction + open Hoverify
 3. **Did Claude say "this should work" with no logic shown?** → Chain-of-Thought Verification
 4. **Did Claude just write a function and declare it done?** → Iterative Refinement + `node --check`
 5. **Are two consecutive messages fixing the same thing?** → STOP. `git reset` to last clean commit. Re-read planning notes.
@@ -426,7 +426,7 @@ When something feels wrong mid-session, run through this:
 | Failure Mode | Where It Showed Up | Fix / Prevention |
 |---|---|---|
 | Invented field names | Ash tab JS (Sessions 16-17): used `sender`, `channel` instead of `action_type`, `description` | External Knowledge Restriction — always curl endpoint first |
-| Assumed layout dimensions | Responsive zoom (Sessions 9-10): used 1440px instead of measured 1737px | CSS Measurement Restriction — measure with DevTools first |
+| Assumed layout dimensions | Responsive zoom (Sessions 9-10): used 1440px instead of measured 1737px | CSS Measurement Restriction — measure with Hoverify first |
 | Silent JS errors | `el is not defined` ReferenceError in Ash Inbox click handler (Session 17) | Iterative Refinement + `node --check` after every function group |
 | Confident wrong answer | Blueprint refactor (Sessions 11-13): declared "complete" before end-to-end verify | Chain-of-Thought — never accept "this should work" without logic shown |
 | Format drift in handoffs | Session start blocks contained bash commands mixed with chat paste blocks | Format Specification — two blocks rule, enforced every session |
@@ -547,7 +547,7 @@ Chrome extension — $30/year or $89 lifetime. Install from Chrome Web Store (de
 
 ### Rules (Zero Tolerance)
 
-- **Claude Code NEVER proposes pixel values for layout.** All pixel values come from Kolya's measurements via Hoverify or DevTools.
+- **Claude Code NEVER proposes pixel values for layout.** All pixel values come from Kolya's measurements via Hoverify.
 - **No layout change is complete without a Cowork screenshot.** Period.
 - **If Kolya says "fix the spacing" without giving values:** Claude Code must ask for the exact values, or ask Kolya to inspect with Hoverify and report back. Do not guess.
 - **Global fix rule still applies:** When a spacing/layout issue is found, Claude Code scans the entire file for the same pattern and fixes every instance — not just the one Kolya pointed at.
@@ -606,8 +606,8 @@ Never place these outside the code block. Never omit them.
 5. Save a screenshot to /Users/nickbroyzer/Desktop/PC-Screenshots/[descriptive-name].png
 ```
 
-### Fallback: Chrome DevTools
-If Hoverify is unavailable (different machine, browser issue), use Chrome DevTools Elements panel as the fallback. Same protocol applies — Kolya inspects, edits live, tells Claude Code the exact values.
+### If Hoverify Is Unavailable
+Re-install it. Chrome Web Store → search "Hoverify". Do not fall back to manual DevTools — Hoverify is the standard tool for this project.
 
 ---
 
