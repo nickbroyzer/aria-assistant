@@ -402,8 +402,18 @@ Then say: *"You're set. Start a fresh session when ready."*
 - If Kolya didn't ship anything: SHIPPED says "No commits this session."
 - VALUES FOR NEXT SESSION is never empty — always "No carried values" at minimum.
 
-### Session Length
-At ~20 messages, proactively suggest starting a fresh session. Don't wait to be asked. Say it plainly: *"We're at ~20 messages — recommend starting a new session. Want me to run the handoff?"*
+### Session Length & Message Counter
+Every Claude response must end with a message counter on its own line:
+
+```
+[Message 3/20]
+```
+
+- Start at 1. Increment by 1 after every Claude response (not Kolya's messages — only count Claude's).
+- At **[Message 15/20]**: add a note: *"5 messages left — start wrapping up or plan a handoff."*
+- At **[Message 18/20]**: say: *"2 messages left. Want me to run the handoff now?"*
+- At **[Message 20/20]**: run the handoff protocol automatically. Do not continue working.
+- The counter is not optional. Never skip it. Every single response gets one, including short answers.
 
 ---
 
