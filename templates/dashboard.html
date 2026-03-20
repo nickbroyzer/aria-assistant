@@ -1613,7 +1613,7 @@
   .ash-feed-row:hover { background:rgba(255,255,255,0.05); }
   .ash-feed-row + .ash-feed-row { margin-top:0; }
   .ash-feed-name { font-size:12px; font-weight:700; color:var(--text); white-space:nowrap; }
-  .ash-feed-action { font-size:12px; font-weight:400; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; }
+  .ash-feed-action { font-size:12px; font-weight:400; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; min-width:0; }
   .ash-feed-qs { font-size:10px; font-weight:700; padding:1px 6px; border-radius:8px; white-space:nowrap; flex-shrink:0; }
   .ash-feed-qs.qs-green { color:#22c55e; background:rgba(34,197,94,0.15); }
   .ash-feed-qs.qs-orange { color:#f59e0b; background:rgba(245,158,11,0.15); }
@@ -11885,7 +11885,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
         const d = item.timestamp.split('T')[0];
         const today = new Date().toLocaleDateString('en-CA');
         const yesterday = new Date(Date.now()-86400000).toLocaleDateString('en-CA');
-        const dateLabel = d === today ? 'Today — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d === yesterday ? 'Yesterday — ' + new Date(Date.now()-86400000).toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d;
+        const dateLabel = d === today ? 'Today — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d === yesterday ? 'Yesterday — ' + new Date(Date.now()-86400000).toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : new Date(d + 'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}).toUpperCase();
         if (dateLabel !== lastDate) { lastDate = dateLabel; html += '<div class="ash-feed-date">' + dateLabel + '</div>'; }
 
         // Icon from type field (not action_type)
