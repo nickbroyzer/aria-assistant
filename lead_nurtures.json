@@ -5,7 +5,7 @@
     "lead_name": "Test Customer",
     "lead_email": "leads.pacificconstruction@gmail.com",
     "status": "active",
-    "current_step": 3,
+    "current_step": 4,
     "started_at": "2026-03-09T07:14:26.415391+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -29,7 +29,7 @@
         "label": "Site Visit Ask",
         "scheduled_date": "2026-03-19",
         "sent_at": null,
-        "status": "pending"
+        "status": "failed"
       },
       {
         "step": 4,
@@ -101,7 +101,7 @@
     "lead_name": "Test User",
     "lead_email": "test@test.com",
     "status": "active",
-    "current_step": 3,
+    "current_step": 4,
     "started_at": "2026-03-09T07:22:10.616526+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -125,7 +125,7 @@
         "label": "Site Visit Ask",
         "scheduled_date": "2026-03-19",
         "sent_at": null,
-        "status": "pending"
+        "status": "failed"
       },
       {
         "step": 4,
@@ -197,7 +197,7 @@
     "lead_name": "Marcus Webb",
     "lead_email": "mwebb@webdistribution.net",
     "status": "active",
-    "current_step": 3,
+    "current_step": 4,
     "started_at": "2026-03-09T22:08:10.770360+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -221,7 +221,7 @@
         "label": "Site Visit Ask",
         "scheduled_date": "2026-03-19",
         "sent_at": null,
-        "status": "pending"
+        "status": "failed"
       },
       {
         "step": 4,
@@ -244,8 +244,8 @@
     "lead_id": "4fbadfc3-b4a2-4250-8092-8f644e727962",
     "lead_name": "Carla Nunes",
     "lead_email": "cnunes@nunescold.com",
-    "status": "active",
-    "current_step": 3,
+    "status": "completed",
+    "current_step": 4,
     "started_at": "2026-03-11T22:22:08.887639+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -268,8 +268,8 @@
         "step": 3,
         "label": "Site Visit Ask",
         "scheduled_date": "2026-03-18",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-18T10:47:40.937029+00:00",
+        "status": "sent"
       }
     ]
   },

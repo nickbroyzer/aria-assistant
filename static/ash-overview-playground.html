@@ -13,14 +13,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ctrl h2{font-size:12px;color:#a78bfa;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
 .g{margin-bottom:14px;border-bottom:1px solid #1e2633;padding-bottom:10px}
 .gt{font-size:10px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.c{margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.c{margin-bottom:6px;display:flex;align-items:center;gap:9px}
 .c label{font-size:11px;color:#8b949e;flex:1;white-space:nowrap}
 .c input[type=range]{width:100px;accent-color:#a78bfa}
 .c .v{font-size:10px;color:#a78bfa;font-weight:700;min-width:44px;text-align:right;font-family:'SF Mono',monospace}
 .info{font-size:9px;color:#a78bfa;font-family:'SF Mono',monospace;margin-bottom:8px;padding:4px 6px;background:rgba(167,139,250,.08);border-radius:4px}
 
 /* Presets */
-.presets{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.presets{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
 .pb{background:#1a1f2e;border:1px solid #2d3548;border-radius:4px;padding:3px 9px;font-size:10px;font-weight:600;color:#8b949e;cursor:pointer;transition:all .15s}
 .pb:hover{border-color:#a78bfa;color:#c4b5fd}
 .pb.on{background:rgba(167,139,250,.12);border-color:#a78bfa;color:#a78bfa}
@@ -54,7 +54,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <div class="g">
     <div class="gt">Width Constraints</div>
-    <div class="c"><label>Grid Max-W</label><input type=range min=0 max=1800 step=10 id=r-gridMaxW oninput=u()><span class=v id=d-gridMaxW></span></div>
+    <div class="c"><label>Grid Max-W</label><input type=range min=0 max=1400 step=10 id=r-gridMaxW oninput=u()><span class=v id=d-gridMaxW></span></div>
     <div class="info" id="info-lower">lower: —</div>
   </div>
 
@@ -132,12 +132,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
-const D={gridMaxW:0,padTop:18,padSide:22,badgeFont:14,statusMB:18,cardPad:13,cardMinH:78,gridGap:6,cardR:10,lblF:12,valF:28,subF:12,gridMB:21,divM:10,gap:9,cW:572,iW:534,hdrF:12,rpV:15,rpH:20,rGap:20,rMB:7,nF:14,oF:13,sF:18,tF:11,eyeF:14,insF:35,dscF:11,navF:12,navP:6};
+const D={gridMaxW:0,padTop:20,padSide:22,badgeFont:15,statusMB:20,cardPad:13,cardMinH:78,gridGap:6,cardR:10,lblF:12,valF:28,subF:12,gridMB:21,divM:10,gap:9,cW:572,iW:534,hdrF:12,rpV:15,rpH:20,rGap:20,rMB:7,nF:14,oF:13,sF:18,tF:11,eyeF:14,insF:35,dscF:11,navF:12,navP:6};
 const PR={
   current:{...D},
-  tight:{...D,padTop:10,padSide:12,cardPad:8,cardMinH:44,gridGap:5,gridMB:14,valF:22,lblF:10,subF:10,statusMB:8,gap:8,cW:400,iW:420,rpV:8,rpH:12,rGap:10,rMB:4,nF:12,oF:10,sF:14,tF:9,eyeF:10,insF:24,dscF:9,navF:10,navP:4,hdrF:10,gridMaxW:840},
-  airy:{...D,padTop:28,padSide:30,cardPad:18,cardMinH:74,gridGap:10,gridMB:30,valF:34,statusMB:24,gap:18,cW:560,iW:560,rpV:18,rpH:24,rMB:10,nF:16,sF:22,insF:42,gridMaxW:1160},
-  wide:{...D,gridMaxW:0,cW:600,iW:640,gap:20}
+  tight:{...D,padTop:10,padSide:12,cardPad:13,cardMinH:78,gridGap:6,gridMB:21,valF:22,lblF:10,subF:10,statusMB:8,gap:9,cW:572,iW:534,rpV:8,rpH:12,rGap:10,rMB:4,nF:12,oF:10,sF:14,tF:9,eyeF:10,insF:24,dscF:9,navF:10,navP:4,hdrF:10,gridMaxW:0},
+  airy:{...D,padTop:28,padSide:30,cardPad:13,cardMinH:78,gridGap:6,gridMB:21,valF:34,statusMB:24,gap:9,cW:572,iW:534,rpV:18,rpH:24,rMB:10,nF:16,sF:22,insF:42,gridMaxW:0},
+  wide:{...D,gridMaxW:0,cW:572,iW:534,gap:9}
 };
 let S={...D};
 const $=id=>document.getElementById(id);
@@ -209,7 +209,7 @@ function render(){
   $('P').innerHTML=`
   <div style="padding:${S.padTop}px ${S.padSide}px">
     <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:${S.statusMB}px">
-      <div style="display:flex;align-items:center;gap:5px;font-size:${S.badgeFont}px;color:#525f7f">
+      <div style="display:flex;align-items:center;gap:9px;font-size:${S.badgeFont}px;color:#525f7f">
         <div style="width:7px;height:7px;border-radius:50%;background:#22c55e"></div>Retell connected
       </div>
     </div>
@@ -236,7 +236,7 @@ function render(){
           <div style="font-size:${S.dscF}px;color:#7c3aed;margin-top:4px">3 of 10 recent calls positive</div>
         </div>
         <div style="font-size:${S.hdrF}px;font-weight:700;color:#525f7f;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;margin-top:8px">Quick Actions</div>
-        <div style="display:flex;gap:6px">
+        <div style="display:flex;gap:9px">
           <div style="flex:1;background:rgba(255,255,255,.03);border:1px solid #1e2633;border-radius:5px;padding:${S.navP}px 14px;font-size:${S.navF}px;font-weight:700;color:#8b949e;text-align:center;cursor:pointer">→ Inbox</div>
           <div style="flex:1;background:rgba(255,255,255,.03);border:1px solid #1e2633;border-radius:5px;padding:${S.navP}px 14px;font-size:${S.navF}px;font-weight:700;color:#8b949e;text-align:center;cursor:pointer">→ Activity</div>
         </div>

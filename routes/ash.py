@@ -569,6 +569,23 @@ def api_ash_weekly():
     return jsonify(_build_weekly_demo())
 
 
+@ash_bp.route("/api/ash/overview")
+@require_auth
+def ash_overview():
+    return jsonify({
+        "calls_today": 14,
+        "calls_answered": 11,
+        "calls_missed": 3,
+        "avg_call_duration": "3m 42s",
+        "top_caller": "Ace Logistics",
+        "sentiment": "positive",
+        "open_quotes": 7,
+        "quotes_pending_followup": 3,
+        "insight_summary": "Call volume is up 18% vs last week. Three missed calls from Ace Logistics — recommend follow-up today.",
+        "weekly_calls": [8, 12, 10, 14, 9, 6, 14]
+    })
+
+
 # ── Retell API Routes ─────────────────────────────────────────────────────────
 
 @ash_bp.route("/api/ash/calls", methods=["GET"])

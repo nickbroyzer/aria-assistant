@@ -110,7 +110,7 @@
     "job_type": "Mezzanine Fabrication",
     "started_at": "2026-03-10T04:07:38.708276+00:00",
     "status": "active",
-    "current_step": 3,
+    "current_step": 4,
     "total_steps": 5,
     "steps": [
       {
@@ -131,8 +131,8 @@
         "step": 3,
         "label": "Value Touch",
         "scheduled_date": "2026-03-16",
-        "sent_at": null,
-        "status": "pending"
+        "sent_at": "2026-03-16T19:24:15.647385+00:00",
+        "status": "sent"
       },
       {
         "step": 4,
