@@ -14,18 +14,18 @@
 
 ### Feed Renderer
 
-- [ ] **FEED-01**: Each row renders as: `[icon] [Name] [action — summary] [QS pill] [time]`
-- [ ] **FEED-02**: Icon shows C/E/S based on communication channel type
-- [ ] **FEED-03**: Name column shows contact/company name (bold, white)
-- [ ] **FEED-04**: Action column shows short action summary (dimmed, truncates with ellipsis)
-- [ ] **FEED-05**: No redundant text — each piece of data appears exactly once
+- [x] **FEED-01**: Each row renders as: `[icon] [Name] [action — summary] [QS pill] [time]`
+- [x] **FEED-02**: Icon shows C/E/S based on communication channel type
+- [x] **FEED-03**: Name column shows contact/company name (bold, white)
+- [x] **FEED-04**: Action column shows short action summary (dimmed, truncates with ellipsis)
+- [x] **FEED-05**: No redundant text — each piece of data appears exactly once
 
 ### Quality Score Pill
 
-- [ ] **QS-01**: Quality score displays as percentage in colored pill
-- [ ] **QS-02**: Green pill for scores >= 80%
-- [ ] **QS-03**: Orange pill for scores 50-79%
-- [ ] **QS-04**: Red pill for scores < 50%
+- [x] **QS-01**: Quality score displays as percentage in colored pill
+- [x] **QS-02**: Green pill for scores >= 80%
+- [x] **QS-03**: Orange pill for scores 50-79%
+- [x] **QS-04**: Red pill for scores < 50%
 
 ### Styling
 
@@ -54,15 +54,15 @@
 | DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Complete |
 | DATA-04 | Phase 1 | Complete |
-| FEED-01 | Phase 2 | Pending |
-| FEED-02 | Phase 2 | Pending |
-| FEED-03 | Phase 2 | Pending |
-| FEED-04 | Phase 2 | Pending |
-| FEED-05 | Phase 2 | Pending |
-| QS-01 | Phase 2 | Pending |
-| QS-02 | Phase 2 | Pending |
-| QS-03 | Phase 2 | Pending |
-| QS-04 | Phase 2 | Pending |
+| FEED-01 | Phase 2 | Complete |
+| FEED-02 | Phase 2 | Complete |
+| FEED-03 | Phase 2 | Complete |
+| FEED-04 | Phase 2 | Complete |
+| FEED-05 | Phase 2 | Complete |
+| QS-01 | Phase 2 | Complete |
+| QS-02 | Phase 2 | Complete |
+| QS-03 | Phase 2 | Complete |
+| QS-04 | Phase 2 | Complete |
 | CSS-01 | Phase 3 | Pending |
 | CSS-02 | Phase 3 | Pending |
 | CSS-03 | Phase 3 | Pending |
