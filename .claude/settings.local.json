@@ -27,7 +27,9 @@
       "Skill(gsd:progress)",
       "Bash(python3 -c \":*)",
       "Bash(open:*)",
-      "Bash(node \"/Users/nickbroyzer/.claude/get-shit-done/bin/gsd-tools.cjs\" progress bar --raw)"
+      "Bash(node \"/Users/nickbroyzer/.claude/get-shit-done/bin/gsd-tools.cjs\" progress bar --raw)",
+      "Bash(sqlite3:*)",
+      "Bash(python:*)"
     ]
   }
 }

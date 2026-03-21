@@ -132,6 +132,15 @@ def init_db():
                 uploaded_at TEXT NOT NULL,
                 file_data   BLOB
             );
+            CREATE TABLE IF NOT EXISTS sms_messages (
+                id              TEXT PRIMARY KEY,
+                from_number     TEXT NOT NULL,
+                to_number       TEXT NOT NULL,
+                body            TEXT NOT NULL,
+                direction       TEXT DEFAULT 'inbound',
+                status          TEXT DEFAULT 'received',
+                created_at      TEXT DEFAULT CURRENT_TIMESTAMP
+            );
             CREATE TABLE IF NOT EXISTS retell_calls (
                 id                    INTEGER PRIMARY KEY AUTOINCREMENT,
                 call_id               TEXT UNIQUE NOT NULL,
@@ -558,6 +567,31 @@ def get_order_document_file(doc_id):
 def delete_order_document(doc_id):
     with _get_conn() as conn:
         conn.execute("DELETE FROM order_documents WHERE id = ?", (doc_id,))
+
+
+# ── SMS Messages ─────────────────────────────────────────────────────────
+
+def save_sms(from_number, to_number, body, direction="inbound"):
+    """Save an SMS message and return its id."""
+    now = datetime.now(timezone.utc).isoformat()
+    sms_id = str(uuid.uuid4())
+    with _get_conn() as conn:
+        conn.execute(
+            """INSERT INTO sms_messages (id, from_number, to_number, body, direction, status, created_at)
+               VALUES (?, ?, ?, ?, ?, 'received', ?)""",
+            (sms_id, from_number, to_number, body, direction, now),
+        )
+    return sms_id
+
+
+def get_sms_messages(limit=50):
+    """Return recent SMS messages sorted by created_at desc."""
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM sms_messages ORDER BY created_at DESC LIMIT ?",
+            (limit,),
+        ).fetchall()
+    return [dict(r) for r in rows]
 
 
 # ── Retell Calls ─────────────────────────────────────────────────────────

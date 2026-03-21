@@ -21,7 +21,7 @@ from utils.gmail_auth import (
 )
 from utils.ash_scanner import scan_inbox
 from utils.retell_client import get_recent_calls, get_call_detail
-from utils.suppliers_db import insert_retell_call, get_retell_calls
+from utils.suppliers_db import insert_retell_call, get_retell_calls, save_sms, get_sms_messages
 
 
 ash_bp = Blueprint("ash", __name__)
@@ -58,6 +58,22 @@ def api_retell_webhook():
     })
 
     return jsonify({"status": "ok"})
+
+
+@ash_bp.route("/webhook/twilio/sms", methods=["POST"])
+def webhook_twilio_sms():
+    """
+    Receive inbound SMS via Twilio webhook. No auth — called externally by Twilio.
+    Stores the message and returns empty TwiML (no auto-reply).
+    """
+    from_number = request.form.get("From", "")
+    to_number = request.form.get("To", "")
+    body = request.form.get("Body", "")
+
+    if from_number and body:
+        save_sms(from_number, to_number, body, direction="inbound")
+
+    return '<Response></Response>', 200, {"Content-Type": "application/xml"}
 
 
 @ash_bp.route("/api/ash/scan", methods=["GET"])
@@ -440,8 +456,26 @@ def api_ash_inbox():
                 "lead_id": None,
             })
 
+        # Merge in stored SMS messages
+        for sms in get_sms_messages():
+            items.append({
+                "id": sms["id"],
+                "type": "sms",
+                "sender": sms["from_number"],
+                "sender_contact": sms["from_number"],
+                "summary": sms["body"],
+                "outcome": "forwarded",
+                "quality_score": 60,
+                "timestamp": sms["created_at"],
+                "duration_seconds": None,
+                "lead_id": None,
+            })
+
         if not items:
             items = _build_inbox_demo()
+
+        # Sort all items newest first
+        items.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
 
         item_type = request.args.get("type")
         if item_type and item_type in ("call", "email", "sms"):
@@ -451,6 +485,21 @@ def api_ash_inbox():
 
     except Exception as e:
         items = _build_inbox_demo()
+        # Still include SMS on fallback
+        for sms in get_sms_messages():
+            items.append({
+                "id": sms["id"],
+                "type": "sms",
+                "sender": sms["from_number"],
+                "sender_contact": sms["from_number"],
+                "summary": sms["body"],
+                "outcome": "forwarded",
+                "quality_score": 60,
+                "timestamp": sms["created_at"],
+                "duration_seconds": None,
+                "lead_id": None,
+            })
+        items.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
         item_type = request.args.get("type")
         if item_type and item_type in ("call", "email", "sms"):
             items = [i for i in items if i["type"] == item_type]
