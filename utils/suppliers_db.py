@@ -1,164 +1,22 @@
 """
-SQLite database layer for supplier management.
+Supplier management CRUD layer.
 
-Tables: suppliers, supplier_transactions, supplier_notes
-DB path: utils/data/suppliers.db (overridable via SUPPLIERS_DB env var)
+Uses utils.database for PostgreSQL/SQLite abstraction.
+Tables: suppliers, supplier_transactions, supplier_notes, supplier_orders,
+        order_communications, order_documents, order_timeline, order_line_items,
+        retell_calls, sms_messages
 """
 
-import os
-import sqlite3
 import uuid
-from contextlib import contextmanager
 from datetime import datetime, timezone
 
-DB_PATH = os.environ.get(
-    "SUPPLIERS_DB",
-    os.path.join(os.path.dirname(__file__), "data", "suppliers.db"),
-)
-
-
-@contextmanager
-def _get_conn():
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA journal_mode=WAL")
-    conn.execute("PRAGMA foreign_keys=ON")
-    try:
-        yield conn
-        conn.commit()
-    except Exception:
-        conn.rollback()
-        raise
-    finally:
-        conn.close()
-
-
-# ── Schema ────────────────────────────────────────────────────────────────────
-
-def init_db():
-    """Create tables if they don't exist."""
-    with _get_conn() as conn:
-        conn.executescript("""
-            CREATE TABLE IF NOT EXISTS suppliers (
-                id              TEXT PRIMARY KEY,
-                name            TEXT NOT NULL,
-                category        TEXT NOT NULL DEFAULT '',
-                phone           TEXT NOT NULL DEFAULT '',
-                website         TEXT NOT NULL DEFAULT '',
-                rep             TEXT NOT NULL DEFAULT '',
-                status          TEXT NOT NULL DEFAULT 'active',
-                notes           TEXT NOT NULL DEFAULT '',
-                qb_vendor_id    TEXT,
-                qb_sync_token   TEXT,
-                qb_last_synced  TEXT,
-                created_at      TEXT NOT NULL,
-                updated_at      TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS supplier_transactions (
-                id                TEXT PRIMARY KEY,
-                supplier_id       TEXT NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
-                job_id            TEXT,
-                type              TEXT NOT NULL DEFAULT '',
-                status            TEXT NOT NULL DEFAULT 'pending',
-                amount            REAL NOT NULL DEFAULT 0,
-                currency          TEXT NOT NULL DEFAULT 'USD',
-                description       TEXT NOT NULL DEFAULT '',
-                ref_number        TEXT NOT NULL DEFAULT '',
-                transaction_date  TEXT,
-                due_date          TEXT,
-                paid_date         TEXT,
-                source            TEXT NOT NULL DEFAULT 'manual',
-                qb_transaction_id TEXT,
-                qb_bill_id        TEXT,
-                qb_payment_id     TEXT,
-                created_at        TEXT NOT NULL,
-                updated_at        TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS supplier_orders (
-                id                 TEXT PRIMARY KEY,
-                supplier_id        TEXT NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
-                job_id             TEXT,
-                description        TEXT NOT NULL DEFAULT '',
-                quantity           REAL NOT NULL DEFAULT 0,
-                unit               TEXT NOT NULL DEFAULT '',
-                unit_price         REAL NOT NULL DEFAULT 0,
-                total_amount       REAL NOT NULL DEFAULT 0,
-                order_date         TEXT,
-                expected_delivery  TEXT,
-                delivered_date     TEXT,
-                status             TEXT NOT NULL DEFAULT 'pending',
-                notes              TEXT NOT NULL DEFAULT '',
-                created_at         TEXT NOT NULL,
-                updated_at         TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS supplier_notes (
-                id          TEXT PRIMARY KEY,
-                supplier_id TEXT NOT NULL REFERENCES suppliers(id) ON DELETE CASCADE,
-                body        TEXT NOT NULL DEFAULT '',
-                author      TEXT NOT NULL DEFAULT '',
-                created_at  TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS order_communications (
-                id          TEXT PRIMARY KEY,
-                order_id    TEXT NOT NULL,
-                author      TEXT NOT NULL DEFAULT '',
-                note        TEXT NOT NULL DEFAULT '',
-                created_at  TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS order_timeline (
-                id          TEXT PRIMARY KEY,
-                order_id    TEXT NOT NULL,
-                event_type  TEXT NOT NULL,
-                label       TEXT NOT NULL,
-                detail      TEXT,
-                actor       TEXT,
-                created_at  TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS order_line_items (
-                id          TEXT PRIMARY KEY,
-                order_id    TEXT NOT NULL,
-                description TEXT NOT NULL,
-                quantity    REAL NOT NULL DEFAULT 1,
-                unit_price  REAL NOT NULL DEFAULT 0,
-                created_at  TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS order_documents (
-                id          TEXT PRIMARY KEY,
-                order_id    TEXT NOT NULL,
-                doc_type    TEXT NOT NULL,
-                filename    TEXT NOT NULL,
-                file_size   TEXT,
-                uploaded_at TEXT NOT NULL,
-                file_data   BLOB
-            );
-            CREATE TABLE IF NOT EXISTS sms_messages (
-                id              TEXT PRIMARY KEY,
-                from_number     TEXT NOT NULL,
-                to_number       TEXT NOT NULL,
-                body            TEXT NOT NULL,
-                direction       TEXT DEFAULT 'inbound',
-                status          TEXT DEFAULT 'received',
-                created_at      TEXT DEFAULT CURRENT_TIMESTAMP
-            );
-            CREATE TABLE IF NOT EXISTS retell_calls (
-                id                    INTEGER PRIMARY KEY AUTOINCREMENT,
-                call_id               TEXT UNIQUE NOT NULL,
-                from_number           TEXT,
-                direction             TEXT,
-                start_timestamp       INTEGER,
-                end_timestamp         INTEGER,
-                transcript            TEXT,
-                disconnection_reason  TEXT,
-                received_at           TEXT
-            );
-        """)
+from utils.database import get_connection
 
 
 # ── Suppliers CRUD ────────────────────────────────────────────────────────────
 
 def load_suppliers():
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM suppliers ORDER BY name"
         ).fetchall()
@@ -166,7 +24,7 @@ def load_suppliers():
 
 
 def get_supplier(supplier_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         row = conn.execute(
             "SELECT * FROM suppliers WHERE id = ?", (supplier_id,)
         ).fetchone()
@@ -190,7 +48,7 @@ def create_supplier(data):
         "created_at": now,
         "updated_at": now,
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO suppliers
                (id, name, category, phone, website, rep, status, notes,
@@ -219,7 +77,7 @@ def update_supplier(supplier_id, data):
     sets.append("updated_at = :updated_at")
     params["updated_at"] = now
     params["id"] = supplier_id
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             f"UPDATE suppliers SET {', '.join(sets)} WHERE id = :id", params
         )
@@ -227,14 +85,14 @@ def update_supplier(supplier_id, data):
 
 
 def delete_supplier(supplier_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute("DELETE FROM suppliers WHERE id = ?", (supplier_id,))
 
 
 # ── Transactions CRUD ─────────────────────────────────────────────────────────
 
 def get_transactions(supplier_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM supplier_transactions WHERE supplier_id = ? ORDER BY transaction_date DESC",
             (supplier_id,),
@@ -264,7 +122,7 @@ def create_transaction(supplier_id, data):
         "created_at": now,
         "updated_at": now,
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO supplier_transactions
                (id, supplier_id, job_id, type, status, amount, currency,
@@ -298,7 +156,7 @@ def update_transaction(transaction_id, data):
     sets.append("updated_at = :updated_at")
     params["updated_at"] = now
     params["id"] = transaction_id
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             f"UPDATE supplier_transactions SET {', '.join(sets)} WHERE id = :id",
             params,
@@ -310,7 +168,7 @@ def update_transaction(transaction_id, data):
 
 
 def delete_transaction(transaction_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             "DELETE FROM supplier_transactions WHERE id = ?", (transaction_id,)
         )
@@ -319,7 +177,7 @@ def delete_transaction(transaction_id):
 # ── Orders CRUD ────────────────────────────────────────────────────────────────
 
 def get_orders(supplier_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM supplier_orders WHERE supplier_id = ? ORDER BY order_date DESC",
             (supplier_id,),
@@ -348,7 +206,7 @@ def create_order(supplier_id, data):
         "created_at": now,
         "updated_at": now,
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO supplier_orders
                (id, supplier_id, job_id, description, quantity, unit, unit_price,
@@ -380,7 +238,7 @@ def update_order(order_id, data):
     sets.append("updated_at = :updated_at")
     params["updated_at"] = now
     params["id"] = order_id
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             f"UPDATE supplier_orders SET {', '.join(sets)} WHERE id = :id",
             params,
@@ -392,14 +250,14 @@ def update_order(order_id, data):
 
 
 def delete_order(order_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute("DELETE FROM supplier_orders WHERE id = ?", (order_id,))
 
 
 # ── Notes CRUD ────────────────────────────────────────────────────────────────
 
 def get_notes(supplier_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM supplier_notes WHERE supplier_id = ? ORDER BY created_at DESC",
             (supplier_id,),
@@ -416,7 +274,7 @@ def create_note(supplier_id, data):
         "author": data.get("author", ""),
         "created_at": now,
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO supplier_notes (id, supplier_id, body, author, created_at)
                VALUES (:id, :supplier_id, :body, :author, :created_at)""",
@@ -426,14 +284,14 @@ def create_note(supplier_id, data):
 
 
 def delete_note(note_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute("DELETE FROM supplier_notes WHERE id = ?", (note_id,))
 
 
 # ── Order Communications CRUD ─────────────────────────────────────────────────
 
 def get_order_communications(order_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM order_communications WHERE order_id = ? ORDER BY created_at DESC",
             (order_id,),
@@ -450,7 +308,7 @@ def create_order_communication(order_id, data):
         "note": data.get("note", ""),
         "created_at": now,
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO order_communications (id, order_id, author, note, created_at)
                VALUES (:id, :order_id, :author, :note, :created_at)""",
@@ -462,7 +320,7 @@ def create_order_communication(order_id, data):
 # ── Order Line Items CRUD ─────────────────────────────────────────────────────
 
 def get_order_line_items(order_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM order_line_items WHERE order_id = ? ORDER BY created_at ASC",
             (order_id,),
@@ -480,7 +338,7 @@ def create_order_line_item(order_id, data):
         "unit_price": data.get("unit_price", 0),
         "created_at": data.get("created_at", now),
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO order_line_items (id, order_id, description, quantity, unit_price, created_at)
                VALUES (:id, :order_id, :description, :quantity, :unit_price, :created_at)""",
@@ -490,14 +348,14 @@ def create_order_line_item(order_id, data):
 
 
 def delete_order_line_item(item_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute("DELETE FROM order_line_items WHERE id = ?", (item_id,))
 
 
 # ── Order Timeline CRUD ───────────────────────────────────────────────────────
 
 def get_order_timeline(order_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM order_timeline WHERE order_id = ? ORDER BY created_at DESC",
             (order_id,),
@@ -516,7 +374,7 @@ def create_timeline_event(order_id, data):
         "actor": data.get("actor", "System"),
         "created_at": data.get("created_at", now),
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO order_timeline (id, order_id, event_type, label, detail, actor, created_at)
                VALUES (:id, :order_id, :event_type, :label, :detail, :actor, :created_at)""",
@@ -528,7 +386,7 @@ def create_timeline_event(order_id, data):
 # ── Order Documents CRUD ──────────────────────────────────────────────────────
 
 def get_order_documents(order_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT id, order_id, doc_type, filename, file_size, uploaded_at FROM order_documents WHERE order_id = ? ORDER BY uploaded_at DESC",
             (order_id,),
@@ -547,7 +405,7 @@ def create_order_document(order_id, data):
         "uploaded_at": data.get("uploaded_at", now),
         "file_data": data.get("file_data", b""),
     }
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO order_documents (id, order_id, doc_type, filename, file_size, uploaded_at, file_data)
                VALUES (:id, :order_id, :doc_type, :filename, :file_size, :uploaded_at, :file_data)""",
@@ -557,7 +415,7 @@ def create_order_document(order_id, data):
 
 
 def get_order_document_file(doc_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         row = conn.execute(
             "SELECT filename, file_data FROM order_documents WHERE id = ?", (doc_id,)
         ).fetchone()
@@ -565,7 +423,7 @@ def get_order_document_file(doc_id):
 
 
 def delete_order_document(doc_id):
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute("DELETE FROM order_documents WHERE id = ?", (doc_id,))
 
 
@@ -575,7 +433,7 @@ def save_sms(from_number, to_number, body, direction="inbound"):
     """Save an SMS message and return its id."""
     now = datetime.now(timezone.utc).isoformat()
     sms_id = str(uuid.uuid4())
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
             """INSERT INTO sms_messages (id, from_number, to_number, body, direction, status, created_at)
                VALUES (?, ?, ?, ?, ?, 'received', ?)""",
@@ -586,7 +444,7 @@ def save_sms(from_number, to_number, body, direction="inbound"):
 
 def get_sms_messages(limit=50):
     """Return recent SMS messages sorted by created_at desc."""
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM sms_messages ORDER BY created_at DESC LIMIT ?",
             (limit,),
@@ -599,12 +457,13 @@ def get_sms_messages(limit=50):
 def insert_retell_call(call_data):
     """Insert a Retell call record, ignoring duplicates by call_id."""
     now = datetime.now(timezone.utc).isoformat()
-    with _get_conn() as conn:
+    with get_connection() as conn:
         conn.execute(
-            """INSERT OR IGNORE INTO retell_calls
+            """INSERT INTO retell_calls
                (call_id, from_number, direction, start_timestamp, end_timestamp,
                 transcript, disconnection_reason, received_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+               ON CONFLICT (call_id) DO NOTHING""",
             (
                 call_data.get("call_id"),
                 call_data.get("from_number"),
@@ -616,12 +475,11 @@ def insert_retell_call(call_data):
                 now,
             ),
         )
-        return conn.execute("SELECT changes()").fetchone()[0] > 0
 
 
 def get_retell_calls(limit=50):
     """Return recent Retell calls ordered by start_timestamp DESC."""
-    with _get_conn() as conn:
+    with get_connection() as conn:
         rows = conn.execute(
             "SELECT * FROM retell_calls ORDER BY start_timestamp DESC LIMIT ?",
             (limit,),
@@ -665,8 +523,9 @@ _SEED_SUPPLIERS = [
 
 def seed_if_empty():
     """Seed the suppliers table with the 28 default suppliers if empty."""
-    with _get_conn() as conn:
-        count = conn.execute("SELECT COUNT(*) FROM suppliers").fetchone()[0]
+    with get_connection() as conn:
+        row = conn.execute("SELECT COUNT(*) as cnt FROM suppliers").fetchone()
+        count = row["cnt"] if isinstance(row, dict) else row[0]
         if count > 0:
             return
     for s in _SEED_SUPPLIERS:

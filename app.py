@@ -22,9 +22,10 @@ if not app.secret_key:
 from routes import register_blueprints
 register_blueprints(app)
 
-# ── Init suppliers DB & seed defaults ─────────────────────────────────────────
-from utils.suppliers_db import init_db, seed_if_empty
-init_db()
+# ── Init database tables & seed defaults ──────────────────────────────────────
+from utils.database import init_all_tables
+from utils.suppliers_db import seed_if_empty
+init_all_tables()
 seed_if_empty()
 
 # ── Start background daemon threads ───────────────────────────────────────────
