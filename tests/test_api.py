@@ -164,7 +164,6 @@ def test_dashboard_settings_integrations(client):
     assert r.status_code == 200
 
 
-@pytest.mark.xfail(reason="KeyError on logo_url — existing bug in dashboard.py")
 def test_dashboard_settings_company_public(client):
     r = client.get("/dashboard/api/settings/company-public")
     assert r.status_code == 200

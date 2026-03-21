@@ -385,10 +385,9 @@ def company_public():
     cfg = load_config()
     co = {**DEFAULT_SETTINGS["company"], **cfg.get("company", {})}
     return jsonify({
-        k: co[k]
+        k: co.get(k, "")
         for k in ("name", "address", "city", "state", "zip", "phone",
                    "email", "website", "tax_rate", "logo_url")
-        if k in co or k == "logo_url"
     })
 
 
