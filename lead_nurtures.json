@@ -278,8 +278,8 @@
     "lead_id": "d5727019-70f4-4e5f-af26-ed98863bd1a3",
     "lead_name": "Mike Johnson",
     "lead_email": "mike@johnsonlogistics.com",
-    "status": "active",
-    "current_step": 2,
+    "status": "completed",
+    "current_step": 3,
     "started_at": "2026-03-11T22:22:08.887804+00:00",
     "stopped_at": null,
     "stopped_reason": null,
@@ -296,7 +296,7 @@
         "label": "Value Touch",
         "scheduled_date": "2026-03-20",
         "sent_at": null,
-        "status": "pending"
+        "status": "failed"
       }
     ]
   },

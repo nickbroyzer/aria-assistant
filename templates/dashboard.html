@@ -1603,28 +1603,56 @@
   .ash-pill { background:var(--surface2); color:var(--dim); font-size:11px; font-weight:600; padding:4px 12px; border-radius:20px; border:1px solid var(--border); cursor:pointer; }
   .ash-pill.active { background:#7c3aed; color:#ede9fe; border-color:#7c3aed; }
   #page-ash-activity.active { display:flex; flex-direction:column; width:100%; height:100%; overflow:hidden; }
-  .ash-activity-two-col { display:grid; grid-template-columns:40fr 60fr; gap:16px; align-items:stretch; flex:1; min-height:0; }
+  .ash-activity-two-col { display:grid; grid-template-columns:1.2fr 0.8fr; gap:24px; align-items:start; flex:1; min-height:0; }
   .ash-act-left { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
   .ash-act-right { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
   #ash-activity-feed { flex:1; overflow-y:auto; padding-right:6px; scroll-behavior:smooth; }
   #ash-activity-feed::-webkit-scrollbar { width:0px; background:transparent; }
-  .ash-feed-date { font-size:11px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:0.8px; padding:8px 0 4px; }
-  .ash-feed-row { padding:6px 5px; display:flex; align-items:center; gap:4px; border:1px solid rgba(255,255,255,0.07); background:#181818; border-radius:4px; }
-  .ash-feed-row:hover { background:rgba(255,255,255,0.05); }
-  .ash-feed-row + .ash-feed-row { margin-top:0; }
-  .ash-feed-name { font-size:12px; font-weight:700; color:var(--text); white-space:nowrap; }
-  .ash-feed-action { font-size:12px; font-weight:400; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; min-width:0; }
-  .ash-feed-qs { font-size:10px; font-weight:700; padding:1px 6px; border-radius:8px; white-space:nowrap; flex-shrink:0; }
+  /* Filter pills */
+  .ash-filter-row { display:flex; gap:8px; margin:8px 0 4px; }
+  .ash-filter-pill { background:#181818; color:rgba(255,255,255,0.5); font-size:11px; font-weight:500; padding:6px 14px; border-radius:20px; border:1px solid rgba(255,255,255,0.07); cursor:pointer; transition:all 0.2s; }
+  .ash-filter-pill.active { background:#7c3aed; color:white; border-color:#7c3aed; }
+  /* Section headers */
+  .ash-section-header { display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:16px; }
+  .ash-section-title { font-size:13px; font-weight:700; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; }
+  .ash-section-count { font-size:11px; color:#a78bfa; background:rgba(168,85,247,0.1); padding:2px 8px; border-radius:12px; }
+  /* Activity date headers */
+  .ash-feed-date { font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; padding-left:4px; margin-top:20px; }
+  .ash-feed-date:first-child { margin-top:0; }
+  /* Activity cards */
+  .ash-feed-card { background:#181818; border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:12px; margin-bottom:8px; transition:all 0.2s; }
+  .ash-feed-card:hover { border-color:rgba(168,85,247,0.3); background:#1a1a1a; }
+  .ash-feed-card-row { display:flex; align-items:center; gap:10px; }
+  .ash-feed-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+  .ash-feed-icon.icon-call { background:rgba(34,197,94,0.15); color:#22c55e; }
+  .ash-feed-icon.icon-email { background:rgba(96,165,250,0.15); color:#60a5fa; }
+  .ash-feed-icon.icon-sms { background:rgba(251,191,36,0.15); color:#fbbf24; }
+  .ash-feed-details { flex:1; min-width:0; }
+  .ash-feed-name { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .ash-feed-summary { font-size:10px; color:rgba(255,255,255,0.5); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ash-feed-meta { display:flex; align-items:center; gap:12px; margin-top:8px; }
+  .ash-feed-qs { font-size:10px; font-weight:700; padding:2px 8px; border-radius:12px; display:inline-flex; align-items:center; gap:4px; }
   .ash-feed-qs.qs-green { color:#22c55e; background:rgba(34,197,94,0.15); }
-  .ash-feed-qs.qs-orange { color:#f59e0b; background:rgba(245,158,11,0.15); }
+  .ash-feed-qs.qs-orange { color:#e8650a; background:rgba(232,101,10,0.15); }
   .ash-feed-qs.qs-red { color:#ef4444; background:rgba(239,68,68,0.15); }
-  .ash-feed-time { font-size:11px; color:var(--dim); white-space:nowrap; flex-shrink:0; }
+  .ash-feed-outcome { font-size:9px; font-weight:700; text-transform:uppercase; padding:2px 6px; border-radius:4px; }
+  .ash-feed-outcome.out-lead { background:rgba(34,197,94,0.15); color:#22c55e; }
+  .ash-feed-outcome.out-invoice { background:rgba(96,165,250,0.15); color:#60a5fa; }
+  .ash-feed-outcome.out-forward { background:rgba(232,101,10,0.15); color:#e8650a; }
+  .ash-feed-outcome.out-nq { background:rgba(239,68,68,0.15); color:#ef4444; }
+  .ash-feed-outcome.out-spam { background:rgba(239,68,68,0.15); color:#ef4444; }
+  .ash-feed-time { font-size:9px; color:rgba(255,255,255,0.3); }
+  /* Weekly table */
+  .ash-weekly-wrap { background:#181818; border:1px solid rgba(255,255,255,0.07); border-radius:10px; overflow:hidden; }
   .ash-weekly-table { width:100%; border-collapse:collapse; font-size:12px; }
-  .ash-weekly-table th { font-size:11px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:0.8px; padding:4px 8px; border-bottom:1px solid var(--border); text-align:left; }
-  .ash-weekly-table th:not(:first-child) { text-align:center; }
-  .ash-weekly-table td { padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--muted); }
-  .ash-weekly-table td:not(:first-child) { text-align:center; font-weight:700; }
+  .ash-weekly-table th { font-size:10px; font-weight:700; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.5px; padding:12px 16px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.07); background:#0f0f0f; }
+  .ash-weekly-table th:not(:first-child) { text-align:right; }
+  .ash-weekly-table td { padding:12px 16px; border-bottom:1px solid rgba(255,255,255,0.05); color:rgba(255,255,255,0.8); }
+  .ash-weekly-table td:first-child { font-weight:600; color:var(--text); }
+  .ash-weekly-table td:not(:first-child) { text-align:right; font-weight:600; }
   .ash-weekly-table tr:last-child td { border-bottom:none; }
+  .ash-trend-up { color:#22c55e; }
+  .ash-trend-down { color:#ef4444; }
   .ash-week-table { width:100%; border-collapse:collapse; }
   .ash-week-table th, .ash-week-table td { padding:6px 8px; font-size:12px; }
   .ash-week-table th:first-child, .ash-week-table td:first-child { width:52%; }
@@ -2422,16 +2450,23 @@
           </div>
         </div>
         <div class="section-divider"></div>
+        <div class="ash-filter-row">
+          <div class="ash-filter-pill active" data-ashfeed="all" onclick="setAshFeedFilter('all')">All Activity</div>
+          <div class="ash-filter-pill" data-ashfeed="call" onclick="setAshFeedFilter('call')">Calls</div>
+          <div class="ash-filter-pill" data-ashfeed="email" onclick="setAshFeedFilter('email')">Emails</div>
+          <div class="ash-filter-pill" data-ashfeed="sms" onclick="setAshFeedFilter('sms')">Messages</div>
+        </div>
         <div class="ash-activity-two-col">
           <div class="ash-act-left">
-            <div class="ash-col-header">
-              <div class="ash-col-title">Activity Feed</div>
+            <div class="ash-section-header">
+              <div class="ash-section-title">Activity Feed</div>
+              <div class="ash-section-count" id="ash-feed-count">—</div>
             </div>
             <div id="ash-activity-feed"></div>
           </div>
           <div class="ash-act-right" id="ash-week-col">
-            <div class="ash-col-header">
-              <div class="ash-col-title">This Week vs Last Week</div>
+            <div class="ash-section-header">
+              <div class="ash-section-title">This Week vs Last Week</div>
             </div>
             <div id="ash-weekly"></div>
           </div>
@@ -11873,55 +11908,52 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       if (el('ash-act-stat-calls'))    el('ash-act-stat-calls').textContent    = calls;
       if (el('ash-act-stat-nq'))       el('ash-act-stat-nq').textContent       = nq;
 
-      // Render feed
+      // Render feed as cards
       const feed = document.getElementById('ash-activity-feed');
       if (!feed) return;
       if (allAshActivity.length === 0) { feed.innerHTML = '<div style="color:#64748b;padding:20px;font-size:14px;">No activity yet.</div>'; return; }
-      const actionLabels = { lead_created:'Lead created', invoice_logged:'Invoice logged', not_qualified:'Not qualified', forwarded:'Forwarded', spam_blocked:'Spam blocked' };
+      var countEl = document.getElementById('ash-feed-count');
+      if (countEl) countEl.textContent = allAshActivity.length + ' total';
+      const actionLabels = { lead_created:'Lead Created', invoice_logged:'Invoice Logged', not_qualified:'Not Qualified', forwarded:'Forwarded', spam_blocked:'Spam Blocked', inbound_call:'Inbound Call', outbound_call:'Outbound Call' };
+      const outcomeClass = { lead_created:'out-lead', invoice_logged:'out-invoice', not_qualified:'out-nq', forwarded:'out-forward', spam_blocked:'out-spam', inbound_call:'out-lead', outbound_call:'out-lead' };
+      const iconEmoji = { call:'📞', email:'✉️', sms:'💬' };
+      const iconClass = { call:'icon-call', email:'icon-email', sms:'icon-sms' };
       let html = '';
       let lastDate = '';
       allAshActivity.forEach(item => {
-        // Date grouping (keep existing logic)
         const d = item.timestamp.split('T')[0];
         const today = new Date().toLocaleDateString('en-CA');
         const yesterday = new Date(Date.now()-86400000).toLocaleDateString('en-CA');
-        const dateLabel = d === today ? 'Today — ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : d === yesterday ? 'Yesterday — ' + new Date(Date.now()-86400000).toLocaleDateString('en-US',{month:'short',day:'numeric'}).toUpperCase() : new Date(d + 'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}).toUpperCase();
+        const dateLabel = d === today ? 'Today — ' + new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : d === yesterday ? 'Yesterday — ' + new Date(Date.now()-86400000).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : new Date(d + 'T00:00:00').toLocaleDateString('en-US',{weekday:'short',month:'long',day:'numeric',year:'numeric'});
         if (dateLabel !== lastDate) { lastDate = dateLabel; html += '<div class="ash-feed-date">' + dateLabel + '</div>'; }
 
-        // Icon from type field (not action_type)
-        const iconSvgs = {
-          call: '<div class="ic-call"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12 19.79 19.79 0 0 1 1.21 3.35 2 2 0 0 1 3.22 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.09A16 16 0 0 0 16 16.09l.56-.56a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>',
-          email: '<div class="ic-email"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></div>',
-          sms: '<div class="ic-sms"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>'
-        };
-        const iconHtml = iconSvgs[item.type] || iconSvgs.email;
-
-        // Name from sender field
-        const name = item.sender || '';
-
-        // Action summary: "Label — context"
+        const name = item.sender || 'Unknown';
         const label = actionLabels[item.action_type] || item.action_type;
         const context = extractActionContext(item.description, item.sender, item.action_type);
-        const actionText = context ? label + ' — ' + context : label;
+        const summary = context || item.description || '';
+        const time = new Date(item.timestamp).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+        const outClass = outcomeClass[item.action_type] || 'out-forward';
 
-        // QS pill (hidden if no quality_score)
-        let qsPill = '';
+        let qsHtml = '';
         if (item.quality_score != null) {
           const tier = item.quality_score >= 80 ? 'qs-green' : item.quality_score >= 50 ? 'qs-orange' : 'qs-red';
-          qsPill = '<span class="ash-feed-qs ' + tier + '">' + item.quality_score + '%</span>';
+          qsHtml = '<span class="ash-feed-qs ' + tier + '">' + item.quality_score + '% Quality</span>';
         }
 
-        // Timestamp
-        const time = new Date(item.timestamp).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-
-        // Build row: icon, name, action, qs pill, time
-        html += '<div class="ash-feed-row">' +
-          iconHtml +
-          '<div class="ash-feed-name">' + name + '</div>' +
-          '<span class="ash-feed-action">' + actionText + '</span>' +
-          qsPill +
-          '<div class="ash-feed-time">' + time + '</div>' +
-          '</div>';
+        html += '<div class="ash-feed-card" data-feedtype="' + (item.type || 'call') + '">' +
+          '<div class="ash-feed-card-row">' +
+            '<div class="ash-feed-icon ' + (iconClass[item.type] || 'icon-call') + '">' + (iconEmoji[item.type] || '📞') + '</div>' +
+            '<div class="ash-feed-details">' +
+              '<div class="ash-feed-name">' + _escHtml(name) + '</div>' +
+              '<div class="ash-feed-summary">' + _escHtml(summary) + '</div>' +
+              '<div class="ash-feed-meta">' +
+                qsHtml +
+                '<span class="ash-feed-outcome ' + outClass + '">' + label + '</span>' +
+                '<span class="ash-feed-time">' + time + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
       });
       feed.innerHTML = html;
     } catch(e) { console.error('loadAshActivity failed', e); }
@@ -11939,28 +11971,35 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
           { label:'Messages',         tw:tw.messages,      lw:lw.messages,      color:'#e8650a' },
           { label:'Not Qualified',    tw:tw.not_qualified, lw:lw.not_qualified, color:'#ef4444' }
         ];
-        let html = '<table class="ash-weekly-table"><thead><tr><th>Metric</th><th>This Week</th><th>Last Week</th></tr></thead><tbody>';
+        let html = '<div class="ash-weekly-wrap"><table class="ash-weekly-table"><thead><tr><th>Metric</th><th>This Week</th><th>Last Week</th><th>Change</th></tr></thead><tbody>';
         rows.forEach(row => {
-          const up = row.tw > row.lw;
-          const arr = up ? ' <span style="color:#22c55e">↑</span>' : '';
-          html += '<tr><td>' + row.label + '</td><td style="color:' + row.color + '">' + (row.tw ?? '—') + arr + '</td><td style="color:rgba(255,255,255,0.4)">' + (row.lw ?? '—') + '</td></tr>';
+          const tw = row.tw ?? 0, lw = row.lw ?? 0;
+          let changePct = lw > 0 ? Math.round(((tw - lw) / lw) * 100) : (tw > 0 ? 100 : 0);
+          const trendClass = changePct > 0 ? 'ash-trend-up' : changePct < 0 ? 'ash-trend-down' : '';
+          const arrow = changePct > 0 ? '↑' : changePct < 0 ? '↓' : '';
+          const sign = changePct > 0 ? '+' : '';
+          html += '<tr><td>' + row.label + '</td><td>' + (row.tw ?? '—') + '</td><td>' + (row.lw ?? '—') + '</td><td><span class="' + trendClass + '">' + arrow + ' ' + sign + changePct + '%</span></td></tr>';
         });
-        html += '</tbody></table>';
+        html += '</tbody></table></div>';
         document.getElementById('ash-weekly').innerHTML = html;
       }
     } catch(e) { console.error('weekly failed', e); }
 
-    // Align week panel top to first feed row
-    requestAnimationFrame(() => {
-      const firstRow = document.querySelector('#ash-activity-feed .ash-feed-row');
-      const weekCol = document.getElementById('ash-week-col');
-      if (firstRow && weekCol) {
-        const rowTop = firstRow.getBoundingClientRect().top;
-        const colTop = weekCol.getBoundingClientRect().top;
-        const offset = Math.max(0, rowTop - colTop);
-        weekCol.style.paddingTop = offset + 'px';
+  }
+
+  function setAshFeedFilter(type) {
+    document.querySelectorAll('.ash-filter-pill').forEach(p => p.classList.toggle('active', p.dataset.ashfeed === type));
+    document.querySelectorAll('.ash-feed-card').forEach(card => {
+      if (type === 'all' || card.dataset.feedtype === type) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
       }
     });
+    // Update count
+    var visible = document.querySelectorAll('.ash-feed-card:not([style*="display: none"])').length;
+    var countEl = document.getElementById('ash-feed-count');
+    if (countEl) countEl.textContent = visible + ' total';
   }
 
   document.addEventListener('DOMContentLoaded', () => {

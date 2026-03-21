@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ash Activity — Design Playground</title>
+<style>
+:root {
+  --bg:#0e0e0e; --surface:#151515; --surface2:#1a1a1a; --border:rgba(255,255,255,0.08);
+  --text:#ededed; --muted:rgba(255,255,255,0.6); --dim:rgba(255,255,255,0.4);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:Inter,-apple-system,sans-serif; background:var(--bg); color:var(--text); display:flex; height:100vh; }
+.ctrl { width:280px; background:var(--surface); border-right:1px solid var(--border); padding:16px; overflow-y:auto; flex-shrink:0; }
+.right { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.preview { flex:1; padding:20px; overflow:auto; background:var(--bg); display:flex; flex-direction:column; }
+.prompt-area { background:var(--surface); border-top:1px solid var(--border); padding:12px; max-height:180px; overflow-y:auto; }
+.prompt-area h4 { font-size:11px; color:var(--dim); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; }
+.prompt-area pre { font-size:11px; color:#a78bfa; white-space:pre-wrap; font-family:monospace; }
+h3 { font-size:14px; font-weight:700; color:#a78bfa; margin-bottom:12px; }
+.group { margin-bottom:16px; }
+.group-title { font-size:10px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; border-bottom:1px solid var(--border); padding-bottom:4px; }
+.row { display:flex; align-items:center; margin-bottom:5px; }
+.row label { font-size:11px; color:var(--muted); width:100px; flex-shrink:0; }
+.row input[type=range] { flex:1; margin:0 6px; }
+.row .val { font-size:10px; color:var(--text); width:46px; text-align:right; font-family:monospace; }
+.presets { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
+.presets button { font-size:10px; padding:4px 10px; border-radius:4px; border:1px solid var(--border); background:var(--surface2); color:var(--muted); cursor:pointer; }
+.presets button:hover { background:#252525; color:var(--text); }
+.presets button.active { background:#7c3aed; color:#fff; border-color:#7c3aed; }
+
+.preview-wrap { background:var(--bg); display:flex; flex-direction:column; flex:1; min-height:0; }
+.stats-grid { display:grid; gap:12px; margin-bottom:20px; flex-shrink:0; }
+.stat-card { background:var(--surface2); border:1px solid var(--border); border-radius:8px; }
+.stat-label { font-weight:600; color:var(--dim); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+.stat-value { font-weight:700; line-height:1.2; }
+.stat-sub { color:var(--dim); margin-top:4px; }
+.section-divider { height:1px; background:var(--border); flex-shrink:0; }
+.two-col { display:grid; flex:1; min-height:0; }
+.col-left { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+.col-right { display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+.col-header { flex-shrink:0; }
+.col-title { font-weight:700; color:var(--text); text-transform:uppercase; }
+.feed-area { flex:1; overflow-y:auto; min-height:0; scrollbar-width:none; }
+.feed-area::-webkit-scrollbar { display:none; }
+.feed-date { font-weight:700; text-transform:uppercase; }
+.feed-row { display:flex; align-items:center; background:#181818; border:1px solid rgba(255,255,255,0.07); }
+.feed-name { font-weight:700; color:var(--text); white-space:nowrap; }
+.feed-action { font-weight:400; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; min-width:0; }
+.feed-qs { font-weight:700; white-space:nowrap; flex-shrink:0; }
+.qs-green { color:#22c55e; background:rgba(34,197,94,0.15); }
+.qs-orange { color:#f59e0b; background:rgba(245,158,11,0.15); }
+.qs-red { color:#ef4444; background:rgba(239,68,68,0.15); }
+.feed-time { color:var(--dim); white-space:nowrap; flex-shrink:0; }
+.weekly-wrap { flex:1; overflow-y:auto; min-height:0; scrollbar-width:none; }
+.weekly-wrap::-webkit-scrollbar { display:none; }
+.weekly-table { width:100%; border-collapse:collapse; }
+.weekly-table th { font-weight:700; color:var(--dim); text-transform:uppercase; border-bottom:1px solid var(--border); text-align:left; }
+.weekly-table th:not(:first-child) { text-align:center; }
+.weekly-table td { border-bottom:1px solid rgba(255,255,255,0.04); color:var(--muted); }
+.weekly-table td:not(:first-child) { text-align:center; font-weight:700; }
+.weekly-table tr:last-child td { border-bottom:none; }
+.arrow-up { color:#22c55e; }
+</style>
+</head>
+<body>
+<div class="ctrl">
+  <h3>ASH ACTIVITY</h3>
+  <div class="presets">
+    <button onclick="preset('current')" class="active">Current</button>
+    <button onclick="preset('tight')">Tight</button>
+    <button onclick="preset('airy')">Airy</button>
+    <button onclick="preset('large')">Large Text</button>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Page Layout</div>
+    <div class="row"><label>Stats MB</label><input type="range" id="statsMB" min="0" max="40" value="20"><span class="val">20px</span></div>
+    <div class="row"><label>Divider MB</label><input type="range" id="dividerMB" min="0" max="40" value="20"><span class="val">20px</span></div>
+    <div class="row"><label>Feed Col %</label><input type="range" id="colLeft" min="10" max="90" value="40"><span class="val">40%</span></div>
+    <div class="row"><label>Col Gap</label><input type="range" id="colGap" min="0" max="40" value="16"><span class="val">16px</span></div>
+    <div class="row"><label>Col Align</label><input type="range" id="colAlign" min="0" max="2" value="0"><span class="val">stretch</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Column Width Limits</div>
+    <div class="row"><label>Feed Max-W</label><input type="range" id="feedMaxW" min="0" max="1200" step="10" value="0"><span class="val">none</span></div>
+    <div class="row"><label>Weekly Max-W</label><input type="range" id="weekMaxW" min="0" max="800" step="10" value="0"><span class="val">none</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Column Headers</div>
+    <div class="row"><label>Title Font</label><input type="range" id="titleFont" min="8" max="20" value="12"><span class="val">12px</span></div>
+    <div class="row"><label>Title Letter</label><input type="range" id="titleLetter" min="0" max="20" value="8"><span class="val">0.8px</span></div>
+    <div class="row"><label>Header Pad Bot</label><input type="range" id="hdrPadBot" min="0" max="20" value="6"><span class="val">6px</span></div>
+    <div class="row"><label>Header MB</label><input type="range" id="hdrMB" min="0" max="20" value="6"><span class="val">6px</span></div>
+    <div class="row"><label>Header Border</label><input type="range" id="hdrBorder" min="0" max="1" value="1"><span class="val">on</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Feed Position</div>
+    <div class="row"><label>Feed Offset Y</label><input type="range" id="feedOffsetY" min="-40" max="40" value="0"><span class="val">0px</span></div>
+    <div class="row"><label>Feed Pad Top</label><input type="range" id="feedPadTop" min="0" max="40" value="0"><span class="val">0px</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Weekly Position</div>
+    <div class="row"><label>Weekly Offset Y</label><input type="range" id="weekOffsetY" min="-40" max="40" value="0"><span class="val">0px</span></div>
+    <div class="row"><label>Weekly Pad Top</label><input type="range" id="weekPadTop" min="0" max="40" value="0"><span class="val">0px</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Stats Grid</div>
+    <div class="row"><label>Columns</label><input type="range" id="statCols" min="2" max="4" value="4"><span class="val">4</span></div>
+    <div class="row"><label>Gap</label><input type="range" id="statGap" min="2" max="30" value="12"><span class="val">12px</span></div>
+    <div class="row"><label>Card Pad</label><input type="range" id="statPad" min="4" max="30" value="16"><span class="val">16px</span></div>
+    <div class="row"><label>Label Font</label><input type="range" id="statLabelFont" min="8" max="16" value="11"><span class="val">11px</span></div>
+    <div class="row"><label>Value Font</label><input type="range" id="statValueFont" min="14" max="48" value="28"><span class="val">28px</span></div>
+    <div class="row"><label>Sub Font</label><input type="range" id="statSubFont" min="8" max="16" value="11"><span class="val">11px</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Feed Row</div>
+    <div class="row"><label>Row Pad V</label><input type="range" id="rowPadV" min="0" max="20" value="6"><span class="val">6px</span></div>
+    <div class="row"><label>Row Pad H</label><input type="range" id="rowPadH" min="0" max="20" value="5"><span class="val">5px</span></div>
+    <div class="row"><label>Row Gap</label><input type="range" id="rowGap" min="0" max="20" value="4"><span class="val">4px</span></div>
+    <div class="row"><label>Row Radius</label><input type="range" id="rowRadius" min="0" max="16" value="4"><span class="val">4px</span></div>
+    <div class="row"><label>Row Space</label><input type="range" id="rowSpace" min="0" max="12" value="0"><span class="val">0px</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Feed Typography</div>
+    <div class="row"><label>Date Font</label><input type="range" id="dateFont" min="8" max="18" value="11"><span class="val">11px</span></div>
+    <div class="row"><label>Date Pad Top</label><input type="range" id="datePadTop" min="0" max="24" value="8"><span class="val">8px</span></div>
+    <div class="row"><label>Date Pad Bot</label><input type="range" id="datePadBot" min="0" max="16" value="4"><span class="val">4px</span></div>
+    <div class="row"><label>Date Letter</label><input type="range" id="dateLetter" min="0" max="30" value="8"><span class="val">0.8px</span></div>
+    <div class="row"><label>Name Font</label><input type="range" id="nameFont" min="8" max="20" value="12"><span class="val">12px</span></div>
+    <div class="row"><label>Action Font</label><input type="range" id="actionFont" min="8" max="20" value="10"><span class="val">10px</span></div>
+    <div class="row"><label>Time Font</label><input type="range" id="timeFont" min="8" max="18" value="11"><span class="val">11px</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">QS Pill</div>
+    <div class="row"><label>QS Font</label><input type="range" id="qsFont" min="8" max="18" value="10"><span class="val">10px</span></div>
+    <div class="row"><label>QS Pad V</label><input type="range" id="qsPadV" min="0" max="10" value="1"><span class="val">1px</span></div>
+    <div class="row"><label>QS Pad H</label><input type="range" id="qsPadH" min="0" max="16" value="6"><span class="val">6px</span></div>
+    <div class="row"><label>QS Radius</label><input type="range" id="qsRadius" min="0" max="20" value="8"><span class="val">8px</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Icon</div>
+    <div class="row"><label>Icon Size</label><input type="range" id="iconSize" min="8" max="32" value="16"><span class="val">16px</span></div>
+  </div>
+
+  <div class="group">
+    <div class="group-title">Weekly Table</div>
+    <div class="row"><label>Table Font</label><input type="range" id="tableFont" min="8" max="20" value="12"><span class="val">12px</span></div>
+    <div class="row"><label>TH Font</label><input type="range" id="thFont" min="8" max="18" value="11"><span class="val">11px</span></div>
+    <div class="row"><label>TH Pad</label><input type="range" id="thPad" min="0" max="16" value="4"><span class="val">4px</span></div>
+    <div class="row"><label>TD Pad</label><input type="range" id="tdPad" min="0" max="16" value="6"><span class="val">6px</span></div>
+    <div class="row"><label>TH Letter</label><input type="range" id="thLetter" min="0" max="20" value="8"><span class="val">0.8px</span></div>
+    <div class="row"><label>Metric Col %</label><input type="range" id="metricColPct" min="30" max="80" value="52"><span class="val">52%</span></div>
+    <div class="row"><label>This Wk Col %</label><input type="range" id="thisWeekColPct" min="10" max="40" value="24"><span class="val">24%</span></div>
+  </div>
+</div>
+
+<div class="right">
+  <div class="preview">
+    <div class="preview-wrap" id="preview"></div>
+  </div>
+  <div class="prompt-area">
+    <h4>CSS Changes (paste into Claude Code)</h4>
+    <pre id="prompt">No changes from current values.</pre>
+    <button onclick="copyPrompt()" style="margin-top:8px;padding:4px 12px;font-size:11px;background:#7c3aed;color:#fff;border:none;border-radius:4px;cursor:pointer;">Copy Prompt</button>
+  </div>
+</div>
+
+<script>
+var D = {
+  statsMB:20, dividerMB:20, colLeft:40, colGap:16, colAlign:0,
+  feedMaxW:0, weekMaxW:0,
+  titleFont:12, titleLetter:8, hdrPadBot:6, hdrMB:6, hdrBorder:1,
+  feedOffsetY:0, feedPadTop:0, weekOffsetY:0, weekPadTop:0,
+  statCols:4, statGap:12, statPad:16, statLabelFont:11, statValueFont:28, statSubFont:11,
+  rowPadV:6, rowPadH:5, rowGap:4, rowRadius:4, rowSpace:0,
+  dateFont:11, datePadTop:8, datePadBot:4, dateLetter:8,
+  nameFont:12, actionFont:10, timeFont:11,
+  qsFont:10, qsPadV:1, qsPadH:6, qsRadius:8,
+  iconSize:16,
+  tableFont:12, thFont:11, thPad:4, tdPad:6, thLetter:8,
+  metricColPct:52, thisWeekColPct:24
+};
+
+var PRESETS = {
+  current: JSON.parse(JSON.stringify(D)),
+  tight: JSON.parse(JSON.stringify(Object.assign({}, D, {
+    statsMB:12, dividerMB:12, colGap:10, statGap:8, statPad:12,
+    rowPadV:4, rowPadH:4, rowGap:3, datePadTop:6, datePadBot:3,
+    qsPadV:0, qsPadH:5, thPad:3, tdPad:4, hdrPadBot:4, hdrMB:4
+  }))),
+  airy: JSON.parse(JSON.stringify(Object.assign({}, D, {
+    statsMB:28, dividerMB:28, colGap:24, statGap:16, statPad:20,
+    rowPadV:10, rowPadH:10, rowGap:8, rowSpace:6, datePadTop:14, datePadBot:8,
+    qsPadV:3, qsPadH:10, thPad:8, tdPad:8, hdrPadBot:10, hdrMB:10, titleFont:14
+  }))),
+  large: JSON.parse(JSON.stringify(Object.assign({}, D, {
+    statLabelFont:13, statValueFont:34, statSubFont:12,
+    dateFont:13, nameFont:15, actionFont:13, timeFont:13,
+    qsFont:12, tableFont:14, thFont:13, titleFont:14, iconSize:18
+  })))
+};
+
+var DEMO_FEED = [
+  {date:'TODAY — MAR 20', rows:[
+    {type:'call', name:'Nick Broiser', action:'Lead created — Magnolia warehouse mezzanine installation inquiry', qs:90, time:'12:06 PM'},
+    {type:'call', name:'Brian Holloway', action:'Lead created — Tacoma warehouse pallet racking, 12,000 sq ft', qs:82, time:'9:14 AM'},
+    {type:'email', name:'Sandra Kowalski', action:'Lead created — Cascade Logistics wire decking quote, 80 bays', qs:87, time:'8:41 AM'},
+    {type:'call', name:'Unknown Caller', action:'Not qualified — residential garage shelving, referred out', qs:12, time:'8:03 AM'},
+    {type:'call', name:'Robo-call', action:'Spam blocked — automated warranty extension robo-call', qs:null, time:'7:45 AM'},
+    {type:'call', name:'Rachel Dunn', action:'Lead created — Kent cold storage drive-in racking, 6,000 sq ft', qs:91, time:'10:22 AM'},
+    {type:'sms', name:'Tom Chen', action:'Follow-up scheduled — Bellevue fulfillment center expansion', qs:85, time:'11:30 AM'},
+    {type:'email', name:'Maria Santos', action:'Quote sent — SeaTac airport cargo racking system', qs:88, time:'10:45 AM'},
+  ]},
+  {date:'YESTERDAY — MAR 19', rows:[
+    {type:'email', name:'Northwest Steel Supply', action:'Invoice logged — PO-2026-048 shipped, ETA Wednesday', qs:88, time:'10:05 AM'},
+    {type:'sms', name:'Luis Medina', action:'Lead created — carton flow rack replacement, photos received', qs:76, time:'9:58 AM'},
+    {type:'sms', name:'Derek Tran', action:'Forwarded — quote status follow-up for Tran Distribution', qs:55, time:'4:22 PM'},
+    {type:'call', name:'Marcus Webb', action:'Lead created — Auburn cantilever racking, $18K budget', qs:93, time:'2:58 PM'},
+    {type:'email', name:'PFP Freight Systems', action:'Invoice logged — PO-2026-041 delivery confirmation', qs:78, time:'11:30 AM'},
+    {type:'call', name:'Jenny Park', action:'Lead created — Renton e-commerce warehouse shelving', qs:81, time:'3:15 PM'},
+    {type:'call', name:'Carlos Rivera', action:'Site visit confirmed — Tacoma distribution center', qs:79, time:'1:45 PM'},
+  ]},
+  {date:'TUE, MAR 18', rows:[
+    {type:'call', name:'Alex Kim', action:'Lead created — Federal Way cold storage expansion', qs:84, time:'9:00 AM'},
+    {type:'email', name:'Sarah Johnson', action:'Quote approved — Everett manufacturing floor racking', qs:92, time:'2:30 PM'},
+    {type:'call', name:'Mike Brown', action:'Follow-up needed — Kent fulfillment center phase 2', qs:77, time:'11:15 AM'},
+  ]}
+];
+
+var DEMO_WEEKLY = [
+  {metric:'Leads Created', thisWeek:14, lastWeek:4},
+  {metric:'Calls Handled', thisWeek:14, lastWeek:11},
+  {metric:'Invoices Flagged', thisWeek:4, lastWeek:3},
+  {metric:'Messages', thisWeek:25, lastWeek:18},
+  {metric:'Not Qualified', thisWeek:4, lastWeek:4}
+];
+
+var ICONS = {
+  call:'<svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>',
+  email:'<svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>',
+  sms:'<svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>'
+};
+
+function val(id) { return parseInt(document.getElementById(id).value); }
+function qsClass(qs) { return qs >= 80 ? 'qs-green' : qs >= 50 ? 'qs-orange' : 'qs-red'; }
+var ALIGN_MAP = ['stretch','start','end'];
+
+function render() {
+  var v = {}; var keys = Object.keys(D);
+  for (var i = 0; i < keys.length; i++) v[keys[i]] = val(keys[i]);
+
+  document.querySelectorAll('.row').forEach(function(row) {
+    var inp = row.querySelector('input'), sp = row.querySelector('.val');
+    if (!inp || !sp) return;
+    var id = inp.id;
+    if (id === 'statCols') sp.textContent = inp.value;
+    else if (id === 'colLeft' || id === 'metricColPct' || id === 'thisWeekColPct') sp.textContent = inp.value + '%';
+    else if (id === 'dateLetter' || id === 'thLetter' || id === 'titleLetter') sp.textContent = (inp.value/10).toFixed(1) + 'px';
+    else if (id === 'colAlign') sp.textContent = ALIGN_MAP[+inp.value];
+    else if (id === 'hdrBorder') sp.textContent = +inp.value ? 'on' : 'off';
+    else if (id === 'feedMaxW' || id === 'weekMaxW') sp.textContent = +inp.value === 0 ? 'none' : inp.value + 'px';
+    else sp.textContent = inp.value + 'px';
+  });
+
+  var alignVal = ALIGN_MAP[v.colAlign];
+  var hdrBorderCSS = v.hdrBorder ? 'border-bottom:1px solid rgba(255,255,255,0.08);' : '';
+  var feedMaxCSS = v.feedMaxW > 0 ? 'max-width:'+v.feedMaxW+'px;width:100%;' : '';
+  var weekMaxCSS = v.weekMaxW > 0 ? 'max-width:'+v.weekMaxW+'px;width:100%;' : '';
+
+  var html = '';
+  html += '<div class="stats-grid" style="grid-template-columns:repeat('+v.statCols+',1fr);gap:'+v.statGap+'px;margin-bottom:'+v.statsMB+'px;">';
+  var stats = [{l:'Leads Created',v:'14',c:'#22c55e',s:'auto-created today'},{l:'Invoices',v:'3',c:'#60a5fa',s:'flagged today'},{l:'Calls Handled',v:'8',c:'#e8650a',s:'by Ash today'},{l:'Not Qualified',v:'2',c:'rgba(255,255,255,0.4)',s:'screened out'}];
+  for (var s = 0; s < stats.length; s++) {
+    html += '<div class="stat-card" style="padding:'+v.statPad+'px;"><div class="stat-label" style="font-size:'+v.statLabelFont+'px;">'+stats[s].l+'</div><div class="stat-value" style="font-size:'+v.statValueFont+'px;color:'+stats[s].c+';">'+stats[s].v+'</div><div class="stat-sub" style="font-size:'+v.statSubFont+'px;">'+stats[s].s+'</div></div>';
+  }
+  html += '</div>';
+  html += '<div class="section-divider" style="margin-bottom:'+v.dividerMB+'px;"></div>';
+  html += '<div class="two-col" style="grid-template-columns:'+v.colLeft+'fr '+(100-v.colLeft)+'fr;gap:'+v.colGap+'px;align-items:'+alignVal+';">';
+
+  // LEFT - Feed
+  html += '<div class="col-left" style="margin-top:'+v.feedOffsetY+'px;">';
+  html += '<div class="col-header" style="padding-bottom:'+v.hdrPadBot+'px;margin-bottom:'+v.hdrMB+'px;'+hdrBorderCSS+'"><div class="col-title" style="font-size:'+v.titleFont+'px;letter-spacing:'+(v.titleLetter/10)+'px;">Activity Feed</div></div>';
+  html += '<div class="feed-area" style="padding-top:'+v.feedPadTop+'px;'+feedMaxCSS+'">';
+  for (var g = 0; g < DEMO_FEED.length; g++) {
+    var group = DEMO_FEED[g];
+    html += '<div class="feed-date" style="font-size:'+v.dateFont+'px;color:var(--dim);letter-spacing:'+(v.dateLetter/10)+'px;padding:'+v.datePadTop+'px 0 '+v.datePadBot+'px;">'+group.date+'</div>';
+    for (var r = 0; r < group.rows.length; r++) {
+      var row = group.rows[r];
+      var ico = ICONS[row.type] || ICONS.call;
+      html += '<div class="feed-row" style="padding:'+v.rowPadV+'px '+v.rowPadH+'px;gap:'+v.rowGap+'px;border-radius:'+v.rowRadius+'px;margin-top:'+v.rowSpace+'px;">';
+      html += '<div style="width:'+v.iconSize+'px;height:'+v.iconSize+'px;flex-shrink:0;">'+ico+'</div>';
+      html += '<span class="feed-name" style="font-size:'+v.nameFont+'px;">'+row.name+'</span>';
+      html += '<span class="feed-action" style="font-size:'+v.actionFont+'px;">'+row.action+'</span>';
+      if (row.qs != null) html += '<span class="feed-qs '+qsClass(row.qs)+'" style="font-size:'+v.qsFont+'px;padding:'+v.qsPadV+'px '+v.qsPadH+'px;border-radius:'+v.qsRadius+'px;">'+row.qs+'%</span>';
+      html += '<span class="feed-time" style="font-size:'+v.timeFont+'px;">'+row.time+'</span>';
+      html += '</div>';
+    }
+  }
+  html += '</div></div>';
+
+  // RIGHT - Weekly
+  html += '<div class="col-right" style="margin-top:'+v.weekOffsetY+'px;">';
+  html += '<div class="col-header" style="padding-bottom:'+v.hdrPadBot+'px;margin-bottom:'+v.hdrMB+'px;'+hdrBorderCSS+'"><div class="col-title" style="font-size:'+v.titleFont+'px;letter-spacing:'+(v.titleLetter/10)+'px;">This Week vs Last Week</div></div>';
+  html += '<div class="weekly-wrap" style="padding-top:'+v.weekPadTop+'px;">';
+  var lastWkPct = 100 - v.metricColPct - v.thisWeekColPct;
+  html += '<table class="weekly-table" style="font-size:'+v.tableFont+'px;'+weekMaxCSS+'"><thead><tr>';
+  html += '<th style="font-size:'+v.thFont+'px;padding:'+v.thPad+'px 8px;letter-spacing:'+(v.thLetter/10)+'px;width:'+v.metricColPct+'%;">Metric</th>';
+  html += '<th style="font-size:'+v.thFont+'px;padding:'+v.thPad+'px 8px;letter-spacing:'+(v.thLetter/10)+'px;width:'+v.thisWeekColPct+'%;">This Week</th>';
+  html += '<th style="font-size:'+v.thFont+'px;padding:'+v.thPad+'px 8px;letter-spacing:'+(v.thLetter/10)+'px;width:'+lastWkPct+'%;">Last Week</th>';
+  html += '</tr></thead><tbody>';
+  for (var w = 0; w < DEMO_WEEKLY.length; w++) {
+    var wr = DEMO_WEEKLY[w];
+    var arrow = wr.thisWeek > wr.lastWeek ? ' <span class="arrow-up">↑</span>' : '';
+    html += '<tr><td style="padding:'+v.tdPad+'px 8px;">'+wr.metric+'</td><td style="padding:'+v.tdPad+'px 8px;">'+wr.thisWeek+arrow+'</td><td style="padding:'+v.tdPad+'px 8px;">'+wr.lastWeek+'</td></tr>';
+  }
+  html += '</tbody></table></div></div></div>';
+
+  document.getElementById('preview').innerHTML = html;
+  updatePrompt();
+}
+
+function updatePrompt() {
+  var changes = []; var keys = Object.keys(D);
+  for (var i = 0; i < keys.length; i++) { var k = keys[i], c = val(k); if (c !== D[k]) changes.push({key:k, from:D[k], to:c}); }
+  if (changes.length === 0) { document.getElementById('prompt').textContent = 'No changes from current values.'; return; }
+
+  var v = {}; for (var i = 0; i < keys.length; i++) v[keys[i]] = val(keys[i]);
+  var css = 'Update these CSS rules in dashboard.html:\n\n';
+  var has = function(kl) { for (var i = 0; i < changes.length; i++) if (kl.indexOf(changes[i].key) >= 0) return true; return false; };
+
+  if (has(['statsMB','statCols','statGap'])) css += '#ash-activity-stats-grid { grid-template-columns:repeat('+v.statCols+',1fr); gap:'+v.statGap+'px; margin-bottom:'+v.statsMB+'px; }\n';
+  if (has(['dividerMB'])) css += '.section-divider { margin-bottom:'+v.dividerMB+'px; }\n';
+  if (has(['colLeft','colGap','colAlign'])) css += '.ash-activity-two-col { grid-template-columns:'+v.colLeft+'fr '+v.colRightPct+'fr; gap:'+v.colGap+'px; align-items:'+ALIGN_MAP[v.colAlign]+'; }\n';
+  if (has(['feedMaxW'])) css += '#ash-activity-feed { '+(v.feedMaxW > 0 ? 'max-width:'+v.feedMaxW+'px;' : '/* no max-width */')+' }\n';
+  if (has(['weekMaxW'])) css += '.ash-weekly-table { '+(v.weekMaxW > 0 ? 'max-width:'+v.weekMaxW+'px;' : '/* no max-width */')+' }\n';
+  if (has(['titleFont','titleLetter'])) css += '.ash-col-title { font-size:'+v.titleFont+'px; letter-spacing:'+(v.titleLetter/10)+'px; }\n';
+  if (has(['hdrPadBot','hdrMB','hdrBorder'])) css += '.ash-col-header { padding-bottom:'+v.hdrPadBot+'px; margin-bottom:'+v.hdrMB+'px;'+(v.hdrBorder?'':' border-bottom:none;')+' }\n';
+  if (has(['feedOffsetY'])) css += '.ash-act-left { margin-top:'+v.feedOffsetY+'px; }\n';
+  if (has(['feedPadTop'])) css += '#ash-activity-feed { padding-top:'+v.feedPadTop+'px; }\n';
+  if (has(['weekOffsetY'])) css += '.ash-act-right { margin-top:'+v.weekOffsetY+'px; }\n';
+  if (has(['weekPadTop'])) css += '#ash-weekly { padding-top:'+v.weekPadTop+'px; }\n';
+  if (has(['statPad','statLabelFont','statValueFont','statSubFont'])) css += '.stat-card { padding:'+v.statPad+'px; }\n.stat-label { font-size:'+v.statLabelFont+'px; }\n.stat-value { font-size:'+v.statValueFont+'px; }\n.stat-sub { font-size:'+v.statSubFont+'px; }\n';
+  if (has(['rowPadV','rowPadH','rowGap','rowRadius'])) css += '.ash-feed-row { padding:'+v.rowPadV+'px '+v.rowPadH+'px; gap:'+v.rowGap+'px; border-radius:'+v.rowRadius+'px; }\n';
+  if (has(['rowSpace'])) css += '.ash-feed-row + .ash-feed-row { margin-top:'+v.rowSpace+'px; }\n';
+  if (has(['dateFont','datePadTop','datePadBot','dateLetter'])) css += '.ash-feed-date { font-size:'+v.dateFont+'px; padding:'+v.datePadTop+'px 0 '+v.datePadBot+'px; letter-spacing:'+(v.dateLetter/10)+'px; }\n';
+  if (has(['nameFont'])) css += '.ash-feed-name { font-size:'+v.nameFont+'px; }\n';
+  if (has(['actionFont'])) css += '.ash-feed-action { font-size:'+v.actionFont+'px; }\n';
+  if (has(['timeFont'])) css += '.ash-feed-time { font-size:'+v.timeFont+'px; }\n';
+  if (has(['qsFont','qsPadV','qsPadH','qsRadius'])) css += '.ash-feed-qs { font-size:'+v.qsFont+'px; padding:'+v.qsPadV+'px '+v.qsPadH+'px; border-radius:'+v.qsRadius+'px; }\n';
+  if (has(['iconSize'])) css += '/* Update icon SVG width/height in loadAshActivity JS to '+v.iconSize+'px */\n';
+  if (has(['tableFont'])) css += '.ash-weekly-table { font-size:'+v.tableFont+'px; }\n';
+  if (has(['thFont','thPad','thLetter'])) css += '.ash-weekly-table th { font-size:'+v.thFont+'px; padding:'+v.thPad+'px 8px; letter-spacing:'+(v.thLetter/10)+'px; }\n';
+  if (has(['tdPad'])) css += '.ash-weekly-table td { padding:'+v.tdPad+'px 8px; }\n';
+  if (has(['metricColPct','thisWeekColPct'])) { var lw=100-v.metricColPct-v.thisWeekColPct; css += '.ash-weekly-table th:first-child, .ash-weekly-table td:first-child { width:'+v.metricColPct+'%; }\n.ash-weekly-table th:nth-child(2), .ash-weekly-table td:nth-child(2) { width:'+v.thisWeekColPct+'%; }\n.ash-weekly-table th:nth-child(3), .ash-weekly-table td:nth-child(3) { width:'+lw+'%; }\n'; }
+
+  document.getElementById('prompt').textContent = css;
+}
+
+function preset(name) {
+  var p = PRESETS[name]; var keys = Object.keys(p);
+  for (var i = 0; i < keys.length; i++) document.getElementById(keys[i]).value = p[keys[i]];
+  document.querySelectorAll('.presets button').forEach(function(b) { b.classList.remove('active'); });
+  event.target.classList.add('active');
+  render();
+}
+
+function copyPrompt() { navigator.clipboard.writeText(document.getElementById('prompt').textContent); }
+
+document.querySelectorAll('input[type=range]').forEach(function(inp) { inp.addEventListener('input', render); });
+render();
+</script>
+</body>
+</html>
