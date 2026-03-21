@@ -475,7 +475,7 @@ def api_ash_inbox():
             items = _build_inbox_demo()
 
         # Sort all items newest first
-        items.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+        items.sort(key=lambda x: str(x.get("timestamp", "")), reverse=True)
 
         item_type = request.args.get("type")
         if item_type and item_type in ("call", "email", "sms"):
@@ -499,7 +499,7 @@ def api_ash_inbox():
                 "duration_seconds": None,
                 "lead_id": None,
             })
-        items.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+        items.sort(key=lambda x: str(x.get("timestamp", "")), reverse=True)
         item_type = request.args.get("type")
         if item_type and item_type in ("call", "email", "sms"):
             items = [i for i in items if i["type"] == item_type]
