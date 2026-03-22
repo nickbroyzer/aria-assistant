@@ -11660,7 +11660,7 @@ Give me 3 specific, actionable insights on what to focus on today to grow revenu
       renderAshInbox();
     } catch (err) {
       console.error('loadAshInbox items failed:', err);
-      const list = document.getElementById('ash-inbox-list');
+      const list = document.getElementById('ash-inbox-today-list');
       if (list) list.innerHTML = '<div style="color:#f87171;padding:20px;font-size:14px;">Failed to load inbox items.</div>';
     }
     try {
