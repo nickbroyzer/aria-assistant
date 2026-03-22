@@ -29,7 +29,13 @@
       "Bash(open:*)",
       "Bash(node \"/Users/nickbroyzer/.claude/get-shit-done/bin/gsd-tools.cjs\" progress bar --raw)",
       "Bash(sqlite3:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(\"/Users/nickbroyzer/Documents/Obsidian/MyVault/PC Project/Future-Items-and-Reminders.md\":*)",
+      "Bash(sed $d)",
+      "Bash(node --check /tmp/dash_js_part1.js)",
+      "Bash(node --check /tmp/dash_js_part2.js)",
+      "Bash(node --check /tmp/dash_js_part3.js)",
+      "Bash(grep -E '\\\\.\\(js|html\\)$')"
     ]
   }
 }
