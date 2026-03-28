@@ -1,0 +1,43 @@
+---
+description: QA verification gate. Must run before any git commit. Trigger on verify, QA, test it, commit.
+alwaysApply: false
+---
+
+# QA Verification Gate
+
+No commit until all checks pass. This exists because the #1 cause of wasted time is declaring changes done without verification.
+
+## When To Run
+- After any CSS, HTML, or JS change to dashboard.html
+- After modifying any Flask route or API endpoint
+- Before every git commit
+
+## Check 1 — Flask Server Health
+curl -s -o /dev/null -w "%{http_code}" http://localhost:5001/dashboard
+PASS = HTTP 200. FAIL = stop, do not proceed.
+
+## Check 2 — API Endpoint Health
+Curl every known endpoint. Must return HTTP 200 and valid JSON.
+- /api/ash/inbox (required fields: sender, channel, timestamp, description)
+- /api/ash/inbox/stats (required: today, yesterday, total)
+- /api/ash/activity (required: action_type, description, timestamp)
+- /api/ash/weekly (required: data for current week)
+- /api/ash/status
+- /api/aookkeeping (optional — skip if 404)
+
+If field names do not match what JS expects, FAIL immediately.
+
+## Check 3 — JavaScript Syntax
+Extract all script blocks from templates/dashboard.html and run node --check.
+PASS = exit code 0. FAIL = report exact error and line number.
+
+## Check 4 — Visual Verification (Manual)
+- 4a: Check browser console for red errors
+- 4b: Measure affected elements if CSS changed
+- 4c: Click through every nav tab after HTML structure changes
+
+## Rules
+1. NEVER skip checks, even if change seems trivial
+2. NEVER allow commit if any check shows FAIL
+3. NEVER use Playwright, Puppeteer, or headless browsers
+4. NEVER say looks good based on reading code — run actual checks

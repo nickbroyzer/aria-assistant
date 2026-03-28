@@ -1,0 +1,24 @@
+---
+description: Dashboard layout and zoom standards
+alwaysApply: true
+---
+
+# Dashboard Layout Standards
+
+## Zoom Formula (NEVER change)
+zoom = Math.min(innerWidth/1608, innerHeight/900, 1)
+Safe restore commit for zoom fix: 759b1c0
+
+## Priority Alerts — Special Warning
+The Priority Alerts section has caused multi-hour regressions. Rules:
+- Never change the grid column count
+- Never add scrollbars to the section
+- Only add new cards — never modify existing ones unless explicitly approved
+- Always verify Conversion Rate panel below is untouched after any change
+- Never fill or remove empty placeholder slots
+
+## Layout Rules
+- Always fix UI issues globally across entire codebase, never spot-fix one instance
+- Never let tab bars or meta rows wrap — shrink font, reduce gap, widen container
+- Column widths in fixed px not %
+- Full page edge-to-edge

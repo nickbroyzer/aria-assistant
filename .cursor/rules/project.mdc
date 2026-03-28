@@ -1,0 +1,42 @@
+---
+description: Pacific Construction dashboard project context and rules
+alwaysApply: true
+---
+
+# Pacific Construction Dashboard — Project Context
+
+## Project Info
+- Client: Jay Farber, Pacific Construction (commercial shelving/racking)
+- Repo: github.com/nickbroyzer/aria-assistant
+- Local folder: ~/Projects/my-assistant
+- Stack: Flask, Python, Jinja2 templates, vanilla JS, CSS
+- Database: Railway PostgreSQL
+- Deploy: Railway (aria-assistant-production.up.railway.app)
+- Flask port: 5001 (primary), 5000 (fallback)
+- AI agent name: ASH (never Aria)
+- Main file: templates/dashboard.html
+- Project color: #3b82f6
+
+## Safe Restore Points
+- Suppliers tab complete: 6570ffe
+- PostgreSQL migration: 58f4480
+- Retell AI integration: fcf8f99
+
+## Architecture
+- Blueprints-based Flask app
+- Single-page dashboard with tab navigation
+- Tabs: Mission Control, Leads, Jobs, Suppliers, Staff & Subs, Ash Inbox, Ash Activity
+- Retell AI phone integration (real call data, senment badges, transcript panel)
+- Twilio SMS webhook
+- Gmail OAuth scanner
+
+## NEVER Touch
+- Center panel flames, animations, or gradient — NEVER
+- Priority Alerts grid column count — NEVER change
+- Conversion Rate panel below Priority Alerts — NEVER modify unless explicitly asked
+
+## Email Triage Agent (Pending)
+- 9-phase plan in Obsidian (PC Project/Plans/Email-Triage-Agent-Plan.md)
+- Phase 1 complete (GCP infrastructure)
+- Target: Gmail push > Railway webhook > Claude classification > PostgreSQL > Dashboard
+- Categories: Hot lead, Warm lead, Vendor/sales pitch, Spam

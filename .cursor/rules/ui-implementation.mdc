@@ -1,0 +1,66 @@
+---
+description: Safe zero-regression UI implementation process. Auto-attach on any HTML/CSS/JS dashboard changes.
+globs: ["templates/dashboard.html", "static/**/*.css", "static/**/*.js"]
+alwaysApply: false
+---
+
+# Safe UI Implementation Process
+
+This process exists because previous sessions caused multi-hour regressions from skipping steps. Follow every step in order.
+
+## Golden Rule: Mockup first. Code last. Always.
+
+## Process
+
+### Step 1 — Screenshot current state
+Before designing anything, look at the current state of the section being changed. Never assume what the UI looks like.
+
+### Step 2 — Study carefully
+Extract: exact column count, card dimensions, font sizes, colors, icon placement, class names, adjacent elements that must NOT be touched.
+
+Common mistakes to avoid:
+- Assuming 4-column grid when it is 2-column
+- Making new cards different height than existing
+- Adding scrollbars
+- Letting content wrap to a second line
+
+### Step 3 ep the exact code before designing
+Run grep to find the real class names, IDs, and structure. Never guess.
+
+### Step 4 — Build a mockup
+Match exact grid, heights, padding, colors from existing UI. Show reference cards AND new cards together.
+
+### Step 5 — Get explicit approval
+Do NOT write any code until approval. If told "the size is off" — rebuild the mockup.
+
+### Step 6 — Write surgical changes
+Target only the exact HTML block. Never touch adjacent elements. Remove orphaned CSS.
+
+### Step 7 — Verify with screenshot after
+Check: new elements match mockup, no existing cards shifted/resized/broken, no scrollbars, nothing wraps, adjacent sections untouched.
+
+Only declare complete after verification.
+
+## PC Dashboard Card Style Reference
+- Background: #1a1f2e
+- Border radius: 10px
+- Border: 1px solid rgba(255,255,255,0.06)
+- Icon: 16px, top left
+- Number: 26-28px, bold, colored
+- Label: 12px, #e2e8f0
+- Sub: 10px, #64748b
+- Ash accent border: 1px solid rgba(99,179,237,0.25)
+- Ash badge: font-size:9px0a5fa; background:rgba(99,179,237,0.12); padding:1px 6px; border-radius:4px
+
+## UI Standards
+- overlay: rgba(0,0,0,0.75)
+- modal-bg: #1e2530
+- border-radius: 16px modals, 10px cards
+- close button: plain X 20px #94a3b8
+- primary button: var(--orange)
+- input-bg: var(--surface2)
+- slide panels: 440px wide
+- modals: 420px (small) / 620px (large)
+- z-index: panels=100, modals=1000, doc-viewer=2000, auth=9000+
+- Never add scrollbars unless absolutely necessary
+- Never let tab bars or meta rows wrap to two lines
