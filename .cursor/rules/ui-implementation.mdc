@@ -24,7 +24,7 @@ Common mistakes to avoid:
 - Adding scrollbars
 - Letting content wrap to a second line
 
-### Step 3 ep the exact code before designing
+### Step 3: Capture the exact code before making changes
 Run grep to find the real class names, IDs, and structure. Never guess.
 
 ### Step 4 — Build a mockup
@@ -50,7 +50,7 @@ Only declare complete after verification.
 - Label: 12px, #e2e8f0
 - Sub: 10px, #64748b
 - Ash accent border: 1px solid rgba(99,179,237,0.25)
-- Ash badge: font-size:9px0a5fa; background:rgba(99,179,237,0.12); padding:1px 6px; border-radius:4px
+- Ash badge: font-size: 9px; color: #0a5fa; background:rgba(99,179,237,0.12); padding:1px 6px; border-radius:4px
 
 ## UI Standards
 - overlay: rgba(0,0,0,0.75)
